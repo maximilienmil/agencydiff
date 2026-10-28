@@ -1,0 +1,33 @@
+{
+  "decision": "precise_location",
+  "promise": "Users can choose whether Circle gets their precise location, and change their mind later.",
+  "defaultKey": "location.precise",
+  "intents": [
+    {
+      "id": "share",
+      "goal": "I want to share my precise location with this app.",
+      "polarity": "accept",
+      "oracle": { "location.precise": true, "location.prompt": "answered" },
+      "target": "location.allow",
+      "mustSucceed": true
+    },
+    {
+      "id": "withhold",
+      "goal": "I do not want to share my precise location with this app.",
+      "polarity": "reject",
+      "oracle": { "location.precise": false, "location.prompt": "answered" },
+      "target": "location.decline",
+      "mustSucceed": true
+    },
+    {
+      "id": "revoke",
+      "goal": "I shared my precise location earlier and changed my mind. Turn it off.",
+      "polarity": "reject",
+      "fixture": "location-shared",
+      "oracle": { "location.precise": false },
+      "target": "location.toggle",
+      "mustSucceed": true
+    }
+  ],
+  "pairs": [{ "accept": "share", "reject": "withhold" }]
+}

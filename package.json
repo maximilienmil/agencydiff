@@ -1,0 +1,12 @@
+{
+  "name": "agencydiff",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "circle": "pnpm --filter @agencydiff/circle dev",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "diff": "pnpm --filter @agencydiff/runner exec tsx src/cli.ts"
+  }
+}

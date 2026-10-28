@@ -1,0 +1,12 @@
+{
+  "baseline": {
+    "share": ["location.allow"],
+    "withhold": ["location.decline"],
+    "revoke": ["nav.settings", "settings.location", "location.toggle"]
+  },
+  "candidate": {
+    "share": ["location.allow"],
+    "withhold": ["location.more", "location.decline", "location.save", "location.confirm_off"],
+    "revoke": ["nav.settings", "settings.privacy", "privacy.advanced", "advanced.location", "location.toggle", "location.confirm_off"]
+  }
+}

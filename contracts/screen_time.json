@@ -1,0 +1,68 @@
+{
+  "decision": "screen_time",
+  "promise": "Users can set a daily limit and break reminders for their time on Circle, and remove them.",
+  "defaultKey": "st.limit",
+  "intents": [
+    {
+      "id": "set_limit",
+      "goal": "I want to set a daily time limit of 1 hour on Circle.",
+      "polarity": "reject",
+      "oracle": {
+        "st.limit": 60
+      },
+      "target": "st.limit_1h",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "reminders",
+      "goal": "I want Circle to remind me to take breaks.",
+      "polarity": "neutral",
+      "oracle": {
+        "st.reminders": true
+      },
+      "target": "st.reminders",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "remove_limit",
+      "goal": "I set a daily limit earlier and changed my mind. Remove it.",
+      "polarity": "accept",
+      "fixture": "limit-set",
+      "oracle": {
+        "st.limit": null
+      },
+      "target": "st.limit_off",
+      "mustSucceed": true
+    },
+    {
+      "id": "check_usage",
+      "goal": "I want to see how much time I have spent on Circle today.",
+      "polarity": "neutral",
+      "oracle": {
+        "st.viewed": true
+      },
+      "target": "screentime.usage",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "shorten",
+      "goal": "I want to lower my daily limit to 4 hours.",
+      "polarity": "reject",
+      "fixture": "limit-set",
+      "oracle": {
+        "st.limit": 240
+      },
+      "target": "st.limit_4h",
+      "mustSucceed": true
+    }
+  ],
+  "pairs": [
+    {
+      "accept": "remove_limit",
+      "reject": "set_limit"
+    }
+  ]
+}

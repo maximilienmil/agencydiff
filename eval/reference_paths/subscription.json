@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "subscribe": ["nav.settings", "settings.subscription", "sub.subscribe"],
+    "decline": ["nav.settings", "settings.subscription", "sub.decline"],
+    "cancel": ["nav.settings", "settings.subscription", "sub.manage", "sub.cancel"],
+    "terms": ["nav.settings", "settings.subscription", "sub.terms"],
+    "resume": ["nav.settings", "settings.subscription", "sub.subscribe"]
+  },
+  "candidate": {
+    "subscribe": ["nav.settings", "settings.subscription", "sub.subscribe"],
+    "decline": ["nav.settings", "settings.subscription", "sub.more", "sub.decline"],
+    "cancel": ["nav.settings", "settings.subscription", "sub.manage", "sub.billing_manage", "sub.other", "sub.cancel", "sub.confirm_cancel"],
+    "terms": ["nav.settings", "settings.subscription", "sub.terms"],
+    "resume": ["nav.settings", "settings.subscription", "sub.subscribe"]
+  }
+}

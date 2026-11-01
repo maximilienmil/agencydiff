@@ -27,7 +27,13 @@ export class ScriptedDriver implements Driver {
   async run(intent: IntentSpec, env: BrowserEnv, t0: number): Promise<DriverResult> {
     const steps: TraceStep[] = [];
     for (const tag of this.path(intent)) {
-      const box = await env.page.locator(`[data-agency="${tag}"]`).first().boundingBox();
+      // A control a regression removed never appears: record it as an error
+      // trace (which the diff reports as goal_unreachable) instead of throwing.
+      const box = await env.page
+        .locator(`[data-agency="${tag}"]`)
+        .first()
+        .boundingBox({ timeout: 5000 })
+        .catch(() => null);
       if (!box) {
         return { steps, stoppedReason: "error", error: `reference tag not found: ${tag}` };
       }

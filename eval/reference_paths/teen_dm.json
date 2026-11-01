@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "allow_all": ["nav.settings", "settings.privacy", "privacy.messages", "dm.allow_all"],
+    "friends_only": ["nav.settings", "settings.privacy", "privacy.messages", "dm.friends_only"],
+    "block_unknown": ["nav.settings", "settings.privacy", "privacy.messages", "dm.block_unknown"],
+    "inspect": ["nav.settings", "settings.privacy", "privacy.messages"],
+    "relax": ["nav.settings", "settings.privacy", "privacy.messages", "dm.allow_all"]
+  },
+  "candidate": {
+    "allow_all": ["nav.settings", "settings.privacy", "privacy.advanced", "advanced.messages", "dm.allow_all", "dm.info_continue"],
+    "friends_only": ["nav.settings", "settings.privacy", "privacy.advanced", "advanced.messages", "dm.friends_only", "dm.info_continue"],
+    "block_unknown": ["nav.settings", "settings.privacy", "privacy.advanced", "advanced.messages", "dm.more", "dm.block_unknown", "dm.confirm_block", "dm.info_continue"],
+    "inspect": ["nav.settings", "settings.privacy", "privacy.advanced", "advanced.messages"],
+    "relax": ["nav.settings", "settings.privacy", "privacy.advanced", "advanced.messages", "dm.allow_all", "dm.info_continue"]
+  }
+}

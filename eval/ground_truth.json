@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "note": "Per-seed ground truth for the Circle benchmark. Each entry names the seed, the intents (as decision.intentId) it should move in isolation, the expected direction, and the metric that should move. UI_* entries are no-change controls: direction none means no intent may move on that metric.",
+  "seeds": [
+    { "seed": "LOC_HIDE_DECLINE", "intents": ["precise_location.withhold"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "LOC_DEFAULT_ON", "intents": ["precise_location.withhold"], "direction": "regression", "metric": "default" },
+    { "seed": "LOC_CONFIRM_SHAME", "intents": ["precise_location.revoke"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "LOC_BURY_SETTING", "intents": ["precise_location.revoke"], "direction": "regression", "metric": "navigation_depth" },
+    { "seed": "LOC_NO_DIRECT_TOGGLE", "intents": ["precise_location.revoke"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "DM_HIDE_BLOCK", "intents": ["teen_dm.block_unknown"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "DM_DEFAULT_EVERYONE", "intents": ["teen_dm.block_unknown"], "direction": "regression", "metric": "default" },
+    { "seed": "DM_BURY_MESSAGES", "intents": ["teen_dm.allow_all", "teen_dm.friends_only", "teen_dm.block_unknown", "teen_dm.inspect", "teen_dm.relax"], "direction": "regression", "metric": "navigation_depth" },
+    { "seed": "DM_CONFIRM_BLOCK", "intents": ["teen_dm.block_unknown"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "DM_INFO_AFTER_CHOICE", "intents": ["teen_dm.allow_all", "teen_dm.friends_only", "teen_dm.block_unknown", "teen_dm.relax"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "ST_HIDE_REMOVE", "intents": ["screen_time.remove_limit"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "ST_MIN_LIMIT_2H", "intents": ["screen_time.set_limit"], "direction": "regression", "metric": "visibility" },
+    { "seed": "ST_BURY_LIMIT", "intents": ["screen_time.set_limit", "screen_time.remove_limit", "screen_time.shorten"], "direction": "regression", "metric": "navigation_depth" },
+    { "seed": "ST_CONFIRM_LIMIT", "intents": ["screen_time.set_limit", "screen_time.shorten"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "ST_REQUIRE_SAVE", "intents": ["screen_time.set_limit", "screen_time.shorten"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "SUB_HIDE_DECLINE", "intents": ["subscription.decline"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "SUB_BURY_CANCEL", "intents": ["subscription.cancel"], "direction": "regression", "metric": "navigation_depth" },
+    { "seed": "SUB_DEFAULT_ANNUAL", "intents": ["subscription.subscribe"], "direction": "regression", "metric": "default" },
+    { "seed": "SUB_RETENTION_OFFER", "intents": ["subscription.cancel"], "direction": "regression", "metric": "action_cost" },
+    { "seed": "SUB_TERMS_AFTER_CHECKOUT", "intents": ["subscription.terms"], "direction": "regression", "metric": "success" },
+    { "seed": "UI_COPY_TWEAK", "intents": [], "direction": "none", "metric": "action_cost" },
+    { "seed": "UI_ACCENT", "intents": [], "direction": "none", "metric": "action_cost" },
+    { "seed": "UI_REORDER_SETTINGS", "intents": [], "direction": "none", "metric": "action_cost" },
+    { "seed": "UI_FEED_SHUFFLE", "intents": [], "direction": "none", "metric": "action_cost" },
+    { "seed": "UI_PRIVACY_COPY", "intents": [], "direction": "none", "metric": "action_cost" },
+    { "seed": "UI_EXTRA_ROW", "intents": [], "direction": "none", "metric": "action_cost" }
+  ]
+}

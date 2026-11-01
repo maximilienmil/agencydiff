@@ -7,6 +7,6 @@
   "candidate": {
     "share": ["location.allow"],
     "withhold": ["location.more", "location.decline", "location.save", "location.confirm_off"],
-    "revoke": ["nav.settings", "settings.privacy", "privacy.advanced", "advanced.location", "location.toggle", "location.confirm_off"]
+    "revoke": ["nav.settings", "settings.privacy", "privacy.advanced", "advanced.location", "location.open_options", "location.decline", "location.save", "location.confirm_off"]
   }
 }

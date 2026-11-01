@@ -1,0 +1,279 @@
+{
+  "id": "license_renewal_info.renew-office.baseline.0",
+  "decision": "license_renewal_info",
+  "intentId": "renew-office",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-01T20:53:40.692Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 7582,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 351,
+          "y": 24
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 18029,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 351,
+          "y": 34
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 29274,
+      "actions": [
+        {
+          "keys": [
+            "Escape"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 44889,
+      "actions": [
+        {
+          "type": "double_click",
+          "x": 350,
+          "y": 28
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 59150,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 215,
+          "y": 536
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 72611,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "006.png"
+      }
+    },
+    {
+      "index": 6,
+      "tMs": 92476,
+      "actions": [
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 109001,
+      "actions": [
+        {
+          "type": "move",
+          "x": 354,
+          "y": 36
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 122650,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 354,
+          "y": 36
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 139431,
+      "actions": [
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 154784,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 117,
+          "y": 430
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 176320,
+      "actions": [
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "012.png"
+      }
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "step_budget"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "dmv-renewal-redesign-audit",
+  "urls": {
+    "baseline": "http://127.0.0.1:5199/dmv-renewal/"
+  },
+  "contracts": ["../contracts/dmv-renewal.json"],
+  "oracle": "dom",
+  "auditVariant": "baseline"
+}

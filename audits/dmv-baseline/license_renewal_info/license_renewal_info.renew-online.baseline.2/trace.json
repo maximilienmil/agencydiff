@@ -1,0 +1,98 @@
+{
+  "id": "license_renewal_info.renew-online.baseline.2",
+  "decision": "license_renewal_info",
+  "intentId": "renew-online",
+  "variant": "baseline",
+  "repeat": 2,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-01T20:52:37.909Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 9020,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 358,
+          "y": 24
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 16888,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 359,
+          "y": 36
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 32873,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 214,
+          "y": 582
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 44587,
+      "actions": [
+        {
+          "text": "driver's license renewal",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "error",
+  "error": "Error: audit-blocked: refusing Enter: it would submit the focused form"
+}

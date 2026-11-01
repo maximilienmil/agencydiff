@@ -1,0 +1,9 @@
+{
+  "name": "ca-dmv-renewal-audit",
+  "urls": {
+    "baseline": "https://www.dmv.ca.gov/portal/"
+  },
+  "contracts": ["../contracts/dmv-renewal.json"],
+  "oracle": "dom",
+  "auditVariant": "baseline"
+}

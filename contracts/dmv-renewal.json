@@ -1,0 +1,35 @@
+{
+  "decision": "license_renewal_info",
+  "promise": "A person can find out how to renew a California driver's license: whether online renewal is available, what to do without a renewal notice, what REAL ID documents are needed, and how to book an office appointment.",
+  "intents": [
+    {
+      "id": "renew-online",
+      "goal": "Find out whether I can renew my California driver's license online, and where to start the online renewal.",
+      "polarity": "neutral",
+      "domOracle": [{ "kind": "textContains", "selector": "h1", "text": "Online Renewal" }],
+      "mustSucceed": true
+    },
+    {
+      "id": "renew-office",
+      "goal": "Find out how to renew at a DMV office instead of online, and how to save time on the office visit.",
+      "polarity": "neutral",
+      "domOracle": [{ "kind": "textContains", "selector": "main", "text": "office visit" }],
+      "mustSucceed": true
+    },
+    {
+      "id": "real-id-docs",
+      "goal": "Find out what documents I need to get a REAL ID.",
+      "polarity": "neutral",
+      "domOracle": [{ "kind": "textContains", "selector": "main", "text": "Gather your documents" }],
+      "mustSucceed": true
+    },
+    {
+      "id": "renew-appointment",
+      "goal": "Find out how to schedule an appointment at a DMV office.",
+      "polarity": "neutral",
+      "domOracle": [{ "kind": "textContains", "selector": "h1", "text": "Appointments" }],
+      "mustSucceed": true
+    }
+  ],
+  "pairs": []
+}

@@ -99,17 +99,11 @@ export class BrowserEnv {
 
   /** Facts for `domOracle` assertions, read from the live page. */
   async collectDomFacts(selectors: string[]): Promise<DomElementFact[]> {
+    // NOTE: nothing passed to page.evaluate may bind a function to a name.
+    // The repo's TS loader appends a module-scope naming helper to every
+    // named function, and that helper does not exist inside the page.
     return this.page.evaluate((sels) => {
-      const visible = (el: Element): boolean => {
-        const r = el.getBoundingClientRect();
-        if (r.width === 0 || r.height === 0) return false;
-        const style = getComputedStyle(el);
-        if (style.visibility === "hidden" || style.display === "none") return false;
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
-        const top = document.elementFromPoint(cx, cy);
-        return !!top && (el === top || el.contains(top) || top.contains(el));
-      };
+      // Inlined visibility check: see NOTE above about named functions.
       return sels.map((selector) => {
         let el: Element | null = null;
         try {
@@ -118,11 +112,22 @@ export class BrowserEnv {
           el = null;
         }
         if (!el) return { selector, exists: false, visible: false, text: "" };
+        const r = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const top =
+          r.width > 0 &&
+          r.height > 0 &&
+          style.visibility !== "hidden" &&
+          style.display !== "none"
+            ? document.elementFromPoint(cx, cy)
+            : null;
         const input = el as HTMLInputElement;
         return {
           selector,
           exists: true,
-          visible: visible(el),
+          visible: !!top && (el === top || el.contains(top) || top.contains(el)),
           text: el.textContent ?? "",
           checked: "checked" in input ? !!input.checked : undefined,
           value: "value" in input ? String(input.value) : undefined,

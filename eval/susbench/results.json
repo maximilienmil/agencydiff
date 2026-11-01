@@ -1,0 +1,942 @@
+{
+  "generatedAt": "2026-11-01T22:06:25.569Z",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "method": "Muse computer-use probes against local static snapshots, dom oracles, audit guard on",
+  "pairs": [
+    {
+      "pair": "disguised-ad",
+      "pattern": "Disguised ad",
+      "codes": [
+        "amz_disguised"
+      ],
+      "control": false,
+      "detected": true,
+      "metricsMoved": [
+        "action_cost"
+      ],
+      "findings": [
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket.\" takes more actions",
+          "baseline": 1,
+          "candidate": 2
+        }
+      ],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 5,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 5,
+          "candidate": 1
+        }
+      ],
+      "report": "runs/disguised-ad/report.json"
+    },
+    {
+      "pair": "false-hierarchy",
+      "pattern": "False hierarchy",
+      "codes": [
+        "amz_false_hierarchy"
+      ],
+      "control": false,
+      "detected": true,
+      "metricsMoved": [
+        "goal_unreachable",
+        "action_cost"
+      ],
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "medium",
+          "title": "\"Add the Beacon Ceramic Mug to the basket.\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket.\" takes more actions",
+          "baseline": 1,
+          "candidate": 5.5
+        },
+        {
+          "kind": "goal_unreachable",
+          "severity": "medium",
+          "title": "\"Add the Beacon Ceramic Mug to the basket without adding any protection plan.\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket without adding any protection plan.\" takes more actions",
+          "baseline": 1,
+          "candidate": 4.5
+        }
+      ],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 5.5,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 4.5,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 1,
+          "candidate": 0.8181818181818182
+        }
+      ],
+      "report": "runs/false-hierarchy/report.json"
+    },
+    {
+      "pair": "preselect",
+      "pattern": "Preselection",
+      "codes": [
+        "amz_preselect"
+      ],
+      "control": false,
+      "detected": true,
+      "metricsMoved": [
+        "action_cost",
+        "goal_unreachable",
+        "asymmetry"
+      ],
+      "findings": [
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket.\" takes more actions",
+          "baseline": 3,
+          "candidate": 9
+        },
+        {
+          "kind": "goal_unreachable",
+          "severity": "medium",
+          "title": "\"Add the Beacon Ceramic Mug to the basket without adding any extras.\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket without adding any extras.\" takes more actions",
+          "baseline": 1,
+          "candidate": 7
+        },
+        {
+          "kind": "asymmetry",
+          "severity": "medium",
+          "title": "Saying no became 0.8x the effort of saying yes",
+          "baseline": 0.3333333333333333,
+          "candidate": 0.7777777777777778
+        }
+      ],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 3,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 9,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 7,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 0.3333333333333333,
+          "candidate": 0.7777777777777778
+        }
+      ],
+      "report": "runs/preselect/report.json"
+    },
+    {
+      "pair": "popup-ad",
+      "pattern": "Pop-up ad",
+      "codes": [
+        "amz_pop_up"
+      ],
+      "control": false,
+      "detected": true,
+      "metricsMoved": [
+        "goal_unreachable",
+        "visibility",
+        "action_cost"
+      ],
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket.\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0
+        },
+        {
+          "kind": "visibility",
+          "severity": "medium",
+          "title": "Option for \"Add the Beacon Ceramic Mug to the basket.\" no longer on first screen",
+          "baseline": "visible",
+          "candidate": "hidden"
+        },
+        {
+          "kind": "goal_unreachable",
+          "severity": "medium",
+          "title": "\"Add the Beacon Ceramic Mug to the basket without interacting with any promotion.\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0.3333333333333333
+        },
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket without interacting with any promotion.\" takes more actions",
+          "baseline": 1,
+          "candidate": 9
+        }
+      ],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0,
+          "initiallyVisible": false
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0.3333333333333333,
+          "actionCount": 9,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 1
+        }
+      ],
+      "report": "runs/popup-ad/report.json"
+    },
+    {
+      "pair": "double-negative",
+      "pattern": "Double negative",
+      "codes": [
+        "amz_double_neg_notif"
+      ],
+      "control": false,
+      "detected": false,
+      "metricsMoved": [],
+      "findings": [],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 0.3333333333333333,
+          "actionCount": 3,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 9.5,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 4.5,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 3.1666666666666665,
+          "candidate": 2.25
+        }
+      ],
+      "report": "runs/double-negative/report.json"
+    },
+    {
+      "pair": "confirm-shaming",
+      "pattern": "Confirm shaming",
+      "codes": [
+        "amz_confirm_notif"
+      ],
+      "control": false,
+      "detected": false,
+      "metricsMoved": [],
+      "findings": [],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 7.5,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 3.75,
+          "candidate": 1
+        }
+      ],
+      "report": "runs/confirm-shaming/report.json"
+    },
+    {
+      "pair": "social-proof",
+      "pattern": "Fake social proof",
+      "codes": [
+        "amz_social"
+      ],
+      "control": false,
+      "detected": false,
+      "metricsMoved": [],
+      "findings": [],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 1,
+          "candidate": 1
+        }
+      ],
+      "report": "runs/social-proof/report.json"
+    },
+    {
+      "pair": "forced-action",
+      "pattern": "Forced action",
+      "codes": [
+        "wgs_forced_action"
+      ],
+      "control": false,
+      "detected": true,
+      "metricsMoved": [
+        "action_cost",
+        "visibility",
+        "goal_unreachable"
+      ],
+      "findings": [
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket.\" takes more actions",
+          "baseline": 1,
+          "candidate": 5.5
+        },
+        {
+          "kind": "visibility",
+          "severity": "medium",
+          "title": "Option for \"Add the Beacon Ceramic Mug to the basket.\" no longer on first screen",
+          "baseline": "visible",
+          "candidate": "hidden"
+        },
+        {
+          "kind": "goal_unreachable",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket without creating an account.\" succeeds less often",
+          "baseline": 0.6666666666666666,
+          "candidate": 0
+        }
+      ],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 5.5,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 1.5,
+          "navigationDepth": 0,
+          "initiallyVisible": false
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 1.5
+        }
+      ],
+      "report": "runs/forced-action/report.json"
+    },
+    {
+      "pair": "hidden-info",
+      "pattern": "Hidden information",
+      "codes": [
+        "wgs_hidden_information",
+        "ghd_hidden_information"
+      ],
+      "control": false,
+      "detected": true,
+      "metricsMoved": [
+        "goal_unreachable"
+      ],
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "medium",
+          "title": "\"Reject all cookies, then add the Beacon Ceramic Mug to the basket.\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        }
+      ],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "reject",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 10,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "reject",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 4.5,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "reject",
+          "baseline": 10,
+          "candidate": 4.5
+        }
+      ],
+      "report": "runs/hidden-info/report.json"
+    },
+    {
+      "pair": "preselect-plan",
+      "pattern": "Preselection",
+      "codes": [
+        "att_preselect"
+      ],
+      "control": false,
+      "detected": true,
+      "metricsMoved": [
+        "action_cost",
+        "asymmetry"
+      ],
+      "findings": [
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Starter Plan to the basket without adding device protection.\" takes more actions",
+          "baseline": 1,
+          "candidate": 2
+        },
+        {
+          "kind": "asymmetry",
+          "severity": "high",
+          "title": "Saying no became 2.0x the effort of saying yes",
+          "baseline": 0.5,
+          "candidate": 2
+        }
+      ],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 0.5,
+          "candidate": 2
+        }
+      ],
+      "report": "runs/preselect-plan/report.json"
+    },
+    {
+      "pair": "control-disguised",
+      "pattern": "Disguised ad",
+      "codes": [
+        "amz_disguised"
+      ],
+      "control": true,
+      "falseAlarm": false,
+      "metricsMoved": [],
+      "findings": [],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 1,
+          "candidate": 1
+        }
+      ],
+      "report": "runs/control-disguised/report.json"
+    },
+    {
+      "pair": "control-preselect",
+      "pattern": "Preselection",
+      "codes": [
+        "amz_preselect"
+      ],
+      "control": true,
+      "falseAlarm": true,
+      "metricsMoved": [
+        "action_cost"
+      ],
+      "findings": [
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket.\" takes more actions",
+          "baseline": 1,
+          "candidate": 2
+        },
+        {
+          "kind": "action_cost",
+          "severity": "high",
+          "title": "\"Add the Beacon Ceramic Mug to the basket without adding any extras.\" takes more actions",
+          "baseline": 1,
+          "candidate": 2
+        }
+      ],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "clean",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 2,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "clean",
+          "baseline": 1,
+          "candidate": 1
+        }
+      ],
+      "report": "runs/control-preselect/report.json"
+    },
+    {
+      "pair": "control-hidden",
+      "pattern": "Hidden information",
+      "codes": [
+        "wgs_hidden_information"
+      ],
+      "control": true,
+      "falseAlarm": false,
+      "metricsMoved": [],
+      "findings": [],
+      "aggregates": [
+        {
+          "intent": "add",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "add",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 1,
+          "actionCount": 1,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "reject",
+          "variant": "baseline",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 6,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        },
+        {
+          "intent": "reject",
+          "variant": "candidate",
+          "runs": 3,
+          "successRate": 0.6666666666666666,
+          "actionCount": 5.5,
+          "navigationDepth": 0,
+          "initiallyVisible": true
+        }
+      ],
+      "asymmetry": [
+        {
+          "accept": "add",
+          "reject": "reject",
+          "baseline": 6,
+          "candidate": 5.5
+        }
+      ],
+      "report": "runs/control-hidden/report.json"
+    }
+  ],
+  "summary": {
+    "injectedPairs": 10,
+    "detectedPairs": 7,
+    "controlPairs": 3,
+    "falseAlarms": 1
+  }
+}

@@ -1,6 +1,6 @@
 import type { Action, IntentSpec, TraceStep } from "@agencydiff/core";
 import { AUDIT_INSTRUCTIONS } from "./auditGuard.js";
-import type { BrowserEnv } from "./env.js";
+import { AuditBlockedError, type BrowserEnv } from "./env.js";
 
 export interface DriverResult {
   steps: TraceStep[];
@@ -69,6 +69,10 @@ interface MuseOptions {
   maxSteps?: number;
   /** Read-only discovery: extra safety instructions, no submits or purchases. */
   audit?: boolean;
+  /** When true, a guard refusal becomes a recorded no-op step (the agent sees
+   *  the unchanged screen and retries) instead of aborting the probe. Off by
+   *  default: ordinary runs stop at the first refusal. */
+  tolerateBlocked?: boolean;
 }
 
 type OutputItem =
@@ -143,15 +147,17 @@ export class MuseDriver implements Driver {
 
         // Targets are local sandboxed test apps, so checks are logged and acknowledged.
         const checks = call.pending_safety_checks ?? [];
-        await env.execute(call.actions);
+        let note = checks.length
+          ? `safety checks acknowledged: ${checks.map((c) => c.code).join(", ")}`
+          : undefined;
+        try {
+          await env.execute(call.actions);
+        } catch (e) {
+          if (!(e instanceof AuditBlockedError) || !this.opts.tolerateBlocked) throw e;
+          note = [note, `refused: ${e.message}`].filter(Boolean).join("; ");
+        }
         const { observation, png } = await env.observe();
-        steps.push({
-          index: steps.length,
-          tMs: Date.now() - t0,
-          actions: call.actions,
-          after: observation,
-          note: checks.length ? `safety checks acknowledged: ${checks.map((c) => c.code).join(", ")}` : undefined,
-        });
+        steps.push({ index: steps.length, tMs: Date.now() - t0, actions: call.actions, after: observation, note });
 
         response = await this.respond({
           previous_response_id: response.id,

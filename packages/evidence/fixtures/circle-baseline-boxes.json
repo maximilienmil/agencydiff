@@ -1,0 +1,17 @@
+{
+  "width": 430,
+  "height": 860,
+  "allow": {
+    "left": 220,
+    "top": 784,
+    "right": 410,
+    "bottom": 832
+  },
+  "decline": {
+    "left": 20,
+    "top": 784,
+    "right": 210,
+    "bottom": 832
+  },
+  "key": "0b08c820a0947c8a2040d590ecfd5a824315e650f3baf99c56f7046da0287820"
+}

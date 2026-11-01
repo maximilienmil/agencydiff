@@ -1,6 +1,7 @@
 node_modules/
 dist/
 runs/
+audits/**/*.png
 .env
 *.log
 .sam-cache/

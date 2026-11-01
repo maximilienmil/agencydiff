@@ -54,7 +54,15 @@ if (config.oracle === "model-judged" && !apiKey) throw new Error("MODEL_API_KEY 
 
 async function makeMuseDriver(): Promise<Driver> {
   if (!apiKey) throw new Error("MODEL_API_KEY is not set");
-  return new MuseDriver({ apiKey, model: values.model ?? process.env.MUSE_MODEL, audit: true });
+  // Bound spend on long live-site audits: MUSE_MAX_STEPS caps the probe
+  // budget (driver default is 20). Fewer steps also prune screenshot history.
+  const maxSteps = process.env.MUSE_MAX_STEPS ? Number(process.env.MUSE_MAX_STEPS) : undefined;
+  return new MuseDriver({
+    apiKey,
+    model: values.model ?? process.env.MUSE_MODEL,
+    audit: true,
+    ...(maxSteps ? { maxSteps } : {}),
+  });
 }
 
 const outDir = path.resolve(

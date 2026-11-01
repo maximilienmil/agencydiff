@@ -1,0 +1,114 @@
+{
+  "id": "license_renewal_info.renew-office.baseline.1",
+  "decision": "license_renewal_info",
+  "intentId": "renew-office",
+  "variant": "baseline",
+  "repeat": 1,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-01T20:56:53.074Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 8328,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 359,
+          "y": 25
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 18769,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 359,
+          "y": 30
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 36509,
+      "actions": [
+        {
+          "keys": [
+            "Escape"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 53056,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 214,
+          "y": 537
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 67915,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "005.png"
+      }
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "error",
+  "error": "Error: audit-blocked: refusing Enter: it would submit the focused form"
+}

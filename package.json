@@ -8,6 +8,9 @@
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "diff": "pnpm --filter @agencydiff/runner exec tsx src/cli.ts",
-    "audit": "pnpm --filter @agencydiff/runner exec tsx src/audit.ts"
+    "audit": "pnpm --filter @agencydiff/runner exec tsx src/audit.ts",
+    "redesign": "pnpm --filter @agencydiff/runner exec tsx src/redesign.ts",
+    "compare-audits": "pnpm --filter @agencydiff/runner exec tsx src/compare.ts",
+    "serve-redesigns": "python3 -m http.server 5199 --directory apps/redesigns"
   }
 }

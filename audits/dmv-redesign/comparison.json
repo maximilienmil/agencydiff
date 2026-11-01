@@ -1,0 +1,151 @@
+[
+  {
+    "intentId": "real-id-docs",
+    "goal": "Find out what documents I need to get a REAL ID.",
+    "before": {
+      "intentId": "real-id-docs",
+      "goal": "Find out what documents I need to get a REAL ID.",
+      "attempts": 3,
+      "successes": 0,
+      "medianSteps": 12,
+      "medianActions": 12,
+      "medianDepth": 0,
+      "medianMs": 142634,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.real-id-docs.baseline.0",
+        "license_renewal_info.real-id-docs.baseline.1",
+        "license_renewal_info.real-id-docs.baseline.2"
+      ]
+    },
+    "after": {
+      "intentId": "real-id-docs",
+      "goal": "Find out what documents I need to get a REAL ID.",
+      "attempts": 3,
+      "successes": 3,
+      "medianSteps": 5,
+      "medianActions": 5,
+      "medianDepth": 0,
+      "medianMs": 44769,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.real-id-docs.baseline.0",
+        "license_renewal_info.real-id-docs.baseline.1",
+        "license_renewal_info.real-id-docs.baseline.2"
+      ]
+    }
+  },
+  {
+    "intentId": "renew-appointment",
+    "goal": "Find out how to schedule an appointment at a DMV office.",
+    "before": {
+      "intentId": "renew-appointment",
+      "goal": "Find out how to schedule an appointment at a DMV office.",
+      "attempts": 3,
+      "successes": 0,
+      "medianSteps": 5,
+      "medianActions": 5,
+      "medianDepth": 0,
+      "medianMs": 60797,
+      "screens": [
+        "mt-cadmvoas-secondary.us.qmatic.cloud/"
+      ],
+      "traceIds": [
+        "license_renewal_info.renew-appointment.baseline.0",
+        "license_renewal_info.renew-appointment.baseline.1",
+        "license_renewal_info.renew-appointment.baseline.2"
+      ]
+    },
+    "after": {
+      "intentId": "renew-appointment",
+      "goal": "Find out how to schedule an appointment at a DMV office.",
+      "attempts": 3,
+      "successes": 3,
+      "medianSteps": 5,
+      "medianActions": 4,
+      "medianDepth": 0,
+      "medianMs": 50553,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.renew-appointment.baseline.0",
+        "license_renewal_info.renew-appointment.baseline.1",
+        "license_renewal_info.renew-appointment.baseline.2"
+      ]
+    }
+  },
+  {
+    "intentId": "renew-office",
+    "goal": "Find out how to renew at a DMV office instead of online, and how to save time on the office visit.",
+    "before": {
+      "intentId": "renew-office",
+      "goal": "Find out how to renew at a DMV office instead of online, and how to save time on the office visit.",
+      "attempts": 3,
+      "successes": 0,
+      "medianSteps": 12,
+      "medianActions": 13,
+      "medianDepth": 1,
+      "medianMs": 176320,
+      "screens": [
+        "www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "www.dmv.ca.gov/portal/dmv-online/"
+      ],
+      "traceIds": [
+        "license_renewal_info.renew-office.baseline.0",
+        "license_renewal_info.renew-office.baseline.1",
+        "license_renewal_info.renew-office.baseline.2"
+      ]
+    },
+    "after": {
+      "intentId": "renew-office",
+      "goal": "Find out how to renew at a DMV office instead of online, and how to save time on the office visit.",
+      "attempts": 3,
+      "successes": 3,
+      "medianSteps": 7,
+      "medianActions": 7,
+      "medianDepth": 0,
+      "medianMs": 82862,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.renew-office.baseline.0",
+        "license_renewal_info.renew-office.baseline.1",
+        "license_renewal_info.renew-office.baseline.2"
+      ]
+    }
+  },
+  {
+    "intentId": "renew-online",
+    "goal": "Find out whether I can renew my California driver's license online, and where to start the online renewal.",
+    "before": {
+      "intentId": "renew-online",
+      "goal": "Find out whether I can renew my California driver's license online, and where to start the online renewal.",
+      "attempts": 3,
+      "successes": 0,
+      "medianSteps": 4,
+      "medianActions": 4,
+      "medianDepth": 0,
+      "medianMs": 40558,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.renew-online.baseline.0",
+        "license_renewal_info.renew-online.baseline.1",
+        "license_renewal_info.renew-online.baseline.2"
+      ]
+    },
+    "after": {
+      "intentId": "renew-online",
+      "goal": "Find out whether I can renew my California driver's license online, and where to start the online renewal.",
+      "attempts": 3,
+      "successes": 3,
+      "medianSteps": 3,
+      "medianActions": 2,
+      "medianDepth": 0,
+      "medianMs": 27395,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.renew-online.baseline.0",
+        "license_renewal_info.renew-online.baseline.1",
+        "license_renewal_info.renew-online.baseline.2"
+      ]
+    }
+  }
+]

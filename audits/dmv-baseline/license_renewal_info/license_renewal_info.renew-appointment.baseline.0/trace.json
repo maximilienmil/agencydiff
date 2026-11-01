@@ -1,0 +1,254 @@
+{
+  "id": "license_renewal_info.renew-appointment.baseline.0",
+  "decision": "license_renewal_info",
+  "intentId": "renew-appointment",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-01T21:08:19.737Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 6605,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 358,
+          "y": 29
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 16790,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 358,
+          "y": 30
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 31070,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 382,
+          "y": 29
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 41863,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 396,
+          "y": 26
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 56936,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 183,
+          "y": 376
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 66797,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 157,
+          "y": 516
+        }
+      ],
+      "after": {
+        "url": "https://mt-cadmvoas-secondary.us.qmatic.cloud/",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 81027,
+      "actions": [
+        {
+          "keys": [
+            "Alt",
+            "Left"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://mt-cadmvoas-secondary.us.qmatic.cloud/",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 92128,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "l"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://mt-cadmvoas-secondary.us.qmatic.cloud/",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 104151,
+      "actions": [
+        {
+          "button": "back",
+          "type": "click",
+          "x": 86,
+          "y": 172
+        }
+      ],
+      "after": {
+        "url": "https://mt-cadmvoas-secondary.us.qmatic.cloud/",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 126287,
+      "actions": [
+        {
+          "keys": [
+            "Backspace"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://mt-cadmvoas-secondary.us.qmatic.cloud/",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 138611,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "t"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://mt-cadmvoas-secondary.us.qmatic.cloud/",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 158063,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "l"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "text": "www.dmv.ca.gov\n",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://mt-cadmvoas-secondary.us.qmatic.cloud/",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "step_budget"
+}

@@ -8,6 +8,7 @@ import {
   isBlockedAuditType,
   isBlockedNavigationUrl,
   type AuditElementInfo,
+  type AuditSubmitContext,
 } from "./auditGuard.js";
 
 export const VIEWPORT = { width: 430, height: 860 };
@@ -150,13 +151,27 @@ export class BrowserEnv {
         ((tag === "button" && (!input.getAttribute("type") || type === "submit")) ||
           (tag === "input" && (type === "submit" || type === "image")));
       const isPasswordField = tag === "input" && type === "password";
+      const form = input?.closest("form");
+      const sensitive = /\b(user-?name|login|email|e-?mail|passwd|pass-?word|tel|phone|mobile|address|street|city|zip|postal|ssn|social|dob|birth-?day|card|cvv|cvc|account)\b/;
+      const fields = form ? [...form.querySelectorAll("input, select, textarea")] : [];
       return {
         tag,
         type,
         role: input?.getAttribute?.("role") ?? undefined,
         href: input?.href ?? input?.getAttribute?.("href") ?? undefined,
         text: (input?.innerText ?? input?.textContent ?? "").slice(0, 120),
-        inForm: !!input?.closest("form"),
+        inForm: !!form,
+        inputType: (input as HTMLInputElement | null)?.type ?? type,
+        formMethod: form?.getAttribute("method") ?? undefined,
+        formRole: input?.closest('[role="search"]') ? "search" : (form?.getAttribute("role") ?? undefined),
+        formHasSearchField: fields.some((f) => (f as HTMLInputElement).type === "search"),
+        formHasSensitiveField: fields.some((f) => {
+          const t = ((f as HTMLInputElement).type ?? "").toLowerCase();
+          if (t === "password" || t === "email" || t === "tel") return true;
+          return sensitive.test(
+            `${(f as HTMLInputElement).name ?? ""} ${f.getAttribute("autocomplete") ?? ""}`.toLowerCase(),
+          );
+        }),
         isPasswordField,
         isSubmitControl,
         pageHasPasswordField: !!document.querySelector('input[type="password"]'),
@@ -164,13 +179,30 @@ export class BrowserEnv {
     }, { px: x, py: y });
   }
 
-  private async describeAuditFocus(): Promise<{ type?: string; name?: string; autocomplete?: string }> {
+  private async describeAuditFocus(): Promise<
+    { type?: string; name?: string; autocomplete?: string } & AuditSubmitContext
+  > {
     return this.page.evaluate(() => {
       const el = document.activeElement as (HTMLElement & { type?: string; name?: string }) | null;
+      const form = el?.closest?.("form") ?? null;
+      const sensitive = /\b(user-?name|login|email|e-?mail|passwd|pass-?word|tel|phone|mobile|address|street|city|zip|postal|ssn|social|dob|birth-?day|card|cvv|cvc|account)\b/;
+      const fields = form ? [...form.querySelectorAll("input, select, textarea")] : [];
       return {
         type: el?.type ?? el?.tagName.toLowerCase(),
         name: el?.name ?? el?.getAttribute?.("name") ?? undefined,
         autocomplete: el?.getAttribute?.("autocomplete") ?? undefined,
+        inForm: !!form,
+        inputType: (el as HTMLInputElement | null)?.type ?? el?.tagName.toLowerCase(),
+        formMethod: form?.getAttribute("method") ?? undefined,
+        formRole: el?.closest?.('[role="search"]') ? "search" : (form?.getAttribute("role") ?? undefined),
+        formHasSearchField: fields.some((f) => (f as HTMLInputElement).type === "search"),
+        formHasSensitiveField: fields.some((f) => {
+          const t = ((f as HTMLInputElement).type ?? "").toLowerCase();
+          if (t === "password" || t === "email" || t === "tel") return true;
+          return sensitive.test(
+            `${(f as HTMLInputElement).name ?? ""} ${f.getAttribute("autocomplete") ?? ""}`.toLowerCase(),
+          );
+        }),
       };
     });
   }
@@ -197,8 +229,8 @@ export class BrowserEnv {
           break;
         }
         case "keypress": {
-          if (isBlockedAuditKeypress(a.keys)) {
-            throw new AuditBlockedError("refusing Enter: it would submit the focused form");
+          if (isBlockedAuditKeypress(a.keys, await this.describeAuditFocus())) {
+            throw new AuditBlockedError("refusing Enter outside site search: it would submit the focused form");
           }
           break;
         }

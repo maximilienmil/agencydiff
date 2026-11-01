@@ -73,6 +73,8 @@ export interface IntentSummary {
   goal?: string;
   attempts: number;
   successes: number;
+  successRate: number;
+  /** Medians over successful runs only, mirroring core aggregate(); undefined when none succeeded. */
   medianSteps?: number;
   medianActions?: number;
   medianDepth?: number;
@@ -81,22 +83,25 @@ export interface IntentSummary {
   traceIds: string[];
 }
 
-/** Per-Intent cost summary over one audit's traces, mirroring core metrics. */
+/** Per-Intent cost summary over one audit's traces, mirroring core metrics:
+ *  success rate plus medians over successful runs. */
 export function summarizeIntent(
   intentId: string,
   traces: Trace[],
-  contract?: AgencyContract,
+  contract?: { intents: { id: string; goal?: string }[] },
 ): IntentSummary {
   const goal = contract?.intents.find((i) => i.id === intentId)?.goal;
-  const durations = traces.map((t) => t.steps.at(-1)?.tMs ?? 0);
+  const ok = traces.filter((t) => t.oracle.passed === true);
+  const durations = ok.map((t) => t.steps.at(-1)?.tMs ?? 0);
   return {
     intentId,
     goal,
     attempts: traces.length,
-    successes: traces.filter((t) => t.oracle.passed === true).length,
-    medianSteps: median(traces.map((t) => t.steps.length)),
-    medianActions: median(traces.map(countActions)),
-    medianDepth: median(traces.map(navigationDepth)),
+    successes: ok.length,
+    successRate: traces.length ? ok.length / traces.length : 0,
+    medianSteps: median(ok.map((t) => t.steps.length)),
+    medianActions: median(ok.map(countActions)),
+    medianDepth: median(ok.map(navigationDepth)),
     medianMs: median(durations),
     screens: [...new Set(traces.flatMap(screensVisited))],
     traceIds: traces.map((t) => t.id),
@@ -130,35 +135,6 @@ export function extractHtml(reply: string): string {
   if (start === -1) throw new Error("Model reply contained no HTML document");
   const end = raw.toLowerCase().lastIndexOf("</html>");
   return (end === -1 ? raw.slice(start) : raw.slice(start, end + "</html>".length)).trim();
-}
-
-/** Every must-keep phrase must appear verbatim (dom oracles are exact). */
-export function missingPhrases(html: string, phrases: string[]): string[] {
-  return phrases.filter((p) => !html.includes(p));
-}
-
-/** Exact-match phrases a mockup must preserve so a contract still verifies. */
-export function keepPhrases(contract: AgencyContract): string[] {
-  const out: string[] = [];
-  for (const i of contract.intents) {
-    for (const a of i.domOracle ?? []) {
-      if (a.kind === "textContains" && !out.includes(a.text)) out.push(a.text);
-    }
-  }
-  return out;
-}
-
-/** Keep phrases paired with the element the oracle checks, for the prompt. */
-export function keepPhraseHints(contract: AgencyContract): string[] {
-  return contract.intents.flatMap((i) =>
-    (i.domOracle ?? [])
-      .filter((a) => a.kind === "textContains")
-      .map((a) =>
-        a.kind === "textContains"
-          ? `"${a.text}" inside ${a.selector === "h1" ? "the <h1>" : `an element matching "${a.selector}"`}`
-          : "",
-      ),
-  );
 }
 
 export interface ComparisonRow {

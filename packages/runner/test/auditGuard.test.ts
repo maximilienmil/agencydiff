@@ -3,12 +3,14 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   AUDIT_INSTRUCTIONS,
+  isAllowedSearchSubmit,
   isBlockedAuditClick,
   isBlockedAuditKeypress,
   isBlockedAuditType,
   isBlockedNavigationUrl,
   pageHasCredentialField,
   type AuditElementInfo,
+  type AuditSubmitContext,
 } from "../src/auditGuard.js";
 import { assertDiffOracle } from "../src/targets.js";
 
@@ -40,7 +42,8 @@ describe("audit safety guard", () => {
   });
 
   it("refuses clicks that submit, touch credentials, or buy", () => {
-    expect(isBlockedAuditClick(el({ isSubmitControl: true, inForm: true }))).toBe(true);
+    expect(isBlockedAuditClick(el({ isSubmitControl: true, inForm: true, formMethod: "post" }))).toBe(true);
+    expect(isBlockedAuditClick(el({ isSubmitControl: true, inForm: true, formMethod: "get", formHasSensitiveField: true }))).toBe(true);
     expect(isBlockedAuditClick(el({ isSubmitControl: true, inForm: false }))).toBe(false);
     expect(isBlockedAuditClick(el({ tag: "input", isPasswordField: true }))).toBe(true);
     expect(isBlockedAuditClick(el({ tag: "a", href: "https://shop.example/checkout" }))).toBe(true);
@@ -59,6 +62,39 @@ describe("audit safety guard", () => {
   it("refuses the Enter key that would submit a focused form", () => {
     expect(isBlockedAuditKeypress(["Enter"])).toBe(true);
     expect(isBlockedAuditKeypress(["Escape"])).toBe(false);
+  });
+
+  it("allows Enter inside site search, blocks it elsewhere", () => {
+    const searchInput: AuditSubmitContext = { inForm: false, inputType: "search" };
+    const searchForm: AuditSubmitContext = { inForm: true, formMethod: "get", formHasSearchField: true, formHasSensitiveField: false };
+    const plainGetForm: AuditSubmitContext = { inForm: true, formMethod: "get", formHasSearchField: false, formHasSensitiveField: false };
+    const loginForm: AuditSubmitContext = { inForm: true, formMethod: "post", formHasSearchField: false, formHasSensitiveField: true };
+    const body: AuditSubmitContext = { inForm: false, inputType: "body" };
+    expect(isBlockedAuditKeypress(["Enter"], searchInput)).toBe(false);
+    expect(isBlockedAuditKeypress(["enter"], searchForm)).toBe(false);
+    expect(isBlockedAuditKeypress(["Enter"], plainGetForm)).toBe(false);
+    expect(isBlockedAuditKeypress(["Enter"], loginForm)).toBe(true);
+    expect(isBlockedAuditKeypress(["Enter"], body)).toBe(true);
+    expect(isBlockedAuditKeypress(["Enter"], undefined)).toBe(true);
+  });
+
+  it("lets search submits through but keeps blocking POST forms", () => {
+    expect(isAllowedSearchSubmit({ inForm: true, formMethod: "get", formHasSearchField: true, formHasSensitiveField: false })).toBe(true);
+    expect(isAllowedSearchSubmit({ inForm: true, formMethod: "get", formHasSearchField: false, formHasSensitiveField: false })).toBe(true);
+    expect(isAllowedSearchSubmit({ inForm: true, formRole: "search", formMethod: "get", formHasSearchField: false, formHasSensitiveField: false })).toBe(true);
+    expect(isAllowedSearchSubmit({ inForm: true, formMethod: "post", formHasSearchField: true, formHasSensitiveField: false })).toBe(false);
+    expect(isAllowedSearchSubmit({ inForm: true, formMethod: "post", formHasSearchField: false, formHasSensitiveField: true })).toBe(false);
+    expect(isAllowedSearchSubmit({ inForm: true, formMethod: "get", formHasSearchField: false, formHasSensitiveField: true })).toBe(false);
+    expect(isAllowedSearchSubmit({ inForm: false, inputType: "text" })).toBe(false);
+  });
+
+  it("lets submit clicks in GET search forms through", () => {
+    const searchSubmit = el({ isSubmitControl: true, inForm: true, formMethod: "get", formHasSearchField: true, formHasSensitiveField: false });
+    const loginSubmit = el({ isSubmitControl: true, inForm: true, formMethod: "post", formHasSearchField: false, formHasSensitiveField: true });
+    const postSubmit = el({ isSubmitControl: true, inForm: true, formMethod: "post", formHasSearchField: false, formHasSensitiveField: false });
+    expect(isBlockedAuditClick(searchSubmit)).toBe(false);
+    expect(isBlockedAuditClick(loginSubmit)).toBe(true);
+    expect(isBlockedAuditClick(postSubmit)).toBe(true);
   });
 
   it("tells the agent the read-only rules in prose", () => {

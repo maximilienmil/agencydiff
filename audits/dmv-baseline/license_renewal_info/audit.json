@@ -8,7 +8,9 @@
       "intentId": "renew-online",
       "variant": "baseline",
       "runs": 3,
-      "successRate": 0,
+      "successRate": 1,
+      "actionCount": 5,
+      "navigationDepth": 0,
       "traceIds": [
         "license_renewal_info.renew-online.baseline.0",
         "license_renewal_info.renew-online.baseline.1",
@@ -19,7 +21,9 @@
       "intentId": "renew-office",
       "variant": "baseline",
       "runs": 3,
-      "successRate": 0,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 0,
       "traceIds": [
         "license_renewal_info.renew-office.baseline.0",
         "license_renewal_info.renew-office.baseline.1",
@@ -41,7 +45,9 @@
       "intentId": "renew-appointment",
       "variant": "baseline",
       "runs": 3,
-      "successRate": 0,
+      "successRate": 0.3333333333333333,
+      "actionCount": 7,
+      "navigationDepth": 1,
       "traceIds": [
         "license_renewal_info.renew-appointment.baseline.0",
         "license_renewal_info.renew-appointment.baseline.1",
@@ -66,8 +72,8 @@
   ],
   "modelJudged": false,
   "cost": {
-    "totalActions": 94,
-    "totalSteps": 88,
+    "totalActions": 99,
+    "totalSteps": 95,
     "traces": 12
   }
 }

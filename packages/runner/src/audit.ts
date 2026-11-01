@@ -18,8 +18,9 @@ import { assertDiffOracle, loadTargetConfig } from "./targets.js";
 //   MODEL_API_KEY=... pnpm audit --target targets/shop.json --driver muse
 //
 // Audit probes a single Variant with read-only discovery intents and reports
-// cost + Asymmetry only. The browser refuses form submits, credential entry
-// and purchase navigation; the agent instructions say the same.
+// cost + Asymmetry only. The browser refuses non-search submits, credential
+// entry and purchase navigation; the agent instructions say the same.
+// The per-Probe step budget defaults to 25 (--max-steps, or MUSE_MAX_STEPS).
 
 const ROOT = path.resolve(import.meta.dirname, "../../..");
 
@@ -32,6 +33,7 @@ const { values } = parseArgs({
     repeats: { type: "string", default: "1" },
     intents: { type: "string" },
     out: { type: "string" },
+    "max-steps": { type: "string" },
   },
 });
 
@@ -52,16 +54,18 @@ const apiKey = process.env.MODEL_API_KEY;
 const needsJudge = config.oracle === "model-judged" && values.driver === "muse";
 if (config.oracle === "model-judged" && !apiKey) throw new Error("MODEL_API_KEY is not set");
 
+/** Real sites take longer to explore than the sandbox: 25 steps per Probe,
+ *  raised or lowered with --max-steps (or MUSE_MAX_STEPS). */
+export const DEFAULT_AUDIT_MAX_STEPS = 25;
+
 async function makeMuseDriver(): Promise<Driver> {
   if (!apiKey) throw new Error("MODEL_API_KEY is not set");
-  // Bound spend on long live-site audits: MUSE_MAX_STEPS caps the probe
-  // budget (driver default is 20). Fewer steps also prune screenshot history.
-  const maxSteps = process.env.MUSE_MAX_STEPS ? Number(process.env.MUSE_MAX_STEPS) : undefined;
+  const maxSteps = Number(values["max-steps"] ?? process.env.MUSE_MAX_STEPS ?? DEFAULT_AUDIT_MAX_STEPS);
   return new MuseDriver({
     apiKey,
     model: values.model ?? process.env.MUSE_MODEL,
     audit: true,
-    ...(maxSteps ? { maxSteps } : {}),
+    maxSteps,
   });
 }
 

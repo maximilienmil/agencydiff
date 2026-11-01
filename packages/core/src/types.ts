@@ -172,6 +172,8 @@ export interface AgencyReport {
   passed: boolean;
   /** True when every result in this report was judged by a model (Audit mode). */
   modelJudged?: boolean;
+  /** SAM-grounded visual evidence. Informative only, never gates pass/fail. */
+  evidence?: TraceEvidence[];
 }
 
 /** Single-Variant result: per-Intent cost plus pair Asymmetry, no baseline. */
@@ -186,4 +188,36 @@ export interface AuditReport {
   /** True when Audit success was judged by a model rather than app state. */
   modelJudged: boolean;
   cost: { totalActions: number; totalSteps: number; traces: number };
+}
+
+/** One control measured by SAM on a trace screenshot. */
+export interface EvidenceControl {
+  tag: string;
+  /** SAM object id, when the control was prompted and returned. */
+  objectId?: string;
+  /** Source-pixel box the mask covers, when SAM returned one. */
+  box?: { left: number; top: number; right: number; bottom: number };
+  /** Mask area in source-image pixels. */
+  maskAreaPx?: number;
+  /** Whether the control was unobscured in the trace's initial viewport. */
+  inInitialViewport: boolean;
+}
+
+/** SAM evidence for one screenshot of a trace. Step -1 is the initial observation. */
+export interface StepEvidence {
+  step: number;
+  screenshot: string;
+  overlay?: string;
+  imageHash?: string;
+  /** Accept mask area divided by reject mask area, when both measured. */
+  prominenceRatio?: number;
+  controls: EvidenceControl[];
+}
+
+/** SAM-grounded visual evidence for one trace. Never gates pass/fail. */
+export interface TraceEvidence {
+  traceId: string;
+  model: string;
+  producedAt: string;
+  steps: StepEvidence[];
 }

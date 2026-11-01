@@ -1,0 +1,25 @@
+{
+  "name": "@agencydiff/evidence",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@agencydiff/core": "workspace:*",
+    "@meta-sam/parser": "0.1.0",
+    "pngjs": "7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.5",
+    "@types/pngjs": "^6.0.5",
+    "playwright": "1.63.0",
+    "tsx": "4.19.2",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
+  }
+}

@@ -1,9 +1,10 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { diffContract, type AgencyContract, type AgencyReport, type Trace, type Variant } from "@agencydiff/core";
 import { MuseDriver, ScriptedDriver, type Driver } from "./drivers.js";
 import { runProbe } from "./probe.js";
+import { buildEntry, mergeRuns, type RunIndexEntry } from "./reportExport.js";
 
 // Usage:
 //   pnpm diff --contract contracts/location.json --driver scripted
@@ -21,6 +22,7 @@ const { values } = parseArgs({
     repeats: { type: "string", default: "1" },
     intents: { type: "string" },
     out: { type: "string" },
+    export: { type: "boolean", default: true },
   },
 });
 
@@ -65,6 +67,7 @@ const report = diffContract({ ...contract, intents }, traces);
 await writeFile(path.join(outDir, "report.json"), JSON.stringify(report, null, 2));
 printReport(report);
 console.log(`\ntraces + report: ${path.relative(process.cwd(), outDir)}`);
+if (values.export) await exportToReportApp({ contract, report, outDir, target });
 process.exitCode = report.passed ? 0 : 1;
 
 function printReport(r: AgencyReport) {
@@ -76,4 +79,58 @@ function printReport(r: AgencyReport) {
 
 function fmt(v: unknown): string {
   return typeof v === "number" && !Number.isInteger(v) ? v.toFixed(2) : String(v);
+}
+
+/**
+ * Copy a finished run into the report app's static data folder so the
+ * viewer works with no backend. Skipped when the report app is absent
+ * (other checkouts) or with --no-export.
+ */
+async function exportToReportApp(opts: {
+  contract: AgencyContract;
+  report: AgencyReport;
+  outDir: string;
+  target: { baseline: string; candidate: string };
+}): Promise<void> {
+  const dataDir = path.join(ROOT, "apps", "report", "public", "data");
+  try {
+    await readdir(path.join(ROOT, "apps", "report"));
+  } catch {
+    return;
+  }
+  const id = path.basename(opts.outDir);
+  const dest = path.join(dataDir, id);
+  await mkdir(dataDir, { recursive: true });
+  await cp(opts.outDir, dest, { recursive: true });
+  await writeFile(path.join(dest, "contract.json"), JSON.stringify(opts.contract, null, 2));
+  await writeFile(
+    path.join(dest, "meta.json"),
+    JSON.stringify(
+      {
+        id,
+        decision: opts.contract.decision,
+        date: new Date().toISOString(),
+        driver: values.driver,
+        target: opts.target,
+      },
+      null,
+      2,
+    ),
+  );
+
+  let runs: RunIndexEntry[] = [];
+  try {
+    runs = JSON.parse(await readFile(path.join(dataDir, "index.json"), "utf8")).runs ?? [];
+  } catch {
+    runs = [];
+  }
+  const entry = buildEntry({
+    id,
+    report: opts.report,
+    driver: String(values.driver),
+    target: opts.target,
+  });
+  runs = mergeRuns(runs, entry);
+  await writeFile(path.join(dataDir, "index.json"), JSON.stringify({ runs }, null, 2));
+  console.log(`report data: ${path.relative(process.cwd(), dest)}`);
 }

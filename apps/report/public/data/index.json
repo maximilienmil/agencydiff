@@ -1,0 +1,21 @@
+{
+  "runs": [
+    {
+      "id": "2026-11-01T20-44-46-245Z-precise_location",
+      "decision": "precise_location",
+      "date": "2026-11-01T20:44:55.011Z",
+      "passed": false,
+      "driver": "scripted",
+      "target": {
+        "baseline": "http://127.0.0.1:5173/?variant=baseline",
+        "candidate": "http://127.0.0.1:5173/?variant=candidate"
+      },
+      "traces": 6,
+      "findings": {
+        "high": 5,
+        "medium": 0,
+        "low": 2
+      }
+    }
+  ]
+}

@@ -7,10 +7,7 @@ import {
   compareAudits,
   extractHtml,
   findContract,
-  keepPhraseHints,
-  keepPhrases,
   loadAuditRuns,
-  missingPhrases,
   screensVisited,
   slugify,
   summarizeIntent,
@@ -61,13 +58,14 @@ describe("auditRun helpers", () => {
     expect(() => extractHtml("no html here")).toThrow();
   });
 
-  it("tracks keep phrases for dom oracles", () => {
-    expect(keepPhrases(contract)).toEqual(["Alpha", "Beta text"]);
-    expect(keepPhraseHints(contract)).toEqual([
-      '"Alpha" inside the <h1>',
-      '"Beta text" inside an element matching "main"',
-    ]);
-    expect(missingPhrases("<h1>Alpha</h1>", ["Alpha", "Beta text"])).toEqual(["Beta text"]);
+  it("summarizes an intent with medians over successful runs", () => {
+    const s = summarizeIntent("a", [trace("a", 1, true), trace("a", 3, false), trace("a", 5, true)], contract);
+    expect(s).toMatchObject({ attempts: 3, successes: 2, successRate: 2 / 3, medianSteps: 3, goal: "Goal A" });
+  });
+
+  it("leaves medians undefined when no run succeeded", () => {
+    const s = summarizeIntent("a", [trace("a", 4, false)], contract);
+    expect(s).toMatchObject({ attempts: 1, successes: 0, successRate: 0, medianSteps: undefined });
   });
 
   it("dedupes screens visited, preferring data-screen over URL", () => {
@@ -77,7 +75,7 @@ describe("auditRun helpers", () => {
 
   it("summarizes an intent with core-compatible medians", () => {
     const s = summarizeIntent("a", [trace("a", 1, true), trace("a", 3, false), trace("a", 2, true)], contract);
-    expect(s).toMatchObject({ attempts: 3, successes: 2, medianSteps: 2, medianActions: 2, goal: "Goal A" });
+    expect(s).toMatchObject({ attempts: 3, successes: 2, successRate: 2 / 3, medianSteps: 1.5, medianActions: 1.5, goal: "Goal A" });
   });
 
   it("pairs before/after traces by intent", () => {

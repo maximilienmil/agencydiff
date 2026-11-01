@@ -3,11 +3,6 @@
   "decision": "license_renewal_info",
   "sourceAudit": "audits/dmv-baseline",
   "model": "muse-spark-1.3-contributor",
-  "keepPhrases": [
-    "Online Renewal",
-    "office visit",
-    "Gather your documents",
-    "Appointments"
-  ],
-  "createdAt": "2026-11-01T21:14:01.817Z"
+  "blind": true,
+  "createdAt": "2026-11-01T23:02:08.572Z"
 }

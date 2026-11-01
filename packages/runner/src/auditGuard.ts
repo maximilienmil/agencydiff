@@ -27,26 +27,60 @@ export function isBlockedNavigationUrl(url: string): boolean {
   return BLOCKED_URL_FRAGMENTS.some((f) => u.includes(f));
 }
 
+/** Form context around a focused control or a submit target. Method and role
+ *  are lowercase; has* flags default to false when unknown. */
+export interface AuditSubmitContext {
+  inForm: boolean;
+  inputType?: string;
+  formMethod?: string;
+  formRole?: string;
+  formHasSearchField?: boolean;
+  formHasSensitiveField?: boolean;
+}
+
+/** Field names or autocomplete tokens that mark personal data. */
+const SENSITIVE_FIELD_PATTERN =
+  /\b(user-?name|login|email|e-?mail|passwd|pass-?word|tel|phone|mobile|address|street|city|zip|postal|ssn|social|dob|birth-?day|card|cvv|cvc|account)\b/;
+
+/** True when this form field carries credentials or personal data. */
+export function isSensitiveField(target: { type?: string; name?: string; autocomplete?: string }): boolean {
+  const t = (target.type ?? "").toLowerCase();
+  if (t === "password" || t === "email" || t === "tel") return true;
+  return SENSITIVE_FIELD_PATTERN.test(`${target.name ?? ""} ${target.autocomplete ?? ""}`.toLowerCase());
+}
+
+/** Site search is read-only discovery, so its submits stay allowed: an
+ *  input of type=search, a form with role=search, or a GET form with no
+ *  credential or personal-data fields. POST forms always stay blocked. */
+export function isAllowedSearchSubmit(c: AuditSubmitContext): boolean {
+  const method = (c.formMethod ?? "").toLowerCase();
+  if (method !== "" && method !== "get") return false;
+  if ((c.inputType ?? "").toLowerCase() === "search" || c.formHasSearchField) return true;
+  if ((c.formRole ?? "").toLowerCase() === "search") return true;
+  return c.inForm && !c.formHasSensitiveField;
+}
+
 /** Minimal serializable description of the element an action would hit. */
-export interface AuditElementInfo {
+export interface AuditElementInfo extends AuditSubmitContext {
   tag: string;
   type?: string;
   role?: string;
   href?: string;
   text?: string;
-  inForm: boolean;
   isPasswordField: boolean;
   isSubmitControl: boolean;
   pageHasPasswordField: boolean;
 }
 
-/** Clicks that submit a form, hit credentials, or walk into a purchase flow. */
+/** Clicks that submit a form, hit credentials, or walk into a purchase flow.
+ *  Submit controls in a site-search form stay clickable. */
 export function isBlockedAuditClick(el: AuditElementInfo): boolean {
-  // A submit control with no form submits nothing; plain app buttons stay clickable.
-  if (el.isPasswordField || (el.isSubmitControl && el.inForm)) return true;
+  if (el.isPasswordField) return true;
   if (el.href && isBlockedNavigationUrl(el.href)) return true;
   const label = `${el.text ?? ""} ${el.role ?? ""}`.toLowerCase();
   if (/\b(buy now|place order|check ?out|pay now|confirm purchase)\b/.test(label)) return true;
+  // A submit control with no form submits nothing; plain app buttons stay clickable.
+  if (el.isSubmitControl && el.inForm && !isAllowedSearchSubmit(el)) return true;
   return false;
 }
 
@@ -66,9 +100,13 @@ export function isBlockedAuditType(
   );
 }
 
-/** The Enter key submits whichever form has focus, so it is blocked outright. */
-export function isBlockedAuditKeypress(keys: string[]): boolean {
-  return keys.some((k) => k.toUpperCase() === "ENTER" || k.toUpperCase() === "RETURN");
+/** Enter submits whichever form has focus, so it is blocked except inside
+ *  site search, where it is read-only discovery. Without focus context the
+ *  safe default stays blocked. */
+export function isBlockedAuditKeypress(keys: string[], focus?: AuditSubmitContext): boolean {
+  if (!keys.some((k) => k.toUpperCase() === "ENTER" || k.toUpperCase() === "RETURN")) return false;
+  if (focus && isAllowedSearchSubmit(focus)) return false;
+  return true;
 }
 
 /** Static-HTML helper for tests: does this page contain a credential form? */
@@ -78,9 +116,11 @@ export function pageHasCredentialField(html: string): boolean {
 
 /** Extra instructions appended to the agent prompt in Audit mode. */
 export const AUDIT_INSTRUCTIONS = `READ-ONLY AUDIT RULES. You are discovering what the interface offers, not
-using it. You MUST NOT submit any form, enter any credentials (usernames,
-passwords, emails into login fields), or make any purchase (including cart,
-checkout, payment, or subscription steps). Do not press Enter to submit, do
-not fill password fields, and do not follow links to checkout, cart, payment,
-or subscription pages. If the intention would require any of those, stop and
+using it. You MAY use the site's own search box (a search field, or a search
+/ GET form with no login fields), including pressing Enter there: that is
+read-only discovery. You MUST NOT submit any other form, enter any
+credentials (usernames, passwords, emails into login fields), or make any
+purchase (including cart, checkout, payment, or subscription steps). Do not
+fill password fields, and do not follow links to checkout, cart, payment, or
+subscription pages. If the intention would require any of those, stop and
 reply with INFEASIBLE: and name the blocked action.`;

@@ -5,10 +5,7 @@ import type { AgencyContract } from "@agencydiff/core";
 import {
   extractHtml,
   findContract,
-  keepPhraseHints,
-  keepPhrases,
   loadAuditRuns,
-  missingPhrases,
   slugify,
   summarizeIntent,
 } from "./auditRun.js";
@@ -17,10 +14,10 @@ import {
 //   MODEL_API_KEY=... pnpm run redesign --audit audits/dmv-baseline --name dmv-renewal
 //
 // Sends an audit's Traces (screens visited, step costs, key final
-// screenshots) to Muse Spark and asks for a single self-contained static
-// HTML mockup of a redesigned information flow for the same intents.
-// The mockup preserves the contract's exact-match phrases so the same
-// dom oracles verify it.
+// screenshots) plus the Intent goals to Muse Spark and asks for a single
+// self-contained static HTML mockup of a redesigned information flow for the
+// same intents. The model never sees the contract's oracles: it must answer
+// each Intent from the evidence, and the same oracles re-probe both sites.
 
 const ROOT = path.resolve(import.meta.dirname, "../../..");
 
@@ -48,10 +45,11 @@ const decision = audits[0].decision;
 const contract = values.contract
   ? (JSON.parse(await readFile(path.resolve(ROOT, values.contract), "utf8")) as AgencyContract)
   : await findContract(ROOT, decision);
-const keep = contract ? keepPhrases(contract) : [];
-// Selector hints so preserved phrases land in the elements the oracles check
-// (a phrase in the wrong element still fails the re-probe).
-const keepHints = contract ? keepPhraseHints(contract).map((h) => `  - ${h}`) : [];
+// Blind to oracles: the brief below carries only Intent goals and measured
+// costs, never the assertions that will re-probe the mockup.
+const blind = contract
+  ? { decision: contract.decision, intents: contract.intents.map((i) => ({ id: i.id, goal: i.goal })) }
+  : undefined;
 
 const brief = audits.map((a) => ({
   decision: a.decision,
@@ -65,7 +63,7 @@ const brief = audits.map((a) => ({
   })),
   intents: [...new Set(a.traces.map((t) => t.trace.intentId))]
     .sort()
-    .map((id) => summarizeIntent(id, a.traces.filter((t) => t.trace.intentId === id).map((t) => t.trace), contract)),
+    .map((id) => summarizeIntent(id, a.traces.filter((t) => t.trace.intentId === id).map((t) => t.trace), blind)),
 }));
 
 // Key screenshots only: one final screenshot per intent, never full history.
@@ -86,22 +84,17 @@ for (const a of audits) {
   }
 }
 
-const phrasesNote =
-  keepHints.length > 0
-    ? `The page MUST contain each of these exact phrases verbatim, in the given element (they are how success is checked):\n${keepHints.join("\n")}`
-    : "";
-
 const instructions = `You are redesigning a public-service information page so people find answers faster. Be neutral about the agency: describe a clearer flow, never mock it.
 
-Input: audit evidence from a notoriously multi-step government information task (per-Intent success rates, median action costs, screens visitors wandered through, and final screenshots). Output: ONE self-contained static HTML document, a "concept redesign" information flow that answers every Intent below on a single page with anchored sections.
+Input: audit evidence from a multi-step government information task (per-Intent success rates, median action costs, screens visitors wandered through, and final screenshots), plus the plain-language goal of each Intent. Output: ONE self-contained static HTML document, a "concept redesign" information flow that answers every Intent below on a single page with anchored sections.
 
 Rules:
 - One HTML file, no external requests (no CDN, fonts, images, or fetch). Inline <style> only, system font stack.
 - Mobile-first, content column around 430px. Restrained public-service look: plain background, clear heading hierarchy, real <h1>/<h2>, no gradients, no emoji icons.
 - The most important answer for each Intent is visible near the top of its section. Keep copy short, fictional but faithful to the evidence; do not invent fees, fines, or legal requirements.
+- Use plain, ordinary wording for each answer (official page titles, service names, and document names as a person would expect them). No exact-phrase requirements: success is checked on page facts, in whatever words state them.
 - A visible banner at the top and a footer note must both say this is a "concept redesign" mockup for research, not the real agency site.
-- No forms that submit, no login, no payment content. Buttons are in-page anchors only.
-${phrasesNote}`;
+- No forms that submit, no login, no payment content. Buttons are in-page anchors only.`;
 
 const reply = await promptModel({
   apiKey,
@@ -113,9 +106,7 @@ const reply = await promptModel({
 const html = extractHtml(reply);
 
 const label = /concept redesign/i.test(html);
-const missing = missingPhrases(html, keep);
 if (!label) throw new Error('Mockup is missing the required "concept redesign" label');
-if (missing.length > 0) throw new Error(`Mockup drops checked phrases: ${missing.join(", ")}`);
 
 const name = values.name ?? slugify(decision);
 const outDir = path.resolve(ROOT, values.out ?? path.join("apps", "redesigns", name));
@@ -124,7 +115,7 @@ await writeFile(path.join(outDir, "index.html"), html);
 await writeFile(
   path.join(outDir, "meta.json"),
   JSON.stringify(
-    { name, decision, sourceAudit: path.relative(ROOT, runDir), model, keepPhrases: keep, createdAt: new Date().toISOString() },
+    { name, decision, sourceAudit: path.relative(ROOT, runDir), model, blind: true, createdAt: new Date().toISOString() },
     null,
     2,
   ),

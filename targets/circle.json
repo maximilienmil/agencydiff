@@ -1,0 +1,9 @@
+{
+  "name": "circle-baseline-audit",
+  "urls": {
+    "baseline": "http://localhost:5173/?variant=baseline"
+  },
+  "contracts": ["../contracts/location.json"],
+  "oracle": "state-hook",
+  "auditVariant": "baseline"
+}

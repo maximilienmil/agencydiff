@@ -1,4 +1,5 @@
 import type { Action, IntentSpec, TraceStep } from "@agencydiff/core";
+import { AUDIT_INSTRUCTIONS } from "./auditGuard.js";
 import type { BrowserEnv } from "./env.js";
 
 export interface DriverResult {
@@ -66,6 +67,8 @@ interface MuseOptions {
   model?: string;
   baseUrl?: string;
   maxSteps?: number;
+  /** Read-only discovery: extra safety instructions, no submits or purchases. */
+  audit?: boolean;
 }
 
 type OutputItem =
@@ -94,6 +97,10 @@ export class MuseDriver implements Driver {
     this.maxSteps = opts.maxSteps ?? 20;
   }
 
+  private instructions(): string {
+    return this.opts.audit ? `${SYSTEM_PROMPT}\n\n${AUDIT_INSTRUCTIONS}` : SYSTEM_PROMPT;
+  }
+
   private async respond(body: Record<string, unknown>): Promise<{ id: string; output: OutputItem[] }> {
     const res = await fetch(`${this.baseUrl}/responses`, {
       method: "POST",
@@ -109,7 +116,7 @@ export class MuseDriver implements Driver {
     const dataUrl = (png: Buffer) => `data:image/png;base64,${png.toString("base64")}`;
     try {
       let response = await this.respond({
-        instructions: SYSTEM_PROMPT,
+        instructions: this.instructions(),
         input: [
           {
             role: "user",

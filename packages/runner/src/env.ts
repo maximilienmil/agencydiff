@@ -1,9 +1,23 @@
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { chromium, type Browser, type Page } from "playwright";
-import type { Action, Observation, TagBox } from "@agencydiff/core";
+import type { Action, DomElementFact, Observation, TagBox } from "@agencydiff/core";
+import {
+  isBlockedAuditClick,
+  isBlockedAuditKeypress,
+  isBlockedAuditType,
+  isBlockedNavigationUrl,
+  type AuditElementInfo,
+} from "./auditGuard.js";
 
 export const VIEWPORT = { width: 430, height: 860 };
+
+/** Thrown when Audit mode refuses an action before it touches the page. */
+export class AuditBlockedError extends Error {
+  constructor(reason: string) {
+    super(`audit-blocked: ${reason}`);
+  }
+}
 
 /**
  * One fresh browser context per probe, so every run starts from identical state.
@@ -16,15 +30,27 @@ export class BrowserEnv {
     private browser: Browser,
     readonly page: Page,
     private outDir: string,
+    readonly audit = false,
   ) {}
 
-  static async open(url: string, outDir: string): Promise<BrowserEnv> {
+  static async open(url: string, outDir: string, opts?: { audit?: boolean }): Promise<BrowserEnv> {
     await mkdir(outDir, { recursive: true });
     const browser = await chromium.launch();
     const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 1 });
     const page = await ctx.newPage();
+    const env = new BrowserEnv(browser, page, outDir, opts?.audit ?? false);
+    if (env.audit) {
+      // Purchase-flow navigation never leaves the lab: abort it at the
+      // network layer as well as refusing the triggering action.
+      await ctx.route("**/*", (route) => {
+        if (route.request().isNavigationRequest() && isBlockedNavigationUrl(route.request().url())) {
+          return route.abort();
+        }
+        return route.continue();
+      });
+    }
     await page.goto(url, { waitUntil: "networkidle" });
-    return new BrowserEnv(browser, page, outDir);
+    return env;
   }
 
   async close() {
@@ -71,7 +97,113 @@ export class BrowserEnv {
     return this.page.evaluate(() => window.__circle?.state());
   }
 
+  /** Facts for `domOracle` assertions, read from the live page. */
+  async collectDomFacts(selectors: string[]): Promise<DomElementFact[]> {
+    return this.page.evaluate((sels) => {
+      const visible = (el: Element): boolean => {
+        const r = el.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) return false;
+        const style = getComputedStyle(el);
+        if (style.visibility === "hidden" || style.display === "none") return false;
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const top = document.elementFromPoint(cx, cy);
+        return !!top && (el === top || el.contains(top) || top.contains(el));
+      };
+      return sels.map((selector) => {
+        let el: Element | null = null;
+        try {
+          el = document.querySelector(selector);
+        } catch {
+          el = null;
+        }
+        if (!el) return { selector, exists: false, visible: false, text: "" };
+        const input = el as HTMLInputElement;
+        return {
+          selector,
+          exists: true,
+          visible: visible(el),
+          text: el.textContent ?? "",
+          checked: "checked" in input ? !!input.checked : undefined,
+          value: "value" in input ? String(input.value) : undefined,
+        };
+      });
+    }, selectors);
+  }
+
+  private async describeAuditElement(x: number, y: number): Promise<AuditElementInfo> {
+    return this.page.evaluate(({ px, py }) => {
+      const el = document.elementFromPoint(px, py) as HTMLElement | null;
+      const input = (el?.closest("input, select, textarea, button, a, [role=button]") ?? el) as
+        | (HTMLElement & { type?: string; href?: string })
+        | null;
+      const tag = (input?.tagName ?? "").toLowerCase();
+      const type = (input?.type ?? (input?.getAttribute?.("type") ?? undefined) ?? undefined)?.toLowerCase();
+      const isSubmitControl =
+        !!input &&
+        ((tag === "button" && (!input.getAttribute("type") || type === "submit")) ||
+          (tag === "input" && (type === "submit" || type === "image")));
+      const isPasswordField = tag === "input" && type === "password";
+      return {
+        tag,
+        type,
+        role: input?.getAttribute?.("role") ?? undefined,
+        href: input?.href ?? input?.getAttribute?.("href") ?? undefined,
+        text: (input?.innerText ?? input?.textContent ?? "").slice(0, 120),
+        inForm: !!input?.closest("form"),
+        isPasswordField,
+        isSubmitControl,
+        pageHasPasswordField: !!document.querySelector('input[type="password"]'),
+      };
+    }, { px: x, py: y });
+  }
+
+  private async describeAuditFocus(): Promise<{ type?: string; name?: string; autocomplete?: string }> {
+    return this.page.evaluate(() => {
+      const el = document.activeElement as (HTMLElement & { type?: string; name?: string }) | null;
+      return {
+        type: el?.type ?? el?.tagName.toLowerCase(),
+        name: el?.name ?? el?.getAttribute?.("name") ?? undefined,
+        autocomplete: el?.getAttribute?.("autocomplete") ?? undefined,
+      };
+    });
+  }
+
+  private async refuseUnsafe(actions: Action[]): Promise<void> {
+    for (const a of actions) {
+      switch (a.type) {
+        case "click":
+        case "double_click": {
+          const info = await this.describeAuditElement(a.x, a.y);
+          if (isBlockedAuditClick(info)) {
+            throw new AuditBlockedError(`refusing ${a.type} at ${a.x},${a.y} (${info.tag || "unknown element"})`);
+          }
+          break;
+        }
+        case "type": {
+          const focus = await this.describeAuditFocus();
+          const pageHasPassword = await this.page.evaluate(
+            () => !!document.querySelector('input[type="password"]'),
+          );
+          if (isBlockedAuditType(focus, pageHasPassword)) {
+            throw new AuditBlockedError("refusing to type into a credential field");
+          }
+          break;
+        }
+        case "keypress": {
+          if (isBlockedAuditKeypress(a.keys)) {
+            throw new AuditBlockedError("refusing Enter: it would submit the focused form");
+          }
+          break;
+        }
+        default:
+          break;
+      }
+    }
+  }
+
   async execute(actions: Action[]): Promise<void> {
+    if (this.audit) await this.refuseUnsafe(actions);
     const m = this.page.mouse;
     const k = this.page.keyboard;
     for (const a of actions) {
@@ -110,6 +242,9 @@ export class BrowserEnv {
       }
     }
     await this.page.waitForTimeout(250);
+    if (this.audit && isBlockedNavigationUrl(this.page.url())) {
+      throw new AuditBlockedError(`refusing to stay on a purchase-flow page: ${this.page.url()}`);
+    }
   }
 }
 

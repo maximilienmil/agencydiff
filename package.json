@@ -7,6 +7,7 @@
     "circle": "pnpm --filter @agencydiff/circle dev",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
-    "diff": "pnpm --filter @agencydiff/runner exec tsx src/cli.ts"
+    "diff": "pnpm --filter @agencydiff/runner exec tsx src/cli.ts",
+    "audit": "pnpm --filter @agencydiff/runner exec tsx src/audit.ts"
   }
 }

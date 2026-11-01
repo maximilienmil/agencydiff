@@ -12,6 +12,30 @@ export type Polarity = "accept" | "reject" | "neutral";
  *  success is agent-claimed. */
 export type Oracle = Record<string, string | number | boolean | null>;
 
+/** How a target decides whether an Intent succeeded. "state-hook" is Circle's
+ *  test-hook behaviour; "dom" asserts on the final page; "model-judged" asks
+ *  Muse to judge the final screenshot and is allowed only in Audit mode. */
+export type OracleAdapter = "state-hook" | "dom" | "model-judged";
+
+/** One assertion on the final page. Selectors are CSS, evaluated in the page. */
+export type DomAssertion =
+  | { kind: "exists"; selector: string }
+  | { kind: "visible"; selector: string }
+  | { kind: "textContains"; selector: string; text: string }
+  | { kind: "checked"; selector: string; checked?: boolean }
+  | { kind: "value"; selector: string; value: string };
+
+/** A testable web app: a URL per Variant, the contract(s) to run, and which
+ *  Oracle adapter decides success. Resolved from a target config JSON file. */
+export interface TargetConfig {
+  name?: string;
+  urls: Record<string, string>;
+  contracts: string[];
+  oracle: OracleAdapter;
+  /** Variant probed by `pnpm audit`. Defaults to "baseline". */
+  auditVariant?: string;
+}
+
 export interface IntentSpec {
   id: string;
   goal: string;
@@ -19,6 +43,9 @@ export interface IntentSpec {
   /** Named starting state, e.g. "location-shared" for a revoke test. */
   fixture?: string;
   oracle?: Oracle;
+  /** DOM assertions on the final page, checked when the target uses the
+   *  "dom" Oracle adapter. Every assertion must hold for the Intent to pass. */
+  domOracle?: DomAssertion[];
   /** `data-agency` tag of the control that fulfils this intent. Used for
    *  discoverability measurements, never shown to the agent. */
   target?: string;
@@ -85,6 +112,8 @@ export interface Trace {
   oracle: { checked: boolean; passed?: boolean };
   stoppedReason: "agent_done" | "script_done" | "step_budget" | "error";
   error?: string;
+  /** True when success was judged by a model (Audit mode only), never by app state. */
+  modelJudged?: boolean;
 }
 
 export interface TraceMetrics {
@@ -141,4 +170,20 @@ export interface AgencyReport {
   asymmetry: { accept: string; reject: string; baseline?: number; candidate?: number }[];
   findings: Finding[];
   passed: boolean;
+  /** True when every result in this report was judged by a model (Audit mode). */
+  modelJudged?: boolean;
+}
+
+/** Single-Variant result: per-Intent cost plus pair Asymmetry, no baseline. */
+export interface AuditReport {
+  decision: string;
+  promise: string;
+  variant: string;
+  target: string;
+  aggregates: IntentAggregate[];
+  asymmetry: { accept: string; reject: string; ratio?: number }[];
+  traceIds: string[];
+  /** True when Audit success was judged by a model rather than app state. */
+  modelJudged: boolean;
+  cost: { totalActions: number; totalSteps: number; traces: number };
 }

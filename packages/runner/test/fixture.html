@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head><title>Fixture shop</title></head>
+  <body>
+    <header><a href="/products">Products</a> <a href="/checkout">Checkout</a></header>
+    <main>
+      <h1>Demo store</h1>
+      <form action="/login" method="post">
+        <label>Username <input type="text" name="username" autocomplete="username"></label>
+        <label>Password <input type="password" name="password" autocomplete="current-password"></label>
+        <button type="submit">Sign in</button>
+      </form>
+      <form action="/search" method="get">
+        <input type="search" name="q" placeholder="Search products">
+      </form>
+      <button id="buy">Buy now</button>
+      <button id="more">Learn more</button>
+    </main>
+  </body>
+</html>

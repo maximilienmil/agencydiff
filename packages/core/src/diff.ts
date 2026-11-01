@@ -1,7 +1,8 @@
-import { aggregate, traceMetrics } from "./metrics.js";
+import { aggregate, countActions, traceMetrics } from "./metrics.js";
 import type {
   AgencyContract,
   AgencyReport,
+  AuditReport,
   Finding,
   IntentAggregate,
   Severity,
@@ -147,5 +148,44 @@ export function diffContract(contract: AgencyContract, traces: Trace[]): AgencyR
     asymmetry,
     findings,
     passed: !findings.some((f) => f.severity !== "low"),
+  };
+}
+
+/**
+ * Single-Variant Audit: per-Intent cost plus pair Asymmetry, no baseline and
+ * no Findings. Success comes from the oracle (or is model-judged); the gate
+ * below never fails the run, it only reports.
+ */
+export function auditContract(
+  contract: AgencyContract,
+  variant: Variant,
+  url: string,
+  traces: Trace[],
+  modelJudged: boolean,
+): AuditReport {
+  const aggs = new Map<string, IntentAggregate>();
+  for (const intent of contract.intents) {
+    const ts = traces.filter((t) => t.intentId === intent.id);
+    const ms = ts.map((t) => traceMetrics(t, intent, contract.defaultKey));
+    aggs.set(intent.id, aggregate(intent.id, variant, ms, !!intent.target));
+  }
+  const asymmetry = contract.pairs.map((p) => ({
+    ...p,
+    ratio: ratio(aggs.get(p.reject)?.actionCount, aggs.get(p.accept)?.actionCount),
+  }));
+  return {
+    decision: contract.decision,
+    promise: contract.promise,
+    variant,
+    target: url,
+    aggregates: [...aggs.values()],
+    asymmetry,
+    traceIds: traces.map((t) => t.id),
+    modelJudged,
+    cost: {
+      totalActions: traces.reduce((n, t) => n + countActions(t), 0),
+      totalSteps: traces.reduce((n, t) => n + t.steps.length, 0),
+      traces: traces.length,
+    },
   };
 }

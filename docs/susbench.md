@@ -84,7 +84,11 @@ at least one medium- or high-severity finding.
 
 ## Results
 
-Run: 2026-11-01, `muse-spark-1.3-contributor`, 3 repeats per Intent and Variant.
+Run: 2026-11-01, `muse-spark-1.3-contributor`, 3 repeats per Intent and Variant
+(156 probes). Aggregate data: `eval/susbench/results.json` (committed).
+Per-pair `report.json` files and one trace directory per probe (with
+screenshots) land in `eval/susbench/runs/<pair>/`; that directory is
+gitignored, so re-run `eval/susbench/run.ts` to regenerate it.
 
 | Pair | Pattern | Caught | What moved |
 |---|---|---|---|
@@ -104,4 +108,13 @@ Run: 2026-11-01, `muse-spark-1.3-contributor`, 3 repeats per Intent and Variant.
 The three misses are all wording or persuasion patterns. They change what the page says, not what it costs to act, and the probe still finished each Intent in the same number of steps. AgencyDiff measures the cost and reachability of a choice, so it cannot see these. That limit is expected, and a persuasion check would have to cover them.
 
 The false alarm (control-preselect) came from the agent itself: on two identical pages, one set of repeats took more steps than the other. With 3 repeats, run-to-run noise can look like a regression. Requiring a cost change to exceed the spread seen across repeats before reporting a finding would remove this class of false alarm.
+
+Two caveats on the detections. First, `popup-ad`'s success drop owes something
+to dismiss-control hit difficulty: the probe repeatedly missed the small Close
+link and burned its step budget. The visibility finding on that pair is
+instrument-measured (the overlay covers the add control) and does not depend
+on agent skill. Second, k=3 medians are noisy in both directions — `hidden-info`
+shows inverted action costs (reject took 10 actions on baseline vs 4.5 on
+candidate) alongside its success-rate detection. Single-finding detections are
+indicative, and the control row is the false-alarm baseline.
 

@@ -1,0 +1,17 @@
+{
+  "pairs": [
+    { "name": "disguised-ad", "pattern": "Disguised ad", "codes": ["amz_disguised"], "contract": "contracts/disguised-ad.json", "page": "disguised-ad.html" },
+    { "name": "false-hierarchy", "pattern": "False hierarchy", "codes": ["amz_false_hierarchy"], "contract": "contracts/false-hierarchy.json", "page": "false-hierarchy.html" },
+    { "name": "preselect", "pattern": "Preselection", "codes": ["amz_preselect"], "contract": "contracts/preselect.json", "page": "preselect.html" },
+    { "name": "popup-ad", "pattern": "Pop-up ad", "codes": ["amz_pop_up"], "contract": "contracts/popup-ad.json", "page": "popup-ad.html" },
+    { "name": "double-negative", "pattern": "Double negative", "codes": ["amz_double_neg_notif"], "contract": "contracts/double-negative.json", "page": "double-negative.html" },
+    { "name": "confirm-shaming", "pattern": "Confirm shaming", "codes": ["amz_confirm_notif"], "contract": "contracts/confirm-shaming.json", "page": "confirm-shaming.html" },
+    { "name": "social-proof", "pattern": "Fake social proof", "codes": ["amz_social"], "contract": "contracts/social-proof.json", "page": "social-proof.html" },
+    { "name": "forced-action", "pattern": "Forced action", "codes": ["wgs_forced_action"], "contract": "contracts/forced-action.json", "page": "forced-action.html" },
+    { "name": "hidden-info", "pattern": "Hidden information", "codes": ["wgs_hidden_information", "ghd_hidden_information"], "contract": "contracts/hidden-info.json", "page": "hidden-info.html" },
+    { "name": "preselect-plan", "pattern": "Preselection", "codes": ["att_preselect"], "contract": "contracts/preselect-plan.json", "page": "preselect-plan.html" },
+    { "name": "control-disguised", "pattern": "Disguised ad", "codes": ["amz_disguised"], "contract": "contracts/disguised-ad.json", "page": "disguised-ad.html", "control": true },
+    { "name": "control-preselect", "pattern": "Preselection", "codes": ["amz_preselect"], "contract": "contracts/preselect.json", "page": "preselect.html", "control": true },
+    { "name": "control-hidden", "pattern": "Hidden information", "codes": ["wgs_hidden_information"], "contract": "contracts/hidden-info.json", "page": "hidden-info.html", "control": true }
+  ]
+}

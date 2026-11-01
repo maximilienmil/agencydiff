@@ -105,8 +105,11 @@ export function isBlockedAuditType(
  *  safe default stays blocked. */
 export function isBlockedAuditKeypress(keys: string[], focus?: AuditSubmitContext): boolean {
   if (!keys.some((k) => k.toUpperCase() === "ENTER" || k.toUpperCase() === "RETURN")) return false;
-  if (focus && isAllowedSearchSubmit(focus)) return false;
-  return true;
+  if (!focus) return true;
+  // Enter outside any form activates the focused link or button, which the
+  // click and navigation guards already cover.
+  if (!focus.inForm && (focus.inputType ?? "").toLowerCase() !== "password") return false;
+  return !isAllowedSearchSubmit(focus);
 }
 
 /** Static-HTML helper for tests: does this page contain a credential form? */

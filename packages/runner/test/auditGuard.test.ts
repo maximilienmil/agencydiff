@@ -64,7 +64,7 @@ describe("audit safety guard", () => {
     expect(isBlockedAuditKeypress(["Escape"])).toBe(false);
   });
 
-  it("allows Enter inside site search, blocks it elsewhere", () => {
+  it("allows Enter in site search and outside forms, blocks it in other forms", () => {
     const searchInput: AuditSubmitContext = { inForm: false, inputType: "search" };
     const searchForm: AuditSubmitContext = { inForm: true, formMethod: "get", formHasSearchField: true, formHasSensitiveField: false };
     const plainGetForm: AuditSubmitContext = { inForm: true, formMethod: "get", formHasSearchField: false, formHasSensitiveField: false };
@@ -74,7 +74,8 @@ describe("audit safety guard", () => {
     expect(isBlockedAuditKeypress(["enter"], searchForm)).toBe(false);
     expect(isBlockedAuditKeypress(["Enter"], plainGetForm)).toBe(false);
     expect(isBlockedAuditKeypress(["Enter"], loginForm)).toBe(true);
-    expect(isBlockedAuditKeypress(["Enter"], body)).toBe(true);
+    expect(isBlockedAuditKeypress(["Enter"], body)).toBe(false);
+    expect(isBlockedAuditKeypress(["Enter"], { inForm: false, inputType: "password" })).toBe(true);
     expect(isBlockedAuditKeypress(["Enter"], undefined)).toBe(true);
   });
 

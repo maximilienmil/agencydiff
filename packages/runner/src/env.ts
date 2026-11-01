@@ -304,6 +304,13 @@ const KEY_NAMES: Record<string, string> = {
   DOWN: "ArrowDown",
   LEFT: "ArrowLeft",
   RIGHT: "ArrowRight",
+  PAGE_DOWN: "PageDown",
+  PAGEDOWN: "PageDown",
+  PAGE_UP: "PageUp",
+  PAGEUP: "PageUp",
+  HOME: "Home",
+  END: "End",
+  DELETE: "Delete",
 };
 
 function normalizeKey(key: string): string {

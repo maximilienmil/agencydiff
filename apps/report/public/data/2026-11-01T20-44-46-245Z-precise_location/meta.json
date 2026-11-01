@@ -1,0 +1,10 @@
+{
+  "id": "2026-11-01T20-44-46-245Z-precise_location",
+  "decision": "precise_location",
+  "date": "2026-11-01T20:44:55.011Z",
+  "driver": "scripted",
+  "target": {
+    "baseline": "http://127.0.0.1:5173/?variant=baseline",
+    "candidate": "http://127.0.0.1:5173/?variant=candidate"
+  }
+}

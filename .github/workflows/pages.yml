@@ -1,0 +1,46 @@
+name: Deploy report and Circle to Pages
+
+on:
+  push:
+    branches: [claude/fervent-cannon-m0lh3n]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # The report ships the committed sample data in apps/report/public/data
+      # (produced by `pnpm diff --driver scripted`); no model calls in CI.
+      - run: pnpm --filter @agencydiff/report build
+      # Circle is served from a subpath so probes and judges share one site.
+      - run: pnpm --filter @agencydiff/circle exec vite build --base=/agencydiff/circle/
+      - run: cp -r apps/circle/dist apps/report/dist/circle
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/report/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}agencydiff/
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

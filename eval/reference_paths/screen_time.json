@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "set_limit": ["nav.settings", "settings.screentime", "screentime.limit", "st.limit_1h"],
+    "reminders": ["nav.settings", "settings.screentime", "st.reminders"],
+    "remove_limit": ["nav.settings", "settings.screentime", "screentime.limit", "st.limit_off"],
+    "check_usage": ["nav.settings", "settings.screentime", "screentime.usage"],
+    "shorten": ["nav.settings", "settings.screentime", "screentime.limit", "st.limit_4h"]
+  },
+  "candidate": {
+    "set_limit": ["nav.settings", "settings.screentime", "screentime.more", "st.open_limit", "st.limit_2h", "st.save_limit", "st.confirm_limit"],
+    "reminders": ["nav.settings", "settings.screentime", "st.reminders"],
+    "remove_limit": ["nav.settings", "settings.screentime", "screentime.more", "st.open_limit", "st.more", "st.limit_off"],
+    "check_usage": ["nav.settings", "settings.screentime", "screentime.usage"],
+    "shorten": ["nav.settings", "settings.screentime", "screentime.more", "st.open_limit", "st.limit_4h", "st.save_limit", "st.confirm_limit"]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "decision": "teen_dm",
+  "promise": "Teen accounts can choose who can message them, and change their mind later.",
+  "defaultKey": "dm.policy",
+  "intents": [
+    {
+      "id": "allow_all",
+      "goal": "I want anyone on Circle to be able to message me.",
+      "polarity": "accept",
+      "oracle": {
+        "dm.policy": "everyone"
+      },
+      "target": "dm.allow_all",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "friends_only",
+      "goal": "I want only my friends to be able to message me.",
+      "polarity": "neutral",
+      "oracle": {
+        "dm.policy": "friends"
+      },
+      "target": "dm.friends_only",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "block_unknown",
+      "goal": "I do not want strangers messaging me. Block messages from people I don't know.",
+      "polarity": "reject",
+      "oracle": {
+        "dm.policy": "blocked"
+      },
+      "target": "dm.block_unknown",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "inspect",
+      "goal": "I want to check who can currently message me.",
+      "polarity": "neutral",
+      "oracle": {
+        "dm.inspected": true
+      },
+      "target": "privacy.messages",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "relax",
+      "goal": "I blocked unknown messages before and changed my mind. Let everyone message me again.",
+      "polarity": "accept",
+      "fixture": "dm-restricted",
+      "oracle": {
+        "dm.policy": "everyone"
+      },
+      "target": "dm.allow_all",
+      "mustSucceed": true
+    }
+  ],
+  "pairs": [
+    {
+      "accept": "allow_all",
+      "reject": "block_unknown"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import type { AgencyContract } from "../src/types.js";
 
@@ -46,6 +46,8 @@ describe("agency contracts", () => {
 
   it("every intent has baseline and candidate reference paths", () => {
     for (const { file, contract: c } of contracts.values()) {
+      // Audit-only contracts (real public sites) have no scripted reference paths.
+      if (!existsSync(new URL(`eval/reference_paths/${file}`, ROOT))) continue;
       const refs = JSON.parse(read(`eval/reference_paths/${file}`)) as Record<string, Record<string, string[]>>;
       for (const variant of ["baseline", "candidate"]) {
         for (const i of c.intents) {

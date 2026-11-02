@@ -14,6 +14,7 @@
     "compare-audits": "pnpm --filter @agencydiff/runner exec tsx src/compare.ts",
     "serve-redesigns": "python3 -m http.server 5199 --directory apps/redesigns",
     "bench": "pnpm --filter @agencydiff/runner exec tsx src/bench.ts",
-    "init": "pnpm --filter @agencydiff/runner exec tsx src/init.ts"
+    "init": "pnpm --filter @agencydiff/runner exec tsx src/init.ts",
+    "propose-fix": "pnpm --filter @agencydiff/runner exec tsx src/proposeFix.ts"
   }
 }

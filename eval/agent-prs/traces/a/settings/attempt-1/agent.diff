@@ -1,0 +1,46 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..62d4a09 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -265,6 +265,7 @@ export function App() {
+ 
+         {screen === "settings" && (
+           <List>
++            <div className="section-label">General</div>
+             {has("UI_REORDER_SETTINGS") ? (
+               <>
+                 <Row label="Help" />
+@@ -277,6 +278,7 @@ export function App() {
+                 <Row label="Notifications" />
+               </>
+             )}
++            <div className="section-label">Privacy &amp; safety</div>
+             <Row
+               label={has("UI_PRIVACY_COPY") ? "Messaging & privacy" : "Privacy"}
+               tag="settings.privacy"
+@@ -285,8 +287,13 @@ export function App() {
+             {!has("LOC_BURY_SETTING") && (
+               <Row label="Location" tag="settings.location" onClick={() => push("location")} />
+             )}
++            <div className="section-label">Wellbeing</div>
+             <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
++            <div className="section-label">Membership</div>
+             <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
++            {(has("UI_EXTRA_ROW") || !has("UI_REORDER_SETTINGS")) && (
++              <div className="section-label">More</div>
++            )}
+             {has("UI_EXTRA_ROW") && (
+               <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
+             )}
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index fc0c978..76592b7 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -65,6 +65,7 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+ .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+ .stat small { color: var(--muted); font-size: 13px; }
+ .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
++.section-label { padding: 18px 18px 6px; color: var(--muted); font-size: 14px; font-weight: 600; }
+ 
+ .app.dark {
+   --bg: #14161a;

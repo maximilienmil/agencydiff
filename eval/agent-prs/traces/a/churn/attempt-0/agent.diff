@@ -1,0 +1,17 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..d1a0795 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -614,6 +614,12 @@ export function App() {
+             <div className="note">
+               Circle+ · {PLAN_NAME[sub.plan]} · {PLAN_PRICE[sub.plan]}
+             </div>
++            {sub.active && (
++              <div className="note">
++                Circle+ is ad-free with early access to new features. If you cancel, you
++                keep Circle+ until the end of the paid period.
++              </div>
++            )}
+             {has("SUB_BURY_CANCEL") ? (
+               <Row label="Manage plan" tag="sub.billing_manage" onClick={() => push("plan_manage")} />
+             ) : (

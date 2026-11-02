@@ -1,0 +1,15 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..33ba0d0 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -519,6 +519,10 @@ export function App() {
+               <span className="big">Circle+</span>
+               <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
+             </div>
++            <div className="note">
++              What you get: an ad-free feed, early access to new features, and exclusive Circle+ badge.
++              Cancel anytime in Settings — you keep Circle+ until the end of the paid period.
++            </div>
+             <List>
+               {!sub.active ? (
+                 <>

@@ -1,0 +1,24 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..7185e58 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -329,7 +329,7 @@ export function App() {
+               <label className="row toggle-row">
+                 <span>
+                   Precise location
+-                  <small>Share your exact location with Circle</small>
++                  <small>Shows nearby friends and events. Change anytime.</small>
+                 </span>
+                 <input
+                   type="checkbox"
+@@ -674,8 +674,8 @@ export function App() {
+             ) : (
+               <>
+                 <div className="pin">📍</div>
+-                <h2>{copyTweak ? "Let Circle know where you are?" : "Allow Circle to use your precise location?"}</h2>
+-                <p>Used to show friends and events near you. You can change this anytime in Settings.</p>
++                <h2>{copyTweak ? "Let Circle know where you are?" : "See friends and events near you"}</h2>
++                <p>Allow precise location to see nearby friends, local events, and meetup suggestions. You stay in control and can change this anytime in Settings.</p>
+                 <div className="pair">
+                   <button className="secondary" data-agency="location.decline" onClick={() => choose("off")}>
+                     Not now

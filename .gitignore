@@ -2,6 +2,7 @@ node_modules/
 dist/
 runs/
 audits/**/*.png
+eval/agent-prs/traces/**/*.png
 .env
 *.log
 .sam-cache/

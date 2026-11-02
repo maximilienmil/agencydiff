@@ -6,7 +6,7 @@ import { parseArgs } from "node:util";
 import type { IntentSpec, TagBox } from "@agencydiff/core";
 import { MuseDriver, type MuseUsage } from "./drivers.js";
 import { BrowserEnv, VIEWPORT, DEVICE_SCALE_FACTOR } from "./env.js";
-import { pngDimensions } from "./coordinates.js";
+import { pngDimensions, toCssPixels } from "./coordinates.js";
 import { usdForTokens } from "./benchScore.js";
 
 const ROOT = path.resolve(import.meta.dirname, "../../..");
@@ -14,18 +14,14 @@ const ROOT = path.resolve(import.meta.dirname, "../../..");
 // Usage:
 //   MODEL_API_KEY=... pnpm --filter @agencydiff/runner exec tsx src/tapAccuracy.ts \
 //     [--variant baseline|size|verify|both] [--buttons 20] [--repeats 3] [--out results.json]
+//     [--viewport 430x860] [--dsf 1]
+// Clicks arrive in screenshot pixels and are converted to CSS pixels for
+// scoring, so non-1 deviceScaleFactors score fairly.
 //
 // Static page of N labelled buttons. The agent is asked to tap each one by
 // name; the first click of every run is scored against the target TagBox from
 // the initial observation. Reports hit rate and the offset distribution, so a
 // systematic shift (a coordinate bug) shows up as a non-zero mean offset.
-
-const VARIANTS: Record<string, string | undefined> = {
-  baseline: undefined,
-  size: `The screenshot you receive is exactly ${VIEWPORT.width} pixels wide and ${VIEWPORT.height} pixels tall. Click coordinates use the same pixels: x runs 0-${VIEWPORT.width - 1} left to right, y runs 0-${VIEWPORT.height - 1} top to bottom.`,
-  verify: `After each click, look at the new screenshot and check the tap landed on the intended control before replying DONE. If it missed, tap again at the corrected position.`,
-  both: `The screenshot you receive is exactly ${VIEWPORT.width} pixels wide and ${VIEWPORT.height} pixels tall. Click coordinates use the same pixels: x runs 0-${VIEWPORT.width - 1} left to right, y runs 0-${VIEWPORT.height - 1} top to bottom. After each click, look at the new screenshot and check the tap landed on the intended control before replying DONE. If it missed, tap again at the corrected position.`,
-};
 
 const { values } = parseArgs({
   options: {
@@ -34,8 +30,39 @@ const { values } = parseArgs({
     repeats: { type: "string", default: "3" },
     out: { type: "string", default: "eval/tap_accuracy/results_baseline.json" },
     model: { type: "string" },
+    viewport: { type: "string" },
+    dsf: { type: "string" },
   },
 });
+
+function parseViewport(raw: string | undefined): { width: number; height: number } {
+  if (!raw) return VIEWPORT;
+  const m = raw.match(/^(\d+)x(\d+)$/);
+  if (!m) throw new Error(`--viewport must look like 430x860, got ${raw}`);
+  return { width: Number(m[1]), height: Number(m[2]) };
+}
+
+const viewport = parseViewport(values.viewport);
+const deviceScaleFactor = values.dsf === undefined ? DEVICE_SCALE_FACTOR : Number(values.dsf);
+if (!Number.isFinite(deviceScaleFactor) || deviceScaleFactor <= 0) {
+  throw new Error(`--dsf must be a positive number, got ${values.dsf}`);
+}
+
+function sizeNote(): string {
+  return (
+    `The screenshot you receive is exactly ${viewport.width * deviceScaleFactor} pixels wide and ` +
+    `${viewport.height * deviceScaleFactor} pixels tall. Click coordinates use the same pixels: ` +
+    `x runs 0-${viewport.width * deviceScaleFactor - 1} left to right, ` +
+    `y runs 0-${viewport.height * deviceScaleFactor - 1} top to bottom.`
+  );
+}
+
+const VARIANTS: Record<string, string | undefined> = {
+  baseline: undefined,
+  size: sizeNote(),
+  verify: `After each click, look at the new screenshot and check the tap landed on the intended control before replying DONE. If it missed, tap again at the corrected position.`,
+  both: `${sizeNote()} After each click, look at the new screenshot and check the tap landed on the intended control before replying DONE. If it missed, tap again at the corrected position.`,
+};
 
 const variant = values.variant!;
 if (!(variant in VARIANTS)) throw new Error(`--variant must be one of ${Object.keys(VARIANTS).join("|")}`);
@@ -61,7 +88,10 @@ export interface TapProbe {
   repeat: number;
   /** Decoded size of the screenshot the model grounded against. */
   png: { width: number; height: number };
+  /** First click in CSS pixels (the scored space). */
   click: { x: number; y: number } | null;
+  /** First click as the model reported it, in screenshot pixels. */
+  rawClick: { x: number; y: number } | null;
   box: [number, number, number, number] | null;
   boxHeight: number | null;
   hit: boolean;
@@ -92,7 +122,7 @@ function landedTag(tags: TagBox[], x: number, y: number): string | null {
 
 async function runTap(button: string, label: string, repeat: number, usage: MuseUsage): Promise<TapProbe> {
   const dir = await mkdtemp(path.join(tmpdir(), "tap-"));
-  const env = await BrowserEnv.open(url, dir);
+  const env = await BrowserEnv.open(url, dir, { viewport, deviceScaleFactor });
   try {
     const initial = await env.observe();
     const shot = pngDimensions(initial.png);
@@ -120,6 +150,7 @@ async function runTap(button: string, label: string, repeat: number, usage: Muse
         button, label, repeat,
         png: shot,
         click: null,
+        rawClick: null,
         box: box?.box ?? null,
         boxHeight: box ? box.box[3] : null,
         hit: false,
@@ -136,13 +167,18 @@ async function runTap(button: string, label: string, repeat: number, usage: Muse
     const after = await env.observe();
     const fresh = boxOf(after.observation.tags, button) ?? box;
     const [fx, fy, fw, fh] = fresh.box;
+    // Clicks arrive in screenshot pixels; boxes are CSS pixels. Convert
+    // before scoring so higher deviceScaleFactors score fairly.
+    const css = taps.map((t) => toCssPixels(t.x, t.y, deviceScaleFactor));
     const inBox = (x: number, y: number) => x >= fx && x <= fx + fw && y >= fy && y <= fy + fh;
-    const clicks = taps.map((t) => ({ x: t.x, y: t.y, hit: inBox(t.x, t.y) }));
-    const [click] = taps;
+    const clicks = css.map((c) => ({ x: c.x, y: c.y, hit: inBox(c.x, c.y) }));
+    const [click] = css;
+    const [raw] = taps;
     return {
       button, label, repeat,
       png: shot,
       click: { x: click.x, y: click.y },
+      rawClick: { x: raw.x, y: raw.y },
       box: fresh.box,
       boxHeight: fh,
       hit: clicks[0].hit,
@@ -175,7 +211,7 @@ async function runPooled<T>(limit: number, tasks: (() => Promise<T>)[]): Promise
 
 // Button labels come from the page itself, so the script cannot drift from it.
 const probeDir = await mkdtemp(path.join(tmpdir(), "tap-labels-"));
-const probeEnv = await BrowserEnv.open(url, probeDir);
+const probeEnv = await BrowserEnv.open(url, probeDir, { viewport, deviceScaleFactor });
 const labels = await probeEnv.page.evaluate(() =>
   [...document.querySelectorAll<HTMLButtonElement>("button.tap")].map((b) => ({
     tag: b.dataset.agency!,
@@ -199,9 +235,9 @@ const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const summary = {
   variant,
   model,
-  viewport: VIEWPORT,
-  deviceScaleFactor: DEVICE_SCALE_FACTOR,
-  screenshot: { width: VIEWPORT.width * DEVICE_SCALE_FACTOR, height: VIEWPORT.height * DEVICE_SCALE_FACTOR },
+  viewport,
+  deviceScaleFactor,
+  screenshot: { width: viewport.width * deviceScaleFactor, height: viewport.height * deviceScaleFactor },
   coordinateConvention: "native computer tool: pixels of the last screenshot sent, (0,0) top-left",
   probes: probes.length,
   hits,

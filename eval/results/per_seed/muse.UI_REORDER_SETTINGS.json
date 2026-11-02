@@ -17,48 +17,7 @@
     "falseAlarm": true,
     "expected": [],
     "missed": [],
-    "unexpected": [
-      {
-        "intentId": "reminders",
-        "kind": "action_cost",
-        "title": "\"I want Circle to remind me to take breaks.\" takes more actions"
-      },
-      {
-        "intentId": "check_usage",
-        "kind": "goal_unreachable",
-        "title": "\"I want to see how much time I have spent on Circle today.\" succeeds less often"
-      },
-      {
-        "intentId": "check_usage",
-        "kind": "action_cost",
-        "title": "\"I want to see how much time I have spent on Circle today.\" takes more actions"
-      },
-      {
-        "intentId": "check_usage",
-        "kind": "navigation_depth",
-        "title": "\"I want to see how much time I have spent on Circle today.\" is buried deeper"
-      },
-      {
-        "intentId": "subscribe",
-        "kind": "goal_unreachable",
-        "title": "\"I want to subscribe to Circle+.\" succeeds less often"
-      },
-      {
-        "intentId": "terms",
-        "kind": "goal_unreachable",
-        "title": "\"I want to see the renewal terms for Circle+ before deciding.\" succeeds less often"
-      },
-      {
-        "intentId": "resume",
-        "kind": "action_cost",
-        "title": "\"I cancelled Circle+ before and want it back.\" takes more actions"
-      },
-      {
-        "intentId": "friends_only",
-        "kind": "action_cost",
-        "title": "\"I want only my friends to be able to message me.\" takes more actions"
-      }
-    ],
+    "unexpected": [],
     "oraclePassRate": {
       "precise_location.share": {
         "baseline": 1,
@@ -69,8 +28,8 @@
         "candidate": 1
       },
       "precise_location.revoke": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 1,
+        "candidate": 1
       },
       "screen_time.set_limit": {
         "baseline": 1,
@@ -82,10 +41,10 @@
       },
       "screen_time.remove_limit": {
         "baseline": 1,
-        "candidate": 1
+        "candidate": 0.6666666666666666
       },
       "screen_time.check_usage": {
-        "baseline": 1,
+        "baseline": 0.6666666666666666,
         "candidate": 0.3333333333333333
       },
       "screen_time.shorten": {
@@ -94,22 +53,22 @@
       },
       "subscription.subscribe": {
         "baseline": 1,
-        "candidate": 0.3333333333333333
+        "candidate": 1
       },
       "subscription.decline": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 0,
+        "candidate": 0.3333333333333333
       },
       "subscription.cancel": {
-        "baseline": 0.3333333333333333,
-        "candidate": 0.6666666666666666
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.terms": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.resume": {
-        "baseline": 0.6666666666666666,
+        "baseline": 0.3333333333333333,
         "candidate": 0.3333333333333333
       },
       "teen_dm.allow_all": {
@@ -135,46 +94,46 @@
     }
   },
   "variance": {
-    "UI_REORDER_SETTINGS/precise_location.share/baseline": 0,
+    "UI_REORDER_SETTINGS/precise_location.share/baseline": 0.8888888888888888,
     "UI_REORDER_SETTINGS/precise_location.share/candidate": 0,
-    "UI_REORDER_SETTINGS/precise_location.withhold/baseline": 5.555555555555556,
+    "UI_REORDER_SETTINGS/precise_location.withhold/baseline": 0.888888888888889,
     "UI_REORDER_SETTINGS/precise_location.withhold/candidate": 0,
-    "UI_REORDER_SETTINGS/precise_location.revoke/baseline": 8.666666666666666,
-    "UI_REORDER_SETTINGS/precise_location.revoke/candidate": 13.555555555555557,
-    "UI_REORDER_SETTINGS/screen_time.set_limit/baseline": 2.6666666666666665,
-    "UI_REORDER_SETTINGS/screen_time.set_limit/candidate": 14,
+    "UI_REORDER_SETTINGS/precise_location.revoke/baseline": 0.8888888888888888,
+    "UI_REORDER_SETTINGS/precise_location.revoke/candidate": 0,
+    "UI_REORDER_SETTINGS/screen_time.set_limit/baseline": 0,
+    "UI_REORDER_SETTINGS/screen_time.set_limit/candidate": 0.22222222222222224,
     "UI_REORDER_SETTINGS/screen_time.reminders/baseline": 0,
-    "UI_REORDER_SETTINGS/screen_time.reminders/candidate": 2,
-    "UI_REORDER_SETTINGS/screen_time.remove_limit/baseline": 8.222222222222221,
-    "UI_REORDER_SETTINGS/screen_time.remove_limit/candidate": 8.666666666666666,
-    "UI_REORDER_SETTINGS/screen_time.check_usage/baseline": 2,
-    "UI_REORDER_SETTINGS/screen_time.check_usage/candidate": 2,
-    "UI_REORDER_SETTINGS/screen_time.shorten/baseline": 0.888888888888889,
-    "UI_REORDER_SETTINGS/screen_time.shorten/candidate": 5.5555555555555545,
-    "UI_REORDER_SETTINGS/subscription.subscribe/baseline": 8.222222222222221,
-    "UI_REORDER_SETTINGS/subscription.subscribe/candidate": 1.5555555555555556,
-    "UI_REORDER_SETTINGS/subscription.decline/baseline": 0.2222222222222222,
-    "UI_REORDER_SETTINGS/subscription.decline/candidate": 0.2222222222222222,
-    "UI_REORDER_SETTINGS/subscription.cancel/baseline": 0.2222222222222222,
-    "UI_REORDER_SETTINGS/subscription.cancel/candidate": 2,
-    "UI_REORDER_SETTINGS/subscription.terms/baseline": 10.888888888888888,
-    "UI_REORDER_SETTINGS/subscription.terms/candidate": 0.2222222222222222,
-    "UI_REORDER_SETTINGS/subscription.resume/baseline": 1.5555555555555556,
-    "UI_REORDER_SETTINGS/subscription.resume/candidate": 0.2222222222222222,
-    "UI_REORDER_SETTINGS/teen_dm.allow_all/baseline": 1.5555555555555554,
-    "UI_REORDER_SETTINGS/teen_dm.allow_all/candidate": 2.888888888888889,
-    "UI_REORDER_SETTINGS/teen_dm.friends_only/baseline": 2,
+    "UI_REORDER_SETTINGS/screen_time.reminders/candidate": 0,
+    "UI_REORDER_SETTINGS/screen_time.remove_limit/baseline": 0,
+    "UI_REORDER_SETTINGS/screen_time.remove_limit/candidate": 10.888888888888891,
+    "UI_REORDER_SETTINGS/screen_time.check_usage/baseline": 0.22222222222222224,
+    "UI_REORDER_SETTINGS/screen_time.check_usage/candidate": 20.22222222222222,
+    "UI_REORDER_SETTINGS/screen_time.shorten/baseline": 0.22222222222222224,
+    "UI_REORDER_SETTINGS/screen_time.shorten/candidate": 0.22222222222222224,
+    "UI_REORDER_SETTINGS/subscription.subscribe/baseline": 0.8888888888888888,
+    "UI_REORDER_SETTINGS/subscription.subscribe/candidate": 0,
+    "UI_REORDER_SETTINGS/subscription.decline/baseline": 3.555555555555556,
+    "UI_REORDER_SETTINGS/subscription.decline/candidate": 0.888888888888889,
+    "UI_REORDER_SETTINGS/subscription.cancel/baseline": 0.888888888888889,
+    "UI_REORDER_SETTINGS/subscription.cancel/candidate": 0.6666666666666666,
+    "UI_REORDER_SETTINGS/subscription.terms/baseline": 0.8888888888888888,
+    "UI_REORDER_SETTINGS/subscription.terms/candidate": 0,
+    "UI_REORDER_SETTINGS/subscription.resume/baseline": 10.888888888888888,
+    "UI_REORDER_SETTINGS/subscription.resume/candidate": 10.888888888888888,
+    "UI_REORDER_SETTINGS/teen_dm.allow_all/baseline": 0,
+    "UI_REORDER_SETTINGS/teen_dm.allow_all/candidate": 0,
+    "UI_REORDER_SETTINGS/teen_dm.friends_only/baseline": 0,
     "UI_REORDER_SETTINGS/teen_dm.friends_only/candidate": 0,
-    "UI_REORDER_SETTINGS/teen_dm.block_unknown/baseline": 1.5555555555555554,
-    "UI_REORDER_SETTINGS/teen_dm.block_unknown/candidate": 1.5555555555555554,
+    "UI_REORDER_SETTINGS/teen_dm.block_unknown/baseline": 0,
+    "UI_REORDER_SETTINGS/teen_dm.block_unknown/candidate": 0,
     "UI_REORDER_SETTINGS/teen_dm.inspect/baseline": 0,
-    "UI_REORDER_SETTINGS/teen_dm.inspect/candidate": 0.888888888888889,
-    "UI_REORDER_SETTINGS/teen_dm.relax/baseline": 2,
+    "UI_REORDER_SETTINGS/teen_dm.inspect/candidate": 0,
+    "UI_REORDER_SETTINGS/teen_dm.relax/baseline": 0,
     "UI_REORDER_SETTINGS/teen_dm.relax/candidate": 0
   },
   "tokens": {
-    "input": 1769872,
-    "output": 257348,
-    "calls": 852
+    "input": 2171532,
+    "output": 150656,
+    "calls": 607
   }
 }

@@ -26,30 +26,30 @@
     "unexpected": [],
     "oraclePassRate": {
       "precise_location.share": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "precise_location.withhold": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "precise_location.revoke": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       }
     }
   },
   "variance": {
     "LOC_CONFIRM_SHAME/precise_location.share/baseline": 0,
-    "LOC_CONFIRM_SHAME/precise_location.share/candidate": 8,
+    "LOC_CONFIRM_SHAME/precise_location.share/candidate": 0,
     "LOC_CONFIRM_SHAME/precise_location.withhold/baseline": 0,
     "LOC_CONFIRM_SHAME/precise_location.withhold/candidate": 0,
-    "LOC_CONFIRM_SHAME/precise_location.revoke/baseline": 2.6666666666666665,
+    "LOC_CONFIRM_SHAME/precise_location.revoke/baseline": 0,
     "LOC_CONFIRM_SHAME/precise_location.revoke/candidate": 0
   },
   "tokens": {
-    "input": 131624,
-    "output": 17452,
-    "calls": 65
+    "input": 0,
+    "output": 0,
+    "calls": 0
   }
 }

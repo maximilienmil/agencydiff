@@ -9,31 +9,33 @@
     "contracts": [
       "precise_location"
     ],
-    "detected": true,
+    "detected": false,
     "lenientDetected": true,
     "falseAlarm": false,
     "expected": [
       {
         "intent": "precise_location.revoke",
         "metric": "action_cost",
-        "hit": true,
-        "via": "finding"
+        "hit": false,
+        "via": "behavior"
       }
     ],
-    "missed": [],
+    "missed": [
+      "precise_location.revoke"
+    ],
     "unexpected": [],
     "oraclePassRate": {
       "precise_location.share": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "precise_location.withhold": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "precise_location.revoke": {
-        "baseline": 1,
-        "candidate": 0.6666666666666666
+        "baseline": 0,
+        "candidate": 0
       }
     }
   },
@@ -42,12 +44,12 @@
     "LOC_NO_DIRECT_TOGGLE/precise_location.share/candidate": 0,
     "LOC_NO_DIRECT_TOGGLE/precise_location.withhold/baseline": 0,
     "LOC_NO_DIRECT_TOGGLE/precise_location.withhold/candidate": 0,
-    "LOC_NO_DIRECT_TOGGLE/precise_location.revoke/baseline": 0.888888888888889,
-    "LOC_NO_DIRECT_TOGGLE/precise_location.revoke/candidate": 0.2222222222222222
+    "LOC_NO_DIRECT_TOGGLE/precise_location.revoke/baseline": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.revoke/candidate": 0
   },
   "tokens": {
-    "input": 166922,
-    "output": 24374,
-    "calls": 80
+    "input": 0,
+    "output": 0,
+    "calls": 0
   }
 }

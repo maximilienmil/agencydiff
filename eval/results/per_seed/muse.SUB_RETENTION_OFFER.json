@@ -21,29 +21,23 @@
       }
     ],
     "missed": [],
-    "unexpected": [
-      {
-        "intentId": "decline",
-        "kind": "navigation_depth",
-        "title": "\"I do not want Circle+. Decline the offer.\" is buried deeper"
-      }
-    ],
+    "unexpected": [],
     "oraclePassRate": {
       "subscription.subscribe": {
-        "baseline": 0.3333333333333333,
+        "baseline": 1,
         "candidate": 1
       },
       "subscription.decline": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 0.3333333333333333,
+        "candidate": 0
       },
       "subscription.cancel": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.3333333333333333
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.terms": {
-        "baseline": 0.3333333333333333,
-        "candidate": 0.3333333333333333
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.resume": {
         "baseline": 0.6666666666666666,
@@ -52,20 +46,20 @@
     }
   },
   "variance": {
-    "SUB_RETENTION_OFFER/subscription.subscribe/baseline": 0.2222222222222222,
-    "SUB_RETENTION_OFFER/subscription.subscribe/candidate": 4.666666666666667,
-    "SUB_RETENTION_OFFER/subscription.decline/baseline": 0.6666666666666666,
+    "SUB_RETENTION_OFFER/subscription.subscribe/baseline": 5.5555555555555545,
+    "SUB_RETENTION_OFFER/subscription.subscribe/candidate": 0.22222222222222224,
+    "SUB_RETENTION_OFFER/subscription.decline/baseline": 5.5555555555555545,
     "SUB_RETENTION_OFFER/subscription.decline/candidate": 0.2222222222222222,
-    "SUB_RETENTION_OFFER/subscription.cancel/baseline": 0.2222222222222222,
+    "SUB_RETENTION_OFFER/subscription.cancel/baseline": 1.5555555555555556,
     "SUB_RETENTION_OFFER/subscription.cancel/candidate": 0,
-    "SUB_RETENTION_OFFER/subscription.terms/baseline": 5.5555555555555545,
-    "SUB_RETENTION_OFFER/subscription.terms/candidate": 4.666666666666667,
-    "SUB_RETENTION_OFFER/subscription.resume/baseline": 4.222222222222222,
-    "SUB_RETENTION_OFFER/subscription.resume/candidate": 6.222222222222221
+    "SUB_RETENTION_OFFER/subscription.terms/baseline": 0.8888888888888888,
+    "SUB_RETENTION_OFFER/subscription.terms/candidate": 0.8888888888888888,
+    "SUB_RETENTION_OFFER/subscription.resume/baseline": 6.222222222222221,
+    "SUB_RETENTION_OFFER/subscription.resume/candidate": 4.222222222222222
   },
   "tokens": {
-    "input": 692272,
-    "output": 111658,
-    "calls": 331
+    "input": 942751,
+    "output": 84737,
+    "calls": 256
   }
 }

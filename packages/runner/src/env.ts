@@ -22,6 +22,31 @@ import { assertScreenshotSpace, toCssPixels } from "./coordinates.js";
 export const VIEWPORT = { width: 430, height: 860 };
 export const DEVICE_SCALE_FACTOR = 1;
 
+function parseSizeEnv(raw: string | undefined, name: string): { width: number; height: number } | undefined {
+  if (!raw) return undefined;
+  const m = raw.match(/^(\d+)x(\d+)$/);
+  if (!m) throw new Error(`${name} must look like 1280x800, got ${raw}`);
+  return { width: Number(m[1]), height: Number(m[2]) };
+}
+
+function parseDsfEnv(raw: string | undefined, name: string): number | undefined {
+  if (raw === undefined) return undefined;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n <= 0) throw new Error(`${name} must be a positive number, got ${raw}`);
+  return n;
+}
+
+/**
+ * Viewport for Muse computer-use probes. Tap grounding measures far better
+ * at desktop width (83% hits at 1280x800 vs 43% at 430x860, same centred
+ * 430px column), so the Muse driver defaults to it; override with
+ * AGENCY_MUSE_VIEWPORT=WxH. Scripted probes and audits keep VIEWPORT.
+ */
+export const MUSE_VIEWPORT =
+  parseSizeEnv(process.env.AGENCY_MUSE_VIEWPORT, "AGENCY_MUSE_VIEWPORT") ?? { width: 1280, height: 800 };
+export const MUSE_DEVICE_SCALE_FACTOR =
+  parseDsfEnv(process.env.AGENCY_MUSE_DSF, "AGENCY_MUSE_DSF") ?? DEVICE_SCALE_FACTOR;
+
 /** Thrown when Audit mode refuses an action before it touches the page. */
 export class AuditBlockedError extends Error {
   constructor(reason: string) {
@@ -56,23 +81,33 @@ export class BrowserEnv {
     private outDir: string,
     readonly audit = false,
     private readonly prodSafe?: ProdSafeEnvOptions,
+    private readonly viewport = VIEWPORT,
+    private readonly deviceScaleFactor = DEVICE_SCALE_FACTOR,
   ) {}
 
   static async open(
     url: string,
     outDir: string,
-    opts?: { audit?: boolean; storageState?: string; prodSafe?: ProdSafeEnvOptions },
+    opts?: {
+      audit?: boolean;
+      storageState?: string;
+      prodSafe?: ProdSafeEnvOptions;
+      viewport?: { width: number; height: number };
+      deviceScaleFactor?: number;
+    },
   ): Promise<BrowserEnv> {
     await mkdir(outDir, { recursive: true });
     if (opts?.storageState) assertStorageStateFile(opts.storageState);
+    const viewport = opts?.viewport ?? VIEWPORT;
+    const deviceScaleFactor = opts?.deviceScaleFactor ?? DEVICE_SCALE_FACTOR;
     const browser = await chromium.launch();
     const ctx = await browser.newContext({
-      viewport: VIEWPORT,
-      deviceScaleFactor: DEVICE_SCALE_FACTOR,
+      viewport,
+      deviceScaleFactor,
       ...(opts?.storageState ? { storageState: opts.storageState } : {}),
     });
     const page = await ctx.newPage();
-    const env = new BrowserEnv(browser, page, outDir, opts?.audit ?? false, opts?.prodSafe);
+    const env = new BrowserEnv(browser, page, outDir, opts?.audit ?? false, opts?.prodSafe, viewport, deviceScaleFactor);
     if (env.audit || env.prodSafe) {
       // Purchase-flow navigation never leaves the lab: abort it at the
       // network layer as well as refusing the triggering action.
@@ -100,7 +135,7 @@ export class BrowserEnv {
       const png = await this.page.screenshot({ path: path.join(this.outDir, file) });
       // The model grounds in screenshot pixels, so a shot that is not exactly
       // viewport times scale would shift every click. Fail here, not as noise.
-      assertScreenshotSpace(png, VIEWPORT, DEVICE_SCALE_FACTOR);
+      assertScreenshotSpace(png, this.viewport, this.deviceScaleFactor);
       return { png, file };
     } finally {
       await release?.()?.catch(() => {});
@@ -364,7 +399,7 @@ export class BrowserEnv {
     if (this.prodSafe) await this.refuseProdUnsafe(actions);
     // Actions arrive in screenshot pixels; Playwright's mouse takes CSS
     // pixels. Identical at scale 1, divided out otherwise.
-    const pt = (x: number, y: number) => toCssPixels(x, y, DEVICE_SCALE_FACTOR);
+    const pt = (x: number, y: number) => toCssPixels(x, y, this.deviceScaleFactor);
     const m = this.page.mouse;
     const k = this.page.keyboard;
     for (const a of actions) {

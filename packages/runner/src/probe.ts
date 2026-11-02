@@ -13,7 +13,7 @@ import {
 } from "@agencydiff/core";
 import type { Driver } from "./drivers.js";
 import type { LiveEvent } from "@agencydiff/core";
-import { AuditBlockedError, BrowserEnv } from "./env.js";
+import { AuditBlockedError, BrowserEnv, MUSE_DEVICE_SCALE_FACTOR, MUSE_VIEWPORT } from "./env.js";
 import { statesMatch } from "./prodSafe.js";
 import {
   ANDROID_STATE_PORT,
@@ -181,10 +181,14 @@ async function runProbeOnce(
       run,
     });
   } else {
+    // Muse probes ground far better at desktop width, so they run there by
+    // default (configurable via AGENCY_MUSE_VIEWPORT / AGENCY_MUSE_DSF).
+    const muse = opts.driver.kind === "muse";
     env = await BrowserEnv.open(withFixture(opts.target[variant], intent.fixture), dir, {
       audit: opts.oracle?.audit,
       storageState: opts.auth?.storageState,
       ...(opts.prodSafe ? { prodSafe: { allowedTags: opts.prodSafe.allowedTags } } : {}),
+      ...(muse ? { viewport: MUSE_VIEWPORT, deviceScaleFactor: MUSE_DEVICE_SCALE_FACTOR } : {}),
     });
   }
   const t0 = Date.now();

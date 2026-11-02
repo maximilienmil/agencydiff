@@ -9,57 +9,59 @@
     "contracts": [
       "teen_dm"
     ],
-    "detected": true,
+    "detected": false,
     "lenientDetected": true,
     "falseAlarm": false,
     "expected": [
       {
         "intent": "teen_dm.block_unknown",
         "metric": "action_cost",
-        "hit": true,
-        "via": "finding"
+        "hit": false,
+        "via": "behavior"
       }
     ],
-    "missed": [],
+    "missed": [
+      "teen_dm.block_unknown"
+    ],
     "unexpected": [],
     "oraclePassRate": {
       "teen_dm.allow_all": {
-        "baseline": 1,
-        "candidate": 0.6666666666666666
+        "baseline": 0,
+        "candidate": 0
       },
       "teen_dm.friends_only": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "teen_dm.block_unknown": {
-        "baseline": 1,
-        "candidate": 0.6666666666666666
+        "baseline": 0,
+        "candidate": 0
       },
       "teen_dm.inspect": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "teen_dm.relax": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       }
     }
   },
   "variance": {
-    "DM_CONFIRM_BLOCK/teen_dm.allow_all/baseline": 2.888888888888889,
-    "DM_CONFIRM_BLOCK/teen_dm.allow_all/candidate": 0.22222222222222224,
-    "DM_CONFIRM_BLOCK/teen_dm.friends_only/baseline": 5.5555555555555545,
-    "DM_CONFIRM_BLOCK/teen_dm.friends_only/candidate": 0.22222222222222224,
-    "DM_CONFIRM_BLOCK/teen_dm.block_unknown/baseline": 2.888888888888889,
-    "DM_CONFIRM_BLOCK/teen_dm.block_unknown/candidate": 3.555555555555556,
-    "DM_CONFIRM_BLOCK/teen_dm.inspect/baseline": 3.5555555555555554,
-    "DM_CONFIRM_BLOCK/teen_dm.inspect/candidate": 3.5555555555555554,
-    "DM_CONFIRM_BLOCK/teen_dm.relax/baseline": 0.888888888888889,
-    "DM_CONFIRM_BLOCK/teen_dm.relax/candidate": 0.888888888888889
+    "DM_CONFIRM_BLOCK/teen_dm.allow_all/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.allow_all/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.friends_only/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.friends_only/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.block_unknown/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.block_unknown/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.inspect/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.inspect/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.relax/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.relax/candidate": 0
   },
   "tokens": {
-    "input": 386522,
-    "output": 44085,
-    "calls": 192
+    "input": 0,
+    "output": 0,
+    "calls": 0
   }
 }

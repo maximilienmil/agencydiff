@@ -158,7 +158,13 @@ export class MuseDriver implements Driver {
       if (attempt > 0) await new Promise((r) => setTimeout(r, 1000 * 2 ** (attempt - 1)));
       const res = await fetch(`${this.baseUrl}/responses`, {
         method: "POST",
-        headers: { "content-type": "application/json", authorization: `Bearer ${this.opts.apiKey}` },
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${this.opts.apiKey}`,
+          // No keep-alive: a pooled idle socket otherwise keeps one-shot CLI
+          // runs from exiting after the last probe.
+          connection: "close",
+        },
         body: JSON.stringify({ model: this.model, tools: [{ type: "computer" }], ...body }),
       });
       if (res.ok) {

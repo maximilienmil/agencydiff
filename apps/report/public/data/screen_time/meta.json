@@ -1,0 +1,10 @@
+{
+  "id": "screen_time",
+  "decision": "screen_time",
+  "date": "2026-11-02T05:18:31.327Z",
+  "driver": "muse",
+  "target": {
+    "baseline": "http://localhost:5183/?variant=baseline",
+    "candidate": "http://localhost:5183/?seeds=ST_HIDE_REMOVE"
+  }
+}

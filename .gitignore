@@ -6,3 +6,5 @@ audits/**/*.png
 *.log
 .sam-cache/
 eval/results/traces/
+apps/report/public/data/benchmark/
+apps/report/tests/overview-*.png

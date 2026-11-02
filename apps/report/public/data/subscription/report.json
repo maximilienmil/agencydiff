@@ -1,0 +1,544 @@
+{
+  "decision": "subscription",
+  "promise": "Users can join Circle+, see the renewal terms before buying, decline the offer, and cancel.",
+  "aggregates": [
+    {
+      "intentId": "subscribe",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 10,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.subscribe.baseline.0",
+        "subscription.subscribe.baseline.1",
+        "subscription.subscribe.baseline.2"
+      ]
+    },
+    {
+      "intentId": "subscribe",
+      "variant": "candidate",
+      "runs": 3,
+      "successRate": 0.6666666666666666,
+      "actionCount": 13,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "annual",
+      "traceIds": [
+        "subscription.subscribe.candidate.0",
+        "subscription.subscribe.candidate.1",
+        "subscription.subscribe.candidate.2"
+      ]
+    }
+  ],
+  "asymmetry": [
+    {
+      "accept": "subscribe",
+      "reject": "decline"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "medium",
+      "kind": "goal_unreachable",
+      "intentId": "subscribe",
+      "title": "\"I want to subscribe to Circle+.\" succeeds less often",
+      "baseline": 1,
+      "candidate": 0.6666666666666666,
+      "evidence": [
+        {
+          "traceId": "subscription.subscribe.baseline.0"
+        },
+        {
+          "traceId": "subscription.subscribe.baseline.1"
+        },
+        {
+          "traceId": "subscription.subscribe.baseline.2"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.0"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.1"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.2"
+        }
+      ],
+      "id": "subscription/goal_unreachable/subscribe",
+      "decision": "subscription"
+    },
+    {
+      "severity": "high",
+      "kind": "action_cost",
+      "intentId": "subscribe",
+      "title": "\"I want to subscribe to Circle+.\" takes more actions",
+      "baseline": 10,
+      "candidate": 13,
+      "evidence": [
+        {
+          "traceId": "subscription.subscribe.baseline.0"
+        },
+        {
+          "traceId": "subscription.subscribe.baseline.1"
+        },
+        {
+          "traceId": "subscription.subscribe.baseline.2"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.0"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.1"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.2"
+        }
+      ],
+      "id": "subscription/action_cost/subscribe",
+      "decision": "subscription"
+    },
+    {
+      "severity": "medium",
+      "kind": "default_flip",
+      "title": "Default for subscription changed",
+      "baseline": "monthly",
+      "candidate": "annual",
+      "evidence": [
+        {
+          "traceId": "subscription.subscribe.baseline.0"
+        },
+        {
+          "traceId": "subscription.subscribe.baseline.1"
+        },
+        {
+          "traceId": "subscription.subscribe.baseline.2"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.0"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.1"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.2"
+        }
+      ],
+      "id": "subscription/default_flip/pair",
+      "decision": "subscription"
+    }
+  ],
+  "passed": false,
+  "evidence": [
+    {
+      "traceId": "subscription.subscribe.baseline.0",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:23.473Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 5,
+          "screenshot": "006.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 18982,
+              "box": {
+                "left": 18,
+                "top": 403,
+                "right": 412,
+                "bottom": 453
+              }
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 766.9999999999999,
+              "box": {
+                "left": 24,
+                "top": 454,
+                "right": 73,
+                "bottom": 474
+              }
+            }
+          ],
+          "prominenceRatio": 24.748370273794006,
+          "overlay": "evidence-step-5.png",
+          "imageHash": "ade075bd0910d3d365e302db96a3c9c30df6c09076bb0965139aff602588d671"
+        },
+        {
+          "step": 19,
+          "screenshot": "020.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "traceId": "subscription.subscribe.baseline.1",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:24.735Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 7,
+          "screenshot": "008.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 18982,
+              "box": {
+                "left": 18,
+                "top": 403,
+                "right": 412,
+                "bottom": 453
+              }
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 766.9999999999999,
+              "box": {
+                "left": 24,
+                "top": 454,
+                "right": 73,
+                "bottom": 474
+              }
+            }
+          ],
+          "prominenceRatio": 24.748370273794006,
+          "overlay": "evidence-step-7.png",
+          "imageHash": "ade075bd0910d3d365e302db96a3c9c30df6c09076bb0965139aff602588d671"
+        },
+        {
+          "step": 9,
+          "screenshot": "010.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "traceId": "subscription.subscribe.baseline.2",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:24.773Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 1,
+          "screenshot": "002.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 18982,
+              "box": {
+                "left": 18,
+                "top": 403,
+                "right": 412,
+                "bottom": 453
+              }
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 766.9999999999999,
+              "box": {
+                "left": 24,
+                "top": 454,
+                "right": 73,
+                "bottom": 474
+              }
+            }
+          ],
+          "prominenceRatio": 24.748370273794006,
+          "overlay": "evidence-step-1.png",
+          "imageHash": "ade075bd0910d3d365e302db96a3c9c30df6c09076bb0965139aff602588d671"
+        },
+        {
+          "step": 3,
+          "screenshot": "004.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "traceId": "subscription.subscribe.candidate.0",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:24.807Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "screenshot": "004.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 18974,
+              "box": {
+                "left": 18,
+                "top": 403,
+                "right": 412,
+                "bottom": 453
+              }
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 761.9999999999999,
+              "box": {
+                "left": 24,
+                "top": 454,
+                "right": 72,
+                "bottom": 474
+              }
+            }
+          ],
+          "prominenceRatio": 24.900262467191606,
+          "overlay": "evidence-step-3.png",
+          "imageHash": "e760480bb7182dc800632ea17d9afe21450e0eeb370683669047bb446ad4a220"
+        },
+        {
+          "step": 19,
+          "screenshot": "020.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "traceId": "subscription.subscribe.candidate.1",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:26.028Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "screenshot": "004.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 18974,
+              "box": {
+                "left": 18,
+                "top": 403,
+                "right": 412,
+                "bottom": 453
+              }
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 761.9999999999999,
+              "box": {
+                "left": 24,
+                "top": 454,
+                "right": 72,
+                "bottom": 474
+              }
+            }
+          ],
+          "prominenceRatio": 24.900262467191606,
+          "overlay": "evidence-step-3.png",
+          "imageHash": "e760480bb7182dc800632ea17d9afe21450e0eeb370683669047bb446ad4a220"
+        },
+        {
+          "step": 4,
+          "screenshot": "005.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "traceId": "subscription.subscribe.candidate.2",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:26.062Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 16,
+          "screenshot": "017.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 18974,
+              "box": {
+                "left": 18,
+                "top": 403,
+                "right": 412,
+                "bottom": 453
+              }
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 761.9999999999999,
+              "box": {
+                "left": 24,
+                "top": 454,
+                "right": 72,
+                "bottom": 474
+              }
+            }
+          ],
+          "prominenceRatio": 24.900262467191606,
+          "overlay": "evidence-step-16.png",
+          "imageHash": "e760480bb7182dc800632ea17d9afe21450e0eeb370683669047bb446ad4a220"
+        },
+        {
+          "step": 19,
+          "screenshot": "020.png",
+          "controls": [
+            {
+              "tag": "sub.subscribe",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "sub.decline",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

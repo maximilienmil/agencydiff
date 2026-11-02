@@ -1,0 +1,10 @@
+{
+  "id": "subscription",
+  "decision": "subscription",
+  "date": "2026-11-02T05:54:19.670Z",
+  "driver": "muse",
+  "target": {
+    "baseline": "http://localhost:5183/?variant=baseline",
+    "candidate": "http://localhost:5183/?seeds=SUB_DEFAULT_ANNUAL"
+  }
+}

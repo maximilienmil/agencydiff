@@ -1,0 +1,68 @@
+{
+  "traceId": "screen_time.remove_limit.baseline.0",
+  "model": "sam-3.1",
+  "producedAt": "2026-11-02T05:57:23.176Z",
+  "steps": [
+    {
+      "step": -1,
+      "screenshot": "000.png",
+      "controls": [
+        {
+          "tag": "st.limit_off",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "st.limit_1h",
+          "inInitialViewport": false
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "screenshot": "005.png",
+      "controls": [
+        {
+          "tag": "st.limit_off",
+          "inInitialViewport": false,
+          "objectId": "1",
+          "maskAreaPx": 23327,
+          "box": {
+            "left": 0,
+            "top": 115,
+            "right": 430,
+            "bottom": 175
+          }
+        },
+        {
+          "tag": "st.limit_1h",
+          "inInitialViewport": false,
+          "objectId": "2",
+          "maskAreaPx": 23691,
+          "box": {
+            "left": 0,
+            "top": 171,
+            "right": 430,
+            "bottom": 230
+          }
+        }
+      ],
+      "prominenceRatio": 0.9846355155966401,
+      "overlay": "evidence-step-4.png",
+      "imageHash": "ee01918e99633a45b53e6fbc1d34844973a5a3a56c583ca6b3608f35c4eeef30"
+    },
+    {
+      "step": 6,
+      "screenshot": "007.png",
+      "controls": [
+        {
+          "tag": "st.limit_off",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "st.limit_1h",
+          "inInitialViewport": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "traceId": "screen_time.remove_limit.candidate.2",
+  "model": "sam-3.1",
+  "producedAt": "2026-11-02T05:57:23.385Z",
+  "steps": [
+    {
+      "step": -1,
+      "screenshot": "000.png",
+      "controls": [
+        {
+          "tag": "st.limit_off",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "st.limit_1h",
+          "inInitialViewport": false
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "screenshot": "005.png",
+      "controls": [
+        {
+          "tag": "st.limit_off",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "st.limit_1h",
+          "inInitialViewport": false,
+          "objectId": "2",
+          "maskAreaPx": 23805,
+          "box": {
+            "left": 0,
+            "top": 171,
+            "right": 430,
+            "bottom": 230
+          }
+        }
+      ],
+      "overlay": "evidence-step-4.png",
+      "imageHash": "e0ba4b9bad80b4927ac7b4a4e245e751267a0fccdcc4c95c231ccf411d43ba22"
+    },
+    {
+      "step": 19,
+      "screenshot": "020.png",
+      "controls": [
+        {
+          "tag": "st.limit_off",
+          "inInitialViewport": false,
+          "objectId": "1",
+          "maskAreaPx": 19130,
+          "box": {
+            "left": 18,
+            "top": 206,
+            "right": 412,
+            "bottom": 256
+          }
+        },
+        {
+          "tag": "st.limit_1h",
+          "inInitialViewport": false
+        }
+      ],
+      "overlay": "evidence-step-19.png",
+      "imageHash": "c5d5a7ff0d87eaad6a706318e44932c94fa421848361ed2cdfd6c2a8b7fbf79e"
+    }
+  ]
+}

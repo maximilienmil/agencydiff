@@ -1,0 +1,329 @@
+{
+  "id": "teen_dm.block_unknown.candidate.1",
+  "decision": "teen_dm",
+  "intentId": "block_unknown",
+  "variant": "candidate",
+  "repeat": 1,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T05:19:06.066Z",
+  "initial": {
+    "state": {
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "observation": {
+      "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+      "screen": "home",
+      "tags": [
+        {
+          "tag": "nav.settings",
+          "box": [
+            378,
+            65.5,
+            44,
+            44
+          ],
+          "inViewport": true
+        }
+      ],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 3666,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 393,
+          "y": 72
+        }
+      ],
+      "after": {
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              65.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              228,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              284,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              340,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              396,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 10581,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 211,
+          "y": 233
+        }
+      ],
+      "after": {
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "screen": "privacy",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              65.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "privacy.messages",
+            "box": [
+              0,
+              172,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "privacy.advanced",
+            "box": [
+              0,
+              228,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 18617,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 210,
+          "y": 177
+        }
+      ],
+      "after": {
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "screen": "messages",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              65.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.allow_all",
+            "box": [
+              0,
+              165.296875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.friends_only",
+            "box": [
+              0,
+              221.296875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.more",
+            "box": [
+              0,
+              277.296875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 27231,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 210,
+          "y": 281
+        }
+      ],
+      "after": {
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "screen": "dm_options",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              65.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.block_unknown",
+            "box": [
+              0,
+              116,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 35882,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 29,
+          "y": 130
+        }
+      ],
+      "after": {
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "screen": "dm_options",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              65.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.block_unknown",
+            "box": [
+              0,
+              116,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {
+    "state": {
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "blocked",
+      "dm.inspected": true,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "agentMessage": "Blocked messages from strangers by enabling **Privacy > Messages > More options > Block unknown people** (Only friends can reach you; everyone else is blocked)."
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "agent_done"
+}

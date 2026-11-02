@@ -23,7 +23,7 @@
       "actionCount": 3,
       "navigationDepth": 2,
       "initiallyVisible": false,
-      "defaultValue": "monthly",
+      "defaultValue": "annual",
       "traceIds": [
         "subscription.subscribe.candidate.0"
       ]
@@ -49,7 +49,7 @@
       "actionCount": 3,
       "navigationDepth": 2,
       "initiallyVisible": false,
-      "defaultValue": "monthly",
+      "defaultValue": "annual",
       "traceIds": [
         "subscription.decline.candidate.0"
       ]
@@ -101,7 +101,7 @@
       "actionCount": 3,
       "navigationDepth": 3,
       "initiallyVisible": false,
-      "defaultValue": "monthly",
+      "defaultValue": "annual",
       "traceIds": [
         "subscription.terms.candidate.0"
       ]
@@ -141,6 +141,24 @@
       "candidate": 1
     }
   ],
-  "findings": [],
-  "passed": true
+  "findings": [
+    {
+      "severity": "medium",
+      "kind": "default_flip",
+      "title": "Default for subscription changed",
+      "baseline": "monthly",
+      "candidate": "annual",
+      "evidence": [
+        {
+          "traceId": "subscription.subscribe.baseline.0"
+        },
+        {
+          "traceId": "subscription.subscribe.candidate.0"
+        }
+      ],
+      "id": "subscription/default_flip/pair",
+      "decision": "subscription"
+    }
+  ],
+  "passed": false
 }

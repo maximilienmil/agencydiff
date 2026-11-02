@@ -1,65 +1,49 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..ff02b18 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -265,32 +265,34 @@ export function App() {
+@@ -335,6 +335,14 @@
  
          {screen === "settings" && (
            <List>
--            {has("UI_REORDER_SETTINGS") ? (
--              <>
--                <Row label="Help" />
--                <Row label="Account" />
--                <Row label="Notifications" />
--              </>
--            ) : (
--              <>
--                <Row label="Account" />
--                <Row label="Notifications" />
--              </>
--            )}
-+            <div className="section">Most used</div>
-             <Row
-               label={has("UI_PRIVACY_COPY") ? "Messaging & privacy" : "Privacy"}
-               tag="settings.privacy"
-               onClick={() => push("privacy")}
-             />
++            <div className="section-head">Frequently used</div>
++            <Row
++              label={false ? "Messaging & privacy" : "Privacy"}
++              tag="settings.privacy"
++              onClick={() => push("privacy")}
++            />
 +            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
-             {!has("LOC_BURY_SETTING") && (
++            <div className="section-head">More settings</div>
+             {false ? (
+               <>
+                 <Row label="Help" />
+@@ -347,15 +355,9 @@
+                 <Row label="Notifications" />
+               </>
+             )}
+-            <Row
+-              label={false ? "Messaging & privacy" : "Privacy"}
+-              tag="settings.privacy"
+-              onClick={() => push("privacy")}
+-            />
+             {!false && (
                <Row label="Location" tag="settings.location" onClick={() => push("location")} />
              )}
 -            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
              <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
-             {has("UI_EXTRA_ROW") && (
+             {false && (
                <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
-             )}
--            {!has("UI_REORDER_SETTINGS") && <Row label="Help" />}
-+            <div className="section">General</div>
-+            {has("UI_REORDER_SETTINGS") ? (
-+              <>
-+                <Row label="Help" />
-+                <Row label="Account" />
-+                <Row label="Notifications" />
-+              </>
-+            ) : (
-+              <>
-+                <Row label="Account" />
-+                <Row label="Notifications" />
-+                <Row label="Help" />
-+              </>
-+            )}
-           </List>
-         )}
- 
+
 diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
-index fc0c978..74fc456 100644
+index dc343e1..a9f4286 100644
 --- a/apps/circle/src/styles.css
 +++ b/apps/circle/src/styles.css
-@@ -32,6 +32,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
+@@ -39,6 +39,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
  .post p { margin: 10px 14px 0; font-size: 14px; }
  
  .list { display: flex; flex-direction: column; }
-+.section { padding: 16px 18px 6px; font-size: 13px; color: var(--muted); }
++.section-head {
++  padding: 16px 18px 6px; font-size: 13px; font-weight: 600;
++  color: var(--muted);
++}
  .row {
    display: flex; align-items: center; justify-content: space-between; gap: 12px;
    width: 100%; min-height: 56px; padding: 0 18px; text-align: left; font-size: 16px;

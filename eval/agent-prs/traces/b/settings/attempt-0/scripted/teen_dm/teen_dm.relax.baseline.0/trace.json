@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T06:00:48.839Z",
+  "startedAt": "2026-11-02T09:38:41.637Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",
@@ -31,7 +32,7 @@
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            65.5,
             44,
             44
           ],
@@ -49,7 +50,7 @@
         {
           "type": "click",
           "x": 400,
-          "y": 28
+          "y": 88
         }
       ],
       "after": {
@@ -60,7 +61,7 @@
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -70,7 +71,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -80,7 +81,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              284,
               430,
               56
             ],
@@ -90,7 +91,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              340,
               430,
               56
             ],
@@ -100,7 +101,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              396,
               430,
               56
             ],
@@ -113,12 +114,12 @@
     },
     {
       "index": 1,
-      "tMs": 589,
+      "tMs": 586,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 196
+          "y": 256
         }
       ],
       "after": {
@@ -129,7 +130,7 @@
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -139,7 +140,7 @@
             "tag": "privacy.messages",
             "box": [
               0,
-              112,
+              172,
               430,
               56
             ],
@@ -149,7 +150,7 @@
             "tag": "privacy.advanced",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -162,12 +163,12 @@
     },
     {
       "index": 2,
-      "tMs": 860,
+      "tMs": 858,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 140
+          "y": 200
         }
       ],
       "after": {
@@ -178,7 +179,7 @@
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -188,7 +189,7 @@
             "tag": "dm.allow_all",
             "box": [
               0,
-              105.296875,
+              165.296875,
               430,
               56
             ],
@@ -198,7 +199,7 @@
             "tag": "dm.friends_only",
             "box": [
               0,
-              161.296875,
+              221.296875,
               430,
               56
             ],
@@ -208,7 +209,7 @@
             "tag": "dm.block_unknown",
             "box": [
               0,
-              217.296875,
+              277.296875,
               430,
               56
             ],
@@ -221,12 +222,12 @@
     },
     {
       "index": 3,
-      "tMs": 1134,
+      "tMs": 1126,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 133
+          "y": 193
         }
       ],
       "after": {
@@ -237,7 +238,7 @@
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -247,7 +248,7 @@
             "tag": "dm.allow_all",
             "box": [
               0,
-              105.296875,
+              165.296875,
               430,
               56
             ],
@@ -257,7 +258,7 @@
             "tag": "dm.friends_only",
             "box": [
               0,
-              161.296875,
+              221.296875,
               430,
               56
             ],
@@ -267,7 +268,7 @@
             "tag": "dm.block_unknown",
             "box": [
               0,
-              217.296875,
+              277.296875,
               430,
               56
             ],
@@ -281,6 +282,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

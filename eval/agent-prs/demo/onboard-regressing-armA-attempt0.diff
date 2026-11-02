@@ -1,13 +1,13 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..b2eec1e 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -65,7 +65,7 @@ function initialLocation(params: URLSearchParams, seeds: Set<SeedId>): LocationS
+@@ -63,7 +63,9 @@
    // Any other fixture means the probe starts past onboarding: the location
    // prompt is answered and out of the way of the decision under test.
    if (params.get("fixture")) return { mode: "off", prompt: "answered" };
--  return { mode: seeds.has("LOC_DEFAULT_ON") ? "precise" : "off", prompt: "open" };
-+  return { mode: seeds.has("LOC_DEFAULT_ON") ? "precise" : "off", prompt: "answered" };
+-  return { mode: "off", prompt: "open" };
++  // Simplified onboarding: land straight on the feed; location stays
++  // available anytime in Settings.
++  return { mode: "off", prompt: "answered" };
  }
  
- function initialDm(params: URLSearchParams, seeds: Set<SeedId>): DmState {
+ function initialDm(params: URLSearchParams): DmState {

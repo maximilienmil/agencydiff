@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:23:57.659Z",
+  "startedAt": "2026-11-02T09:09:11.412Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",
@@ -19,19 +20,19 @@
       "st.reminders": false,
       "st.viewed": false,
       "sub.active": false,
-      "sub.plan": "monthly",
+      "sub.plan": "annual",
       "sub.offer": "open",
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:58026/?fixture=prompt-answered",
+      "url": "http://127.0.0.1:59935/?fixture=prompt-answered",
       "screen": "home",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
@@ -44,23 +45,23 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 307,
+      "tMs": 306,
       "actions": [
         {
           "type": "click",
           "x": 400,
-          "y": 28
+          "y": 68
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:58026/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:59935/?fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -70,7 +71,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -80,7 +81,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -90,7 +91,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              320.5,
               430,
               56
             ],
@@ -100,7 +101,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              376.5,
               430,
               56
             ],
@@ -113,23 +114,23 @@
     },
     {
       "index": 1,
-      "tMs": 572,
+      "tMs": 592,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 364
+          "y": 405
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:58026/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:59935/?fixture=prompt-answered",
         "screen": "plus",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -139,7 +140,7 @@
             "tag": "sub.plan_monthly",
             "box": [
               0,
-              211.59375,
+              274.5,
               430,
               56
             ],
@@ -149,9 +150,9 @@
             "tag": "sub.plan_annual",
             "box": [
               0,
-              267.59375,
+              330.5,
               430,
-              56
+              71
             ],
             "inViewport": true
           },
@@ -159,7 +160,7 @@
             "tag": "sub.subscribe",
             "box": [
               18,
-              413.1875,
+              491.09375,
               394,
               48
             ],
@@ -169,7 +170,7 @@
             "tag": "sub.decline",
             "box": [
               18,
-              461.1875,
+              539.09375,
               59.703125,
               27
             ],
@@ -179,7 +180,7 @@
             "tag": "sub.terms",
             "box": [
               0,
-              508.1875,
+              586.09375,
               430,
               56
             ],
@@ -197,18 +198,18 @@
         {
           "type": "click",
           "x": 215,
-          "y": 536
+          "y": 614
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:58026/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:59935/?fixture=prompt-answered",
         "screen": "terms",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -222,6 +223,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",
@@ -231,7 +233,7 @@
       "st.reminders": false,
       "st.viewed": false,
       "sub.active": false,
-      "sub.plan": "monthly",
+      "sub.plan": "annual",
       "sub.offer": "open",
       "sub.terms_viewed": true
     }

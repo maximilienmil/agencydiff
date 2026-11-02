@@ -1,0 +1,13 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -683,6 +683,10 @@
+           <List>
+             <div className="note">
+               Circle+ · {PLAN_NAME[sub.plan]} · {PLAN_PRICE[sub.plan]}
++            </div>
++            <div className="note">
++              Before you cancel: you&apos;ll lose ad-free browsing and early access to new features at the end of
++              your paid period.
+             </div>
+             {false ? (
+               <Row label="Manage plan" tag="sub.billing_manage" onClick={() => push("plan_manage")} />

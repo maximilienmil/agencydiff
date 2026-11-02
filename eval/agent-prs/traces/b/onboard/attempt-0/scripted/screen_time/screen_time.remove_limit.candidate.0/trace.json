@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:57:07.000Z",
+  "startedAt": "2026-11-02T09:32:56.917Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",
@@ -24,14 +25,14 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:50498/?fixture=limit-set",
+      "url": "http://127.0.0.1:64841/?fixture=limit-set",
       "screen": "home",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
@@ -44,23 +45,23 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 323,
+      "tMs": 347,
       "actions": [
         {
           "type": "click",
           "x": 400,
-          "y": 28
+          "y": 68
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:50498/?fixture=limit-set",
+        "url": "http://127.0.0.1:64841/?fixture=limit-set",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -70,7 +71,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -80,7 +81,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -90,7 +91,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              320.5,
               430,
               56
             ],
@@ -100,7 +101,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              376.5,
               430,
               56
             ],
@@ -113,23 +114,23 @@
     },
     {
       "index": 1,
-      "tMs": 610,
+      "tMs": 645,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 308
+          "y": 349
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:50498/?fixture=limit-set",
+        "url": "http://127.0.0.1:64841/?fixture=limit-set",
         "screen": "screentime",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -139,7 +140,7 @@
             "tag": "st.reminders",
             "box": [
               387,
-              158.5,
+              199,
               22,
               22
             ],
@@ -149,7 +150,7 @@
             "tag": "screentime.limit",
             "box": [
               0,
-              198,
+              238.5,
               430,
               56
             ],
@@ -159,7 +160,7 @@
             "tag": "screentime.usage",
             "box": [
               0,
-              254,
+              294.5,
               430,
               56
             ],
@@ -172,23 +173,23 @@
     },
     {
       "index": 2,
-      "tMs": 874,
+      "tMs": 919,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 226
+          "y": 267
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:50498/?fixture=limit-set",
+        "url": "http://127.0.0.1:64841/?fixture=limit-set",
         "screen": "st_limit",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -198,7 +199,7 @@
             "tag": "st.limit_off",
             "box": [
               0,
-              56,
+              96.5,
               430,
               56
             ],
@@ -208,7 +209,7 @@
             "tag": "st.limit_1h",
             "box": [
               0,
-              112,
+              152.5,
               430,
               56
             ],
@@ -218,7 +219,7 @@
             "tag": "st.limit_2h",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -228,7 +229,7 @@
             "tag": "st.limit_4h",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -241,23 +242,23 @@
     },
     {
       "index": 3,
-      "tMs": 1137,
+      "tMs": 1211,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 84
+          "y": 125
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:50498/?fixture=limit-set",
+        "url": "http://127.0.0.1:64841/?fixture=limit-set",
         "screen": "st_limit",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -267,7 +268,7 @@
             "tag": "st.limit_off",
             "box": [
               0,
-              56,
+              96.5,
               430,
               56
             ],
@@ -277,7 +278,7 @@
             "tag": "st.limit_1h",
             "box": [
               0,
-              112,
+              152.5,
               430,
               56
             ],
@@ -287,7 +288,7 @@
             "tag": "st.limit_2h",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -297,7 +298,7 @@
             "tag": "st.limit_4h",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -311,6 +312,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

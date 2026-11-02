@@ -1,42 +1,29 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..6526313 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -347,25 +347,27 @@ export function App() {
+@@ -417,7 +417,7 @@
  
          {screen === "messages" && (
            <List>
 -            <div className="note">Teen account · {copyTweak ? "pick who can reach you" : "Choose who can send you messages."}</div>
-+            <div className="note">
-+              Teen account · You&apos;re in control. Pick who can reach you — you can change this anytime.
-+            </div>
-+            <Option
-+              title="Friends only · recommended"
-+              sub="A cozy default: only people you follow back can message you"
-+              tag="dm.friends_only"
-+              selected={dm.policy === "friends"}
-+              onPick={() => chooseDm("friends")}
-+            />
++            <div className="note">Teen account · You&apos;re in control — choose who can reach you.</div>
              <Option
                title="Everyone"
--              sub="Anyone on Circle can message this account"
-+              sub="Anyone on Circle can send you a message, including people you don't know"
-               tag="dm.allow_all"
-               selected={dm.policy === "everyone"}
-               onPick={() => chooseDm("everyone")}
+               sub="Anyone on Circle can message this account"
+@@ -427,7 +427,7 @@
              />
--            <Option
--              title="Friends only"
+             <Option
+               title="Friends only"
 -              sub="Only people you follow back can message you"
--              tag="dm.friends_only"
--              selected={dm.policy === "friends"}
--              onPick={() => chooseDm("friends")}
--            />
-             {!has("DM_HIDE_BLOCK") ? (
++              sub="People you follow back can message you — warm and comfortable"
+               tag="dm.friends_only"
+               selected={dm.policy === "friends"}
+               onPick={() => chooseDm("friends")}
+@@ -435,7 +435,7 @@
+             {!false ? (
                <Option
                  title="Block unknown people"
 -                sub="Only friends can reach you; everyone else is blocked"
-+                sub="Extra-quiet mode: only friends can reach you, everyone else is blocked"
++                sub="Friends can always reach you; messages from anyone else stay blocked"
                  tag="dm.block_unknown"
                  selected={dm.policy === "blocked"}
                  onPick={() => chooseDm("blocked")}

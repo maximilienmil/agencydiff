@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:30:58.698Z",
+  "startedAt": "2026-11-02T09:21:08.063Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",
@@ -24,14 +25,14 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:60295/?fixture=prompt-answered",
+      "url": "http://127.0.0.1:62084/?fixture=prompt-answered",
       "screen": "home",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
@@ -44,23 +45,23 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 329,
+      "tMs": 322,
       "actions": [
         {
           "type": "click",
           "x": 400,
-          "y": 28
+          "y": 68
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:60295/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:62084/?fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -70,7 +71,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -80,7 +81,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -90,7 +91,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              320.5,
               430,
               56
             ],
@@ -100,7 +101,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              376.5,
               430,
               56
             ],
@@ -113,23 +114,23 @@
     },
     {
       "index": 1,
-      "tMs": 603,
+      "tMs": 609,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 308
+          "y": 349
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:60295/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:62084/?fixture=prompt-answered",
         "screen": "screentime",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -139,7 +140,7 @@
             "tag": "st.reminders",
             "box": [
               387,
-              158.5,
+              199,
               22,
               22
             ],
@@ -149,7 +150,7 @@
             "tag": "screentime.limit",
             "box": [
               0,
-              198,
+              238.5,
               430,
               56
             ],
@@ -159,7 +160,7 @@
             "tag": "screentime.usage",
             "box": [
               0,
-              254,
+              294.5,
               430,
               56
             ],
@@ -172,23 +173,23 @@
     },
     {
       "index": 2,
-      "tMs": 870,
+      "tMs": 889,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 282
+          "y": 323
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:60295/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:62084/?fixture=prompt-answered",
         "screen": "usage",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -202,6 +203,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

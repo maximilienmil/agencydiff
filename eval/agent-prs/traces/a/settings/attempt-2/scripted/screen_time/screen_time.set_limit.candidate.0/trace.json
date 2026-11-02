@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:27:25.924Z",
+  "startedAt": "2026-11-02T09:15:48.896Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",
@@ -24,14 +25,14 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:59243/?fixture=prompt-answered",
+      "url": "http://127.0.0.1:61106/?fixture=prompt-answered",
       "screen": "home",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
@@ -44,25 +45,35 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 321,
+      "tMs": 337,
       "actions": [
         {
           "type": "click",
           "x": 400,
-          "y": 28
+          "y": 68
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:59243/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:61106/?fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.search",
+            "box": [
+              18,
+              108.5,
+              394,
+              40
             ],
             "inViewport": true
           },
@@ -70,7 +81,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              94,
+              189.5,
               430,
               56
             ],
@@ -80,7 +91,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              150,
+              245.5,
               430,
               56
             ],
@@ -90,7 +101,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              262,
+              450.5,
               430,
               56
             ],
@@ -100,7 +111,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              412,
+              506.5,
               430,
               56
             ],
@@ -113,23 +124,23 @@
     },
     {
       "index": 1,
-      "tMs": 611,
+      "tMs": 620,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 178
+          "y": 274
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:59243/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:61106/?fixture=prompt-answered",
         "screen": "screentime",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -139,7 +150,7 @@
             "tag": "st.reminders",
             "box": [
               387,
-              158.5,
+              199,
               22,
               22
             ],
@@ -149,7 +160,7 @@
             "tag": "screentime.limit",
             "box": [
               0,
-              198,
+              238.5,
               430,
               56
             ],
@@ -159,7 +170,7 @@
             "tag": "screentime.usage",
             "box": [
               0,
-              254,
+              294.5,
               430,
               56
             ],
@@ -172,23 +183,23 @@
     },
     {
       "index": 2,
-      "tMs": 889,
+      "tMs": 887,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 226
+          "y": 267
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:59243/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:61106/?fixture=prompt-answered",
         "screen": "st_limit",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -198,7 +209,7 @@
             "tag": "st.limit_off",
             "box": [
               0,
-              56,
+              96.5,
               430,
               56
             ],
@@ -208,7 +219,7 @@
             "tag": "st.limit_1h",
             "box": [
               0,
-              112,
+              152.5,
               430,
               56
             ],
@@ -218,7 +229,7 @@
             "tag": "st.limit_2h",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -228,7 +239,7 @@
             "tag": "st.limit_4h",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -241,23 +252,23 @@
     },
     {
       "index": 3,
-      "tMs": 1152,
+      "tMs": 1154,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 140
+          "y": 181
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:59243/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:61106/?fixture=prompt-answered",
         "screen": "st_limit",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -267,7 +278,7 @@
             "tag": "st.limit_off",
             "box": [
               0,
-              56,
+              96.5,
               430,
               56
             ],
@@ -277,7 +288,7 @@
             "tag": "st.limit_1h",
             "box": [
               0,
-              112,
+              152.5,
               430,
               56
             ],
@@ -287,7 +298,7 @@
             "tag": "st.limit_2h",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -297,7 +308,7 @@
             "tag": "st.limit_4h",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -311,6 +322,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

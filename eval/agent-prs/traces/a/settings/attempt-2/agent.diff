@@ -1,12 +1,19 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..139fae6 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -265,27 +265,20 @@ export function App() {
+@@ -121,6 +121,7 @@
+   const [stConfirm, setStConfirm] = useState<null | (() => void)>(null);
+   const [subRetain, setSubRetain] = useState(false);
+   const [dark, setDark] = useState(false);
++  const [settingsQuery, setSettingsQuery] = useState("");
+   // Optional sign-in gate: behind ?auth=1 the app shows a
+   // sign-in screen until the test user is authenticated. The session
+   // persists in localStorage so a saved storageState file carries it.
+@@ -334,34 +335,14 @@
+         {screen === "home" && <Feed posts={posts} />}
  
          {screen === "settings" && (
-           <List>
--            {has("UI_REORDER_SETTINGS") ? (
+-          <List>
+-            {false ? (
 -              <>
 -                <Row label="Help" />
 -                <Row label="Account" />
@@ -18,38 +25,123 @@ index 95f50db..139fae6 100644
 -                <Row label="Notifications" />
 -              </>
 -            )}
-+            <div className="section-header">Frequently used</div>
-+            {has("UI_REORDER_SETTINGS") && <Row label="Help" />}
-             <Row
-               label={has("UI_PRIVACY_COPY") ? "Messaging & privacy" : "Privacy"}
-               tag="settings.privacy"
-               onClick={() => push("privacy")}
-             />
-+            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
-+            <Row label="Notifications" />
-             {!has("LOC_BURY_SETTING") && (
-               <Row label="Location" tag="settings.location" onClick={() => push("location")} />
-             )}
+-            <Row
+-              label={false ? "Messaging & privacy" : "Privacy"}
+-              tag="settings.privacy"
+-              onClick={() => push("privacy")}
+-            />
+-            {!false && (
+-              <Row label="Location" tag="settings.location" onClick={() => push("location")} />
+-            )}
 -            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
-+            <div className="section-header">More</div>
-+            <Row label="Account" />
-             <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
-             {has("UI_EXTRA_ROW") && (
-               <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
+-            <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
+-            {false && (
+-              <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
+-            )}
+-            {!false && <Row label="Help" />}
+-          </List>
++          <SettingsList
++            query={settingsQuery}
++            onQuery={setSettingsQuery}
++            onPrivacy={() => push("privacy")}
++            onLocation={() => push("location")}
++            onScreenTime={() => push("screentime")}
++            onPlus={() => push("plus")}
++          />
+         )}
+ 
+         {screen === "privacy" && (
+@@ -868,6 +849,73 @@
+ 
+ function List({ children }: { children: React.ReactNode }) {
+   return <div className="list">{children}</div>;
++}
++
++function SettingsList({
++  query,
++  onQuery,
++  onPrivacy,
++  onLocation,
++  onScreenTime,
++  onPlus,
++}: {
++  query: string;
++  onQuery: (q: string) => void;
++  onPrivacy: () => void;
++  onLocation: () => void;
++  onScreenTime: () => void;
++  onPlus: () => void;
++}) {
++  const q = query.trim().toLowerCase();
++  const match = (label: string) => !q || label.toLowerCase().includes(q);
++  const mostUsed = [
++    { label: "Privacy", tag: "settings.privacy", onClick: onPrivacy },
++    { label: "Screen Time", tag: "settings.screentime", onClick: onScreenTime },
++    { label: "Notifications", tag: undefined as string | undefined, onClick: undefined as (() => void) | undefined },
++  ].filter((r) => match(r.label));
++  const more = [
++    { label: "Account", tag: undefined as string | undefined, onClick: undefined as (() => void) | undefined },
++    { label: "Location", tag: "settings.location", onClick: onLocation },
++    { label: "Circle+", tag: "settings.subscription", onClick: onPlus },
++    { label: "Help", tag: undefined as string | undefined, onClick: undefined as (() => void) | undefined },
++  ].filter((r) => match(r.label));
++  return (
++    <List>
++      <div className="settings-search">
++        <input
++          type="search"
++          placeholder="Search settings"
++          aria-label="Search settings"
++          data-agency="settings.search"
++          value={query}
++          onChange={(e) => onQuery(e.target.value)}
++        />
++      </div>
++      {mostUsed.length > 0 && (
++        <>
++          <div className="section-label" aria-hidden={!q}>
++            Most used
++          </div>
++          {mostUsed.map((r) => (
++            <Row key={r.label} label={r.label} tag={r.tag} onClick={r.onClick} />
++          ))}
++        </>
++      )}
++      {more.length > 0 && (
++        <>
++          <div className="section-label" aria-hidden={!q}>
++            More
++          </div>
++          {more.map((r) => (
++            <Row key={r.label} label={r.label} tag={r.tag} onClick={r.onClick} />
++          ))}
++        </>
++      )}
++      {mostUsed.length === 0 && more.length === 0 && (
++        <div className="note">No settings match “{query.trim()}”.</div>
++      )}
++    </List>
++  );
+ }
+ 
+ function Row({ label, detail, tag, onClick }: { label: string; detail?: string; tag?: string; onClick?: () => void }) {
+
 diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
-index fc0c978..8ac3e93 100644
+index dc343e1..d33c232 100644
 --- a/apps/circle/src/styles.css
 +++ b/apps/circle/src/styles.css
-@@ -32,6 +32,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
+@@ -39,6 +39,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
  .post p { margin: 10px 14px 0; font-size: 14px; }
  
  .list { display: flex; flex-direction: column; }
-+.section-header {
-+  padding: 16px 18px 6px;
-+  font-size: 13px;
-+  font-weight: 600;
++.section-label {
++  padding: 16px 18px 6px; font-size: 13px; font-weight: 600;
 +  color: var(--muted);
-+  border-bottom: 1px solid var(--line);
++}
++.settings-search { padding: 12px 18px 4px; }
++.settings-search input {
++  width: 100%; height: 40px; border: 1px solid var(--line); border-radius: 10px;
++  padding: 0 12px; font: inherit; font-size: 15px; background: var(--card); color: var(--ink);
 +}
  .row {
    display: flex; align-items: center; justify-content: space-between; gap: 12px;

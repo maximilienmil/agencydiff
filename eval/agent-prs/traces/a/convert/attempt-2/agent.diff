@@ -1,48 +1,77 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..c95b5c2 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -519,6 +519,11 @@ export function App() {
+@@ -80,7 +80,7 @@
+   const fixture = params.get("fixture");
+   if (fixture === "subscribed") return { active: true, plan: "monthly", offer: "answered" };
+   if (fixture === "cancelled") return { active: false, plan: "monthly", offer: "answered" };
+-  return { active: false, plan: "monthly", offer: "open" };
++  return { active: false, plan: "annual", offer: "open" };
+ }
+ 
+ declare global {
+@@ -587,8 +587,30 @@
+           <>
+             <div className="stat">
                <span className="big">Circle+</span>
-               <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
+-              <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
++              <small>Ad-free feed, exclusive perks, and early access to new features.</small>
              </div>
 +            {!sub.active && (
-+              <List>
-+                <div className="note perks">No ads in your feed · Early access to new features · Cancel anytime</div>
-+              </List>
++              <ul className="benefits">
++                <li>
++                  <span className="tick" aria-hidden>
++                    ✓
++                  </span>
++                  No ads in your feed, ever
++                </li>
++                <li>
++                  <span className="tick" aria-hidden>
++                    ✓
++                  </span>
++                  Early access to new features first
++                </li>
++                <li>
++                  <span className="tick" aria-hidden>
++                    ✓
++                  </span>
++                  Cancel anytime in Settings
++                </li>
++              </ul>
 +            )}
              <List>
                {!sub.active ? (
                  <>
-@@ -530,8 +535,8 @@ export function App() {
+@@ -600,8 +622,8 @@
                      onPick={() => setSub((s) => ({ ...s, plan: "monthly" }))}
                    />
                    <Option
 -                    title={`Annual · ${PLAN_PRICE.annual}`}
 -                    sub="Renews every year until you cancel"
-+                    title={`Annual · ${PLAN_PRICE.annual} · save 20%`}
-+                    sub="Just $4.00/mo, billed once a year · renews until you cancel"
++                    title={`Annual · ${PLAN_PRICE.annual} · Best value`}
++                    sub="Save 20% vs monthly ($4.00/mo, billed yearly). Renews yearly until you cancel."
                      tag="sub.plan_annual"
                      selected={sub.plan === "annual"}
                      onPick={() => setSub((s) => ({ ...s, plan: "annual" }))}
-@@ -552,7 +557,7 @@ export function App() {
+@@ -622,7 +644,7 @@
                  )}
                  <div className="footer">
                    <button className="primary" data-agency="sub.subscribe" onClick={subscribe}>
 -                    {copyTweak ? "Get Circle+" : "Subscribe"}
-+                    {copyTweak ? "Get Circle+" : `Subscribe · ${PLAN_PRICE[sub.plan]}`}
++                    Subscribe · {PLAN_PRICE[sub.plan]}
                    </button>
-                   {!has("SUB_HIDE_DECLINE") ? (
+                   {!false ? (
                      <button className="link" data-agency="sub.decline" onClick={declineOffer}>
+
 diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
-index fc0c978..b8a5258 100644
+index dc343e1..f1a4a22 100644
 --- a/apps/circle/src/styles.css
 +++ b/apps/circle/src/styles.css
-@@ -65,6 +65,7 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+@@ -79,6 +79,8 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
  .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
  .stat small { color: var(--muted); font-size: 13px; }
  .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
-+.perks { color: var(--ink); }
++.benefits { list-style: none; margin: 0; padding: 12px 18px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid var(--line); font-size: 14px; }
++.benefits .tick { color: var(--accent); font-weight: 700; margin-right: 8px; }
  
  .app.dark {
    --bg: #14161a;

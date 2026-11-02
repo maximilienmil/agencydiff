@@ -1,42 +1,23 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..38e5f3b 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -218,8 +218,7 @@ export function App() {
+@@ -234,8 +234,7 @@
    const declineOffer = () => setSub((s) => ({ ...s, offer: "answered" }));
  
    const requestCancel = () => {
--    if (has("SUB_RETENTION_OFFER")) setSubRetain(true);
+-    if (false) setSubRetain(true);
 -    else setSub((s) => ({ ...s, active: false }));
 +    setSubRetain(true);
    };
    const confirmCancel = () => {
      setSub((s) => ({ ...s, active: false }));
-@@ -757,14 +756,19 @@ export function App() {
+@@ -827,8 +826,8 @@
        {subRetain && (
          <div className="scrim">
            <div className="sheet" role="dialog">
 -            <h2>Stay for half price?</h2>
 -            <p>Keep Circle+ with 50% off for the next 2 months.</p>
--            <button className="primary" data-agency="sub.keep" onClick={() => setSubRetain(false)}>
--              Keep Circle+
--            </button>
--            <button className="link" data-agency="sub.confirm_cancel" onClick={confirmCancel}>
--              Cancel anyway
--            </button>
 +            <h2>Cancel Circle+?</h2>
-+            <p>
-+              Circle+ ({PLAN_NAME[sub.plan]} · {PLAN_PRICE[sub.plan]}) stays active until the end of the
-+              paid period. Afterwards the account returns to the free plan.
-+            </p>
-+            <div className="pair">
-+              <button className="secondary" data-agency="sub.keep" onClick={() => setSubRetain(false)}>
-+                Keep subscription
-+              </button>
-+              <button className="secondary" data-agency="sub.confirm_cancel" onClick={confirmCancel}>
-+                Cancel subscription
-+              </button>
-+            </div>
-           </div>
-         </div>
-       )}
++            <p>You&apos;ll lose ad-free browsing and early access to new features. You keep Circle+ until the end of the paid period.</p>
+             <button className="primary" data-agency="sub.keep" onClick={() => setSubRetain(false)}>
+               Keep Circle+
+             </button>

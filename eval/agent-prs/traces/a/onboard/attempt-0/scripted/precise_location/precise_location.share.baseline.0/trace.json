@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:24:53.010Z",
+  "startedAt": "2026-11-02T09:10:13.578Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "open",
@@ -31,7 +32,7 @@
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            65.5,
             44,
             44
           ],
@@ -64,7 +65,7 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 317,
+      "tMs": 324,
       "actions": [
         {
           "type": "click",
@@ -80,7 +81,7 @@
             "tag": "nav.settings",
             "box": [
               378,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -94,6 +95,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": true,
       "location.mode": "precise",
       "location.prompt": "answered",

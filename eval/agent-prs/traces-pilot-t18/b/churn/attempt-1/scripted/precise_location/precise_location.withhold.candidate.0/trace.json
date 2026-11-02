@@ -1,0 +1,116 @@
+{
+  "id": "precise_location.withhold.candidate.0",
+  "decision": "precise_location",
+  "intentId": "withhold",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-02T06:08:56.524Z",
+  "initial": {
+    "state": {
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "open",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "observation": {
+      "url": "http://127.0.0.1:54843/",
+      "screen": "home+location_prompt",
+      "tags": [
+        {
+          "tag": "nav.settings",
+          "box": [
+            378,
+            5.5,
+            44,
+            44
+          ],
+          "inViewport": false
+        },
+        {
+          "tag": "location.decline",
+          "box": [
+            20,
+            784,
+            190,
+            48
+          ],
+          "inViewport": true
+        },
+        {
+          "tag": "location.allow",
+          "box": [
+            220,
+            784,
+            190,
+            48
+          ],
+          "inViewport": true
+        }
+      ],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 347,
+      "actions": [
+        {
+          "type": "click",
+          "x": 115,
+          "y": 808
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:54843/",
+        "screen": "home",
+        "tags": [
+          {
+            "tag": "nav.settings",
+            "box": [
+              378,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "001.png"
+      },
+      "note": "location.decline"
+    }
+  ],
+  "final": {
+    "state": {
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done"
+}

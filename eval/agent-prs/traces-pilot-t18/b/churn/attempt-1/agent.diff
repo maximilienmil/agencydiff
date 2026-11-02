@@ -1,0 +1,43 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..64a96f0 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -614,6 +614,10 @@ export function App() {
+             <div className="note">
+               Circle+ · {PLAN_NAME[sub.plan]} · {PLAN_PRICE[sub.plan]}
+             </div>
++            <div className="note">
++              Before you cancel: you would lose ad-free browsing and early access to new features. Your plan stays
++              active until the end of the paid period.
++            </div>
+             {has("SUB_BURY_CANCEL") ? (
+               <Row label="Manage plan" tag="sub.billing_manage" onClick={() => push("plan_manage")} />
+             ) : (
+@@ -757,14 +761,19 @@ export function App() {
+       {subRetain && (
+         <div className="scrim">
+           <div className="sheet" role="dialog">
+-            <h2>Stay for half price?</h2>
+-            <p>Keep Circle+ with 50% off for the next 2 months.</p>
+-            <button className="primary" data-agency="sub.keep" onClick={() => setSubRetain(false)}>
+-              Keep Circle+
+-            </button>
+-            <button className="link" data-agency="sub.confirm_cancel" onClick={confirmCancel}>
+-              Cancel anyway
+-            </button>
++            <h2>Cancel Circle+?</h2>
++            <p>
++              You would lose ad-free browsing and early access to new features. Your plan stays active until the end
++              of the paid period.
++            </p>
++            <div className="pair">
++              <button className="secondary" data-agency="sub.keep" onClick={() => setSubRetain(false)}>
++                Keep Circle+
++              </button>
++              <button className="secondary" data-agency="sub.confirm_cancel" onClick={confirmCancel}>
++                Cancel subscription
++              </button>
++            </div>
+           </div>
+         </div>
+       )}

@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:28:59.882Z",
+  "startedAt": "2026-11-02T09:17:28.858Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "open",
@@ -24,36 +25,36 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:59804/",
+      "url": "http://127.0.0.1:61473/",
       "screen": "home+location_prompt",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
           "inViewport": false
         },
         {
-          "tag": "location.decline",
+          "tag": "location.allow",
           "box": [
             20,
-            784,
-            190,
+            747,
+            390,
             48
           ],
           "inViewport": true
         },
         {
-          "tag": "location.allow",
+          "tag": "location.decline",
           "box": [
-            220,
-            784,
-            190,
-            48
+            20,
+            805,
+            390,
+            27
           ],
           "inViewport": true
         }
@@ -64,23 +65,23 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 315,
+      "tMs": 342,
       "actions": [
         {
           "type": "click",
-          "x": 315,
-          "y": 808
+          "x": 215,
+          "y": 771
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:59804/",
+        "url": "http://127.0.0.1:61473/",
         "screen": "home",
         "tags": [
           {
             "tag": "nav.settings",
             "box": [
               378,
-              5.5,
+              46,
               44,
               44
             ],
@@ -94,6 +95,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": true,
       "location.mode": "precise",
       "location.prompt": "answered",

@@ -21,7 +21,7 @@
       "runs": 1,
       "successRate": 1,
       "actionCount": 1,
-      "navigationDepth": 0,
+      "navigationDepth": 1,
       "initiallyVisible": true,
       "defaultValue": false,
       "traceIds": [
@@ -47,7 +47,7 @@
       "runs": 1,
       "successRate": 1,
       "actionCount": 1,
-      "navigationDepth": 0,
+      "navigationDepth": 1,
       "initiallyVisible": true,
       "defaultValue": false,
       "traceIds": [

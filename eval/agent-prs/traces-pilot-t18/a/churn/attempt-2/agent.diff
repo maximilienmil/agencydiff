@@ -1,0 +1,25 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..418a941 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -218,8 +218,7 @@ export function App() {
+   const declineOffer = () => setSub((s) => ({ ...s, offer: "answered" }));
+ 
+   const requestCancel = () => {
+-    if (has("SUB_RETENTION_OFFER")) setSubRetain(true);
+-    else setSub((s) => ({ ...s, active: false }));
++    setSubRetain(true);
+   };
+   const confirmCancel = () => {
+     setSub((s) => ({ ...s, active: false }));
+@@ -757,8 +756,8 @@ export function App() {
+       {subRetain && (
+         <div className="scrim">
+           <div className="sheet" role="dialog">
+-            <h2>Stay for half price?</h2>
+-            <p>Keep Circle+ with 50% off for the next 2 months.</p>
++            <h2>Cancel Circle+?</h2>
++            <p>You&apos;ll lose ad-free browsing and early access to new features. You keep Circle+ until the end of the paid period.</p>
+             <button className="primary" data-agency="sub.keep" onClick={() => setSubRetain(false)}>
+               Keep Circle+
+             </button>

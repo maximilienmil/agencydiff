@@ -1,0 +1,132 @@
+[
+  {
+    "intentId": "refund-help",
+    "goal": "Find out what to do if a federal tax refund is lost, stolen, or delayed.",
+    "before": {
+      "intentId": "refund-help",
+      "goal": "Find out what to do if a federal tax refund is lost, stolen, or delayed.",
+      "attempts": 3,
+      "successes": 2,
+      "successRate": 0.6666666666666666,
+      "medianSteps": 12,
+      "medianActions": 11.5,
+      "medianActionsToSatisfy": 11.5,
+      "medianDepth": 1.5,
+      "medianMs": 188973.5,
+      "screens": [
+        "www.irs.gov/individuals/tax-withholding-estimator",
+        "www.irs.gov/",
+        "www.irs.gov/site-index-search",
+        "www.irs.gov/ko/refunds",
+        "www.irs.gov/ht/refunds"
+      ],
+      "traceIds": [
+        "refund_status_info.refund-help.baseline.0",
+        "refund_status_info.refund-help.baseline.1",
+        "refund_status_info.refund-help.baseline.2"
+      ]
+    },
+    "after": {
+      "intentId": "refund-help",
+      "goal": "Find out what to do if a federal tax refund is lost, stolen, or delayed.",
+      "attempts": 3,
+      "successes": 3,
+      "successRate": 1,
+      "medianSteps": 6,
+      "medianActions": 6,
+      "medianActionsToSatisfy": 6,
+      "medianDepth": 1,
+      "medianMs": 79777,
+      "screens": [],
+      "traceIds": [
+        "refund_status_info.refund-help.baseline.0",
+        "refund_status_info.refund-help.baseline.1",
+        "refund_status_info.refund-help.baseline.2"
+      ]
+    }
+  },
+  {
+    "intentId": "refund-timing",
+    "goal": "Find out how long a federal tax refund takes, and why it might be delayed.",
+    "before": {
+      "intentId": "refund-timing",
+      "goal": "Find out how long a federal tax refund takes, and why it might be delayed.",
+      "attempts": 3,
+      "successes": 1,
+      "successRate": 0.3333333333333333,
+      "medianSteps": 19,
+      "medianActions": 21,
+      "medianActionsToSatisfy": 21,
+      "medianDepth": 0,
+      "medianMs": 336562,
+      "screens": [
+        "www.irs.gov/ht/refunds",
+        "www.irs.gov/ko/refunds",
+        "www.irs.gov/ko/refunds/reduced-refund"
+      ],
+      "traceIds": [
+        "refund_status_info.refund-timing.baseline.0",
+        "refund_status_info.refund-timing.baseline.1",
+        "refund_status_info.refund-timing.baseline.2"
+      ]
+    },
+    "after": {
+      "intentId": "refund-timing",
+      "goal": "Find out how long a federal tax refund takes, and why it might be delayed.",
+      "attempts": 3,
+      "successes": 3,
+      "successRate": 1,
+      "medianSteps": 5,
+      "medianActions": 4,
+      "medianActionsToSatisfy": 4,
+      "medianDepth": 0,
+      "medianMs": 64679,
+      "screens": [],
+      "traceIds": [
+        "refund_status_info.refund-timing.baseline.0",
+        "refund_status_info.refund-timing.baseline.1",
+        "refund_status_info.refund-timing.baseline.2"
+      ]
+    }
+  },
+  {
+    "intentId": "refund-tracker",
+    "goal": "Find out how to check the status of a federal tax refund online, and what information I need to do it.",
+    "before": {
+      "intentId": "refund-tracker",
+      "goal": "Find out how to check the status of a federal tax refund online, and what information I need to do it.",
+      "attempts": 3,
+      "successes": 3,
+      "successRate": 1,
+      "medianSteps": 0,
+      "medianActions": 0,
+      "medianActionsToSatisfy": 0,
+      "medianDepth": 0,
+      "medianMs": 0,
+      "screens": [],
+      "traceIds": [
+        "refund_status_info.refund-tracker.baseline.0",
+        "refund_status_info.refund-tracker.baseline.1",
+        "refund_status_info.refund-tracker.baseline.2"
+      ]
+    },
+    "after": {
+      "intentId": "refund-tracker",
+      "goal": "Find out how to check the status of a federal tax refund online, and what information I need to do it.",
+      "attempts": 3,
+      "successes": 3,
+      "successRate": 1,
+      "medianSteps": 0,
+      "medianActions": 0,
+      "medianActionsToSatisfy": 0,
+      "medianDepth": 0,
+      "medianMs": 0,
+      "screens": [],
+      "traceIds": [
+        "refund_status_info.refund-tracker.baseline.0",
+        "refund_status_info.refund-tracker.baseline.1",
+        "refund_status_info.refund-tracker.baseline.2"
+      ]
+    }
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "id": "refund_status_info.refund-tracker.baseline.2",
+  "decision": "refund_status_info",
+  "intentId": "refund-tracker",
+  "variant": "baseline",
+  "repeat": 2,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T21:26:20.822Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.irs.gov/refunds",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "satisfied",
+  "firstSatisfiedStep": 0,
+  "actionsToSatisfy": 0
+}

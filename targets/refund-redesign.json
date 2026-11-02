@@ -1,0 +1,1 @@
+{"auditVariant":"baseline","contracts":["../contracts/refund-status.json"],"name":"refund-status-redesign-audit","oracle":"dom","urls":{"baseline":"http://127.0.0.1:5199/refund-status/"}}

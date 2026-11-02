@@ -1,0 +1,523 @@
+{
+  "id": "refund_status_info.refund-timing.baseline.2",
+  "decision": "refund_status_info",
+  "intentId": "refund-timing",
+  "variant": "baseline",
+  "repeat": 2,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T21:41:29.110Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.irs.gov/refunds",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 7344,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 387,
+          "y": 236
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 15823,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "002.png"
+      }
+    },
+    {
+      "index": 2,
+      "tMs": 25053,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 65,
+          "y": 269
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 39551,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 66,
+          "y": 270
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 54526,
+      "actions": [
+        {
+          "keys": [
+            "ctrl",
+            "l"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "text": "https://www.irs.gov/refunds\n",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 64633,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "006.png"
+      }
+    },
+    {
+      "index": 6,
+      "tMs": 78751,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 54,
+          "y": 119
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 95345,
+      "actions": [
+        {
+          "keys": [
+            "F5"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 114248,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 5,
+          "type": "scroll",
+          "x": 215,
+          "y": 515
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 134825,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 66,
+          "y": 243
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 146703,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "011.png"
+      }
+    },
+    {
+      "index": 11,
+      "tMs": 159031,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 387,
+          "y": 368
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 181629,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 278,
+          "y": 113
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 13,
+      "tMs": 198849,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "014.png"
+      }
+    },
+    {
+      "index": 14,
+      "tMs": 221381,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 397,
+          "y": 115
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds",
+        "tags": [],
+        "screenshot": "015.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 15,
+      "tMs": 239974,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 124,
+          "y": 539
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "016.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 16,
+      "tMs": 257380,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "017.png"
+      }
+    },
+    {
+      "index": 17,
+      "tMs": 290331,
+      "actions": [
+        {
+          "keys": [
+            "alt",
+            "Left"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "018.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 18,
+      "tMs": 310686,
+      "actions": [
+        {
+          "button": "back",
+          "type": "click",
+          "x": 215,
+          "y": 430
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "019.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 19,
+      "tMs": 329488,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 385,
+          "y": 367
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "020.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 20,
+      "tMs": 344701,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "021.png"
+      }
+    },
+    {
+      "index": 21,
+      "tMs": 397614,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 168,
+          "y": 366
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "022.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 22,
+      "tMs": 415431,
+      "actions": [
+        {
+          "type": "double_click",
+          "x": 386,
+          "y": 368
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "023.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 23,
+      "tMs": 448086,
+      "actions": [
+        {
+          "keys": [
+            "ctrl",
+            "t"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "024.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 24,
+      "tMs": 520177,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 21,
+          "y": 368
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ko/refunds/reduced-refund",
+        "tags": [],
+        "screenshot": "025.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "step_budget"
+}

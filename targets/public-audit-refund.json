@@ -1,0 +1,1 @@
+{"auditVariant":"baseline","contracts":["../contracts/refund-status.json"],"name":"us-refund-status-audit","oracle":"dom","urls":{"baseline":"https://www.irs.gov/refunds"}}

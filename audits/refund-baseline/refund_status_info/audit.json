@@ -1,0 +1,68 @@
+{
+  "decision": "refund_status_info",
+  "promise": "A person can find out how to check a federal tax refund status: what information is needed, how long it takes, and what to do when something goes wrong.",
+  "variant": "baseline",
+  "target": "https://www.irs.gov/refunds",
+  "aggregates": [
+    {
+      "intentId": "refund-tracker",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 0,
+      "actionsToSatisfy": 0,
+      "navigationDepth": 0,
+      "traceIds": [
+        "refund_status_info.refund-tracker.baseline.0",
+        "refund_status_info.refund-tracker.baseline.1",
+        "refund_status_info.refund-tracker.baseline.2"
+      ]
+    },
+    {
+      "intentId": "refund-timing",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 0.3333333333333333,
+      "actionCount": 21,
+      "actionsToSatisfy": 21,
+      "navigationDepth": 0,
+      "traceIds": [
+        "refund_status_info.refund-timing.baseline.0",
+        "refund_status_info.refund-timing.baseline.1",
+        "refund_status_info.refund-timing.baseline.2"
+      ]
+    },
+    {
+      "intentId": "refund-help",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 0.6666666666666666,
+      "actionCount": 11.5,
+      "actionsToSatisfy": 11.5,
+      "navigationDepth": 1.5,
+      "traceIds": [
+        "refund_status_info.refund-help.baseline.0",
+        "refund_status_info.refund-help.baseline.1",
+        "refund_status_info.refund-help.baseline.2"
+      ]
+    }
+  ],
+  "asymmetry": [],
+  "traceIds": [
+    "refund_status_info.refund-help.baseline.0",
+    "refund_status_info.refund-help.baseline.1",
+    "refund_status_info.refund-help.baseline.2",
+    "refund_status_info.refund-timing.baseline.0",
+    "refund_status_info.refund-timing.baseline.1",
+    "refund_status_info.refund-timing.baseline.2",
+    "refund_status_info.refund-tracker.baseline.0",
+    "refund_status_info.refund-tracker.baseline.1",
+    "refund_status_info.refund-tracker.baseline.2"
+  ],
+  "modelJudged": false,
+  "cost": {
+    "totalActions": 109,
+    "totalSteps": 118,
+    "traces": 9
+  }
+}

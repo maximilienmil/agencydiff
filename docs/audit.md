@@ -1,5 +1,13 @@
 # Audit method
 
+> A read-only agent asked four license-renewal questions five times each on
+> the live California DMV site and found the answer 8 times out of 20, taking
+> a median of 5 to 23 effortful actions when it succeeded; the same agent
+> asked the same questions of a one-page concept redesign built blind from
+> the same facts and found the answer 20 times out of 20, taking a median of
+> 0 to 5 actions. On a second site, IRS refund information, the agent
+> succeeded 6 of 9 times live and 9 of 9 on the redesign.
+
 An **Audit** probes a single **Variant** with read-only discovery **Intents** and
 reports cost and **Asymmetry** only. There is no baseline, so there are no
 **Findings**. Success is decided by an **Oracle** on the final state, or is
@@ -56,6 +64,109 @@ Probes that die on model-API transport errors (HTTP 5xx) carry no finding
 and are re-run; guard refusals and step budgets are kept as traces. The
 audit report is recomputed from the trace files with `auditContract`, so a
 merged set of repeats stays deterministic.
+
+## Fact oracles and blind redesign (Ticket 7d)
+
+The v3 result was unfair in a precise way: the **Oracles** demanded the live
+site's own page wording, so a redesign that paraphrased the same answers
+failed them (live 4/12, mockup 3/12). The fix separates ground truth from
+wording in three steps: facts → fact **Oracles** → blind redesign.
+
+**Facts.** For each **Intent**, the real answer page on the live site was
+visited (read-only) and the facts a person needs were extracted into
+`eval/dmv/facts.json` (and `eval/refund/facts.json` for the second site),
+with source URLs and retrieval date. Example: the REAL ID document
+categories with concrete examples, the online-renewal eligibility window,
+how to book an appointment.
+
+**Fact oracles.** A new `facts` **Oracle** kind passes when the visible
+viewport text covers at least `minFacts` of the required facts (2 of 5 for
+every **Intent** here). Each fact carries a synonym list, and matching is
+case- and punctuation-insensitive (`normalizeText` in `packages/core`:
+lowercase, punctuation stripped, whitespace collapsed; synonyms shorter
+than three characters never match). The SAME fact **Oracle** is applied to
+both sites. Validation: the hand-checked fact texts pass every **Oracle**
+with margin, homepage-like and unrelated-topic text fails all of them, and
+`packages/core/src/dom.test.ts` covers the matcher offline, including a
+paraphrase control.
+
+**Blind redesign.** The redesigner receives the audit evidence plus the
+facts file content, because a redesign reorganises the same information,
+and MUST NOT receive the **Oracles**, synonym lists, thresholds, or
+selectors. `pnpm run redesign` takes the facts path via `--facts`, records
+exactly what it was given in the mockup's `meta.json` (`facts`,
+`oraclesWithheld`), and the mockups (`apps/redesigns/dmv-renewal`,
+`apps/redesigns/refund-status`) were generated with no hand edits.
+
+```bash
+pnpm run audit --target targets/public-audit.json --driver muse --repeats 5 --out audits/dmv-baseline-v4
+pnpm run redesign --audit audits/dmv-baseline-v4 --name dmv-renewal --facts eval/dmv/facts.json
+pnpm run serve-redesigns   # localhost:5199, for re-probing the mockups
+pnpm run audit --target targets/dmv-redesign.json --driver muse --repeats 5 --out audits/dmv-redesign-v4
+pnpm run compare-audits --before audits/dmv-baseline-v4 --after audits/dmv-redesign-v4
+pnpm run audit --target targets/public-audit-refund.json --driver muse --repeats 3 --out audits/refund-baseline
+pnpm run redesign --audit audits/refund-baseline --name refund-status --facts eval/refund/facts.json
+pnpm run audit --target targets/refund-redesign.json --driver muse --repeats 3 --out audits/refund-redesign
+pnpm run compare-audits --before audits/refund-baseline --after audits/refund-redesign
+```
+
+## The DMV result (Ticket 7d)
+
+Result (Muse driver `muse-spark-1.3-contributor`, k=5, 25 steps):
+baseline 8/20 successful (445 actions / 392 steps), mockup 20/20
+successful (59 actions / 56 steps). Success plus median time-to-fact over
+successful runs:
+
+| Intent | Success before → after | To fact before → after | Steps before → after | Time before → after |
+| --- | --- | --- | --- | --- |
+| renew-online | 3/5 → 5/5 | 5 → 0 | 6 → 0 | 68.7s → 0s |
+| renew-office | 0/5 → 5/5 | — → 5 | — → 4 | —s → 76.1s |
+| real-id-docs | 3/5 → 5/5 | 21 → 1 | 22 → 2 | 372.3s → 24.2s |
+| renew-appointment | 2/5 → 5/5 | 23 → 5 | 20 → 5 | 380.0s → 67.0s |
+
+Reading the baseline: the fact **Oracles** transfer the failure from wording
+to findability. Renew-office 0/5: four **Probes** exhausted the budget
+searching registration topics or spinning on the portal homepage, one gave
+up (`agent_done`) — none reached license office-renewal content.
+Renew-online 3/5: the two failures spent all 25 steps on the homepage.
+Real-id-docs 3/5 and renew-appointment 2/5: passes took 20+ actions of
+searching and wandering; failures ended on search pages or the budget. Two
+**Probes** died on Playwright screenshot protocol errors (environment
+fault, no finding) and were re-run once each; both reruns failed genuinely.
+
+Reading the mockup: the blind one-page redesign answers renew-online above
+the fold (all five **Probes** satisfied on the initial observation, 0
+steps) and the other three **Intents** a scroll away (median 1–5 actions
+to fact). The same wording-independent **Oracle** now passes both sites,
+so the gap measures findability headroom, not vocabulary overlap.
+
+## Second site: IRS refund status (Ticket 7d)
+
+Generality check on one more public, read-only, non-political government
+information task: federal tax-refund information on irs.gov
+(`contracts/refund-status.json`, `targets/public-audit-refund.json`): how
+to check refund status online, how long a refund takes, and what to do when
+something goes wrong. Same pipeline at k=3, neutral tone throughout.
+
+Result (same driver, k=3, 25 steps): baseline 6/9 successful (109 actions /
+118 steps), mockup 9/9 successful (33 actions / 36 steps):
+
+| Intent | Success before → after | To fact before → after | Steps before → after | Time before → after |
+| --- | --- | --- | --- | --- |
+| refund-tracker | 3/3 → 3/3 | 0 → 0 | 0 → 0 | 0s → 0s |
+| refund-timing | 1/3 → 3/3 | 21 → 4 | 19 → 5 | 336.6s → 64.7s |
+| refund-help | 2/3 → 3/3 | 12 → 6 | 12 → 6 | 189.0s → 79.8s |
+
+Reading it: refund-tracker passes at 0 steps on both sites — the audit
+starts on the refunds landing page, which states the tracker facts in the
+first viewport. That is answer placement, not navigation, and it is the
+same for both **Variants**. Refund-timing 1/3 live: two **Probes** clicked
+language links on the landing page and spent the budget on Haitian Creole
+and Korean pages, where English facts cannot match; the third run died on
+a Muse 500 transport error (no finding) and its rerun passed in 19 steps.
+Refund-help 2/3: one **Probe** wandered to the withholding estimator, the
+homepage, and site search; two passed in 9–14 actions. The blind mockup
+passes all nine **Probes** in 0–7 actions.
 
 ## The DMV case (Ticket 7c)
 
@@ -162,4 +273,22 @@ illustration adds no measurable findability.
   see JavaScript side effects, so read-only also depends on the agent
   following its instructions.
 - k=3 is a small sample. Success rates and medians over three Probes show
-  direction, not a statistically firm cost.
+  direction, not a statistically firm cost. The v4 DMV run uses k=5, which
+  is still small: treat every rate and median here as directional.
+- Fact oracles are only as complete as their synonym lists. A genuine
+  answer phrased outside the list fails, so residual wording dependence
+  remains — weaker than page-anchored strings, but not zero. The lists and
+  thresholds are human-authored judgement calls, validated against the
+  ground-truth texts and negative controls, not derived from them.
+- A fact oracle accepts any page stating the facts, including the starting
+  page. Zero-step passes (renew-online on the mockup, refund-tracker on
+  both sites) measure answer placement in the first viewport, not
+  navigation. That is a fair comparison only because both Variants face the
+  same check.
+- The ground-truth facts are a snapshot. Source pages change, and a stale
+  `facts.json` silently re-anchors the oracle to old wording; re-validate
+  the facts against the live pages before re-running.
+- Environment faults are re-run, not counted: one Muse 500 and two
+  screenshot protocol errors in these runs were each re-run once, and the
+  rerun stands as the record. Reruns are noted in the per-case reading, not
+  hidden in the totals.

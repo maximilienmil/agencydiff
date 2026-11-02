@@ -11,7 +11,7 @@ import {
 } from "./auditRun.js";
 
 // Usage:
-//   MODEL_API_KEY=... pnpm run redesign --audit audits/dmv-baseline --name dmv-renewal
+//   MODEL_API_KEY=... pnpm run redesign --audit audits/dmv-baseline --name dmv-renewal --facts eval/dmv/facts.json
 //
 // Sends an audit's Traces (screens visited, step costs, key final
 // screenshots) plus the Intent goals to Muse Spark and asks for a single
@@ -26,6 +26,7 @@ const { values } = parseArgs({
     audit: { type: "string" },
     name: { type: "string" },
     contract: { type: "string" },
+    facts: { type: "string" },
     model: { type: "string" },
     out: { type: "string" },
   },
@@ -84,6 +85,15 @@ for (const a of audits) {
   }
 }
 
+// Ground-truth facts the redesign must convey. The redesigner sees these
+// plain facts only: never the oracles, synonym lists, thresholds, or
+// selectors that will re-probe the mockup.
+let factsText: string | undefined;
+if (values.facts) {
+  const raw = await readFile(path.resolve(ROOT, values.facts), "utf8");
+  factsText = JSON.stringify(JSON.parse(raw));
+}
+
 const instructions = `You are redesigning a public-service information page so people find answers faster. Be neutral about the agency: describe a clearer flow, never mock it.
 
 Input: audit evidence from a multi-step government information task (per-Intent success rates, median action costs, screens visitors wandered through, and final screenshots), plus the plain-language goal of each Intent. Output: ONE self-contained static HTML document, a "concept redesign" information flow that answers every Intent below on a single page with anchored sections.
@@ -100,7 +110,9 @@ const reply = await promptModel({
   apiKey,
   model,
   instructions,
-  brief: JSON.stringify(brief, null, 2),
+  brief:
+    JSON.stringify(brief, null, 2) +
+    (factsText ? `\n\nGround-truth facts (convey each in the matching section):\n${factsText}` : ""),
   images,
 });
 const html = extractHtml(reply);
@@ -115,7 +127,16 @@ await writeFile(path.join(outDir, "index.html"), html);
 await writeFile(
   path.join(outDir, "meta.json"),
   JSON.stringify(
-    { name, decision, sourceAudit: path.relative(ROOT, runDir), model, blind: true, createdAt: new Date().toISOString() },
+    {
+      name,
+      decision,
+      sourceAudit: path.relative(ROOT, runDir),
+      model,
+      blind: true,
+      facts: values.facts ? path.relative(ROOT, path.resolve(ROOT, values.facts)) : undefined,
+      oraclesWithheld: ["domOracle", "synonyms", "thresholds", "selectors"],
+      createdAt: new Date().toISOString(),
+    },
     null,
     2,
   ),

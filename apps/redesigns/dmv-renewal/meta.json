@@ -1,8 +1,15 @@
 {
   "name": "dmv-renewal",
   "decision": "license_renewal_info",
-  "sourceAudit": "audits/dmv-baseline",
+  "sourceAudit": "audits/dmv-baseline-v3",
   "model": "muse-spark-1.3-contributor",
   "blind": true,
-  "createdAt": "2026-11-01T23:02:08.572Z"
+  "facts": "eval/dmv/facts.json",
+  "oraclesWithheld": [
+    "domOracle",
+    "synonyms",
+    "thresholds",
+    "selectors"
+  ],
+  "createdAt": "2026-11-02T04:58:57.346Z"
 }

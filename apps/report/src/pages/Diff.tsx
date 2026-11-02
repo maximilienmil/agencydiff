@@ -66,7 +66,7 @@ function Evidence({ runId, report, finding }: { runId: string; report: AgencyRep
       </div>
       <div className="stage-mid">
         <div className="finding-card">
-          <h4>Headline Finding</h4>
+          <h4>Finding</h4>
           <p style={{ margin: "0 0 12px", fontWeight: 650, fontSize: 15, lineHeight: 1.35 }}>{finding.title}</p>
           <dl>
             <div>
@@ -132,7 +132,6 @@ export function DiffPage({ runId }: { runId: string }) {
   return (
     <>
       <div className="page-head">
-        <p className="eyebrow">Diff · {report.decision.replace(/_/g, " ")}</p>
         <h1 style={{ maxWidth: "30ch" }}>{report.promise}</h1>
         <div className="meta">
           {report.passed ? <span className="pill pass">Pass</span> : <span className="pill fail">Fail</span>}

@@ -91,7 +91,7 @@ function HeroVisual({ hero }: { hero: Hero | null }) {
         <Phone src={shot(hero.candidate)} className="cand" alt="Candidate: declining moved behind More options" />
       </div>
       <a className="finding-card hero-finding" href={link({ page: "replay", run: hero.runId, intent: hero.intent })} style={{ textDecoration: "none", color: "inherit" }}>
-        <h4>Finding · {hero.report.decision.replace(/_/g, " ")}</h4>
+        <h4>Finding</h4>
         <dl>
           <div>
             <dt>Steps to say no</dt>
@@ -179,11 +179,8 @@ export function OverviewPage({ index }: { index: RunIndex }) {
     <>
       <section className="hero">
         <div>
-          <p className="eyebrow">
-            <span className="pill neutral">Open source · MIT</span> Pre-merge CI for user choice
-          </p>
           <h1>
-            Regression tests for <span className="grad">human choice.</span>
+            Regression tests for <span className="accent">human choice.</span>
           </h1>
           <p className="sub">
             Your CI checks the code still works. AgencyDiff checks the user can still say no.
@@ -241,7 +238,7 @@ export function OverviewPage({ index }: { index: RunIndex }) {
           <span className="src">Evidence: eval/agent-prs/RESULTS.md →</span>
         </a>
         <a className="stat-card" href={blob("eval/RESULTS.md")}>
-          <p className="title">Agency regressions caught, 20 seeded</p>
+          <p className="title">Seeded agency regressions caught, of 20</p>
           {s ? (
             <>
               <div className="figure">
@@ -275,8 +272,7 @@ export function OverviewPage({ index }: { index: RunIndex }) {
       </section>
 
       <h2>How it works</h2>
-      <p className="lede">One engine: a written promise, two Variants, a deterministic diff.</p>
-      <div className="steps">
+            <div className="steps">
         <div className="step">
           <div className="n">1</div>
           <h3>Write the promise</h3>

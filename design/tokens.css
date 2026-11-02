@@ -2,7 +2,8 @@
  * Shared design tokens for the report site, the Circle demo app and the
  * demo video. One file, plain CSS custom properties, no build step.
  *
- * Palette: a blue-led system on deep navy ink. Semantic colours have two
+ * Palette: flat colours only, no gradients. One accent (blue) on white or
+ * near-black ink; red and green are reserved for measured deltas. Semantic colours have two
  * shades each: the base hue for fills, bars and dots, and an "-ink" shade
  * that passes WCAG AA (4.5:1) as text on both white and --ds-surface-2.
  *
@@ -27,8 +28,6 @@
   --ds-blue-hover: #0064e0;
   --ds-blue-ink: #0064e0; /* links and blue text on tinted surfaces */
   --ds-blue-wash: #e7f0ff;
-  --ds-violet: #7b61ff;
-  --ds-hero: linear-gradient(120deg, #0866ff 0%, #7b61ff 100%);
 
   /* Ink and surfaces */
   --ds-ink: #1c2b33;

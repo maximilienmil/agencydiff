@@ -54,7 +54,7 @@ export const ROW_ICONS: Record<string, { icon: string; tone: string }> = {
   "Messaging & privacy": { icon: "lock", tone: "navy" },
   Location: { icon: "pin", tone: "green" },
   "Screen Time": { icon: "hourglass", tone: "violet" },
-  "Circle+": { icon: "sparkle", tone: "gradient" },
+  "Circle+": { icon: "sparkle", tone: "plus" },
   Appearance: { icon: "sun", tone: "amber" },
   Help: { icon: "help", tone: "slate" },
 };

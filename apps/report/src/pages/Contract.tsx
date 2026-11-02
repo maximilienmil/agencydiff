@@ -26,7 +26,6 @@ export function ContractPage({ runId }: { runId: string }) {
   return (
     <>
       <div className="page-head">
-        <p className="eyebrow">Agency Contract · {contract.decision.replace(/_/g, " ")}</p>
         <h1 style={{ maxWidth: "30ch" }}>{contract.promise}</h1>
       </div>
 

@@ -948,7 +948,7 @@ function Avatar({ name, hue, size }: { name: string; hue: number; size: number }
         width: size,
         height: size,
         fontSize: Math.round(size * 0.4),
-        background: `linear-gradient(135deg, hsl(${hue} 80% 66%), hsl(${hue + 30} 72% 52%))`,
+        background: `hsl(${hue} 62% 52%)`,
       }}
     >
       {name.replace(/[^a-z]/gi, "").slice(0, 1).toUpperCase()}
@@ -983,16 +983,11 @@ function Feed({ posts }: { posts: typeof POSTS }) {
               <Icon name="dots" />
             </span>
           </div>
-          <div
-            className="photo"
-            style={{
-              background: [
-                `radial-gradient(circle at 28% 30%, hsl(${p.hue + 25} 100% 82% / 0.95), transparent 40%)`,
-                `radial-gradient(circle at 80% 75%, hsl(${p.hue - 30} 85% 62% / 0.85), transparent 50%)`,
-                `linear-gradient(160deg, hsl(${p.hue + 10} 85% 72%), hsl(${p.hue - 15} 70% 56%))`,
-              ].join(", "),
-            }}
-          />
+          <div className="photo" style={{ background: `hsl(${p.hue + 15} 70% 82%)` }}>
+            <span className="sun" style={{ background: `hsl(${p.hue + 35} 90% 64%)` }} />
+            <span className="hill back" style={{ background: `hsl(${p.hue - 10} 45% 62%)` }} />
+            <span className="hill" style={{ background: `hsl(${p.hue - 25} 40% 44%)` }} />
+          </div>
           <div className="post-actions" aria-hidden>
             <Icon name="heart" />
             <Icon name="comment" />

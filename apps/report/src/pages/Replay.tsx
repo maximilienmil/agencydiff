@@ -149,7 +149,6 @@ export function ReplayPage({
   return (
     <>
       <div className="page-head compact">
-        <p className="eyebrow">Replay · {contract?.decision?.replace(/_/g, " ") ?? runId}</p>
         <h1 style={{ maxWidth: "26ch" }}>{goal ?? "Replay"}</h1>
         <p className="lede" style={{ marginBottom: 0 }}>
           The same Intent on both Variants, step by step. Each tap is drawn on the screen where

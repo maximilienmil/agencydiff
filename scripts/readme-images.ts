@@ -102,25 +102,24 @@ async function main(): Promise<void> {
 <style>
 body{margin:0;width:1600px;height:900px;overflow:hidden;font-family:var(--ds-font);color:var(--ds-ink);background:#fff;-webkit-font-smoothing:antialiased}
 .wrap{position:relative;width:1600px;height:900px;display:grid;grid-template-columns:640px 1fr;align-items:center;padding:0 96px;box-sizing:border-box}
-.bg{position:absolute;inset:0;background:radial-gradient(42% 60% at 78% 40%,rgba(8,102,255,.16),transparent 70%),radial-gradient(36% 50% at 92% 80%,rgba(123,97,255,.16),transparent 70%),linear-gradient(#fff,#f1f4f7)}
+.bg{position:absolute;inset:0;background:#fff}
 .l,.r{position:relative}
 .brand{display:flex;align-items:center;gap:12px;font-weight:750;font-size:22px;letter-spacing:-.02em;margin-bottom:40px}
-.brand i{width:30px;height:30px;border-radius:8px;background:var(--ds-hero)}
+.brand i{width:30px;height:30px;border-radius:8px;background:var(--ds-blue)}
 h1{font-size:76px;line-height:1.02;letter-spacing:-.045em;margin:0 0 26px;font-weight:800}
-h1 span{background:var(--ds-hero);-webkit-background-clip:text;color:transparent}
+h1 span{color:var(--ds-blue)}
 p{font-size:23px;line-height:1.45;color:var(--ds-ink-2);margin:0;max-width:36ch}
 .chip{display:inline-flex;gap:8px;align-items:center;margin-top:36px;font-size:15px;font-weight:600;color:var(--ds-ink-3)}
 .chip b{color:var(--ds-ink)}
-.r{display:flex;gap:34px;justify-content:center;align-items:flex-start}
-.ph{width:300px;padding:9px;border-radius:40px;background:#0b0f14;box-shadow:0 30px 70px rgba(28,43,51,.22),0 6px 14px rgba(28,43,51,.1)}
-.ph img{display:block;width:100%;border-radius:31px}
+.r{display:flex;gap:30px;justify-content:center;align-items:flex-start}
+.ph{width:330px;border-radius:26px;overflow:hidden;border:1px solid var(--ds-line-strong);box-shadow:0 18px 44px rgba(28,43,51,.12)}
+.ph img{display:block;width:100%}
 .ph.c{margin-top:56px}
 .lab{display:block;text-align:center;margin-top:16px;font-size:15px;font-weight:700;color:var(--ds-ink-2)}
-.lab:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ds-flat);margin-right:8px;vertical-align:1px}
-.lab.c:before{background:var(--ds-blue)}
+.lab.c{color:var(--ds-blue-ink)}
 .card{position:absolute;left:50%;top:-40px;margin-left:96px;width:272px;background:#fff;border-radius:16px;padding:20px 22px;box-shadow:0 20px 48px rgba(28,43,51,.18);border:1px solid var(--ds-line);overflow:hidden}
-.card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ds-bad)}
-.card h4{margin:0 0 12px;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ds-ink-3)}
+.card{border-left:5px solid var(--ds-bad)}
+.card h4{margin:0 0 6px;font-size:18px;color:var(--ds-ink)}
 .card dt{font-size:13px;color:var(--ds-ink-3);margin-top:10px}
 .card dd{margin:2px 0 0;font-size:30px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .card dd s{text-decoration:none;color:var(--ds-ink-3);font-weight:550}
@@ -131,11 +130,11 @@ p{font-size:23px;line-height:1.45;color:var(--ds-ink-2);margin:0;max-width:36ch}
 <div class="l"><div class="brand"><i></i>AgencyDiff</div>
 <h1>Regression tests for <span>human choice.</span></h1>
 <p>Your CI checks the code still works. AgencyDiff checks the user can still say no.</p>
-<div class="chip">Seeded change: <b>decline moved behind “More options”</b></div></div>
+<div class="chip">Candidate: declining location moved behind <b>“More options”</b></div></div>
 <div class="r">
 <div><div class="ph"><img src="circle-baseline.png"></div><span class="lab">Baseline</span></div>
 <div><div class="ph c"><img src="circle-candidate.png"></div><span class="lab c">Candidate</span></div>
-<div class="card"><h4>Finding · fail</h4><dl>
+<div class="card"><h4>Finding</h4><dl>
 <dt>Steps to say no</dt><dd><s>${b?.actionCount ?? "—"} →</s> <em>${c?.actionCount ?? "—"}</em></dd>
 <dt>On the first screen</dt><dd><s>${vis(b?.initiallyVisible)} →</s> <em>${vis(c?.initiallyVisible)}</em></dd></dl>
 <small>Muse computer-use Probes, k=3, Oracle on final state</small></div>
@@ -164,7 +163,7 @@ p{font-size:23px;line-height:1.45;color:var(--ds-ink-2);margin:0;max-width:36ch}
 body{margin:0;padding:32px;background:#f1f4f7;font-family:var(--ds-font);color:var(--ds-ink);-webkit-font-smoothing:antialiased;width:1040px}
 .c{background:#fff;border:1px solid var(--ds-line);border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(28,43,51,.08)}
 .hd{display:flex;align-items:center;gap:10px;padding:14px 22px;background:var(--ds-surface-2);border-bottom:1px solid var(--ds-line);font-size:14px;color:var(--ds-ink-3)}
-.hd b{color:var(--ds-ink)} .av{width:24px;height:24px;border-radius:50%;background:var(--ds-hero)}
+.hd b{color:var(--ds-ink)} .av{width:24px;height:24px;border-radius:50%;background:var(--ds-blue)}
 .st{margin-left:auto;font-weight:700;font-size:13px;color:var(--ds-bad-ink);background:var(--ds-bad-wash);padding:3px 10px;border-radius:999px}
 .bd{padding:8px 26px 22px;font-size:15px;line-height:1.55}
 h2{font-size:24px;letter-spacing:-.02em;margin:16px 0 4px} h3{font-size:17px;margin:8px 0 14px;font-weight:650;color:var(--ds-ink-2)}

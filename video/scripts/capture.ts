@@ -82,10 +82,11 @@ function stage(decision: string, traceDir: string, name: string): Clip | null {
 }
 
 // Cold open: the passing baseline Trace (it ends on Messages with "Block
-// unknown people" selected) against a candidate Trace that ran out of steps.
+// unknown people" selected) against a failed candidate Trace that spends its
+// 20 steps in Settings and Privacy without reaching the block option.
 const clips = {
   coldBaseline: stage("teen_dm", "teen_dm.block_unknown.baseline.1", "cold-b"),
-  coldCandidate: stage("teen_dm", "teen_dm.block_unknown.candidate.0", "cold-c"),
+  coldCandidate: stage("teen_dm", "teen_dm.block_unknown.candidate.2", "cold-c"),
   withBaseline: stage("precise_location", "precise_location.withhold.baseline.0", "with-b"),
   withCandidate: stage("precise_location", "precise_location.withhold.candidate.0", "with-c"),
 };

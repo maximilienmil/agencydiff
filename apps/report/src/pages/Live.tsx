@@ -135,7 +135,6 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
   return (
     <div className="live-page">
       <div className="live-head">
-        <p className="eyebrow">{isLive ? "Live Probes" : "Live replay"} · {(contract?.decision ?? liveState.decision ?? "AgencyDiff").replace(/_/g, " ")}</p>
         <h1>{goal}</h1>
       </div>
       {!isLive && (

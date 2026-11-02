@@ -1,10 +1,12 @@
 # AgencyDiff demo video
 
-A 3:00, 1920x1080, 30fps film with burned-in captions. It uses the shared
-design tokens in `design/tokens.css` (colours, Inter, radii), the same file
-the report site and Circle use. Recorded Trace screenshots play back step by
-step inside phone frames, with a tap ripple where the Probe tapped, step
-counters ticking, and Finding cards sliding in.
+A 3:00, 1920x1080, 30fps film with burned-in captions. Flat and
+typographic: white or near-black, one accent (blue #0866FF), red and green
+only on measured deltas, one idea per frame with calm crossfades, and a
+static monochrome film grain at 4.5% opacity over everything. Colours and
+type come from `design/tokens.css`, the same file the report site and Circle
+use. Recorded Trace screenshots play back step by step in hairline frames,
+with a tap ripple where the Probe tapped and step counters ticking.
 
 ## Structure (all timings in `src/Demo.tsx`)
 

@@ -152,14 +152,8 @@ export function stepCaption(trace: Trace, step: number): string {
 export function BrandMark() {
   return (
     <svg className="brand-mark" viewBox="0 0 32 32" aria-hidden>
-      <defs>
-        <linearGradient id="bm" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#0866FF" />
-          <stop offset="1" stopColor="#7B61FF" />
-        </linearGradient>
-      </defs>
       <rect x="2" y="6" width="18" height="22" rx="5" fill="none" stroke="currentColor" strokeOpacity="0.35" strokeWidth="2.5" />
-      <rect x="11" y="3" width="19" height="23" rx="5.5" fill="url(#bm)" />
+      <rect x="11" y="3" width="19" height="23" rx="5.5" fill="#0866FF" />
       <path d="M16 15.5l3 3 5.5-6" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );

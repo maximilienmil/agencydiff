@@ -58,9 +58,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 .bar h1.logo::before {
   content: ""; width: 22px; height: 22px; border-radius: 50%;
-  background: conic-gradient(from 200deg, #0866ff, #7b61ff, #0866ff);
-  -webkit-mask: radial-gradient(circle, transparent 5.5px, #000 6px);
-  mask: radial-gradient(circle, transparent 5.5px, #000 6px);
+  box-sizing: border-box; border: 5px solid var(--accent);
 }
 .icon {
   width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%;
@@ -78,7 +76,7 @@ button.icon:active { background: var(--ds-surface-3); }
 .story { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 62px; flex: none; }
 .story-ring {
   padding: 2.5px; border-radius: 50%;
-  background: conic-gradient(from 210deg, #0866ff, #7b61ff, #e41e3f, #ffb35c, #0866ff);
+  background: var(--accent);
 }
 .story.me .story-ring { background: var(--line); }
 .story-ring .avatar { box-shadow: 0 0 0 2.5px var(--card); }
@@ -93,7 +91,10 @@ button.icon:active { background: var(--ds-surface-3); }
 .who-text strong { font-weight: 650; }
 .who-text small { color: var(--muted); font-size: 12.5px; }
 .post .more { color: var(--muted); }
-.post .photo { aspect-ratio: 1 / 1; }
+.post .photo { aspect-ratio: 1 / 1; position: relative; overflow: hidden; }
+.photo .sun { position: absolute; width: 34%; aspect-ratio: 1; border-radius: 50%; left: 58%; top: 16%; }
+.photo .hill { position: absolute; width: 140%; aspect-ratio: 1; border-radius: 50%; left: -20%; top: 62%; }
+.photo .hill.back { left: 30%; top: 54%; width: 120%; }
 .post-actions { display: flex; align-items: center; gap: 16px; padding: 12px 14px 0; color: var(--ink); }
 .post-actions .spacer { flex: 1; }
 .post p { margin: 8px 14px 0; font-size: 14px; line-height: 1.4; }
@@ -125,7 +126,7 @@ button.row:active { background: var(--ds-surface-2); }
 .tone-violet { background: #7b61ff; }
 .tone-amber { background: #f5a623; }
 .tone-slate { background: #65676b; }
-.tone-gradient { background: linear-gradient(135deg, #0866ff, #7b61ff); }
+.tone-plus { background: #0866ff; }
 .chev { color: var(--ds-line-strong); flex: none; }
 .chev .ic { width: 20px; height: 20px; }
 .toggle-row, .radio-row { cursor: pointer; padding: 10px 18px; }
@@ -207,8 +208,7 @@ input[type="radio"]:checked { border-color: var(--accent); background: var(--acc
 
 /* Circle+ offer header */
 .app[data-screen^="plus"] .stat .big {
-  background: var(--ds-hero); -webkit-background-clip: text; background-clip: text; color: transparent;
-  align-self: flex-start;
+  color: var(--accent);
 }
 
 /* Sign-in */

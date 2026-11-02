@@ -1,0 +1,459 @@
+{
+  "id": "license_renewal_info.real-id-docs.baseline.4",
+  "decision": "license_renewal_info",
+  "intentId": "real-id-docs",
+  "variant": "baseline",
+  "repeat": 4,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T20:20:29.435Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 7944,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 372,
+          "y": 24
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 15695,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 214,
+          "y": 535
+        },
+        {
+          "text": "REAL ID documents needed",
+          "type": "type"
+        },
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 24012,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": -6,
+          "type": "scroll",
+          "x": 215,
+          "y": 344
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 40061,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": -8,
+          "type": "scroll",
+          "x": 215,
+          "y": 258
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "scroll_x": 0,
+          "scroll_y": -8,
+          "type": "scroll",
+          "x": 215,
+          "y": 258
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 55072,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 64510,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 212,
+          "y": 537
+        },
+        {
+          "text": "REAL ID",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 87468,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 102666,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 202,
+          "y": 533
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 118955,
+      "actions": [
+        {
+          "text": "REAL ID",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 134166,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 395,
+          "y": 26
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 148166,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 54,
+          "y": 156
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 162222,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 5,
+          "type": "scroll",
+          "x": 215,
+          "y": 515
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 198425,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 3,
+          "type": "scroll",
+          "x": 172,
+          "y": 601
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 13,
+      "tMs": 224789,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 144,
+          "y": 806
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "014.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 14,
+      "tMs": 243942,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 6,
+          "type": "scroll",
+          "x": 129,
+          "y": 730
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "015.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 15,
+      "tMs": 261372,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 8,
+          "type": "scroll",
+          "x": 215,
+          "y": 430
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "016.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 16,
+      "tMs": 282968,
+      "actions": [
+        {
+          "path": [
+            {
+              "x": 214,
+              "y": 687
+            },
+            {
+              "x": 214,
+              "y": 258
+            }
+          ],
+          "type": "drag"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "017.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 17,
+      "tMs": 305186,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 10,
+          "type": "scroll",
+          "x": 129,
+          "y": 601
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "018.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 18,
+      "tMs": 329386,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 10,
+          "type": "scroll",
+          "x": 172,
+          "y": 601
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "019.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 19,
+      "tMs": 354238,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 10,
+          "type": "scroll",
+          "x": 172,
+          "y": 601
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "tags": [],
+        "screenshot": "020.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 20,
+      "tMs": 372326,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 102,
+          "y": 804
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/real-id-checklist/",
+        "tags": [],
+        "screenshot": "021.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 21,
+      "tMs": 391753,
+      "actions": [
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/real-id-checklist/",
+        "tags": [],
+        "screenshot": "022.png"
+      }
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "satisfied",
+  "firstSatisfiedStep": 22,
+  "actionsToSatisfy": 25
+}

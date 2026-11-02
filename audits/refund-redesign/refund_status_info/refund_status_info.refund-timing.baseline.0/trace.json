@@ -1,0 +1,117 @@
+{
+  "id": "refund_status_info.refund-timing.baseline.0",
+  "decision": "refund_status_info",
+  "intentId": "refund-timing",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T22:17:30.871Z",
+  "initial": {
+    "observation": {
+      "url": "http://127.0.0.1:5199/refund-status/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 6127,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/refund-status/",
+        "tags": [],
+        "screenshot": "001.png"
+      }
+    },
+    {
+      "index": 1,
+      "tMs": 14782,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 140,
+          "y": 252
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/refund-status/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 23614,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 5,
+          "type": "scroll",
+          "x": 215,
+          "y": 430
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/refund-status/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 36437,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 8,
+          "type": "scroll",
+          "x": 215,
+          "y": 515
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/refund-status/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 50161,
+      "actions": [
+        {
+          "keys": [
+            "PageDown"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/refund-status/",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "satisfied",
+  "firstSatisfiedStep": 5,
+  "actionsToSatisfy": 4
+}

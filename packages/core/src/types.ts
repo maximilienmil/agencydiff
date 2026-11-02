@@ -25,7 +25,17 @@ export type DomAssertion =
   | { kind: "visibleText"; selector: string; text: string }
   | { kind: "checked"; selector: string; checked?: boolean }
   | { kind: "value"; selector: string; value: string }
-  | { kind: "anyOf"; assertions: DomAssertion[] };
+  | { kind: "anyOf"; assertions: DomAssertion[] }
+  | { kind: "facts"; selector: string; facts: FactNeed[]; minFacts: number };
+
+/** One ground-truth fact: covered when the element's visible text contains
+ *  any of its synonym phrases, matched case- and punctuation-insensitively.
+ *  Keep synonyms to phrases of at least three characters; shorter ones never
+ *  match, so stray words like "ID" cannot satisfy a fact on their own. */
+export interface FactNeed {
+  id: string;
+  synonyms: string[];
+}
 
 /** A testable web app: a URL per Variant, the contract(s) to run, and which
  *  Oracle adapter decides success. Resolved from a target config JSON file. */

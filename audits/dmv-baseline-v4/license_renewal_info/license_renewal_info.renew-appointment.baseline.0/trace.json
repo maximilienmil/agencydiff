@@ -1,0 +1,572 @@
+{
+  "id": "license_renewal_info.renew-appointment.baseline.0",
+  "decision": "license_renewal_info",
+  "intentId": "renew-appointment",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T20:27:04.056Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 7845,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 353,
+          "y": 23
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 17520,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 353,
+          "y": 29
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 31763,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 214,
+          "y": 567
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 40829,
+      "actions": [
+        {
+          "text": "schedule an appointment at DMV office",
+          "type": "type"
+        },
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 62139,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "005.png"
+      }
+    },
+    {
+      "index": 5,
+      "tMs": 85179,
+      "actions": [
+        {
+          "keys": [
+            "Escape"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 107423,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 6,
+          "type": "scroll",
+          "x": 215,
+          "y": 601
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 132891,
+      "actions": [
+        {
+          "path": [
+            {
+              "x": 215,
+              "y": 601
+            },
+            {
+              "x": 215,
+              "y": 172
+            }
+          ],
+          "type": "drag"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 150940,
+      "actions": [
+        {
+          "path": [
+            {
+              "x": 365,
+              "y": 558
+            },
+            {
+              "x": 365,
+              "y": 215
+            }
+          ],
+          "type": "drag"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 169704,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 5,
+          "type": "scroll",
+          "x": 172,
+          "y": 515
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 192637,
+      "actions": [
+        {
+          "path": [
+            {
+              "x": 215,
+              "y": 687
+            },
+            {
+              "x": 215,
+              "y": 515
+            },
+            {
+              "x": 215,
+              "y": 344
+            },
+            {
+              "x": 215,
+              "y": 215
+            }
+          ],
+          "type": "drag"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 206090,
+      "actions": [
+        {
+          "path": [
+            {
+              "x": 6,
+              "y": 644
+            },
+            {
+              "x": 6,
+              "y": 472
+            },
+            {
+              "x": 6,
+              "y": 301
+            },
+            {
+              "x": 6,
+              "y": 172
+            }
+          ],
+          "type": "drag"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 225202,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 354,
+          "y": 29
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "button": "left",
+          "type": "click",
+          "x": 353,
+          "y": 28
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "button": "left",
+          "type": "click",
+          "x": 354,
+          "y": 30
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 13,
+      "tMs": 240705,
+      "actions": [
+        {
+          "keys": [
+            "Page_Down"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "014.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 14,
+      "tMs": 271137,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "015.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 15,
+      "tMs": 287404,
+      "actions": [
+        {
+          "keys": [
+            "Page_Down"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "016.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 16,
+      "tMs": 305706,
+      "actions": [
+        {
+          "keys": [
+            "Page_Down"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "017.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 17,
+      "tMs": 330615,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "018.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 18,
+      "tMs": 348911,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 177,
+          "y": 375
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "019.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 19,
+      "tMs": 482429,
+      "actions": [
+        {
+          "type": "double_click",
+          "x": 177,
+          "y": 378
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "020.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 20,
+      "tMs": 499116,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "a"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "021.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 21,
+      "tMs": 519475,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "a"
+          ],
+          "type": "keypress"
+        },
+        {
+          "text": "make an appointment",
+          "type": "type"
+        },
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=make+an+appointmentschedule+an+appointment+at+DMV+office",
+        "tags": [],
+        "screenshot": "022.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 22,
+      "tMs": 540298,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "End"
+          ],
+          "type": "keypress"
+        },
+        {
+          "text": "make an appointment",
+          "type": "type"
+        },
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=make+an+appointment",
+        "tags": [],
+        "screenshot": "023.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 23,
+      "tMs": 557799,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 117,
+          "y": 800
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=make+an+appointment",
+        "tags": [],
+        "screenshot": "024.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 24,
+      "tMs": 576900,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 92,
+          "y": 474
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=make+an+appointment",
+        "tags": [],
+        "screenshot": "025.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "step_budget"
+}

@@ -1,0 +1,478 @@
+{
+  "id": "refund_status_info.refund-help.baseline.0",
+  "decision": "refund_status_info",
+  "intentId": "refund-help",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T21:50:33.610Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.irs.gov/refunds",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 6521,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 387,
+          "y": 246
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/refunds",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 14863,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 234,
+          "y": 69
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/refunds",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 40719,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 205,
+          "y": 246
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/refunds",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 49876,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 5,
+          "type": "scroll",
+          "x": 215,
+          "y": 430
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/refunds",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 63490,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/refunds",
+        "tags": [],
+        "screenshot": "005.png"
+      }
+    },
+    {
+      "index": 5,
+      "tMs": 81777,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 391,
+          "y": 73
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/refunds",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 91080,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 403,
+          "y": 177
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/refunds",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 103885,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 402,
+          "y": 508
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/individuals/tax-withholding-estimator",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 121376,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 389,
+          "y": 64
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/individuals/tax-withholding-estimator",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 133277,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 390,
+          "y": 66
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/individuals/tax-withholding-estimator",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 152068,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 52,
+          "y": 66
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 167498,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 389,
+          "y": 67
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 180600,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 238,
+          "y": 66
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 13,
+      "tMs": 208431,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 6,
+          "type": "scroll",
+          "x": 215,
+          "y": 515
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "014.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 14,
+      "tMs": 240560,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "button": "left",
+          "type": "click",
+          "x": 390,
+          "y": 63
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "015.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 15,
+      "tMs": 263306,
+      "actions": [
+        {
+          "keys": [
+            "Page_Down"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "016.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 16,
+      "tMs": 281891,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 189,
+          "y": 563
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "017.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 17,
+      "tMs": 298049,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 157,
+          "y": 564
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "018.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 18,
+      "tMs": 318708,
+      "actions": [
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "019.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 19,
+      "tMs": 342070,
+      "actions": [
+        {
+          "text": "lost stolen delayed refund",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/",
+        "tags": [],
+        "screenshot": "020.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 20,
+      "tMs": 359964,
+      "actions": [
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/site-index-search?search=lost%20stolen%20delayed%20refund",
+        "tags": [],
+        "screenshot": "021.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 21,
+      "tMs": 391272,
+      "actions": [
+        {
+          "keys": [
+            "Alt",
+            "Left"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/site-index-search?search=lost%20stolen%20delayed%20refund",
+        "tags": [],
+        "screenshot": "022.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 22,
+      "tMs": 414043,
+      "actions": [
+        {
+          "keys": [
+            "BackSpace"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/site-index-search?search=lost%20stolen%20delayed%20refund",
+        "tags": [],
+        "screenshot": "023.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 23,
+      "tMs": 434672,
+      "actions": [
+        {
+          "button": "back",
+          "type": "click",
+          "x": 4,
+          "y": 9
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/site-index-search?search=lost%20stolen%20delayed%20refund",
+        "tags": [],
+        "screenshot": "024.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 24,
+      "tMs": 476319,
+      "actions": [
+        {
+          "keys": [
+            "ctrl",
+            "t"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/site-index-search?search=lost%20stolen%20delayed%20refund",
+        "tags": [],
+        "screenshot": "025.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "step_budget"
+}

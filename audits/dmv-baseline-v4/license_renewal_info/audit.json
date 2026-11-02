@@ -1,0 +1,98 @@
+{
+  "decision": "license_renewal_info",
+  "promise": "A person can find out how to renew a California driver's license: whether online renewal is available, what to do without a renewal notice, what REAL ID documents are needed, and how to book an office appointment.",
+  "variant": "baseline",
+  "target": "https://www.dmv.ca.gov/portal/",
+  "aggregates": [
+    {
+      "intentId": "renew-online",
+      "variant": "baseline",
+      "runs": 5,
+      "successRate": 0.6,
+      "actionCount": 5,
+      "actionsToSatisfy": 5,
+      "navigationDepth": 1,
+      "traceIds": [
+        "license_renewal_info.renew-online.baseline.0",
+        "license_renewal_info.renew-online.baseline.1",
+        "license_renewal_info.renew-online.baseline.2",
+        "license_renewal_info.renew-online.baseline.3",
+        "license_renewal_info.renew-online.baseline.4"
+      ]
+    },
+    {
+      "intentId": "renew-office",
+      "variant": "baseline",
+      "runs": 5,
+      "successRate": 0,
+      "traceIds": [
+        "license_renewal_info.renew-office.baseline.0",
+        "license_renewal_info.renew-office.baseline.1",
+        "license_renewal_info.renew-office.baseline.2",
+        "license_renewal_info.renew-office.baseline.3",
+        "license_renewal_info.renew-office.baseline.4"
+      ]
+    },
+    {
+      "intentId": "real-id-docs",
+      "variant": "baseline",
+      "runs": 5,
+      "successRate": 0.6,
+      "actionCount": 21,
+      "actionsToSatisfy": 21,
+      "navigationDepth": 1,
+      "traceIds": [
+        "license_renewal_info.real-id-docs.baseline.0",
+        "license_renewal_info.real-id-docs.baseline.1",
+        "license_renewal_info.real-id-docs.baseline.2",
+        "license_renewal_info.real-id-docs.baseline.3",
+        "license_renewal_info.real-id-docs.baseline.4"
+      ]
+    },
+    {
+      "intentId": "renew-appointment",
+      "variant": "baseline",
+      "runs": 5,
+      "successRate": 0.4,
+      "actionCount": 22.5,
+      "actionsToSatisfy": 22.5,
+      "navigationDepth": 2,
+      "traceIds": [
+        "license_renewal_info.renew-appointment.baseline.0",
+        "license_renewal_info.renew-appointment.baseline.1",
+        "license_renewal_info.renew-appointment.baseline.2",
+        "license_renewal_info.renew-appointment.baseline.3",
+        "license_renewal_info.renew-appointment.baseline.4"
+      ]
+    }
+  ],
+  "asymmetry": [],
+  "traceIds": [
+    "license_renewal_info.real-id-docs.baseline.0",
+    "license_renewal_info.real-id-docs.baseline.1",
+    "license_renewal_info.real-id-docs.baseline.2",
+    "license_renewal_info.real-id-docs.baseline.3",
+    "license_renewal_info.real-id-docs.baseline.4",
+    "license_renewal_info.renew-appointment.baseline.0",
+    "license_renewal_info.renew-appointment.baseline.1",
+    "license_renewal_info.renew-appointment.baseline.2",
+    "license_renewal_info.renew-appointment.baseline.3",
+    "license_renewal_info.renew-appointment.baseline.4",
+    "license_renewal_info.renew-office.baseline.0",
+    "license_renewal_info.renew-office.baseline.1",
+    "license_renewal_info.renew-office.baseline.2",
+    "license_renewal_info.renew-office.baseline.3",
+    "license_renewal_info.renew-office.baseline.4",
+    "license_renewal_info.renew-online.baseline.0",
+    "license_renewal_info.renew-online.baseline.1",
+    "license_renewal_info.renew-online.baseline.2",
+    "license_renewal_info.renew-online.baseline.3",
+    "license_renewal_info.renew-online.baseline.4"
+  ],
+  "modelJudged": false,
+  "cost": {
+    "totalActions": 445,
+    "totalSteps": 392,
+    "traces": 20
+  }
+}

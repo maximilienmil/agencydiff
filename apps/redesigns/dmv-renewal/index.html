@@ -1,113 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>California Driver's License Renewal - Information Guide</title>
+<title>Driver License Renewal Guide - Concept</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f3f4f6;color:#1a1a1a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;font-size:16px}
-.banner{background:#eef2f7;border-bottom:2px solid #0a3d6b;padding:10px 16px;font-size:14px;text-align:center;color:#0a3d6b}
-.wrap{max-width:430px;margin:0 auto;background:#ffffff;padding:0 18px 32px;border-left:1px solid #ddd;border-right:1px solid #ddd}
-header{padding:22px 0 8px}
-h1{font-size:26px;line-height:1.25;margin:0 0 8px;color:#0a3d6b}
-.subtitle{font-size:16px;color:#333;margin:0 0 16px}
-nav{background:#f7f8fa;border:1px solid #d6dbe1;border-radius:8px;padding:14px 14px;margin:12px 0 20px}
-nav p{margin:0 0 8px;font-weight:700;font-size:15px}
-nav ul{margin:0;padding-left:20px}
-nav li{margin:6px 0}
-nav a{color:#0a4a8a}
-.btn{display:block;text-align:center;background:#0a4a8a;color:#fff;text-decoration:none;font-weight:700;padding:12px 14px;border-radius:8px;margin:12px 0}
-.btn.secondary{background:#fff;color:#0a4a8a;border:2px solid #0a4a8a}
-section{border-top:2px solid #0a3d6b;padding:20px 0 8px;margin-top:12px}
-h2{font-size:21px;color:#0a3d6b;margin:0 0 8px;line-height:1.3}
-.answer{background:#f7f8fa;border-left:4px solid #0a4a8a;padding:10px 12px;margin:0 0 12px;font-size:16px}
-h3{font-size:16px;margin:16px 0 6px}
-ul,ol{margin:8px 0 12px;padding-left:22px}
-li{margin:6px 0}
-.small{font-size:14px;color:#444}
-.back{font-size:14px;margin:12px 0 0}
-footer{margin-top:24px;border-top:1px solid #ccc;padding:14px 0;font-size:13px;color:#444}
-a{color:#0a4a8a}
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#f2f2f2;
+    color:#1a1a1a;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+    font-size:16px;
+  }
+  .banner{
+    background:#1a3a5a;
+    color:#fff;
+    text-align:center;
+    padding:10px 16px;
+    font-size:14px;
+  }
+  .page{
+    max-width:460px;
+    margin:0 auto;
+    background:#fff;
+    border-left:1px solid #d9d9d9;
+    border-right:1px solid #d9d9d9;
+  }
+  header.main{padding:20px 20px 12px 20px;border-bottom:2px solid #1a3a5a}
+  header.main h1{font-size:24px;line-height:1.25;margin:0 0 8px 0}
+  header.main p{margin:0 0 12px 0;color:#333}
+  nav.toc{background:#eef2f6;padding:14px 20px;border-bottom:1px solid #d9d9d9}
+  nav.toc h2{font-size:14px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px 0}
+  nav.toc ul{list-style:none;margin:0;padding:0}
+  nav.toc li{margin:6px 0}
+  nav.toc a{color:#0b4fa0;text-decoration:underline}
+  .quick{padding:14px 20px;background:#fafafa;border-bottom:1px solid #d9d9d9;font-size:15px}
+  main section{padding:20px;border-bottom:1px solid #e0e0e0}
+  section h2{font-size:20px;margin:0 0 4px 0;line-height:1.3}
+  .lede{font-size:16px;font-weight:600;margin:8px 0}
+  .meta{font-size:13px;color:#555;margin:0 0 10px 0}
+  ul.facts{margin:10px 0;padding-left:20px}
+  ul.facts li{margin:6px 0}
+  .box{background:#f6f7f8;border:1px solid #d0d0d0;padding:12px 14px;margin:12px 0;font-size:15px}
+  .box strong{display:block;margin-bottom:4px}
+  .btnrow{margin:14px 0 4px 0;display:flex;flex-wrap:wrap;gap:8px}
+  a.btn{display:inline-block;background:#0b4fa0;color:#fff;text-decoration:none;padding:9px 14px;border-radius:4px;font-size:15px}
+  a.btn-secondary{display:inline-block;background:#fff;color:#0b4fa0;border:1px solid #0b4fa0;text-decoration:none;padding:8px 13px;border-radius:4px;font-size:15px}
+  footer{padding:16px 20px 28px 20px;font-size:13px;color:#444;background:#eef2f6}
+  footer p{margin:6px 0}
+  a{color:#0b4fa0}
 </style>
 </head>
 <body>
-<div class="banner"><strong>Concept redesign mockup for research — This is not the real agency site.</strong> A sample layout to help find renewal answers faster.</div>
-<div class="wrap" id="top">
-<header>
-<h1>California Driver's License Renewal Guide</h1>
-<p class="subtitle">One page that explains your renewal choices, office visits, appointments, and REAL ID documents. This concept puts common tasks in one clear flow.</p>
-<nav aria-label="On this page">
-<p>On this page:</p>
+<div class="banner">This is a <strong>concept redesign</strong> mockup for research, not the real agency site.</div>
+<div class="page">
+<header class="main">
+<h1>California Driver License Renewal: Clearer Steps</h1>
+<p>A single-page guide to renewing online, renewing at an office, preparing REAL ID documents, and making an appointment.</p>
+</header>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
 <ul>
-<li><a href="#renew-online">Can I renew my license online?</a></li>
-<li><a href="#renew-office">Renew at a DMV office and save time</a></li>
-<li><a href="#real-id-docs">What documents for a REAL ID?</a></li>
-<li><a href="#renew-appointment">How to schedule an appointment</a></li>
+<li><a href="#renew-online">1. Renew online</a></li>
+<li><a href="#renew-office">2. Renew at a DMV office</a></li>
+<li><a href="#real-id-docs">3. Documents for a REAL ID</a></li>
+<li><a href="#renew-appointment">4. Schedule an appointment</a></li>
 </ul>
 </nav>
-<a class="btn" href="#renew-online">Start: Check online renewal</a>
-<a class="btn secondary" href="#renew-appointment">Skip to appointments</a>
-</header>
-
+<div class="quick">
+<strong>Start here:</strong> Many standard licenses can be renewed online. If your notice says to come in person, or if this is your first REAL ID, plan for an office visit. Start your application online to save time.
+<div class="btnrow">
+<a class="btn" href="#renew-online">Renew online</a>
+<a class="btn-secondary" href="#renew-appointment">Make an appointment</a>
+</div>
+</div>
 <main>
 <section id="renew-online" aria-labelledby="h-renew-online">
-<h2 id="h-renew-online">1. Can I renew my California driver's license online?</h2>
-<p class="answer"><strong>Yes — most drivers can renew online.</strong> Start in MyDMV with Online Driver's License Renewal.</p>
-<p>Use your MyDMV account to begin the online renewal. The online service will walk you through eligibility questions and your current license information.</p>
-<h3>How to start</h3>
-<ol>
-<li>Go to the MyDMV online services section in this guide.</li>
-<li>Choose Driver's License Renewal.</li>
-<li>Follow the prompts to confirm your identity and submit.</li>
-</ol>
-<p class="small">Some renewals still require an in-person office visit, for example if a new photo, test, or identity check is needed. The online service will tell you if you need to come in.</p>
-<p class="back"><a href="#top">Back to top</a></p>
+<h2 id="h-renew-online">1. Renew your license online</h2>
+<p class="meta">Goal: Can I renew online and where do I start?</p>
+<p class="lede">You may be able to renew a standard driver's license or ID card online.</p>
+<p>Use the online renewal option to start the renewal on this page.</p>
+<div class="box">
+<strong>Check timing</strong>
+Online renewal is possible within 90 days before your expiration date, or up to 12 months after it expires.
+</div>
+<ul class="facts">
+<li>You cannot renew online if you are applying for a REAL ID for the first time. That needs an office visit.</li>
+<li>If you did not get a renewal notice, you can request a copy or sign up for paperless renewal notices.</li>
+</ul>
+<div class="btnrow">
+<a class="btn" href="#renew-online">Start the renewal online</a>
+<a class="btn-secondary" href="#renew-office">If you must visit an office</a>
+</div>
 </section>
 
 <section id="renew-office" aria-labelledby="h-renew-office">
-<h2 id="h-renew-office">2. Renew at a DMV office instead of online</h2>
-<p class="answer"><strong>You can renew in person at any DMV office.</strong> Walk in or use Get in Line. To save time, complete the online application before you visit.</p>
-<p>If you prefer not to renew online, visit a DMV office for driver's license renewal. Staff can help with photos, tests, and REAL ID upgrades.</p>
-<h3>How to save time on your office visit</h3>
-<ul>
-<li>Fill out the online driver's license application at home before you go.</li>
-<li>Use Get in Line Now on the day of your visit, if available at that office.</li>
-<li>Bring your current license and any letters or notices you received.</li>
-<li>Bring your REAL ID documents if you want to upgrade at the same visit.</li>
+<h2 id="h-renew-office">2. Renew at a DMV office</h2>
+<p class="meta">Goal: How to renew in person and save time</p>
+<p class="lede">You can renew a standard driver's license in person at a DMV office.</p>
+<p>Renew at a DMV office if your renewal notice tells you to renew there.</p>
+<ul class="facts">
+<li>Bring the DMV renewal notice mailed to you, or complete a driver license or ID card application.</li>
+<li>At the office, have your thumbprint scanned, pass a vision exam, and have your photo taken.</li>
+<li>Save time at your office visit by starting the renewal online first.</li>
 </ul>
-<p class="back"><a href="#renew-appointment">Go to appointments</a> | <a href="#top">Back to top</a></p>
+<div class="btnrow">
+<a class="btn-secondary" href="#renew-appointment">How to get an appointment</a>
+</div>
 </section>
 
-<section id="real-id-docs" aria-labelledby="h-real-id-docs">
-<h2 id="h-real-id-docs">3. What documents do I need for a REAL ID?</h2>
-<p class="answer"><strong>Bring three types of documents:</strong> proof of identity, proof of Social Security number, and two proofs of California residency.</p>
-<ul>
-<li><strong>1. Proof of identity</strong> — such as a valid U.S. passport or a certified birth certificate.</li>
-<li><strong>2. Proof of Social Security number</strong> — such as a Social Security card or W-2 showing the full number.</li>
-<li><strong>3. Two proofs of California residency</strong> — such as a utility bill, rental agreement, or bank statement with your California address.</li>
+<section id="real-id-docs" aria-labelledby="h-real-id">
+<h2 id="h-real-id">3. What documents do I need for a REAL ID?</h2>
+<p class="meta">Goal: Gather the right papers before you visit</p>
+<p class="lede">Bring proof of identity and proof of California residency.</p>
+<ul class="facts">
+<li>Prove your identity with one document such as a valid U.S. passport or a birth certificate.</li>
+<li>Prove California residency with documents such as a utility bill or a bank statement.</li>
+<li>A REAL ID application accounts for two residency documents — you need a second residency document as well.</li>
+<li>Use the interactive REAL ID document checklist to gather the documents you need.</li>
 </ul>
-<p class="small">Bring original documents or certified copies. Photocopies and phone images are generally not accepted. If your name has changed, bring name-change documents as well.</p>
-<p class="back"><a href="#top">Back to top</a></p>
+<div class="box">
+<strong>What to bring</strong>
+Complete the application online, then bring the original documents and your confirmation code to the office visit.
+</div>
+<div class="btnrow">
+<a class="btn-secondary" href="#renew-appointment">Plan the office visit</a>
+</div>
 </section>
 
-<section id="renew-appointment" aria-labelledby="h-renew-appointment">
-<h2 id="h-renew-appointment">4. How to schedule an appointment at a DMV office</h2>
-<p class="answer"><strong>Use the online appointment system to Make an Appointment.</strong> Choose your office, service, and date and time.</p>
-<ol>
-<li>Open the online appointment service for DMV offices.</li>
-<li>Choose Driver's License or Renewal as the service type.</li>
-<li>Select an office location and an available date and time.</li>
-<li>Save your confirmation and bring it with your documents.</li>
-</ol>
-<p class="small">An appointment is different from Get in Line. An appointment is booked for a future date and time. Get in Line is for same-day visits.</p>
-<a class="btn" href="#renew-office">Review what to bring to the office</a>
-<p class="back"><a href="#top">Back to top</a></p>
+<section id="renew-appointment" aria-labelledby="h-appt">
+<h2 id="h-appt">4. How to schedule an appointment</h2>
+<p class="meta">Goal: Get help at an office without extra trips</p>
+<p class="lede">To make an appointment, choose a service such as renewing a driver license or ID with changes or an in-person requirement.</p>
+<p>Begin the appointment process with the Start Application step.</p>
+<div class="box">
+<strong>Know Before You Go</strong>
+The Know Before You Go notice says counter service is not offered for license renewal unless your notice says so. Check your notice before you book.
+</div>
+<ul class="facts">
+<li>An existing appointment can be reviewed or cancelled through View Appointment.</li>
+<li>Check office wait times before you go to the DMV.</li>
+</ul>
+<div class="btnrow">
+<a class="btn" href="#renew-appointment">Start Application</a>
+<a class="btn-secondary" href="#renew-appointment">View Appointment</a>
+</div>
 </section>
 </main>
-
 <footer>
-<p><strong>Concept redesign mockup for research, not the real agency site.</strong> This sample page shows a clearer flow for renewal information only. It does not provide login, payment, or official transactions.</p>
+<p>This is a <strong>concept redesign</strong> mockup for research, not the real agency site. Content is simplified and fictional for testing a clearer flow.</p>
+<p>For official services, visit the agency website directly. This page has no login, no forms, and no payments — links jump to sections on this page only.</p>
 </footer>
 </div>
 </body>

@@ -1,0 +1,281 @@
+{
+  "id": "license_renewal_info.renew-office.baseline.1",
+  "decision": "license_renewal_info",
+  "intentId": "renew-office",
+  "variant": "baseline",
+  "repeat": 1,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T22:25:40.247Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 7502,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 360,
+          "y": 25
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 27435,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 378,
+          "y": 25
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 38986,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 214,
+          "y": 554
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 50076,
+      "actions": [
+        {
+          "text": "renew vehicle registration at DMV office",
+          "type": "type"
+        },
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 66312,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "005.png"
+      }
+    },
+    {
+      "index": 5,
+      "tMs": 83682,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 5,
+          "type": "scroll",
+          "x": 215,
+          "y": 515
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 101078,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 8,
+          "type": "scroll",
+          "x": 172,
+          "y": 601
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 118740,
+      "actions": [
+        {
+          "path": [
+            {
+              "x": 193,
+              "y": 644
+            },
+            {
+              "x": 193,
+              "y": 258
+            }
+          ],
+          "type": "drag"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 134888,
+      "actions": [
+        {
+          "keys": [
+            "PageDown"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 149146,
+      "actions": [
+        {
+          "keys": [
+            "PageUp"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 171941,
+      "actions": [
+        {
+          "keys": [
+            "ArrowDown"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "ArrowDown"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "ArrowDown"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "ArrowDown"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "ArrowDown"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 192178,
+      "actions": [
+        {
+          "keys": [
+            "PageDown"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=renew+vehicle+registration+at+DMV+office",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {
+    "agentMessage": "Renewing Vehicle Registration - In-Person / At Office - California DMV Service Advisor result for \"renew vehicle registration at DMV office\":\n\n**Option 1 - Renew Online (preferred):**\n> \"In most cases, vehicle registration renewal is no longer processed at the DMV office and can be completed quickly and easily online, saving you time and postage.\"\n* `Renew Online` button\n* If you are unable to renew through simple online application, you can renew online using the `assisted virtual renewal service.`\n\n**Instead of online - office-related options:**\n\n**Option 2 - DMV Kiosks:**\n> \"DMV Kiosks use touchscreen technology to guide you through renewing your registration. DMV Kiosks are available inside select DMV offices and retail locations during regular business hours.\"\n* Link: `Find a kiosk near you.`\n\n**Option 3 - By mail:**\n> \"Renew by mail to the address on your renewal letter.\"\n\n**Option 4 - By phone:**\n> \"Renew by phone at 1-800-777-0133.\"\n\n**Option 5 - Business Partners:**\n> \"Vehicle registration renewals, duplicate sticker orders, and title transfers can be completed with DMV, or with DMV business partners and auto clubs. Business partners are authorized to charge a fee for their services.\"\n* Link: `Find a Business Partner Location`\n\n**Option 6 - In-person when required - How to save time:**\n> \"There are cases that require renewal in person, such as eligibility, restrictions, etc. In these cases, you may schedule an appointment to renew at the DMV office.\"\n* `I am ready to visit the office today.` -> `Get in Line Now` button\n* `I need an appointment in the future.` -> `Make an appointment for registration renewal.` link\n* \"Your current registration card and sticker may be used until your new registration card and sticker are received. Select `Check Registration Status` for the latest information.\"\n\nTo save time on office visit: use Kiosk inside office if eligible, use Get in Line Now if going today, or Make an appointment for future, and Check Registration Status online."
+  },
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "agent_done"
+}

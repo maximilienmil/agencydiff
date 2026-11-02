@@ -1,0 +1,182 @@
+[
+  {
+    "intentId": "real-id-docs",
+    "goal": "Find out what documents I need to get a REAL ID.",
+    "before": {
+      "intentId": "real-id-docs",
+      "goal": "Find out what documents I need to get a REAL ID.",
+      "attempts": 5,
+      "successes": 3,
+      "successRate": 0.6,
+      "medianSteps": 22,
+      "medianActions": 21,
+      "medianActionsToSatisfy": 21,
+      "medianDepth": 1,
+      "medianMs": 372301,
+      "screens": [
+        "www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/",
+        "www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/real-id-checklist/"
+      ],
+      "traceIds": [
+        "license_renewal_info.real-id-docs.baseline.0",
+        "license_renewal_info.real-id-docs.baseline.1",
+        "license_renewal_info.real-id-docs.baseline.2",
+        "license_renewal_info.real-id-docs.baseline.3",
+        "license_renewal_info.real-id-docs.baseline.4"
+      ]
+    },
+    "after": {
+      "intentId": "real-id-docs",
+      "goal": "Find out what documents I need to get a REAL ID.",
+      "attempts": 5,
+      "successes": 5,
+      "successRate": 1,
+      "medianSteps": 2,
+      "medianActions": 1,
+      "medianActionsToSatisfy": 1,
+      "medianDepth": 1,
+      "medianMs": 24169,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.real-id-docs.baseline.0",
+        "license_renewal_info.real-id-docs.baseline.1",
+        "license_renewal_info.real-id-docs.baseline.2",
+        "license_renewal_info.real-id-docs.baseline.3",
+        "license_renewal_info.real-id-docs.baseline.4"
+      ]
+    }
+  },
+  {
+    "intentId": "renew-appointment",
+    "goal": "Find out how to schedule an appointment at a DMV office.",
+    "before": {
+      "intentId": "renew-appointment",
+      "goal": "Find out how to schedule an appointment at a DMV office.",
+      "attempts": 5,
+      "successes": 2,
+      "successRate": 0.4,
+      "medianSteps": 20,
+      "medianActions": 22.5,
+      "medianActionsToSatisfy": 22.5,
+      "medianDepth": 2,
+      "medianMs": 379992.5,
+      "screens": [
+        "www.dmv.ca.gov/portal/appointments/select-appointment-type/"
+      ],
+      "traceIds": [
+        "license_renewal_info.renew-appointment.baseline.0",
+        "license_renewal_info.renew-appointment.baseline.1",
+        "license_renewal_info.renew-appointment.baseline.2",
+        "license_renewal_info.renew-appointment.baseline.3",
+        "license_renewal_info.renew-appointment.baseline.4"
+      ]
+    },
+    "after": {
+      "intentId": "renew-appointment",
+      "goal": "Find out how to schedule an appointment at a DMV office.",
+      "attempts": 5,
+      "successes": 5,
+      "successRate": 1,
+      "medianSteps": 5,
+      "medianActions": 5,
+      "medianActionsToSatisfy": 5,
+      "medianDepth": 1,
+      "medianMs": 67034,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.renew-appointment.baseline.0",
+        "license_renewal_info.renew-appointment.baseline.1",
+        "license_renewal_info.renew-appointment.baseline.2",
+        "license_renewal_info.renew-appointment.baseline.3",
+        "license_renewal_info.renew-appointment.baseline.4"
+      ]
+    }
+  },
+  {
+    "intentId": "renew-office",
+    "goal": "Find out how to renew at a DMV office instead of online, and how to save time on the office visit.",
+    "before": {
+      "intentId": "renew-office",
+      "goal": "Find out how to renew at a DMV office instead of online, and how to save time on the office visit.",
+      "attempts": 5,
+      "successes": 0,
+      "successRate": 0,
+      "screens": [
+        "www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "www.dmv.ca.gov/portal/mydmv-account/",
+        "www.dmv.ca.gov/portal/driver-education-and-safety/special-interest-driver-guides/bicyclists-pedestrians/"
+      ],
+      "traceIds": [
+        "license_renewal_info.renew-office.baseline.0",
+        "license_renewal_info.renew-office.baseline.1",
+        "license_renewal_info.renew-office.baseline.2",
+        "license_renewal_info.renew-office.baseline.3",
+        "license_renewal_info.renew-office.baseline.4"
+      ]
+    },
+    "after": {
+      "intentId": "renew-office",
+      "goal": "Find out how to renew at a DMV office instead of online, and how to save time on the office visit.",
+      "attempts": 5,
+      "successes": 5,
+      "successRate": 1,
+      "medianSteps": 4,
+      "medianActions": 5,
+      "medianActionsToSatisfy": 5,
+      "medianDepth": 0,
+      "medianMs": 76057,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.renew-office.baseline.0",
+        "license_renewal_info.renew-office.baseline.1",
+        "license_renewal_info.renew-office.baseline.2",
+        "license_renewal_info.renew-office.baseline.3",
+        "license_renewal_info.renew-office.baseline.4"
+      ]
+    }
+  },
+  {
+    "intentId": "renew-online",
+    "goal": "Find out whether I can renew my California driver's license online, and where to start the online renewal.",
+    "before": {
+      "intentId": "renew-online",
+      "goal": "Find out whether I can renew my California driver's license online, and where to start the online renewal.",
+      "attempts": 5,
+      "successes": 3,
+      "successRate": 0.6,
+      "medianSteps": 6,
+      "medianActions": 5,
+      "medianActionsToSatisfy": 5,
+      "medianDepth": 1,
+      "medianMs": 68676,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.renew-online.baseline.0",
+        "license_renewal_info.renew-online.baseline.1",
+        "license_renewal_info.renew-online.baseline.2",
+        "license_renewal_info.renew-online.baseline.3",
+        "license_renewal_info.renew-online.baseline.4"
+      ]
+    },
+    "after": {
+      "intentId": "renew-online",
+      "goal": "Find out whether I can renew my California driver's license online, and where to start the online renewal.",
+      "attempts": 5,
+      "successes": 5,
+      "successRate": 1,
+      "medianSteps": 0,
+      "medianActions": 0,
+      "medianActionsToSatisfy": 0,
+      "medianDepth": 0,
+      "medianMs": 0,
+      "screens": [],
+      "traceIds": [
+        "license_renewal_info.renew-online.baseline.0",
+        "license_renewal_info.renew-online.baseline.1",
+        "license_renewal_info.renew-online.baseline.2",
+        "license_renewal_info.renew-online.baseline.3",
+        "license_renewal_info.renew-online.baseline.4"
+      ]
+    }
+  }
+]

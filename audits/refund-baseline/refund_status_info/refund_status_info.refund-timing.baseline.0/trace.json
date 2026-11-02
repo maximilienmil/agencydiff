@@ -1,0 +1,471 @@
+{
+  "id": "refund_status_info.refund-timing.baseline.0",
+  "decision": "refund_status_info",
+  "intentId": "refund-timing",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T21:26:23.855Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.irs.gov/refunds",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 7055,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 388,
+          "y": 250
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 14863,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "002.png"
+      }
+    },
+    {
+      "index": 2,
+      "tMs": 29412,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 66,
+          "y": 286
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 42720,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "004.png"
+      }
+    },
+    {
+      "index": 4,
+      "tMs": 67377,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 65,
+          "y": 287
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 86513,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 234,
+          "y": 124
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 104254,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 406,
+          "y": 98
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 124609,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "l"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 136364,
+      "actions": [
+        {
+          "text": "https://www.irs.gov/refunds\n",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 151600,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "010.png"
+      }
+    },
+    {
+      "index": 10,
+      "tMs": 176394,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 406,
+          "y": 96
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 194425,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 386,
+          "y": 378
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 215809,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 201,
+          "y": 376
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 13,
+      "tMs": 232732,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 5,
+          "type": "scroll",
+          "x": 215,
+          "y": 430
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "014.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 14,
+      "tMs": 250492,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 392,
+          "y": 121
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "015.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 15,
+      "tMs": 270742,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "016.png"
+      }
+    },
+    {
+      "index": 16,
+      "tMs": 290405,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 405,
+          "y": 89
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "017.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 17,
+      "tMs": 319460,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 66,
+          "y": 282
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "018.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 18,
+      "tMs": 338987,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 233,
+          "y": 122
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "019.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 19,
+      "tMs": 358927,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 407,
+          "y": 89
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "020.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 20,
+      "tMs": 390136,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 6,
+          "type": "scroll",
+          "x": 215,
+          "y": 515
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "021.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 21,
+      "tMs": 407609,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 10,
+          "type": "scroll",
+          "x": 215,
+          "y": 430
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "022.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 22,
+      "tMs": 433589,
+      "actions": [
+        {
+          "keys": [
+            "Page_Down"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "023.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 23,
+      "tMs": 463584,
+      "actions": [
+        {
+          "keys": [
+            "Alt",
+            "d"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "024.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 24,
+      "tMs": 527138,
+      "actions": [
+        {
+          "text": "https://www.irs.gov/refunds\n",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://www.irs.gov/ht/refunds",
+        "tags": [],
+        "screenshot": "025.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "step_budget"
+}

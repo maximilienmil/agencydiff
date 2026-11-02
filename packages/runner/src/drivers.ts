@@ -139,13 +139,21 @@ export class MuseDriver implements Driver {
   }
 
   private async respond(body: Record<string, unknown>): Promise<{ id: string; output: OutputItem[] }> {
-    const res = await fetch(`${this.baseUrl}/responses`, {
-      method: "POST",
-      headers: { "content-type": "application/json", authorization: `Bearer ${this.opts.apiKey}` },
-      body: JSON.stringify({ model: this.model, tools: [{ type: "computer" }], ...body }),
-    });
-    if (!res.ok) throw new Error(`Muse ${res.status}: ${await res.text()}`);
-    return res.json();
+    // Server errors are transient: retry the same request with backoff so
+    // one 5xx does not sink the whole probe. Client errors throw at once.
+    let lastError = "";
+    for (let attempt = 0; attempt < 4; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 1000 * 2 ** (attempt - 1)));
+      const res = await fetch(`${this.baseUrl}/responses`, {
+        method: "POST",
+        headers: { "content-type": "application/json", authorization: `Bearer ${this.opts.apiKey}` },
+        body: JSON.stringify({ model: this.model, tools: [{ type: "computer" }], ...body }),
+      });
+      if (res.ok) return (await res.json()) as { id: string; output: OutputItem[] };
+      lastError = `Muse ${res.status}: ${await res.text()}`;
+      if (res.status < 500 || res.status >= 600) throw new Error(lastError);
+    }
+    throw new Error(lastError);
   }
 
   async run(

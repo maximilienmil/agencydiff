@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import { activeSeeds, type SeedId } from "./seeds";
+import { Icon, ROW_ICONS } from "./icons";
 
 // Circle: a deliberately ordinary social app used as AgencyDiff's controlled
 // target. Controls that matter to a decision carry `data-agency` tags and the
@@ -133,6 +134,9 @@ export function App() {
   const [loginPass, setLoginPass] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
   const screen = stack[stack.length - 1];
+  // The fictional-app notice is for people. Automated browsers skip it so
+  // their screenshots show only the app; ?banner=1 forces it back on.
+  const showBanner = !navigator.webdriver || params.has("banner");
 
   const signIn = () => {
     // Demo gate only, not a real credential check: the documented test
@@ -308,11 +312,11 @@ export function App() {
 
   return (
     <div
-      className={dark ? "app dark" : "app"}
+      className={["app", dark && "dark", showBanner && "motion"].filter(Boolean).join(" ")}
       data-screen={overlay ? `${screen}+${overlay}` : screen}
       style={has("UI_ACCENT") ? ({ "--accent": "#0e7a5f" } as CSSProperties) : undefined}
     >
-      <div className="fiction-banner" role="note">
+      <div className="fiction-banner" role="note" hidden={!showBanner}>
         <span>This is a fictional test app.</span>{" "}
         <a href="?variant=baseline">Baseline</a> · <a href="?variant=candidate">Candidate (all seeds)</a>
         {" · Headline seeds: "}
@@ -322,7 +326,7 @@ export function App() {
       <header className="bar">
         {stack.length > 1 ? (
           <button className="icon" data-agency="nav.back" aria-label="Back" onClick={pop}>
-            ‹
+            <Icon name="back" />
           </button>
         ) : (
           <span className="icon" />
@@ -330,7 +334,7 @@ export function App() {
         <h1 className={screen === "home" ? "logo" : ""}>{TITLES[screen]}</h1>
         {screen === "home" ? (
           <button className="icon" data-agency="nav.settings" aria-label="Settings" onClick={() => push("settings")}>
-            ⚙
+            <Icon name="settings" />
           </button>
         ) : (
           <span className="icon" />
@@ -470,6 +474,7 @@ export function App() {
             <div className="stat">
               <span className="big">1h 24m</span>
               <small>Today · daily average this week 1h 41m</small>
+              <WeekChart />
             </div>
             <label className="row toggle-row">
               <span>
@@ -738,7 +743,7 @@ export function App() {
           <div className="sheet" role="dialog">
             {has("LOC_HIDE_DECLINE") ? (
               <>
-                <div className="pin">📍</div>
+                <div className="pin"><Icon name="pin" /></div>
                 <h2>Find friends and events near you</h2>
                 <p>Circle works best with your precise location.</p>
                 <button className="primary" data-agency="location.allow" onClick={() => choose("precise")}>
@@ -750,7 +755,7 @@ export function App() {
               </>
             ) : (
               <>
-                <div className="pin">📍</div>
+                <div className="pin"><Icon name="pin" /></div>
                 <h2>{copyTweak ? "Let Circle know where you are?" : "Allow Circle to use your precise location?"}</h2>
                 <p>Used to show friends and events near you. You can change this anytime in Settings.</p>
                 <div className="pair">
@@ -879,12 +884,19 @@ function List({ children }: { children: React.ReactNode }) {
 
 function Row({ label, detail, tag, onClick }: { label: string; detail?: string; tag?: string; onClick?: () => void }) {
   return (
-    <button className="row" data-agency={tag} onClick={onClick}>
-      <span>
+    <button className={ROW_ICONS[label] ? "row has-icon" : "row"} data-agency={tag} onClick={onClick}>
+      {ROW_ICONS[label] && (
+        <span className={`row-icon tone-${ROW_ICONS[label].tone}`} aria-hidden>
+          <Icon name={ROW_ICONS[label].icon} />
+        </span>
+      )}
+      <span className="row-text">
         {label}
         {detail && <small>{detail}</small>}
       </span>
-      <span className="chev">›</span>
+      <span className="chev" aria-hidden>
+        <Icon name="chevron" />
+      </span>
     </button>
   );
 }
@@ -914,25 +926,99 @@ function Option({
 }
 
 const POSTS = [
-  { who: "maya.r", hue: 12, text: "first day of the rooftop garden 🌱" },
-  { who: "dev_ko", hue: 210, text: "new skate spot by the river" },
-  { who: "lina", hue: 280, text: "study group tonight?" },
+  { who: "maya.r", name: "Maya R.", place: "Rooftop garden", when: "2h", hue: 12, likes: 128, text: "first day of the rooftop garden" },
+  { who: "dev_ko", name: "Dev Ko", place: "Riverside", when: "5h", hue: 210, likes: 86, text: "new skate spot by the river" },
+  { who: "lina", name: "Lina", place: "Library", when: "1d", hue: 280, likes: 41, text: "study group tonight?" },
 ];
+
+const STORIES = [
+  { who: "Your story", hue: 220, me: true },
+  { who: "maya.r", hue: 12 },
+  { who: "dev_ko", hue: 210 },
+  { who: "lina", hue: 280 },
+  { who: "sam.j", hue: 150 },
+  { who: "noor", hue: 330 },
+];
+
+function Avatar({ name, hue, size }: { name: string; hue: number; size: number }) {
+  return (
+    <span
+      className="avatar"
+      style={{
+        width: size,
+        height: size,
+        fontSize: Math.round(size * 0.4),
+        background: `linear-gradient(135deg, hsl(${hue} 80% 66%), hsl(${hue + 30} 72% 52%))`,
+      }}
+    >
+      {name.replace(/[^a-z]/gi, "").slice(0, 1).toUpperCase()}
+    </span>
+  );
+}
 
 function Feed({ posts }: { posts: typeof POSTS }) {
   return (
     <div className="feed">
+      <div className="stories" aria-label="Stories">
+        {STORIES.map((st) => (
+          <span key={st.who} className={st.me ? "story me" : "story"}>
+            <span className="story-ring">
+              <Avatar name={st.me ? "You" : st.who} hue={st.hue} size={56} />
+            </span>
+            <span className="story-name">{st.who}</span>
+          </span>
+        ))}
+      </div>
       {posts.map((p) => (
         <article key={p.who} className="post">
           <div className="who">
-            <span className="avatar" style={{ background: `hsl(${p.hue} 70% 60%)` }} />
-            {p.who}
+            <Avatar name={p.name} hue={p.hue} size={36} />
+            <span className="who-text">
+              <strong>{p.who}</strong>
+              <small>
+                {p.place} · {p.when}
+              </small>
+            </span>
+            <span className="more" aria-hidden>
+              <Icon name="dots" />
+            </span>
           </div>
-          <div className="photo" style={{ background: `linear-gradient(135deg, hsl(${p.hue} 70% 75%), hsl(${p.hue + 40} 60% 55%))` }} />
-          <p>{p.text}</p>
+          <div
+            className="photo"
+            style={{
+              background: [
+                `radial-gradient(circle at 28% 30%, hsl(${p.hue + 20} 95% 80% / 0.95), transparent 42%)`,
+                `radial-gradient(circle at 78% 72%, hsl(${p.hue + 60} 85% 60% / 0.9), transparent 48%)`,
+                `linear-gradient(160deg, hsl(${p.hue} 75% 70%), hsl(${p.hue + 40} 65% 48%))`,
+              ].join(", "),
+            }}
+          />
+          <div className="post-actions" aria-hidden>
+            <Icon name="heart" />
+            <Icon name="comment" />
+            <Icon name="share" />
+            <span className="spacer" />
+            <Icon name="bookmark" />
+          </div>
+          <p className="likes">{p.likes} likes</p>
+          <p>
+            <strong>{p.who}</strong> {p.text}
+          </p>
         </article>
       ))}
     </div>
   );
 }
 
+const WEEK = [62, 95, 71, 118, 104, 84, 84];
+
+function WeekChart() {
+  const max = Math.max(...WEEK);
+  return (
+    <span className="week" aria-hidden>
+      {WEEK.map((m, i) => (
+        <span key={i} className={i === WEEK.length - 1 ? "wk today" : "wk"} style={{ height: `${(m / max) * 100}%` }} />
+      ))}
+    </span>
+  );
+}

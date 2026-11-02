@@ -12,11 +12,15 @@ export function RunsPage({ index }: { index: RunIndex }) {
 
   return (
     <>
-      <h1>Runs</h1>
+      <div className="page-head">
+      <p className="eyebrow">Runs</p>
+      <h1>Every exported run</h1>
       <p className="lede">
         Each run probes the same Intents against a baseline and a candidate Variant and
         decides pass or fail from the Oracle on final app state.
       </p>
+      </div>
+      <div className="table-wrap">
       <table>
         <thead>
           <tr>
@@ -49,6 +53,7 @@ export function RunsPage({ index }: { index: RunIndex }) {
           ))}
         </tbody>
       </table>
+      </div>
 
       {bench ? <BenchmarkSection bench={bench} /> : <p className="muted">Loading benchmark…</p>}
     </>

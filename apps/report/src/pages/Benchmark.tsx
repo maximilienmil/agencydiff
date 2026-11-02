@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { loadBenchmark, type Benchmark as Bench } from "../data";
+import { loadBenchmark, type BenchMethod, type Benchmark as Bench } from "../data";
 import { fmtPct } from "../format";
+import { blob } from "../components";
 
 export function useBenchmark(): Bench | undefined {
   const [bench, setBench] = useState<Bench | undefined>(undefined);
   useEffect(() => {
-    loadBenchmark().then(setBench, () => setBench({ summary: null, susbench: null }));
+    loadBenchmark().then(setBench, () => setBench({ summary: null, susbench: null, agentPrs: null }));
   }, []);
   return bench;
 }
@@ -19,68 +20,131 @@ function Pending({ what }: { what: string }) {
   );
 }
 
+/** "19/20" -> 0.95, for the inline bar. */
+function ratio(s?: string): number {
+  const m = s?.match(/^(\d+)\s*\/\s*(\d+)$/);
+  return m && Number(m[2]) > 0 ? Number(m[1]) / Number(m[2]) : 0;
+}
+
+function money(v?: number): string {
+  if (typeof v !== "number") return "—";
+  return v === 0 ? "$0" : `$${v.toFixed(2)}`;
+}
+
+function Row({ name, note, m, highlight }: { name: string; note: string; m?: BenchMethod | null; highlight?: boolean }) {
+  if (!m) {
+    return (
+      <tr>
+        <td>
+          <strong>{name}</strong>
+          <br />
+          <span className="muted">{note}</span>
+        </td>
+        <td className="num" colSpan={3}>
+          pending
+        </td>
+      </tr>
+    );
+  }
+  const r = ratio(m.caught);
+  return (
+    <tr className={highlight ? "highlight" : undefined}>
+      <td>
+        <strong>{name}</strong>
+        <br />
+        <span className="muted">{note}</span>
+      </td>
+      <td className="num">
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+          <span className="bars" style={{ margin: 0, width: 96 }} aria-hidden>
+            <span className="track" style={{ display: "block" }}>
+              <span className={`fill ${r >= 0.9 ? "blue" : r < 0.25 ? "red" : ""}`} style={{ display: "block", width: `${r * 100}%` }} />
+            </span>
+          </span>
+          <strong>{m.caught}</strong>
+        </span>
+      </td>
+      <td className="num">{m.falseAlarms}</td>
+      <td className="num">{money(m.costUsd)}</td>
+    </tr>
+  );
+}
+
 export function BenchmarkSection({ bench }: { bench: Bench }) {
   const { summary, susbench } = bench;
+  const walk = summary?.judge.walkthrough;
   return (
     <>
-      <h2>Benchmark</h2>
+      <div className="section-head">
+        <h2 id="benchmark">Benchmark</h2>
+        <a className="text-link" href={blob("eval/RESULTS.md")}>
+          Method and per-seed results →
+        </a>
+      </div>
       <p className="lede">
-        Seeded regressions in Circle, scored against ground truth. Caught means every Intent a
-        seed should move was flagged; a false alarm means a no-change control produced a
-        Finding.
+        26 seeded changes to Circle, each run in isolation and scored against ground truth: 20
+        regressions and 6 no-change controls. Caught means every Intent a seed should move was
+        flagged; a false alarm means a control produced a Finding.
       </p>
       {!summary ? (
         <Pending what="Seeded benchmark (eval/results/summary.json)" />
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th className="num">Caught</th>
-              <th className="num">False alarms</th>
-              <th className="num">Cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>AgencyDiff, scripted Probes</td>
-              <td className="num">{summary.agencydiff.scripted.caught}</td>
-              <td className="num">{summary.agencydiff.scripted.falseAlarms}</td>
-              <td className="num">${summary.agencydiff.scripted.costUsd.toFixed(2)}</td>
-            </tr>
-            <tr>
-              <td>AgencyDiff, Muse Probes</td>
-              {summary.agencydiff.muse ? (
-                <>
-                  <td className="num">{summary.agencydiff.muse.caught}</td>
-                  <td className="num">{summary.agencydiff.muse.falseAlarms}</td>
-                  <td className="num">${summary.agencydiff.muse.costUsd.toFixed(2)}</td>
-                </>
-              ) : (
-                <td className="num" colSpan={3}>
-                  pending
-                </td>
-              )}
-            </tr>
-            <tr>
-              <td>Muse as judge (model opinion)</td>
-              <td className="num">{summary.judge.caught}</td>
-              <td className="num">{summary.judge.falseAlarms}</td>
-              <td className="num">${summary.judge.costUsd.toFixed(2)}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th className="num">Caught</th>
+                <th className="num">False alarms</th>
+                <th className="num">Cost per run</th>
+              </tr>
+            </thead>
+            <tbody>
+              <Row
+                highlight
+                name="AgencyDiff replay gate"
+                note="Scripted Probes replay the baseline path on the candidate"
+                m={summary.agencydiff.scripted}
+              />
+              <Row
+                name="Hybrid: gate + Muse cost probe"
+                note="Muse measures cost only where the gate fires"
+                m={summary.agencydiff.hybrid}
+              />
+              <Row
+                name="Muse computer-use Probes alone"
+                note="Free-roaming, k=3; noisy without the gate"
+                m={summary.agencydiff.muse}
+              />
+              <Row
+                name="Muse as judge, with a walkthrough"
+                note="Model opinion over every screen on the reference path"
+                m={walk}
+              />
+              <Row
+                name="Muse as judge, first screens"
+                note="What a reviewer sees in PR screenshots"
+                m={summary.judge.firstScreens}
+              />
+            </tbody>
+          </table>
+        </div>
       )}
-      {summary?.judge.consistencyK3 && (
-        <p className="muted">
-          Judge k=3 consistency: {fmtPct(summary.judge.consistencyK3.agreement)} agreement over{" "}
-          {summary.judge.consistencyK3.pairs} verdicts ({summary.judge.consistencyK3.seeds.join(", ")}).
+      {walk?.consistencyK3 && (
+        <p className="muted" style={{ fontSize: 13.5 }}>
+          Judge k=3 consistency: {fmtPct(walk.consistencyK3.agreement)} agreement over{" "}
+          {walk.consistencyK3.pairs} verdicts ({walk.consistencyK3.seeds.join(", ")}).
         </p>
       )}
 
-      <h3>SUSBench snapshots</h3>
+      <div className="section-head">
+        <h3 style={{ fontSize: 20, marginTop: 48 }}>SusBench-derived lab pages</h3>
+        <a className="text-link" href={blob("docs/susbench.md")}>
+          About this benchmark →
+        </a>
+      </div>
       {!susbench ? (
-        <Pending what="SUSBench (eval/susbench/results.json)" />
+        <Pending what="SusBench (eval/susbench/results.json)" />
       ) : (
         <>
           <div className="stat-row">
@@ -88,43 +152,55 @@ export function BenchmarkSection({ bench }: { bench: Bench }) {
               <div className="v">
                 {susbench.summary.detectedPairs}/{susbench.summary.injectedPairs}
               </div>
-              <div className="k">Injected pairs detected</div>
+              <div className="k">Injected patterns detected</div>
             </div>
             <div className="stat">
-              <div className="v">{susbench.summary.falseAlarms}</div>
-              <div className="k">False alarms on {susbench.summary.controlPairs} controls</div>
+              <div className="v">
+                {susbench.summary.falseAlarms}/{susbench.summary.controlPairs}
+              </div>
+              <div className="k">False alarms on controls</div>
             </div>
             <div className="stat">
-              <div className="v">{susbench.repeats}</div>
-              <div className="k">Repeats per Probe (model: {susbench.model})</div>
+              <div className="v">k={susbench.repeats}</div>
+              <div className="k">Repeats per Probe · {susbench.model}</div>
             </div>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Pattern</th>
-                <th>Kind</th>
-                <th>Detected</th>
-                <th>Metrics moved</th>
-              </tr>
-            </thead>
-            <tbody>
-              {susbench.pairs.map((p) => (
-                <tr key={p.pair}>
-                  <td>{p.pattern}</td>
-                  <td>{p.control ? "Control" : "Injected"}</td>
-                  <td>
-                    {p.detected ? (
-                      <span className="pill pass">Detected</span>
-                    ) : (
-                      <span className="pill fail">Missed</span>
-                    )}
-                  </td>
-                  <td>{p.metricsMoved.join(", ") || "—"}</td>
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Pattern</th>
+                  <th>Kind</th>
+                  <th>Result</th>
+                  <th>Metrics moved</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {susbench.pairs.map((p) => (
+                  <tr key={p.pair}>
+                    <td>
+                      <strong>{p.pattern}</strong>
+                    </td>
+                    <td className="muted">{p.control ? "Control" : "Injected"}</td>
+                    <td>
+                      {p.control ? (
+                        p.detected || p.metricsMoved.length > 0 ? (
+                          <span className="pill fail">False alarm</span>
+                        ) : (
+                          <span className="pill unchanged">Quiet</span>
+                        )
+                      ) : p.detected ? (
+                        <span className="pill pass">Detected</span>
+                      ) : (
+                        <span className="pill fail">Missed</span>
+                      )}
+                    </td>
+                    <td className="muted">{p.metricsMoved.join(", ") || "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
     </>

@@ -25,10 +25,10 @@ export function ContractPage({ runId }: { runId: string }) {
 
   return (
     <>
-      <h1>
-        Contract <span className="muted" style={{ fontWeight: 400, fontSize: 18 }}>: {contract.decision}</span>
-      </h1>
-      <p className="lede">{contract.promise}</p>
+      <div className="page-head">
+        <p className="eyebrow">Agency Contract · {contract.decision.replace(/_/g, " ")}</p>
+        <h1 style={{ maxWidth: "30ch" }}>{contract.promise}</h1>
+      </div>
 
       <h2>Decision</h2>
       <dl className="deflist">
@@ -51,6 +51,7 @@ export function ContractPage({ runId }: { runId: string }) {
         Each pair holds two opposing Intents on the same Decision so the cost of saying no can
         be compared against the cost of saying yes.
       </p>
+      <div className="table-wrap">
       <table>
         <thead>
           <tr>
@@ -67,6 +68,7 @@ export function ContractPage({ runId }: { runId: string }) {
           ))}
         </tbody>
       </table>
+      </div>
 
       <h2>Intents</h2>
       {contract.intents.map((i) => (

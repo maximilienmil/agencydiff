@@ -1,21 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { AgencyContract, AgencyReport, LiveEvent, Trace, Variant } from "@agencydiff/core";
 import { loadContract, loadReport, loadTrace, samUrl, shotUrl } from "../data";
-import { actionLabel, shotList } from "../format";
-import { cursorFor, findingLines, initialLiveState, nextSpeed, paneAtStep, reduceLiveEvent, replayMaxStep, SPEEDS, type LiveState } from "../live";
-
-const W = 430;
-const H = 860;
-
-function Cursor({ actions, tick }: { actions: Trace["steps"][number]["actions"]; tick: string }) {
-  const c = cursorFor(actions);
-  if (!c) return null;
-  return (
-    <div key={tick} className="live-cursor" style={{ left: `${(c.x / W) * 100}%`, top: `${(c.y / H) * 100}%` }} aria-hidden>
-      <span className="live-ripple" /><span className="live-dot" />
-    </div>
-  );
-}
+import { shotList } from "../format";
+import { findingLines, initialLiveState, nextSpeed, paneAtStep, reduceLiveEvent, replayMaxStep, SPEEDS, type LiveState } from "../live";
+import { Phone, stepCaption, stepNote } from "../components";
+import { useTheme } from "../App";
 
 export function LivePage({ runId, intent, liveUrl, source }: { runId: string; intent?: string; liveUrl?: string; source?: string }) {
   const isLive = source === "live";
@@ -27,7 +16,7 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const [showOverlay, setShowOverlay] = useState(true);
-  const [dark, setDark] = useState(false);
+  const [, toggleTheme] = useTheme();
   const [liveState, setLiveState] = useState<LiveState>(initialLiveState);
   const [liveError, setLiveError] = useState<string | null>(null);
   const stateRef = useRef(liveState);
@@ -37,7 +26,6 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
   const activeIntent = intent ?? liveState.intentId ?? intents[0]?.id;
   const goal = liveState.goal ?? intents.find((i) => i.id === activeIntent)?.goal ?? activeIntent ?? "Live probes";
 
-  useEffect(() => { document.documentElement.dataset.theme = dark ? "dark" : "light"; }, [dark]);
   useEffect(() => { if (!isLive) loadContract(runId).then(setContract, () => setContract(null)); }, [runId, isLive]);
 
   useEffect(() => {
@@ -91,7 +79,7 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
       else if (e.key === "Home") { e.preventDefault(); setStep(0); }
       else if (e.key === "End") { e.preventDefault(); setStep(maxStep); }
       else if (e.key === "o" || e.key === "O") setShowOverlay((v) => !v);
-      else if (e.key === "t" || e.key === "T") setDark((v) => !v);
+      else if (e.key === "t" || e.key === "T") toggleTheme();
       else if (e.key === "s" || e.key === "S") setSpeed((v) => nextSpeed(v));
       else if (["1", "2", "4"].includes(e.key)) setSpeed(Number(e.key));
     };
@@ -103,13 +91,14 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
   const liveLines = liveState.findings.map((f) => ({ label: f.title, text: `${String(f.baseline)} → ${String(f.candidate)}` }));
 
   const renderPane = (variant: Variant) => {
+    const label = variant === "baseline" ? "Baseline" : "Candidate";
     if (isLive) {
       const p = liveState.panes[variant];
       return (
-        <div className="pane live-pane" key={variant}>
-          <header><span>{variant === "baseline" ? "Baseline" : "Candidate"}</span><span className="live-stepcount" key={p.step}>Step {p.step}</span></header>
-          <div className="shot"><div className="live-shotwrap">{p.screenshotUrl ? <img src={p.screenshotUrl} alt={`${variant} step ${p.step}`} /> : <div className="live-wait">Waiting for Probe…</div>}<Cursor actions={p.actions} tick={`${p.traceId}-${p.step}`} /></div></div>
-          <div className="caption"><strong>{p.traceId ?? variant}</strong><br />{p.actions.length ? `${actionLabel(p.actions)}${p.note ? ` — ${p.note}` : ""}` : p.finished ? `Oracle ${p.oraclePassed === undefined ? "not checked" : p.oraclePassed ? "passed" : "failed"}` : "Starting screen, before the Probe acts."}</div>
+        <div className="side pane live-pane" key={variant}>
+          <div className={`phone-label ${variant}`}><span className="name">{label}</span><span className="step-note live-stepcount" key={p.step}>Step {p.step}</span></div>
+          <Phone src={p.screenshotUrl} alt={`${variant} step ${p.step}`} actions={p.actions} tick={`${p.traceId}-${p.step}`}>Waiting for Probe…</Phone>
+          <div className="phone-caption"><strong>{p.finished ? `Oracle ${p.oraclePassed === undefined ? "not checked" : p.oraclePassed ? "passed" : "failed"}` : p.step === 0 ? "Starting screen" : `Step ${p.step}${stepNote(p.note) ? ` · ${stepNote(p.note)}` : ""}`}</strong></div>
         </div>
       );
     }
@@ -118,44 +107,76 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
     const shots = trace ? shotList(trace) : [];
     const shot = view.screenshot ?? shots[0];
     const decisive = trace && showFinding;
+    const finished = trace && view.current >= trace.steps.length;
     return (
-      <div className="pane live-pane" key={variant}>
-        <header><span>{variant === "baseline" ? "Baseline" : "Candidate"}</span><span className="live-stepcount" key={view.current}>Step {view.current} of {trace?.steps.length ?? 0}</span></header>
-        <div className="shot"><div className="live-shotwrap">{trace && shot ? <img src={shotUrl(runId, trace.id, shot)} alt={`${variant} step ${view.current}`} /> : <div className="live-wait">No Trace for this Variant.</div>}
-          {trace && decisive && showOverlay && variant === "candidate" && <img className="overlay" src={samUrl(runId, trace.id, shots[shots.length - 1])} alt="" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />}
-          {trace && <Cursor actions={view.actions} tick={`${trace.id}-${view.current}`} />}</div></div>
-        <div className="caption"><strong>{trace?.id ?? variant}</strong><br />{view.current === 0 ? "Starting screen, before the Probe acts." : `Step ${view.current}: ${actionLabel(view.actions)}${view.note ? ` — ${view.note}` : ""}`}{trace && view.current >= trace.steps.length ? ` · Oracle ${trace.oracle.passed ? "passed" : "failed"}` : ""}</div>
+      <div className="side pane live-pane" key={variant}>
+        <div className={`phone-label ${variant}`}><span className="name">{label}</span><span className="step-note">Step {view.current} of {trace?.steps.length ?? 0}</span></div>
+        <Phone
+          src={trace && shot ? shotUrl(runId, trace.id, shot) : undefined}
+          alt={`${variant} step ${view.current}`}
+          actions={trace?.steps[view.current]?.actions ?? []}
+          tick={`${trace?.id}-${view.current}`}
+          overlay={trace && decisive && showOverlay && variant === "candidate" ? samUrl(runId, trace.id, shots[shots.length - 1]) : undefined}
+          onOverlayError={() => setShowOverlay(false)}
+        >No Trace for this Variant.</Phone>
+        <div className="phone-caption">
+          <strong>{trace ? stepCaption(trace, view.current) : ""}</strong>
+          {finished && trace && <><br /><span className={`pill ${trace.oracle.passed ? "pass" : "fail"}`} style={{ marginTop: 8 }}>Oracle {trace.oracle.passed ? "passed" : "failed"}</span></>}
+        </div>
       </div>
     );
   };
 
+  const counts = isLive
+    ? { b: liveState.panes.baseline.step, c: liveState.panes.candidate.step }
+    : { b: Math.min(step, traces.baseline?.steps.length ?? 0), c: Math.min(step, traces.candidate?.steps.length ?? 0) };
+  const shownLines = isLive ? liveLines : lines;
+
   return (
     <div className="live-page">
-      <p className="live-eyebrow">{isLive ? "Live probes" : "Replay"} · {contract?.decision ?? liveState.decision ?? "AgencyDiff"}</p>
-      <h1 className="live-intent">{goal}</h1>
-      <div className="live-toolbar">
-        {!isLive && <><label>Intent <select value={activeIntent ?? ""} onChange={(e) => { window.location.hash = `#/live?run=${runId}&intent=${e.target.value}`; setStep(0); }}>{intents.map((i) => <option key={i.id} value={i.id}>{i.goal}</option>)}</select></label>
-        <button onClick={() => setStep(0)}>Start</button><button onClick={() => setStep((s) => Math.max(0, s - 1))}>Back</button>
-        <button onClick={() => { if (step >= maxStep) setStep(0); setPlaying((p) => !p); }}>{playing ? "Pause" : step >= maxStep ? "Replay" : "Play"}</button>
-        <button onClick={() => setStep((s) => Math.min(s + 1, maxStep))}>Next</button>
-        <input type="range" min={0} max={maxStep} value={step} aria-label="Playback step" onChange={(e) => { setPlaying(false); setStep(Number(e.target.value)); }} />
-        <span className="step-note">Step {step} of {maxStep}</span></>}
-        <label>Speed <select value={speed} onChange={(e) => setSpeed(Number(e.target.value))}>{SPEEDS.map((s) => <option key={s} value={s}>{s}×</option>)}</select></label>
-        <label className="live-check"><input type="checkbox" checked={showOverlay} onChange={(e) => setShowOverlay(e.target.checked)} /> SAM overlay</label>
-        <button onClick={() => setDark((d) => !d)}>{dark ? "Light" : "Dark"}</button>
+      <div className="live-head">
+        <p className="eyebrow">{isLive ? "Live Probes" : "Live replay"} · {(contract?.decision ?? liveState.decision ?? "AgencyDiff").replace(/_/g, " ")}</p>
+        <h1>{goal}</h1>
+      </div>
+      {!isLive && (
+        <div className="intent-select">
+          <label htmlFor="live-intent">Intent</label>
+          <select id="live-intent" value={activeIntent ?? ""} onChange={(e) => { window.location.hash = `#/live?run=${runId}&intent=${e.target.value}`; setStep(0); }}>{intents.map((i) => <option key={i.id} value={i.id}>{i.goal}</option>)}</select>
+        </div>
+      )}
+      <div className="toolbar" role="group" aria-label="Playback">
+        {!isLive && <>
+          <button onClick={() => { setPlaying(false); setStep(0); }} disabled={step === 0}>Start</button>
+          <button onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} disabled={step === 0}>Back</button>
+          <button className="primary" onClick={() => { if (step >= maxStep) setStep(0); setPlaying((p) => !p); }}>{playing ? "Pause" : step >= maxStep ? "Replay" : "Play"}</button>
+          <button onClick={() => { setPlaying(false); setStep((s) => Math.min(s + 1, maxStep)); }} disabled={step >= maxStep}>Next</button>
+          <span className="grow"><input type="range" min={0} max={maxStep} value={step} aria-label="Playback step" onChange={(e) => { setPlaying(false); setStep(Number(e.target.value)); }} /><span className="step-note">Step {step} of {maxStep}</span></span>
+        </>}
+        <label>Speed <select value={speed} onChange={(e) => setSpeed(Number(e.target.value))} style={{ height: 32, padding: "4px 30px 4px 12px" }}>{SPEEDS.map((s) => <option key={s} value={s}>{s}×</option>)}</select></label>
+        <label><input type="checkbox" checked={showOverlay} onChange={(e) => setShowOverlay(e.target.checked)} /> SAM overlay</label>
         <a className="live-mode" href={isLive ? `#/live?run=${runId}&intent=${activeIntent ?? ""}` : `#/live?run=${runId}&intent=${activeIntent ?? ""}&source=live&live=${encodeURIComponent(liveBase)}`}>{isLive ? "Replay mode" : "Live mode"}</a>
       </div>
-      <p className="live-keys">Space play / pause · ← → step · Home / End jump · S speed · 1 / 2 / 4 speed · O overlay · T theme</p>
+      <p className="keys"><kbd>Space</kbd> play · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>Home</kbd> <kbd>End</kbd> jump · <kbd>S</kbd> speed · <kbd>O</kbd> overlay · <kbd>T</kbd> theme</p>
       {liveError && <div className="error">{liveError}</div>}
-      <div className="replay-stage live-stage">{renderPane("baseline")}{renderPane("candidate")}</div>
-      {showFinding && (
-        <section className="live-finding" aria-live="polite">
-          <h2>Finding</h2>
-          {(isLive ? liveLines : lines).length === 0 && <p>No Finding for this Intent. Both Variants cost the same.</p>}
-          <dl className="live-finding-list">{(isLive ? liveLines : lines).map((l) => <div key={l.label}><dt>{l.label}</dt><dd>{l.text}</dd></div>)}</dl>
-          <p className="muted">{isLive ? "Oracle result decides success, never the agent's claim." : "SAM overlay is shown on the candidate's decisive screenshot when stored beside it."}</p>
-        </section>
-      )}
+      <div className="stage replay-stage live-stage">
+        {renderPane("baseline")}
+        <div className="stage-mid">
+          <div className="counter">
+            <div className="k">Steps taken</div>
+            <div className="row"><span>Baseline</span><b className="tick" key={`b${counts.b}`}>{counts.b}</b></div>
+            <div className="row cand"><span>Candidate</span><b className="tick" key={`c${counts.c}`}>{counts.c}</b></div>
+          </div>
+          {showFinding && (
+            <section className={`finding-card live-finding ${shownLines.length ? "" : "ok"}`} aria-live="polite">
+              <h4>Finding</h4>
+              {shownLines.length === 0 && <p style={{ margin: 0 }}>No Finding for this Intent. Both Variants cost the same.</p>}
+              <dl>{shownLines.slice(0, 3).map((l) => <div key={l.label}><dt>{l.label}</dt><dd className="tnum" style={{ fontWeight: 750 }}>{l.text}</dd></div>)}</dl>
+            </section>
+          )}
+          {!showFinding && <p className="muted" style={{ fontSize: 13, margin: 0 }}>{isLive ? "Success is decided by the Oracle on final state, never the agent's claim." : "Press Play. The Finding slides in when both Traces finish."}</p>}
+        </div>
+        {renderPane("candidate")}
+      </div>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { DiffPage } from "./pages/Diff";
 import { ReplayPage } from "./pages/Replay";
 import { ContractPage } from "./pages/Contract";
 import { LivePage } from "./pages/Live";
+import { BrandMark, REPO_URL } from "./components";
 
 export type Page = "overview" | "runs" | "diff" | "replay" | "contract" | "live";
 
@@ -67,14 +68,53 @@ const TABS: { id: Page; label: string }[] = [
   { id: "live", label: "Live" },
 ];
 
+type Theme = "light" | "dark";
+
+function initialTheme(): Theme {
+  try {
+    const saved = localStorage.getItem("agencydiff.theme");
+    if (saved === "light" || saved === "dark") return saved;
+  } catch {
+    /* storage blocked: fall back to the system preference */
+  }
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+export function useTheme(): [Theme, () => void] {
+  const [theme, setTheme] = useState<Theme>(initialTheme);
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+  useEffect(() => {
+    const onSet = (e: Event) => setTheme((e as CustomEvent<Theme>).detail);
+    window.addEventListener("agencydiff-theme", onSet);
+    return () => window.removeEventListener("agencydiff-theme", onSet);
+  }, []);
+  const toggle = () => {
+    const next: Theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    try {
+      localStorage.setItem("agencydiff.theme", next);
+    } catch {
+      /* ignore */
+    }
+    window.dispatchEvent(new CustomEvent("agencydiff-theme", { detail: next }));
+  };
+  return [theme, toggle];
+}
+
 export function App() {
   const route = useRoute();
   const [index, setIndex] = useState<RunIndex | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [theme, toggleTheme] = useTheme();
 
   useEffect(() => {
     loadIndex().then(setIndex, (e) => setError(String(e)));
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [route.page]);
 
   const runId = route.run ?? index?.runs[0]?.id;
   const goDefault = useCallback(
@@ -84,11 +124,12 @@ export function App() {
 
   return (
     <>
-      <div className="topbar">
+      <header className="topbar">
         <div className="topbar-inner">
-          <div className="brand">
-            AgencyDiff<small>intent regression report</small>
-          </div>
+          <a className="brand" href="#/overview" aria-label="AgencyDiff home">
+            <BrandMark />
+            <span>AgencyDiff</span>
+          </a>
           <nav className="tabs" aria-label="Report sections">
             {TABS.map((t) => (
               <a
@@ -100,8 +141,25 @@ export function App() {
               </a>
             ))}
           </nav>
+          <div className="topbar-actions">
+            <button
+              className="icon-btn"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+              title="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+              ) : (
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" /></svg>
+              )}
+            </button>
+            <a className="button-link gh" href={REPO_URL} style={{ height: 36, padding: "0 14px", fontSize: 14 }}>
+              GitHub
+            </a>
+          </div>
         </div>
-      </div>
+      </header>
       <main>
         {error && <div className="error">Could not load report data: {error}</div>}
         {!error && !index && <p className="muted">Loading report data…</p>}
@@ -123,12 +181,19 @@ export function App() {
             {route.page === "live" && <LivePage runId={runId} intent={route.intent} liveUrl={route.live} source={route.source} />}
           </>
         )}
-        <footer>
-          AgencyDiff measures the interface, not the person. Probes are standardized
-          instruments; success is decided by the Oracle on final app state
-          {index?.runs[0] ? ` · latest run ${fmtDate(index.runs[0].date)}` : ""}.
-        </footer>
       </main>
+      <footer className="site">
+        <div className="inner">
+          <span>
+            AgencyDiff measures the interface, not the person. Probes are standardized instruments;
+            success is decided by the Oracle on final app state
+            {index?.runs[0] ? ` · latest run ${fmtDate(index.runs[0].date)}` : ""}.
+          </span>
+          <span>
+            <a href={REPO_URL}>Source</a> · MIT
+          </span>
+        </div>
+      </footer>
     </>
   );
 }

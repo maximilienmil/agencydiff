@@ -4,8 +4,11 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
+  androidActivityFor,
+  ensureStateForward,
   escapeAdbText,
   keyEvents,
+  launchAndroidApp,
   MobileEnv,
   parseTopActivity,
   parseUiDump,
@@ -161,5 +164,45 @@ describe("MobileEnv", () => {
 
   it("refuses audit mode instead of running unguarded", async () => {
     await expect(MobileEnv.openAudit()).rejects.toThrow(/audit/i);
+  });
+});
+
+describe("android launch", () => {
+  it("maps decisions to activities and rejects unknown ones", () => {
+    expect(androidActivityFor("precise_location")).toBe("com.circle/.LocationActivity");
+    expect(androidActivityFor("subscription")).toBe("com.circle/.SubActivity");
+    expect(() => androidActivityFor("screen_time")).toThrow(/no Android activity/);
+  });
+
+  it("force-stops, forwards state and starts the fixture", async () => {
+    const log: string[][] = [];
+    const run: AdbRunner = async (args) => {
+      log.push(args);
+      return Buffer.from("");
+    };
+    await ensureStateForward(run);
+    await launchAndroidApp(run, {
+      activity: androidActivityFor("subscription"),
+      variant: "candidate",
+      fixture: "prompt-answered",
+    });
+    expect(log[0]).toEqual(["forward", "tcp:8081", "tcp:8081"]);
+    expect(log[1]).toEqual(["shell", "am", "force-stop", "com.circle"]);
+    expect(log[2]).toEqual([
+      "shell", "am", "start", "-n", "com.circle/.SubActivity",
+      "--es", "variant", "candidate",
+      "--es", "fixture", "prompt-answered",
+    ]);
+  });
+
+  it("omits the fixture flag when no fixture is set", async () => {
+    const log: string[][] = [];
+    const run: AdbRunner = async (args) => {
+      log.push(args);
+      return Buffer.from("");
+    };
+    await launchAndroidApp(run, { activity: "com.circle/.LocationActivity", variant: "baseline" });
+    expect(log[0].join(" ")).toBe("shell am force-stop com.circle");
+    expect(log[1].join(" ")).toBe("shell am start -n com.circle/.LocationActivity --es variant baseline");
   });
 });

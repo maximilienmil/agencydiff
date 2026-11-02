@@ -41,6 +41,13 @@ const { values } = parseArgs({
     marker: { type: "string", default: "agencydiff" },
     "base-ref": { type: "string" },
     "head-ref": { type: "string" },
+    /** "web" (default) drives a browser; "android" drives the native build
+     *  on the attached emulator via MobileEnv. */
+    platform: { type: "string", default: "web" },
+    /** Comma list of variants to probe (default "baseline,candidate"). */
+    variants: { type: "string", default: "baseline,candidate" },
+    /** adb serial for `adb -s`. Defaults to the single attached device. */
+    serial: { type: "string" },
   },
 });
 
@@ -55,7 +62,11 @@ async function makeDriver(contractPath: string, variant: Variant): Promise<Drive
   if (values.driver === "muse") {
     const apiKey = process.env.MODEL_API_KEY;
     if (!apiKey) throw new Error("MODEL_API_KEY is not set");
-    return new MuseDriver({ apiKey, model: values.model ?? process.env.MUSE_MODEL });
+    return new MuseDriver({
+      apiKey,
+      model: values.model ?? process.env.MUSE_MODEL,
+      target: values.platform === "android" ? "android" : "web",
+    });
   }
   const refPath = path.join(ROOT, "eval", "reference_paths", path.basename(contractPath));
   const refs: Record<Variant, Record<string, string[]>> = JSON.parse(await readFile(refPath, "utf8"));
@@ -75,10 +86,22 @@ async function runOneContract(
   const only = values.intents?.split(",");
   const intents = contract.intents.filter((i) => !only || only.includes(i.id));
   const repeats = Number(values.repeats);
-  const target = { baseline: values.baseline!, candidate: values.candidate! };
+  if (values.platform !== "web" && values.platform !== "android") {
+    throw new Error(`--platform must be web or android (got ${values.platform})`);
+  }
+  const target = {
+    baseline: values.baseline!,
+    candidate: values.candidate!,
+    platform: values.platform as "web" | "android",
+    serial: values.serial,
+  };
   const traces: Trace[] = [];
 
-  for (const variant of ["baseline", "candidate"] as const) {
+  const variants = values.variants!.split(",") as Variant[];
+  for (const v of variants) {
+    if (v !== "baseline" && v !== "candidate") throw new Error(`--variants must list baseline,candidate (got ${values.variants})`);
+  }
+  for (const variant of variants) {
     const driver = await makeDriver(contractPath, variant);
     for (const intent of intents) {
       for (let repeat = 0; repeat < repeats; repeat++) {

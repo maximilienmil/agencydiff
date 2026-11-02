@@ -32,14 +32,46 @@ export interface MobileEnvOptions {
   run?: AdbRunner;
 }
 
-const defaultRunner = (serial?: string): AdbRunner =>
-  (args) =>
+const defaultRunner = (serial?: string): AdbRunner => adbRunner(serial);
+
+/** Serial-scoped adb runner shared by MobileEnv and the probe launcher. */
+export function adbRunner(serial?: string): AdbRunner {
+  return (args) =>
     new Promise<Buffer>((resolve, reject) => {
       execFile("adb", serial ? ["-s", serial, ...args] : args, { maxBuffer: 64 * 1024 * 1024, encoding: "buffer" }, (err, stdout) => {
         if (err) reject(err);
         else resolve(stdout);
       });
     });
+}
+
+export const ANDROID_PACKAGE = "com.circle";
+export const ANDROID_STATE_PORT = 8081;
+
+/** Decision under test to the activity that hosts it in the native build. */
+export function androidActivityFor(decision: string): string {
+  if (decision === "precise_location") return `${ANDROID_PACKAGE}/.LocationActivity`;
+  if (decision === "subscription") return `${ANDROID_PACKAGE}/.SubActivity`;
+  throw new Error(`no Android activity for decision "${decision}" (see apps/circle-android)`);
+}
+
+/** Forward the app's loopback state endpoint so MobileEnv.state() can read it. */
+export async function ensureStateForward(run: AdbRunner, port = ANDROID_STATE_PORT): Promise<void> {
+  await run(["forward", `tcp:${port}`, `tcp:${port}`]);
+}
+
+/** Reset the app to a fixture and bring the decision screen to the front. */
+export async function launchAndroidApp(
+  run: AdbRunner,
+  opts: { activity: string; variant: string; fixture?: string },
+): Promise<void> {
+  await run(["shell", "am", "force-stop", ANDROID_PACKAGE]);
+  const args = ["shell", "am", "start", "-n", opts.activity, "--es", "variant", opts.variant];
+  if (opts.fixture) args.push("--es", "fixture", opts.fixture);
+  await run(args);
+  // Cold start plus activity launch; the first screenshot must show the app.
+  await new Promise((r) => setTimeout(r, 2500));
+}
 
 export class MobileEnv {
   readonly platform = "android" as const;
@@ -90,12 +122,23 @@ export class MobileEnv {
   }
 
   /** App state through the target's local HTTP hook; undefined for
-   *  black-box targets with no stateUrl, mirroring BrowserEnv. */
+   *  black-box targets with no stateUrl, mirroring BrowserEnv. The emulator
+   *  sometimes stalls a connection under load, so read with a timeout and
+   *  retry instead of hanging the whole run on one oracle read. */
   async state(): Promise<Record<string, unknown> | undefined> {
     if (!this.stateUrl) return undefined;
-    const res = await fetch(this.stateUrl);
-    if (!res.ok) throw new Error(`mobile state endpoint ${res.status}: ${this.stateUrl}`);
-    return (await res.json()) as Record<string, unknown>;
+    let lastError = "";
+    for (let attempt = 0; attempt < 4; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 1000 * attempt));
+      try {
+        const res = await fetch(this.stateUrl, { signal: AbortSignal.timeout(8000) });
+        if (!res.ok) throw new Error(`mobile state endpoint ${res.status}: ${this.stateUrl}`);
+        return (await res.json()) as Record<string, unknown>;
+      } catch (e) {
+        lastError = String(e);
+      }
+    }
+    throw new Error(`mobile state endpoint unreachable: ${this.stateUrl} (${lastError})`);
   }
 
   async execute(actions: Action[]): Promise<void> {

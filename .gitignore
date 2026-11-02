@@ -6,3 +6,7 @@ audits/**/*.png
 *.log
 .sam-cache/
 eval/results/traces/
+media/*.mp4
+media/footage/
+video/public/footage/
+video/out/

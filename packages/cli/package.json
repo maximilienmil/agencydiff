@@ -1,0 +1,39 @@
+{
+  "name": "agencydiff",
+  "version": "0.1.0",
+  "description": "Intent regression testing for UX: probe the same user intent on two builds and diff the cost.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "agencydiff": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "data",
+    "README.md"
+  ],
+  "scripts": {
+    "sync-data": "node scripts/copy-data.mjs",
+    "prebuild": "pnpm sync-data",
+    "build": "tsup src/cli.ts --format esm --target node22 --no-external @agencydiff/core --no-external @agencydiff/runner --external playwright --external @modelcontextprotocol/sdk --external zod --out-dir dist --clean",
+    "dev": "tsx src/cli.ts",
+    "e2e:mcp": "node scripts/mcp-e2e.mjs",
+    "pretest": "pnpm sync-data",
+    "test": "vitest run",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "playwright": "1.63.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@agencydiff/core": "workspace:*",
+    "@agencydiff/runner": "workspace:*",
+    "@types/node": "22.10.5",
+    "tsup": "8.5.1",
+    "tsx": "4.19.2",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
+  }
+}

@@ -1,0 +1,105 @@
+name: AgencyDiff
+description: Intent regression testing for UX — diff the same user intents on a baseline and a candidate build.
+author: AgencyDiff
+
+inputs:
+  baseline-url:
+    description: Baseline variant URL (e.g. the production deploy).
+    required: true
+  candidate-url:
+    description: Candidate variant URL (e.g. the preview deploy).
+    required: true
+  contracts:
+    description: Space-separated contract files (in the calling repo) or bundled Circle decision names.
+    required: true
+  driver:
+    description: Probe driver. scripted replays recorded paths offline; muse drives the UI with computer use.
+    required: false
+    default: scripted
+  repeats:
+    description: Probes per intent per variant.
+    required: false
+    default: "1"
+  model-api-key:
+    description: Meta Model API key. Required for --driver muse.
+    required: false
+    default: ""
+  post-comment:
+    description: Post the findings table as a PR comment when run on a pull_request event.
+    required: false
+    default: "true"
+
+outputs:
+  passed:
+    description: "true when every contract passed, false when regressions were found."
+    value: ${{ steps.diff.outputs.passed }}
+  comment:
+    description: The rendered findings summary (same text as the PR comment).
+    value: ${{ steps.diff.outputs.comment }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 10.28.0
+    - name: Install Playwright browsers
+      shell: bash
+      run: |
+        cd "${{ github.action_path }}"
+        pnpm install --frozen-lockfile --prefer-offline
+        pnpm --filter agencydiff build
+        pnpm --filter @agencydiff/runner exec playwright install chromium
+    - name: Run AgencyDiff
+      id: diff
+      shell: bash
+      env:
+        MODEL_API_KEY: ${{ inputs.model-api-key }}
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        cd "${{ github.workspace }}"
+        CLI="${{ github.action_path }}/packages/cli/dist/cli.js"
+        OUT="agencydiff-out"
+        FAILED=0
+        COMMENT="$(mktemp)"
+        {
+          echo "<!-- agencydiff -->"
+          echo "## AgencyDiff"
+          echo ""
+        } > "$COMMENT"
+        for contract in ${{ inputs.contracts }}; do
+          set +e
+          node "$CLI" diff \
+            --baseline "${{ inputs.baseline-url }}" \
+            --candidate "${{ inputs.candidate-url }}" \
+            --contract "$contract" \
+            --driver "${{ inputs.driver }}" \
+            --repeats "${{ inputs.repeats }}" \
+            --out "$OUT/$(basename "$contract" .json)" >> "$COMMENT" 2>&1
+          STATUS=$?
+          set -e
+          if [[ $STATUS -ne 0 ]]; then FAILED=1; fi
+        done
+        if [[ $FAILED -eq 0 ]]; then
+          echo "passed=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "passed=false" >> "$GITHUB_OUTPUT"
+        fi
+        {
+          echo "comment<<AGENCYDIFF_EOF"
+          cat "$COMMENT"
+          echo "AGENCYDIFF_EOF"
+        } >> "$GITHUB_OUTPUT"
+        if [[ "${{ inputs.post-comment }}" == "true" && -n "${{ github.event.pull_request.number }}" ]]; then
+          gh pr comment "${{ github.event.pull_request.number }}" --body-file "$COMMENT" || echo "::warning::could not post PR comment"
+        fi
+    - name: Gate on regressions
+      shell: bash
+      run: |
+        if [[ "${{ steps.diff.outputs.passed }}" != "true" ]]; then
+          echo "::error::AgencyDiff found regressions — see the PR comment or step log."
+          exit 1
+        fi

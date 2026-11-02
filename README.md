@@ -17,6 +17,7 @@ The agents are standardized probes, not simulated humans. AgencyDiff measures th
 |---|---|
 | `packages/core` | Data model, per-trace metrics, deterministic diff engine |
 | `packages/runner` | Playwright environment, scripted reference driver, Muse computer-use driver, CLI |
+| `packages/cli` | Publishable `agencydiff` package: init/diff/audit/bench/mcp over the same engine |
 | `apps/circle` | Controlled social app; agency regressions are named seeds (`src/seeds.ts`) |
 | `contracts/` | Agency Contracts (decision, intents, oracles, accept/reject pairs) |
 | `eval/` | Reference paths and ground truth for the seeded benchmark |
@@ -31,6 +32,14 @@ MODEL_API_KEY=... pnpm diff --driver muse --repeats 3   # Muse Spark computer us
 ```
 
 Exit code is non-zero when the contract fails, so the same command works as a CI gate.
+
+## Use it
+
+Three entry points over the one engine — see [docs/usage.md](docs/usage.md):
+
+- **npm CLI** (`packages/cli`, published as `agencydiff`): `init`, `diff`, `audit`, `bench`, `mcp` (`propose-fix` is coming soon). `npx agencydiff diff --baseline <url> --candidate <url> --contract <file>` works from any directory.
+- **GitHub Action** (`action.yml`): diff a production URL against a preview-deploy URL on every PR; see [docs/github-action.md](docs/github-action.md).
+- **MCP server** (`agencydiff mcp` over stdio): `agencydiff_check`, `agencydiff_init`, `agencydiff_explain`, so coding agents self-check before opening a PR; see [docs/mcp.md](docs/mcp.md).
 
 ## Measurement
 

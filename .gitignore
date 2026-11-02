@@ -6,3 +6,5 @@ audits/**/*.png
 *.log
 .sam-cache/
 eval/results/traces/
+packages/cli/data/
+packages/cli/runs/

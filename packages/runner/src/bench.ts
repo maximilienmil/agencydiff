@@ -64,6 +64,7 @@ const COST_GUARD_USD = 15;
  *  the top-level flow calls resultsMarkdown before later declarations run. */
 const BENCH_FIXES = [
   "The bench crashed on the license_renewal_info contract: it was added by a parallel ticket, has no baseline reference path and no ground-truth seeds, and the scripted driver tried to replay a path that does not exist. The bench now runs only contracts that have a baseline reference path.",
+  "One dead browser killed the whole benchmark: a probe whose page died mid-run threw out of runProbe, through the pool, and out of the bench with no partial for its seed. Probes now retry with a fresh browser (3 attempts) and record an error trace instead of throwing, so infrastructure flakes cost one trace, not the run.",
 ];
 
 const ROOT = path.resolve(import.meta.dirname, "../../..");

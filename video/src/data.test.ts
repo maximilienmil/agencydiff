@@ -6,23 +6,33 @@ import { loadVideoData } from "./data.js";
 
 const repoRoot = join(fileURLToPath(new URL(".", import.meta.url)), "../..");
 
-test("loads benchmark numbers from eval evidence files", () => {
+test("headlines come from the eval evidence files", () => {
   const d = loadVideoData(repoRoot);
-  assert.equal(d.scriptedCaught, "20/20");
-  assert.equal(d.judgeCaught, "18/20");
-  assert.equal(d.susDetected, "7/10 injected patterns");
+  assert.equal(d.agentNoGate, "8/30");
+  assert.equal(d.agentGated, "0/30");
+  assert.equal(d.gateCaught, "19/20");
+  assert.equal(d.gateFalseAlarms, "0/6");
+  assert.equal(d.gateCost, "$0");
+  assert.equal(d.screensCaught, "1/20");
+  assert.equal(d.susDetected, "7/10");
+  assert.ok(d.auditRealId?.includes("0/3 → 3/3"));
 });
 
-test("loads the decline Finding from the report data", () => {
+test("the experiment beat uses the real prompt, diffs and findings", () => {
   const d = loadVideoData(repoRoot);
+  assert.ok(d.onboardPrompt?.startsWith("Simplify onboarding:"));
+  assert.ok(d.regressingDiff.length > 0);
+  assert.ok(d.fixedDiff.length > 0);
+  assert.equal(d.gateClaimB, "PASS");
+  assert.ok(d.withholdFinding?.includes("no longer on first screen"));
   assert.equal(d.declineBaseline, "1");
-  assert.equal(d.declineCandidate, "4");
+  assert.equal(d.declineCandidate, "7");
   assert.equal(d.declineVisibility, "hidden");
-  assert.ok(d.findings.length > 0);
 });
 
 test("missing files degrade to null, never to invented numbers", () => {
   const d = loadVideoData("/nonexistent-repo-root");
-  assert.equal(d.scriptedCaught, null);
-  assert.deepEqual(d.findings, []);
+  assert.equal(d.agentNoGate, null);
+  assert.equal(d.gateCaught, null);
+  assert.deepEqual(d.regressingDiff, []);
 });

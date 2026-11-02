@@ -1,11 +1,13 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { copyFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Run with: cd video && npm run capture
-// Copies real recorded footage into video/public/footage: Trace screenshots
-// from the report data, the SAM overlay fixture, and (if present) the
-// live/replay clip and Playwright captures from scripts/capture-footage.ts.
+// Stages the stills the composition uses into video/public/footage: the
+// phone-column Trace screenshots where each decision happens (never the
+// report viewer chrome, so no driver debug text and no letterboxed phones),
+// plus the SAM 3.1 overlay fixture. Anything missing renders as [PENDING].
 
 const videoDir = join(fileURLToPath(new URL(".", import.meta.url)), "..");
 const repoRoot = join(videoDir, "..");
@@ -13,33 +15,56 @@ const out = join(videoDir, "public/footage");
 mkdirSync(out, { recursive: true });
 
 function copy(from: string, to: string): boolean {
-  if (!existsSync(from)) return false;
+  if (!existsSync(from)) {
+    console.log(`missing: ${from}`);
+    return false;
+  }
   copyFileSync(from, join(out, to));
   console.log(`footage: ${to}`);
   return true;
 }
 
-const index = JSON.parse(
-  (await import("node:fs")).readFileSync(join(repoRoot, "apps/report/public/data/index.json"), "utf8"),
-) as { runs: Array<{ id: string }> };
-const runId = index.runs[0]?.id;
-if (runId) {
-  const base = join(repoRoot, `apps/report/public/data/${runId}`);
-  for (const [trace, prefix] of [
-    ["precise_location.withhold.baseline.0", "replay-baseline"],
-    ["precise_location.withhold.candidate.0", "replay-candidate"],
-  ] as const) {
-    const dir = join(base, trace);
-    if (!existsSync(dir)) continue;
-    for (const f of readdirSync(dir).filter((x) => x.endsWith(".png")).sort()) {
-      copy(join(dir, f), `${prefix}-${f}`);
-    }
-  }
+// [report decision dir, trace dir, shot] -> staged as
+// footage/<decision>-<intent>-<variant>-<repeat>-<shot>.png
+const staged: Array<[string, string, string]> = [
+  ["teen_dm", "teen_dm.block_unknown.baseline.0", "000"],
+  ["teen_dm", "teen_dm.block_unknown.baseline.0", "017"],
+  ["teen_dm", "teen_dm.block_unknown.candidate.0", "000"],
+  ["teen_dm", "teen_dm.block_unknown.candidate.0", "020"],
+  ["precise_location", "precise_location.withhold.baseline.0", "000"],
+  ["precise_location", "precise_location.withhold.candidate.0", "000"],
+  ["precise_location", "precise_location.withhold.candidate.0", "007"],
+];
+
+for (const [decision, trace, shot] of staged) {
+  const stem = trace.replace(`${decision}.`, "").replaceAll(".", "-");
+  copy(
+    join(repoRoot, "apps/report/public/data", decision, trace, `${shot}.png`),
+    `${decision}-${stem}-${shot}.png`,
+  );
 }
 
+copy(
+  join(repoRoot, "apps/report/public/data/teen_dm/teen_dm.block_unknown.baseline.0/sam-017.png"),
+  "sam-teen.png",
+);
 copy(join(repoRoot, "packages/evidence/fixtures/circle-baseline-overlay.png"), "sam-overlay.png");
-copy(join(repoRoot, "media/live-replay.mp4"), "live-replay.mp4");
-for (const name of ["circle-baseline.png", "circle-candidate.png", "report-diff.png", "pr-comment.png"]) {
-  copy(join(repoRoot, `media/footage/${name}`), name);
+
+// Decision-sheet crop of the SAM overlay (the decline/allow buttons with
+// their red/green masks), so the film can show it legibly at card size.
+try {
+  execFileSync("ffmpeg", [
+    "-y",
+    "-v",
+    "error",
+    "-i",
+    join(repoRoot, "packages/evidence/fixtures/circle-baseline-overlay.png"),
+    "-vf",
+    "crop=430:360:0:500",
+    join(out, "sam-sheet.png"),
+  ]);
+  console.log("footage: sam-sheet.png");
+} catch {
+  console.log("missing: sam-sheet.png (ffmpeg not on PATH)");
 }
 console.log("done. Missing files render as [PENDING] in the composition.");

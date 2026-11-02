@@ -1,0 +1,514 @@
+{
+  "url": "http://localhost:5173/?variant=baseline",
+  "startedAt": "2026-11-02T00:00:00.000Z",
+  "steps": 40,
+  "screens": [
+    {
+      "key": "home+location_prompt",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "Circle\n\u2699\nmaya.r\n\nfirst day of the rooftop garden \ud83c\udf31\n\ndev_ko\n\nnew skate spot by the river\n\nlina\n\nstudy group tonight?\n\n\ud83d\udccd\nAllow Circle to use your precise location?\n\nUsed to show friends and events near you. You can change this anytime in Settings.\n\nNot now\nAllow precise location",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.settings\"]",
+          "tag": "nav.settings",
+          "kind": "button",
+          "text": "\u2699",
+          "covered": true
+        },
+        {
+          "selector": "[data-agency=\"location.decline\"]",
+          "tag": "location.decline",
+          "kind": "button",
+          "text": "Not now"
+        },
+        {
+          "selector": "[data-agency=\"location.allow\"]",
+          "tag": "location.allow",
+          "kind": "button",
+          "text": "Allow precise location"
+        }
+      ],
+      "transitions": [
+        {
+          "selector": "[data-agency=\"location.decline\"]",
+          "to": "home"
+        },
+        {
+          "selector": "[data-agency=\"location.allow\"]",
+          "to": "home"
+        }
+      ],
+      "path": []
+    },
+    {
+      "key": "home",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "Circle\n\u2699\nmaya.r\n\nfirst day of the rooftop garden \ud83c\udf31\n\ndev_ko\n\nnew skate spot by the river\n\nlina\n\nstudy group tonight?",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.settings\"]",
+          "tag": "nav.settings",
+          "kind": "button",
+          "text": "\u2699"
+        }
+      ],
+      "transitions": [
+        {
+          "selector": "[data-agency=\"nav.settings\"]",
+          "to": "settings"
+        }
+      ],
+      "path": [
+        "[data-agency=\"location.decline\"]"
+      ]
+    },
+    {
+      "key": "settings",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nSettings\nAccount\n\u203a\nNotifications\n\u203a\nPrivacy\n\u203a\nLocation\n\u203a\nScreen Time\n\u203a\nCircle+\n\u203a\nHelp\n\u203a",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "body > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "button",
+          "text": "Account \u203a"
+        },
+        {
+          "selector": "body > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "kind": "button",
+          "text": "Notifications \u203a"
+        },
+        {
+          "selector": "[data-agency=\"settings.privacy\"]",
+          "tag": "settings.privacy",
+          "kind": "button",
+          "text": "Privacy \u203a"
+        },
+        {
+          "selector": "[data-agency=\"settings.location\"]",
+          "tag": "settings.location",
+          "kind": "button",
+          "text": "Location \u203a"
+        },
+        {
+          "selector": "[data-agency=\"settings.screentime\"]",
+          "tag": "settings.screentime",
+          "kind": "button",
+          "text": "Screen Time \u203a"
+        },
+        {
+          "selector": "[data-agency=\"settings.subscription\"]",
+          "tag": "settings.subscription",
+          "kind": "button",
+          "text": "Circle+ \u203a"
+        },
+        {
+          "selector": "body > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(7)",
+          "kind": "button",
+          "text": "Help \u203a"
+        }
+      ],
+      "transitions": [
+        {
+          "selector": "[data-agency=\"settings.privacy\"]",
+          "to": "privacy"
+        },
+        {
+          "selector": "[data-agency=\"settings.location\"]",
+          "to": "location"
+        },
+        {
+          "selector": "[data-agency=\"settings.screentime\"]",
+          "to": "screentime"
+        },
+        {
+          "selector": "[data-agency=\"settings.subscription\"]",
+          "to": "plus"
+        }
+      ],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]"
+      ]
+    },
+    {
+      "key": "privacy",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nPrivacy\nAccount privacy\n\u203a\nMessages\n\u203a\nAdvanced\n\u203a",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "body > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "button",
+          "text": "Account privacy \u203a"
+        },
+        {
+          "selector": "[data-agency=\"privacy.messages\"]",
+          "tag": "privacy.messages",
+          "kind": "button",
+          "text": "Messages \u203a"
+        },
+        {
+          "selector": "[data-agency=\"privacy.advanced\"]",
+          "tag": "privacy.advanced",
+          "kind": "button",
+          "text": "Advanced \u203a"
+        }
+      ],
+      "transitions": [
+        {
+          "selector": "[data-agency=\"privacy.messages\"]",
+          "to": "messages"
+        },
+        {
+          "selector": "[data-agency=\"privacy.advanced\"]",
+          "to": "advanced"
+        }
+      ],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.privacy\"]"
+      ]
+    },
+    {
+      "key": "location",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nLocation\nPrecise location\nShare your exact location with Circle",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "[data-agency=\"location.toggle\"]",
+          "tag": "location.toggle",
+          "kind": "toggle",
+          "text": "",
+          "checked": false
+        }
+      ],
+      "transitions": [],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.location\"]"
+      ]
+    },
+    {
+      "key": "screentime",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nScreen Time\n1h 24m\nToday \u00b7 daily average this week 1h 41m\nBreak reminders\nNudge me to take a break every 30 minutes\nDaily limit\nOff\n\u203a\nSee today's usage\n\u203a",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "[data-agency=\"st.reminders\"]",
+          "tag": "st.reminders",
+          "kind": "toggle",
+          "text": "",
+          "checked": false
+        },
+        {
+          "selector": "[data-agency=\"screentime.limit\"]",
+          "tag": "screentime.limit",
+          "kind": "button",
+          "text": "Daily limit Off \u203a"
+        },
+        {
+          "selector": "[data-agency=\"screentime.usage\"]",
+          "tag": "screentime.usage",
+          "kind": "button",
+          "text": "See today's usage \u203a"
+        }
+      ],
+      "transitions": [
+        {
+          "selector": "[data-agency=\"screentime.limit\"]",
+          "to": "st_limit"
+        },
+        {
+          "selector": "[data-agency=\"screentime.usage\"]",
+          "to": "usage"
+        }
+      ],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.screentime\"]"
+      ]
+    },
+    {
+      "key": "plus",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nCircle+\nCircle+\nAd-free with early access to new features.\nMonthly \u00b7 $4.99/mo\nRenews every month until you cancel\nAnnual \u00b7 $47.99/yr\nRenews every year until you cancel\nMonthly \u00b7 $4.99/mo, renews automatically. Cancel anytime in Settings.\nSubscribeNot now\nRenewal terms\n\u203a",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "[data-agency=\"sub.plan_monthly\"]",
+          "tag": "sub.plan_monthly",
+          "kind": "button",
+          "text": "Monthly \u00b7 $4.99/mo Renews every month until you cancel"
+        },
+        {
+          "selector": "[data-agency=\"sub.plan_annual\"]",
+          "tag": "sub.plan_annual",
+          "kind": "button",
+          "text": "Annual \u00b7 $47.99/yr Renews every year until you cancel"
+        },
+        {
+          "selector": "[data-agency=\"sub.subscribe\"]",
+          "tag": "sub.subscribe",
+          "kind": "button",
+          "text": "Subscribe"
+        },
+        {
+          "selector": "[data-agency=\"sub.decline\"]",
+          "tag": "sub.decline",
+          "kind": "button",
+          "text": "Not now"
+        },
+        {
+          "selector": "[data-agency=\"sub.terms\"]",
+          "tag": "sub.terms",
+          "kind": "button",
+          "text": "Renewal terms \u203a"
+        },
+        {
+          "selector": "[data-agency=\"sub.manage\"]",
+          "tag": "sub.manage",
+          "kind": "button",
+          "text": "Manage subscription \u203a"
+        }
+      ],
+      "transitions": [
+        {
+          "selector": "[data-agency=\"sub.terms\"]",
+          "to": "terms"
+        },
+        {
+          "selector": "[data-agency=\"sub.manage\"]",
+          "to": "billing"
+        }
+      ],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.subscription\"]"
+      ]
+    },
+    {
+      "key": "messages",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nMessages\nTeen account \u00b7 Choose who can send you messages.\nEveryone\nAnyone on Circle can message this account\nFriends only\nOnly people you follow back can message you\nBlock unknown people\nOnly friends can reach you; everyone else is blocked",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "[data-agency=\"dm.allow_all\"]",
+          "tag": "dm.allow_all",
+          "kind": "button",
+          "text": "Everyone Anyone on Circle can message this account"
+        },
+        {
+          "selector": "[data-agency=\"dm.friends_only\"]",
+          "tag": "dm.friends_only",
+          "kind": "button",
+          "text": "Friends only Only people you follow back can message you"
+        },
+        {
+          "selector": "[data-agency=\"dm.block_unknown\"]",
+          "tag": "dm.block_unknown",
+          "kind": "button",
+          "text": "Block unknown people Only friends can reach you; everyone else is blocked"
+        }
+      ],
+      "transitions": [],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.privacy\"]",
+        "[data-agency=\"privacy.messages\"]"
+      ]
+    },
+    {
+      "key": "advanced",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nAdvanced\nAd preferences\n\u203a\nDownload your data\n\u203a",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "body > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "button",
+          "text": "Ad preferences \u203a"
+        },
+        {
+          "selector": "body > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "kind": "button",
+          "text": "Download your data \u203a"
+        }
+      ],
+      "transitions": [],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.privacy\"]",
+        "[data-agency=\"privacy.advanced\"]"
+      ]
+    },
+    {
+      "key": "st_limit",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nDaily limit\nNo limit\nUse Circle without a daily cap\n1 hour a day\nPause my feed after 1 hour\n2 hours a day\nPause my feed after 2 hours\n4 hours a day\nPause my feed after 4 hours",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "[data-agency=\"st.limit_off\"]",
+          "tag": "st.limit_off",
+          "kind": "button",
+          "text": "No limit Use Circle without a daily cap"
+        },
+        {
+          "selector": "[data-agency=\"st.limit_1h\"]",
+          "tag": "st.limit_1h",
+          "kind": "button",
+          "text": "1 hour a day Pause my feed after 1 hour"
+        },
+        {
+          "selector": "[data-agency=\"st.limit_2h\"]",
+          "tag": "st.limit_2h",
+          "kind": "button",
+          "text": "2 hours a day Pause my feed after 2 hours"
+        },
+        {
+          "selector": "[data-agency=\"st.limit_4h\"]",
+          "tag": "st.limit_4h",
+          "kind": "button",
+          "text": "4 hours a day Pause my feed after 4 hours"
+        }
+      ],
+      "transitions": [],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.screentime\"]",
+        "[data-agency=\"screentime.limit\"]"
+      ]
+    },
+    {
+      "key": "usage",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nYour time\n1h 24m\nToday\n11h 47m\nThis week\nMost time in Feed \u00b7 evenings after 8pm",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        }
+      ],
+      "transitions": [],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.screentime\"]",
+        "[data-agency=\"screentime.usage\"]"
+      ]
+    },
+    {
+      "key": "terms",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nRenewal terms\nCircle+ Monthly \u00b7 $4.99/mo. Your plan renews automatically each month until you cancel. Cancel anytime in Settings \u00b7 Billing; you keep Circle+ until the end of the paid period.",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        }
+      ],
+      "transitions": [],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.subscription\"]",
+        "[data-agency=\"sub.terms\"]"
+      ]
+    },
+    {
+      "key": "billing",
+      "url": "http://localhost:5173/?variant=baseline",
+      "title": "Circle",
+      "text": "\u2039\nBilling\nCircle+ \u00b7 Monthly \u00b7 $4.99/mo\nCancel subscription\n\u203a",
+      "controls": [
+        {
+          "selector": "[data-agency=\"nav.back\"]",
+          "tag": "nav.back",
+          "kind": "button",
+          "text": "\u2039"
+        },
+        {
+          "selector": "[data-agency=\"sub.cancel\"]",
+          "tag": "sub.cancel",
+          "kind": "button",
+          "text": "Cancel subscription \u203a"
+        }
+      ],
+      "transitions": [],
+      "path": [
+        "[data-agency=\"location.decline\"]",
+        "[data-agency=\"nav.settings\"]",
+        "[data-agency=\"settings.subscription\"]",
+        "[data-agency=\"sub.subscribe\"]",
+        "[data-agency=\"sub.manage\"]"
+      ]
+    }
+  ]
+}

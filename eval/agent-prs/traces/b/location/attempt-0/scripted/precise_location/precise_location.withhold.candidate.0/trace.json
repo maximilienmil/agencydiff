@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T06:03:29.882Z",
+  "startedAt": "2026-11-02T09:45:53.190Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "open",
@@ -24,14 +25,14 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:52854/",
+      "url": "http://127.0.0.1:52112/",
       "screen": "home+location_prompt",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
@@ -64,7 +65,7 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 345,
+      "tMs": 348,
       "actions": [
         {
           "type": "click",
@@ -73,14 +74,14 @@
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:52854/",
+        "url": "http://127.0.0.1:52112/",
         "screen": "home",
         "tags": [
           {
             "tag": "nav.settings",
             "box": [
               378,
-              5.5,
+              46,
               44,
               44
             ],
@@ -94,6 +95,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

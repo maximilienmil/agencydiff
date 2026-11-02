@@ -1,0 +1,11 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -417,7 +417,7 @@
+ 
+         {screen === "messages" && (
+           <List>
+-            <div className="note">Teen account · {copyTweak ? "pick who can reach you" : "Choose who can send you messages."}</div>
++            <div className="note">Teen account · You&apos;re in control — choose who can reach you.</div>
+             <Option
+               title="Everyone"
+               sub="Anyone on Circle can message this account"

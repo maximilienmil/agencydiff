@@ -1,0 +1,1166 @@
+{
+  "id": "subscription.cancel.candidate.2",
+  "decision": "subscription",
+  "intentId": "cancel",
+  "variant": "candidate",
+  "repeat": 2,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3"
+  },
+  "startedAt": "2026-11-02T12:10:35.940Z",
+  "initial": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": true,
+      "sub.plan": "monthly",
+      "sub.offer": "answered",
+      "sub.terms_viewed": false
+    },
+    "observation": {
+      "url": "http://127.0.0.1:62919/?fixture=subscribed",
+      "screen": "home",
+      "tags": [
+        {
+          "tag": "nav.settings",
+          "box": [
+            378,
+            46,
+            44,
+            44
+          ],
+          "inViewport": true
+        }
+      ],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 3706,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 390,
+          "y": 53
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              208.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              264.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              320.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              376.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 11005,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 211,
+          "y": 346
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "screentime",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.reminders",
+            "box": [
+              387,
+              199,
+              22,
+              22
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "screentime.limit",
+            "box": [
+              0,
+              238.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "screentime.usage",
+            "box": [
+              0,
+              294.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 20569,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 27,
+          "y": 68
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              208.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              264.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              320.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              376.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 29538,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 43,
+          "y": 403
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.manage",
+            "box": [
+              0,
+              231.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              0,
+              287.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 42222,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 210,
+          "y": 230
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.manage",
+            "box": [
+              0,
+              231.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              0,
+              287.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 53511,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 172,
+          "y": 229
+        },
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.manage",
+            "box": [
+              0,
+              231.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              0,
+              287.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 66440,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 407,
+          "y": 230
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.manage",
+            "box": [
+              0,
+              231.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              0,
+              287.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 81026,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 172,
+          "y": 287
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "terms",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 100126,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 27,
+          "y": 67
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.manage",
+            "box": [
+              0,
+              231.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              0,
+              287.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 115252,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 86,
+          "y": 229
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.manage",
+            "box": [
+              0,
+              231.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              0,
+              287.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 130178,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 28,
+          "y": 69
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              208.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              264.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              320.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              376.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 151672,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 210,
+          "y": 96
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              208.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              264.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              320.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              376.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 166505,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 43,
+          "y": 94
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              208.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              264.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              320.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              376.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 13,
+      "tMs": 184225,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 43,
+          "y": 405
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?fixture=subscribed",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.manage",
+            "box": [
+              0,
+              231.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              0,
+              287.796875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "014.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 14,
+      "tMs": 202994,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 205,
+          "y": 17
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?variant=baseline",
+        "screen": "home+location_prompt",
+        "tags": [
+          {
+            "tag": "nav.settings",
+            "box": [
+              378,
+              46,
+              44,
+              44
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "location.decline",
+            "box": [
+              20,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.allow",
+            "box": [
+              220,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "015.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 15,
+      "tMs": 217379,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 106,
+          "y": 749
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?variant=baseline",
+        "screen": "home+location_prompt",
+        "tags": [
+          {
+            "tag": "nav.settings",
+            "box": [
+              378,
+              46,
+              44,
+              44
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "location.decline",
+            "box": [
+              20,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.allow",
+            "box": [
+              220,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "016.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 16,
+      "tMs": 231599,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 107,
+          "y": 751
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?variant=baseline",
+        "screen": "home+location_prompt",
+        "tags": [
+          {
+            "tag": "nav.settings",
+            "box": [
+              378,
+              46,
+              44,
+              44
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "location.decline",
+            "box": [
+              20,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.allow",
+            "box": [
+              220,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "017.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 17,
+      "tMs": 253103,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 263,
+          "y": 18
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?variant=baseline",
+        "screen": "home+location_prompt",
+        "tags": [
+          {
+            "tag": "nav.settings",
+            "box": [
+              378,
+              46,
+              44,
+              44
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "location.decline",
+            "box": [
+              20,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.allow",
+            "box": [
+              220,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "018.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 18,
+      "tMs": 271085,
+      "actions": [
+        {
+          "type": "wait"
+        },
+        {
+          "button": "left",
+          "type": "click",
+          "x": 307,
+          "y": 750
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?variant=baseline",
+        "screen": "home+location_prompt",
+        "tags": [
+          {
+            "tag": "nav.settings",
+            "box": [
+              378,
+              46,
+              44,
+              44
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "location.decline",
+            "box": [
+              20,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.allow",
+            "box": [
+              220,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "019.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 19,
+      "tMs": 287155,
+      "actions": [
+        {
+          "keys": [
+            "Escape"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:62919/?variant=baseline",
+        "screen": "home+location_prompt",
+        "tags": [
+          {
+            "tag": "nav.settings",
+            "box": [
+              378,
+              46,
+              44,
+              44
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "location.decline",
+            "box": [
+              20,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.allow",
+            "box": [
+              220,
+              784,
+              190,
+              48
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "020.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "open",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "step_budget"
+}

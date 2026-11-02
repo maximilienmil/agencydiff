@@ -49,3 +49,7 @@ Three entry points over the one engine — see [docs/usage.md](docs/usage.md):
 - **Initial visibility**: whether the control that fulfils the intent is on the first screen, unobscured.
 - **Default**: the decision's state before the user chooses.
 - **Asymmetry**: reject-side cost ÷ accept-side cost, per variant.
+
+## Evidence
+
+Do coding assistants quietly break users' ability to say no? In a clean 60-change experiment ([T18b](eval/agent-prs/RESULTS.md)), without the safety check, 8 of 30 AI-written changes made it harder for users to say no; with the check, 0 of 30 did. The safety check runs automatically on every change and only shows the assistant what broke, never the test answers.

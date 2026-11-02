@@ -1,48 +1,25 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..631ff10 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -518,6 +518,20 @@ export function App() {
-             <div className="stat">
+@@ -589,6 +589,13 @@
                <span className="big">Circle+</span>
                <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
-+              <ul className="perks">
-+                <li>
-+                  <span className="tick" aria-hidden>✓</span>
-+                  <span>No ads in your feed, ever</span>
-+                </li>
-+                <li>
-+                  <span className="tick" aria-hidden>✓</span>
-+                  <span>Try new features before everyone else</span>
-+                </li>
-+                <li>
-+                  <span className="tick" aria-hidden>✓</span>
-+                  <span>Cancel anytime in Settings, keep access until the paid period ends</span>
-+                </li>
-+              </ul>
              </div>
++            {!sub.active && (
++              <List>
++                <div className="note">✓ Ad-free feed — no ads in your Circle feed</div>
++                <div className="note">✓ Early access to new features as they launch</div>
++                <div className="note">✓ Cancel anytime in Settings, keep access until the paid period ends</div>
++              </List>
++            )}
              <List>
                {!sub.active ? (
-@@ -530,7 +544,7 @@ export function App() {
-                     onPick={() => setSub((s) => ({ ...s, plan: "monthly" }))}
+                 <>
+@@ -601,7 +608,7 @@
                    />
                    <Option
--                    title={`Annual · ${PLAN_PRICE.annual}`}
-+                    title={`Annual · ${PLAN_PRICE.annual} · save 20%`}
-                     sub="Renews every year until you cancel"
+                     title={`Annual · ${PLAN_PRICE.annual}`}
+-                    sub="Renews every year until you cancel"
++                    sub="Renews every year until you cancel · works out to $4.00/mo, save 20% vs monthly"
                      tag="sub.plan_annual"
                      selected={sub.plan === "annual"}
-diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
-index fc0c978..21e05e5 100644
---- a/apps/circle/src/styles.css
-+++ b/apps/circle/src/styles.css
-@@ -64,6 +64,9 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
- .stat { padding: 18px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
- .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
- .stat small { color: var(--muted); font-size: 13px; }
-+.perks { list-style: none; margin: 12px 0 2px; padding: 0; display: flex; flex-direction: column; gap: 8px; text-align: left; }
-+.perks li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.4; }
-+.perks .tick { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
- .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
- 
- .app.dark {
+                     onPick={() => setSub((s) => ({ ...s, plan: "annual" }))}

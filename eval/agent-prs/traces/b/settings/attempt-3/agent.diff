@@ -1,0 +1,52 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -335,6 +335,18 @@
+ 
+         {screen === "settings" && (
+           <List>
++            <div className="section-label">Most used</div>
++            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
++            <Row
++              label={false ? "Messaging & privacy" : "Privacy"}
++              tag="settings.privacy"
++              onClick={() => push("privacy")}
++            />
++            {!false && (
++              <Row label="Location" tag="settings.location" onClick={() => push("location")} />
++            )}
++            <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
++            <div className="section-label">More</div>
+             {false ? (
+               <>
+                 <Row label="Help" />
+@@ -346,17 +358,7 @@
+                 <Row label="Account" />
+                 <Row label="Notifications" />
+               </>
+-            )}
+-            <Row
+-              label={false ? "Messaging & privacy" : "Privacy"}
+-              tag="settings.privacy"
+-              onClick={() => push("privacy")}
+-            />
+-            {!false && (
+-              <Row label="Location" tag="settings.location" onClick={() => push("location")} />
+             )}
+-            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
+-            <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
+             {false && (
+               <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
+             )}
+
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index dc343e1..b8e7e58 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -79,6 +79,7 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+ .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+ .stat small { color: var(--muted); font-size: 13px; }
+ .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
++.section-label { padding: 16px 18px 6px; color: var(--muted); font-size: 13px; font-weight: 600; }
+ 
+ .app.dark {
+   --bg: #14161a;

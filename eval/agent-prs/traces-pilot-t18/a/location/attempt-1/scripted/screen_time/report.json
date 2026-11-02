@@ -1,0 +1,146 @@
+{
+  "decision": "screen_time",
+  "promise": "Users can set a daily limit and break reminders for their time on Circle, and remove them.",
+  "aggregates": [
+    {
+      "intentId": "set_limit",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": null,
+      "traceIds": [
+        "screen_time.set_limit.baseline.0"
+      ]
+    },
+    {
+      "intentId": "set_limit",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": null,
+      "traceIds": [
+        "screen_time.set_limit.candidate.0"
+      ]
+    },
+    {
+      "intentId": "reminders",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": null,
+      "traceIds": [
+        "screen_time.reminders.baseline.0"
+      ]
+    },
+    {
+      "intentId": "reminders",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": null,
+      "traceIds": [
+        "screen_time.reminders.candidate.0"
+      ]
+    },
+    {
+      "intentId": "remove_limit",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": 480,
+      "traceIds": [
+        "screen_time.remove_limit.baseline.0"
+      ]
+    },
+    {
+      "intentId": "remove_limit",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": 480,
+      "traceIds": [
+        "screen_time.remove_limit.candidate.0"
+      ]
+    },
+    {
+      "intentId": "check_usage",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": null,
+      "traceIds": [
+        "screen_time.check_usage.baseline.0"
+      ]
+    },
+    {
+      "intentId": "check_usage",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": null,
+      "traceIds": [
+        "screen_time.check_usage.candidate.0"
+      ]
+    },
+    {
+      "intentId": "shorten",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": 480,
+      "traceIds": [
+        "screen_time.shorten.baseline.0"
+      ]
+    },
+    {
+      "intentId": "shorten",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": 480,
+      "traceIds": [
+        "screen_time.shorten.candidate.0"
+      ]
+    }
+  ],
+  "asymmetry": [
+    {
+      "accept": "remove_limit",
+      "reject": "set_limit",
+      "baseline": 1,
+      "candidate": 1
+    }
+  ],
+  "findings": [],
+  "passed": true
+}

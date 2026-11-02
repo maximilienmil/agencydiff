@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:52:17.903Z",
+  "startedAt": "2026-11-02T09:27:47.619Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",
@@ -24,14 +25,14 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:65160/?fixture=prompt-answered",
+      "url": "http://127.0.0.1:63456/?fixture=prompt-answered",
       "screen": "home",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
@@ -44,23 +45,23 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 323,
+      "tMs": 322,
       "actions": [
         {
           "type": "click",
           "x": 400,
-          "y": 28
+          "y": 68
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:65160/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:63456/?fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -70,7 +71,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -80,7 +81,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -90,7 +91,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              320.5,
               430,
               56
             ],
@@ -100,7 +101,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              376.5,
               430,
               56
             ],
@@ -113,23 +114,23 @@
     },
     {
       "index": 1,
-      "tMs": 590,
+      "tMs": 585,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 196
+          "y": 237
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:65160/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:63456/?fixture=prompt-answered",
         "screen": "privacy",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -139,7 +140,7 @@
             "tag": "privacy.messages",
             "box": [
               0,
-              112,
+              152.5,
               430,
               56
             ],
@@ -149,7 +150,7 @@
             "tag": "privacy.advanced",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -162,23 +163,23 @@
     },
     {
       "index": 2,
-      "tMs": 857,
+      "tMs": 856,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 140
+          "y": 181
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:65160/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:63456/?fixture=prompt-answered",
         "screen": "messages",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -188,7 +189,7 @@
             "tag": "dm.allow_all",
             "box": [
               0,
-              105.296875,
+              145.796875,
               430,
               56
             ],
@@ -198,7 +199,7 @@
             "tag": "dm.friends_only",
             "box": [
               0,
-              161.296875,
+              201.796875,
               430,
               56
             ],
@@ -208,7 +209,7 @@
             "tag": "dm.block_unknown",
             "box": [
               0,
-              217.296875,
+              257.796875,
               430,
               56
             ],
@@ -221,23 +222,23 @@
     },
     {
       "index": 3,
-      "tMs": 1124,
+      "tMs": 1134,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 133
+          "y": 174
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:65160/?fixture=prompt-answered",
+        "url": "http://127.0.0.1:63456/?fixture=prompt-answered",
         "screen": "messages",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -247,7 +248,7 @@
             "tag": "dm.allow_all",
             "box": [
               0,
-              105.296875,
+              145.796875,
               430,
               56
             ],
@@ -257,7 +258,7 @@
             "tag": "dm.friends_only",
             "box": [
               0,
-              161.296875,
+              201.796875,
               430,
               56
             ],
@@ -267,7 +268,7 @@
             "tag": "dm.block_unknown",
             "box": [
               0,
-              217.296875,
+              257.796875,
               430,
               56
             ],
@@ -281,6 +282,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

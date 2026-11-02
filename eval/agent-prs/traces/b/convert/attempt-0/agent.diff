@@ -1,68 +1,13 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..a205980 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -515,9 +515,29 @@ export function App() {
- 
-         {screen === "plus" && (
+@@ -587,8 +587,9 @@
            <>
--            <div className="stat">
-+            <div className="stat plus-hero">
+             <div className="stat">
                <span className="big">Circle+</span>
-               <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
-+              <ul className="plus-perks">
-+                <li>
-+                  <span className="tick" aria-hidden>
-+                    ✓
-+                  </span>
-+                  Ad-free feed, no interruptions
-+                </li>
-+                <li>
-+                  <span className="tick" aria-hidden>
-+                    ✓
-+                  </span>
-+                  Early access to new features
-+                </li>
-+                <li>
-+                  <span className="tick" aria-hidden>
-+                    ✓
-+                  </span>
-+                  Cancel anytime in Settings
-+                </li>
-+              </ul>
+-              <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
++              <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free Circle with early access to new features."}</small>
              </div>
++            <div className="note">No ads in your feed. Try new features first. Cancel anytime in Settings.</div>
              <List>
                {!sub.active ? (
-@@ -530,7 +550,7 @@ export function App() {
-                     onPick={() => setSub((s) => ({ ...s, plan: "monthly" }))}
-                   />
-                   <Option
--                    title={`Annual · ${PLAN_PRICE.annual}`}
-+                    title={`Annual · ${PLAN_PRICE.annual} · save 20%`}
-                     sub="Renews every year until you cancel"
-                     tag="sub.plan_annual"
-                     selected={sub.plan === "annual"}
-@@ -552,7 +572,7 @@ export function App() {
-                 )}
-                 <div className="footer">
-                   <button className="primary" data-agency="sub.subscribe" onClick={subscribe}>
--                    {copyTweak ? "Get Circle+" : "Subscribe"}
-+                    {copyTweak ? "Get Circle+" : `Subscribe · ${PLAN_PRICE[sub.plan]}`}
-                   </button>
-                   {!has("SUB_HIDE_DECLINE") ? (
-                     <button className="link" data-agency="sub.decline" onClick={declineOffer}>
-diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
-index fc0c978..a116579 100644
---- a/apps/circle/src/styles.css
-+++ b/apps/circle/src/styles.css
-@@ -65,6 +65,10 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
- .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
- .stat small { color: var(--muted); font-size: 13px; }
- .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
-+.plus-hero { gap: 8px; }
-+.plus-perks { list-style: none; margin: 8px 0 2px; padding: 0; display: flex; flex-direction: column; gap: 6px; text-align: left; }
-+.plus-perks li { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
-+.plus-perks .tick { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; display: inline-grid; place-items: center; flex: none; }
- 
- .app.dark {
-   --bg: #14161a;
+                 <>

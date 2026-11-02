@@ -1,18 +1,16 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..418a941 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -218,8 +218,7 @@ export function App() {
+@@ -234,8 +234,7 @@
    const declineOffer = () => setSub((s) => ({ ...s, offer: "answered" }));
  
    const requestCancel = () => {
--    if (has("SUB_RETENTION_OFFER")) setSubRetain(true);
+-    if (false) setSubRetain(true);
 -    else setSub((s) => ({ ...s, active: false }));
 +    setSubRetain(true);
    };
    const confirmCancel = () => {
      setSub((s) => ({ ...s, active: false }));
-@@ -757,8 +756,8 @@ export function App() {
+@@ -827,8 +826,8 @@
        {subRetain && (
          <div className="scrim">
            <div className="sheet" role="dialog">

@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:28:31.737Z",
+  "startedAt": "2026-11-02T09:17:05.926Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": true,
       "location.mode": "precise",
       "location.prompt": "answered",
@@ -24,14 +25,14 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:59624/?fixture=location-shared",
+      "url": "http://127.0.0.1:61390/?fixture=location-shared",
       "screen": "home",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
@@ -44,23 +45,23 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 322,
+      "tMs": 338,
       "actions": [
         {
           "type": "click",
           "x": 400,
-          "y": 28
+          "y": 68
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:59624/?fixture=location-shared",
+        "url": "http://127.0.0.1:61390/?fixture=location-shared",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -70,7 +71,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              208.5,
               430,
               56
             ],
@@ -80,7 +81,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              264.5,
               430,
               56
             ],
@@ -90,7 +91,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              320.5,
               430,
               56
             ],
@@ -100,7 +101,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              376.5,
               430,
               56
             ],
@@ -113,23 +114,23 @@
     },
     {
       "index": 1,
-      "tMs": 607,
+      "tMs": 617,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 252
+          "y": 293
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:59624/?fixture=location-shared",
+        "url": "http://127.0.0.1:61390/?fixture=location-shared",
         "screen": "location",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -138,9 +139,9 @@
           {
             "tag": "location.toggle",
             "box": [
-              387,
-              72.5,
-              22,
+              389.96875,
+              120.5,
+              19.03125,
               22
             ],
             "inViewport": true
@@ -152,23 +153,23 @@
     },
     {
       "index": 2,
-      "tMs": 890,
+      "tMs": 891,
       "actions": [
         {
           "type": "click",
-          "x": 398,
-          "y": 84
+          "x": 399,
+          "y": 132
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:59624/?fixture=location-shared",
+        "url": "http://127.0.0.1:61390/?fixture=location-shared",
         "screen": "location",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              46,
               44,
               44
             ],
@@ -177,9 +178,9 @@
           {
             "tag": "location.toggle",
             "box": [
-              387,
-              72.5,
-              22,
+              389.96875,
+              120.5,
+              19.03125,
               22
             ],
             "inViewport": true
@@ -192,6 +193,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

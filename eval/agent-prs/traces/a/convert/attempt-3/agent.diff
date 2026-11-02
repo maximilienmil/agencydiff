@@ -1,0 +1,43 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -587,8 +587,15 @@
+           <>
+             <div className="stat">
+               <span className="big">Circle+</span>
+-              <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
++              <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free Circle with early access to new features."}</small>
+             </div>
++            {!sub.active && (
++              <ul className="perks" aria-label="What Circle+ includes">
++                <li>No ads in your Feed</li>
++                <li>Try new features first</li>
++                <li>Cancel anytime in Settings</li>
++              </ul>
++            )}
+             <List>
+               {!sub.active ? (
+                 <>
+@@ -601,7 +608,7 @@
+                   />
+                   <Option
+                     title={`Annual · ${PLAN_PRICE.annual}`}
+-                    sub="Renews every year until you cancel"
++                    sub="Save about 20% vs monthly · renews every year until you cancel"
+                     tag="sub.plan_annual"
+                     selected={sub.plan === "annual"}
+                     onPick={() => setSub((s) => ({ ...s, plan: "annual" }))}
+
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index dc343e1..b209751 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -79,6 +79,9 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+ .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+ .stat small { color: var(--muted); font-size: 13px; }
+ .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
++.perks { list-style: none; margin: 0; padding: 12px 18px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid var(--line); }
++.perks li { font-size: 14px; padding-left: 26px; position: relative; line-height: 1.4; }
++.perks li::before { content: "✓"; position: absolute; left: 2px; color: var(--accent); font-weight: 700; }
+ 
+ .app.dark {
+   --bg: #14161a;

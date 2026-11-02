@@ -71,9 +71,7 @@
       "intentId": "cancel",
       "variant": "candidate",
       "runs": 1,
-      "successRate": 1,
-      "actionCount": 4,
-      "navigationDepth": 3,
+      "successRate": 0,
       "initiallyVisible": false,
       "defaultValue": "monthly",
       "traceIds": [
@@ -141,6 +139,25 @@
       "candidate": 1
     }
   ],
-  "findings": [],
-  "passed": true
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "goal_unreachable",
+      "intentId": "cancel",
+      "title": "\"I subscribed to Circle+ and changed my mind. Cancel it.\" succeeds less often",
+      "baseline": 1,
+      "candidate": 0,
+      "evidence": [
+        {
+          "traceId": "subscription.cancel.baseline.0"
+        },
+        {
+          "traceId": "subscription.cancel.candidate.0"
+        }
+      ],
+      "id": "subscription/goal_unreachable/cancel",
+      "decision": "subscription"
+    }
+  ],
+  "passed": false
 }

@@ -1,0 +1,36 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..47ea409 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -657,8 +657,8 @@ export function App() {
+       </main>
+ 
+       {showPrompt && !confirm && (
+-        <div className="scrim">
+-          <div className="sheet" role="dialog">
++        <div className="banner">
++          <div className="banner-sheet" role="dialog">
+             {has("LOC_HIDE_DECLINE") ? (
+               <>
+                 <div className="pin">📍</div>
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index fc0c978..be7ada2 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -45,6 +45,16 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+ .footer { padding: 20px 18px; }
+ 
+ .scrim { position: fixed; inset: 0; z-index: 10; background: rgba(0, 0, 0, 0.45); display: flex; align-items: flex-end; justify-content: center; }
++/* First-run location prompt is a non-blocking banner: the feed behind it stays
++   visible and interactive, so onboarding never traps the user before the feed. */
++.banner { position: fixed; left: 50%; transform: translateX(-50%); bottom: 0; z-index: 10; width: 100%; max-width: 430px; padding: 0 12px 12px; pointer-events: none; }
++.banner-sheet {
++  pointer-events: auto; background: var(--card); border: 1px solid var(--line); border-radius: 16px;
++  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18); padding: 16px 16px 14px;
++  display: flex; flex-direction: column; gap: 8px; text-align: center;
++}
++.banner-sheet h2 { margin: 2px 0 0; font-size: 17px; }
++.banner-sheet p { margin: 0 0 8px; color: var(--muted); font-size: 14px; line-height: 1.4; }
+ .sheet {
+   width: 100%; max-width: 430px; background: var(--card); border-radius: 18px 18px 0 0;
+   padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 10px; text-align: center;

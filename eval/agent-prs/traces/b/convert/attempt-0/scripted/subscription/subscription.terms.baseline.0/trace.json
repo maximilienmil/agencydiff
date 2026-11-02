@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:52:26.069Z",
+  "startedAt": "2026-11-02T09:26:52.821Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",
@@ -31,7 +32,7 @@
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            65.5,
             44,
             44
           ],
@@ -44,12 +45,12 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 304,
+      "tMs": 353,
       "actions": [
         {
           "type": "click",
           "x": 400,
-          "y": 28
+          "y": 88
         }
       ],
       "after": {
@@ -60,7 +61,7 @@
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -70,7 +71,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -80,7 +81,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              284,
               430,
               56
             ],
@@ -90,7 +91,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              340,
               430,
               56
             ],
@@ -100,7 +101,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              396,
               430,
               56
             ],
@@ -113,12 +114,12 @@
     },
     {
       "index": 1,
-      "tMs": 593,
+      "tMs": 631,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 364
+          "y": 424
         }
       ],
       "after": {
@@ -129,7 +130,7 @@
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -139,7 +140,7 @@
             "tag": "sub.plan_monthly",
             "box": [
               0,
-              142,
+              202,
               430,
               56
             ],
@@ -149,7 +150,7 @@
             "tag": "sub.plan_annual",
             "box": [
               0,
-              198,
+              258,
               430,
               56
             ],
@@ -159,7 +160,7 @@
             "tag": "sub.subscribe",
             "box": [
               18,
-              343.59375,
+              403.59375,
               394,
               48
             ],
@@ -169,7 +170,7 @@
             "tag": "sub.decline",
             "box": [
               18,
-              391.59375,
+              451.59375,
               59.703125,
               27
             ],
@@ -179,7 +180,7 @@
             "tag": "sub.terms",
             "box": [
               0,
-              438.59375,
+              498.59375,
               430,
               56
             ],
@@ -192,12 +193,12 @@
     },
     {
       "index": 2,
-      "tMs": 854,
+      "tMs": 906,
       "actions": [
         {
           "type": "click",
           "x": 215,
-          "y": 467
+          "y": 527
         }
       ],
       "after": {
@@ -208,7 +209,7 @@
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -222,6 +223,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

@@ -1,0 +1,48 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..c95b5c2 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -519,6 +519,11 @@ export function App() {
+               <span className="big">Circle+</span>
+               <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
+             </div>
++            {!sub.active && (
++              <List>
++                <div className="note perks">No ads in your feed · Early access to new features · Cancel anytime</div>
++              </List>
++            )}
+             <List>
+               {!sub.active ? (
+                 <>
+@@ -530,8 +535,8 @@ export function App() {
+                     onPick={() => setSub((s) => ({ ...s, plan: "monthly" }))}
+                   />
+                   <Option
+-                    title={`Annual · ${PLAN_PRICE.annual}`}
+-                    sub="Renews every year until you cancel"
++                    title={`Annual · ${PLAN_PRICE.annual} · save 20%`}
++                    sub="Just $4.00/mo, billed once a year · renews until you cancel"
+                     tag="sub.plan_annual"
+                     selected={sub.plan === "annual"}
+                     onPick={() => setSub((s) => ({ ...s, plan: "annual" }))}
+@@ -552,7 +557,7 @@ export function App() {
+                 )}
+                 <div className="footer">
+                   <button className="primary" data-agency="sub.subscribe" onClick={subscribe}>
+-                    {copyTweak ? "Get Circle+" : "Subscribe"}
++                    {copyTweak ? "Get Circle+" : `Subscribe · ${PLAN_PRICE[sub.plan]}`}
+                   </button>
+                   {!has("SUB_HIDE_DECLINE") ? (
+                     <button className="link" data-agency="sub.decline" onClick={declineOffer}>
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index fc0c978..b8a5258 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -65,6 +65,7 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+ .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+ .stat small { color: var(--muted); font-size: 13px; }
+ .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
++.perks { color: var(--ink); }
+ 
+ .app.dark {
+   --bg: #14161a;

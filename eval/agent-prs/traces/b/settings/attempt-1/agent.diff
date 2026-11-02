@@ -1,55 +1,39 @@
-diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
-index 95f50db..6fcf0db 100644
 --- a/apps/circle/src/App.tsx
 +++ b/apps/circle/src/App.tsx
-@@ -265,32 +265,24 @@ export function App() {
- 
-         {screen === "settings" && (
-           <List>
--            {has("UI_REORDER_SETTINGS") ? (
--              <>
--                <Row label="Help" />
--                <Row label="Account" />
--                <Row label="Notifications" />
--              </>
--            ) : (
--              <>
--                <Row label="Account" />
--                <Row label="Notifications" />
--              </>
--            )}
-+            <div className="section-head">Most used</div>
+@@ -343,10 +343,12 @@
+               </>
+             ) : (
+               <>
++                <div className="section-label">General</div>
+                 <Row label="Account" />
+                 <Row label="Notifications" />
+               </>
+             )}
++            <div className="section-label">Privacy &amp; wellbeing</div>
              <Row
-               label={has("UI_PRIVACY_COPY") ? "Messaging & privacy" : "Privacy"}
+               label={false ? "Messaging & privacy" : "Privacy"}
                tag="settings.privacy"
-               onClick={() => push("privacy")}
-             />
-+            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
-             {!has("LOC_BURY_SETTING") && (
+@@ -356,6 +358,7 @@
                <Row label="Location" tag="settings.location" onClick={() => push("location")} />
              )}
--            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
-+            <div className="section-head">More</div>
-+            <Row label="Account" />
-+            <Row label="Notifications" />
+             <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
++            <div className="section-label">More</div>
              <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
-             {has("UI_EXTRA_ROW") && (
+             {false && (
                <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
-             )}
--            {!has("UI_REORDER_SETTINGS") && <Row label="Help" />}
-+            <Row label="Help" />
-           </List>
-         )}
- 
+
 diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
-index fc0c978..e707652 100644
+index dc343e1..c54d3b6 100644
 --- a/apps/circle/src/styles.css
 +++ b/apps/circle/src/styles.css
-@@ -65,6 +65,7 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
- .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
- .stat small { color: var(--muted); font-size: 13px; }
- .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
-+.section-head { padding: 16px 18px 6px; color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+@@ -39,6 +39,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
+ .post p { margin: 10px 14px 0; font-size: 14px; }
  
- .app.dark {
-   --bg: #14161a;
+ .list { display: flex; flex-direction: column; }
++.section-label {
++  padding: 16px 18px 6px; font-size: 13px; font-weight: 600;
++  color: var(--muted);
++}
+ .row {
+   display: flex; align-items: center; justify-content: space-between; gap: 12px;
+   width: 100%; min-height: 56px; padding: 0 18px; text-align: left; font-size: 16px;

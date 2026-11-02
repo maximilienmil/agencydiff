@@ -1,0 +1,27 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -587,9 +587,14 @@
+           <>
+             <div className="stat">
+               <span className="big">Circle+</span>
+-              <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
++              <small>Ad-free with early access to new features.</small>
+             </div>
+             <List>
++              <div className="note">No ads in your feed — more of what you follow, fewer interruptions.</div>
++              <div className="note">Try new features first, before they roll out to everyone.</div>
++              <div className="note">Support keeping Circle free for everyone.</div>
++            </List>
++            <List>
+               {!sub.active ? (
+                 <>
+                   <Option
+@@ -601,7 +606,7 @@
+                   />
+                   <Option
+                     title={`Annual · ${PLAN_PRICE.annual}`}
+-                    sub="Renews every year until you cancel"
++                    sub="Renews every year until you cancel · 2 months free vs monthly"
+                     tag="sub.plan_annual"
+                     selected={sub.plan === "annual"}
+                     onPick={() => setSub((s) => ({ ...s, plan: "annual" }))}

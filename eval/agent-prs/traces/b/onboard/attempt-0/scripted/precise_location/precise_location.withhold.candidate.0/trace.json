@@ -7,9 +7,10 @@
   "driver": {
     "kind": "scripted"
   },
-  "startedAt": "2026-11-02T05:56:53.029Z",
+  "startedAt": "2026-11-02T09:32:42.859Z",
   "initial": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "open",
@@ -24,14 +25,14 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://127.0.0.1:50498/",
+      "url": "http://127.0.0.1:64841/",
       "screen": "home+location_prompt",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            46,
             44,
             44
           ],
@@ -41,7 +42,7 @@
           "tag": "location.decline",
           "box": [
             31,
-            264,
+            304.5,
             179,
             48
           ],
@@ -51,7 +52,7 @@
           "tag": "location.allow",
           "box": [
             220,
-            264,
+            304.5,
             179,
             48
           ],
@@ -64,23 +65,23 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 341,
+      "tMs": 329,
       "actions": [
         {
           "type": "click",
           "x": 121,
-          "y": 288
+          "y": 329
         }
       ],
       "after": {
-        "url": "http://127.0.0.1:50498/",
+        "url": "http://127.0.0.1:64841/",
         "screen": "home",
         "tags": [
           {
             "tag": "nav.settings",
             "box": [
               378,
-              5.5,
+              46,
               44,
               44
             ],
@@ -94,6 +95,7 @@
   ],
   "final": {
     "state": {
+      "auth.signedIn": true,
       "location.precise": false,
       "location.mode": "off",
       "location.prompt": "answered",

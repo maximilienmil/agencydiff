@@ -5,6 +5,7 @@ import {
   checkOracle,
   firstSatisfaction,
   type AgencyContract,
+  type DomAssertion,
   type IntentSpec,
   type OracleAdapter,
   type Trace,
@@ -32,6 +33,19 @@ function withFixture(url: string, fixture?: string): string {
   const u = new URL(url);
   u.searchParams.set("fixture", fixture);
   return u.toString();
+}
+
+/** Every selector an oracle reads, descending into anyOf disjunctions. */
+export function oracleSelectors(assertions: DomAssertion[] | undefined): string[] {
+  const out: string[] = [];
+  const walk = (list: DomAssertion[] | undefined) => {
+    for (const a of list ?? []) {
+      if (a.kind === "anyOf") walk(a.assertions);
+      else out.push(a.selector);
+    }
+  };
+  walk(assertions);
+  return [...new Set(out)];
 }
 
 /** Run one intent against one variant from a fresh browser, and save its trace. */
@@ -62,8 +76,7 @@ export async function runProbe(opts: {
     // The dom oracle is cheap local DOM, so evaluate it after every step
     // and stop the probe once the needed fact is on screen. The recorded
     // cost is actions until that point, not the step budget.
-    const domSelectors =
-      adapter === "dom" ? [...new Set((intent.domOracle ?? []).map((a) => a.selector))] : [];
+    const domSelectors = adapter === "dom" ? oracleSelectors(intent.domOracle) : [];
     const isSatisfied =
       adapter === "dom"
         ? async () => checkDomAssertions(intent.domOracle, await env.collectDomFacts(domSelectors)) === true

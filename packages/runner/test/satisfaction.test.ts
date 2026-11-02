@@ -5,6 +5,25 @@ import { describe, expect, it } from "vitest";
 import type { IntentSpec } from "@agencydiff/core";
 import { ScriptedDriver } from "../src/drivers.js";
 import { BrowserEnv } from "../src/env.js";
+import { oracleSelectors } from "../src/probe.js";
+
+describe("oracleSelectors", () => {
+  it("collects selectors through anyOf disjunctions, deduplicated", () => {
+    expect(
+      oracleSelectors([
+        {
+          kind: "anyOf",
+          assertions: [
+            { kind: "visibleText", selector: "body", text: "a" },
+            { kind: "visibleText", selector: "main", text: "b" },
+          ],
+        },
+        { kind: "textContains", selector: "body", text: "c" },
+      ]),
+    ).toEqual(["body", "main"]);
+    expect(oracleSelectors(undefined)).toEqual([]);
+  });
+});
 
 // Viewport is 430x860: the top paragraph is on screen, the bottom one is a
 // full screen below the fold. Both live in <body>, so a body-text oracle

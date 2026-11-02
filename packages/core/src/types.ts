@@ -24,7 +24,8 @@ export type DomAssertion =
   | { kind: "textContains"; selector: string; text: string }
   | { kind: "visibleText"; selector: string; text: string }
   | { kind: "checked"; selector: string; checked?: boolean }
-  | { kind: "value"; selector: string; value: string };
+  | { kind: "value"; selector: string; value: string }
+  | { kind: "anyOf"; assertions: DomAssertion[] };
 
 /** A testable web app: a URL per Variant, the contract(s) to run, and which
  *  Oracle adapter decides success. Resolved from a target config JSON file. */

@@ -73,6 +73,43 @@ describe("checkDomAssertions", () => {
     ).toBe(false);
   });
 
+  it("passes anyOf when one disjunct holds, even nested", () => {
+    const viewport: DomElementFact[] = [
+      { selector: "main", exists: true, visible: true, text: "Renew Online today", visibleText: "Renew Online today" },
+    ];
+    expect(
+      checkDomAssertions(
+        [
+          {
+            kind: "anyOf",
+            assertions: [
+              { kind: "visibleText", selector: "main", text: "Online Renewal" },
+              { kind: "visibleText", selector: "main", text: "Renew Online" },
+            ],
+          },
+        ],
+        viewport,
+      ),
+    ).toBe(true);
+    expect(
+      checkDomAssertions(
+        [
+          {
+            kind: "anyOf",
+            assertions: [
+              { kind: "visibleText", selector: "main", text: "Online Renewal" },
+              {
+                kind: "anyOf",
+                assertions: [{ kind: "visibleText", selector: "main", text: "by mail" }],
+              },
+            ],
+          },
+        ],
+        viewport,
+      ),
+    ).toBe(false);
+  });
+
   it("treats one failing assertion as a failed oracle", () => {
     expect(
       checkDomAssertions(

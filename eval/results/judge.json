@@ -1,0 +1,608 @@
+{
+  "driver": "judge",
+  "method": "judge",
+  "model": "muse-spark-1.3-contributor",
+  "repeats": 1,
+  "coverage": "full",
+  "perSeed": [
+    {
+      "seed": "LOC_HIDE_DECLINE",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.withhold",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [
+        {
+          "intentId": "precise_location.share",
+          "kind": "judge:easier",
+          "title": "Judge rated precise_location.share easier"
+        }
+      ],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "LOC_DEFAULT_ON",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": false,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.withhold",
+          "metric": "default",
+          "hit": false,
+          "via": "none"
+        }
+      ],
+      "missed": [
+        "precise_location.withhold"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "LOC_CONFIRM_SHAME",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.revoke",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "LOC_BURY_SETTING",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.revoke",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "LOC_NO_DIRECT_TOGGLE",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.revoke",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "DM_HIDE_BLOCK",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "DM_DEFAULT_EVERYONE",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "default",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [
+        {
+          "intentId": "teen_dm.allow_all",
+          "kind": "judge:easier",
+          "title": "Judge rated teen_dm.allow_all easier"
+        },
+        {
+          "intentId": "teen_dm.friends_only",
+          "kind": "judge:harder",
+          "title": "Judge rated teen_dm.friends_only harder"
+        }
+      ],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "DM_BURY_MESSAGES",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.allow_all",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "teen_dm.friends_only",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "teen_dm.inspect",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "teen_dm.relax",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "DM_CONFIRM_BLOCK",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "DM_INFO_AFTER_CHOICE",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.allow_all",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "teen_dm.friends_only",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "none"
+        },
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "none"
+        },
+        {
+          "intent": "teen_dm.relax",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [
+        "teen_dm.friends_only",
+        "teen_dm.block_unknown"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "ST_HIDE_REMOVE",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.remove_limit",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "ST_MIN_LIMIT_2H",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "visibility",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "ST_BURY_LIMIT",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "screen_time.remove_limit",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "screen_time.shorten",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "ST_CONFIRM_LIMIT",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "screen_time.shorten",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "ST_REQUIRE_SAVE",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        },
+        {
+          "intent": "screen_time.shorten",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [
+        {
+          "intentId": "screen_time.remove_limit",
+          "kind": "judge:harder",
+          "title": "Judge rated screen_time.remove_limit harder"
+        }
+      ],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "SUB_HIDE_DECLINE",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.decline",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "SUB_BURY_CANCEL",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.cancel",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "SUB_DEFAULT_ANNUAL",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.subscribe",
+          "metric": "default",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "SUB_RETENTION_OFFER",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.cancel",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "SUB_TERMS_AFTER_CHECKOUT",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.terms",
+          "metric": "success",
+          "hit": true,
+          "via": "judge"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "UI_COPY_TWEAK",
+      "kind": "control",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "UI_ACCENT",
+      "kind": "control",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "UI_REORDER_SETTINGS",
+      "kind": "control",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "UI_FEED_SHUFFLE",
+      "kind": "control",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "UI_PRIVACY_COPY",
+      "kind": "control",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    },
+    {
+      "seed": "UI_EXTRA_ROW",
+      "kind": "control",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {}
+    }
+  ],
+  "seeds": 26,
+  "regressions": 20,
+  "controls": 6,
+  "detected": 18,
+  "missed": [
+    "LOC_DEFAULT_ON",
+    "DM_INFO_AFTER_CHOICE"
+  ],
+  "falseAlarms": [],
+  "recall": 0.9,
+  "precision": 1,
+  "controlFalseAlarmRate": 0,
+  "consistencyK3": {
+    "agreement": 0.8888888888888888,
+    "pairs": 18,
+    "seeds": [
+      "LOC_HIDE_DECLINE",
+      "LOC_DEFAULT_ON",
+      "LOC_CONFIRM_SHAME"
+    ]
+  },
+  "tokens": {
+    "input": 137096,
+    "output": 49254,
+    "calls": 32
+  },
+  "costUsd": 0.023560400000000002
+}

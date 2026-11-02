@@ -5,3 +5,4 @@ audits/**/*.png
 .env
 *.log
 .sam-cache/
+eval/results/traces/

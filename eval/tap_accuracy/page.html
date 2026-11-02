@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=430, initial-scale=1">
+<title>Tap accuracy probe</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 430px; margin: 0 auto; font-family: system-ui, sans-serif; background: #fff; padding: 12px; }
+  h1 { font-size: 18px; margin-bottom: 10px; }
+  #list { display: flex; flex-direction: column; gap: 5px; }
+  button.tap { width: 100%; border: 1px solid #888; border-radius: 8px; background: #f2f5ff; font-size: 15px; cursor: pointer; }
+  #result { margin-top: 12px; font-size: 14px; color: #333; min-height: 20px; }
+</style>
+</head>
+<body>
+<h1>Tap the named button</h1>
+<div id="list"></div>
+<div id="result" data-testid="result">none</div>
+<script>
+  const items = [
+    ["tap-01", "Apricot", 28], ["tap-02", "Bilberry", 36], ["tap-03", "Clementine", 28],
+    ["tap-04", "Damson", 40], ["tap-05", "Elderberry", 24], ["tap-06", "Fig", 32],
+    ["tap-07", "Grapefruit", 44], ["tap-08", "Honeydew", 26], ["tap-09", "Imbe", 36],
+    ["tap-10", "Jackfruit", 24], ["tap-11", "Kumquat", 30], ["tap-12", "Lime", 36],
+    ["tap-13", "Mulberry", 24], ["tap-14", "Nectarine", 32], ["tap-15", "Olive", 40],
+    ["tap-16", "Papaya", 26], ["tap-17", "Quince", 36], ["tap-18", "Rambutan", 24],
+    ["tap-19", "Salak", 30], ["tap-20", "Tamarind", 36],
+  ];
+  const list = document.getElementById("list");
+  for (const [id, label, h] of items) {
+    const b = document.createElement("button");
+    b.className = "tap";
+    b.dataset.agency = id;
+    b.style.height = h + "px";
+    b.textContent = label;
+    b.addEventListener("click", () => {
+      document.getElementById("result").textContent = id;
+    });
+    list.appendChild(b);
+  }
+</script>
+</body>
+</html>

@@ -12,6 +12,13 @@ false alarm means a no-change control seed produced a Finding.
 | Muse-as-judge, given a walkthrough (upper bound) | 17/20 | 0/6 | $0.02 (one call per seed) |
 | Muse-as-judge, first screens only | 1/20 | 0/6 | $0.02 (one call per seed) |
 | AgencyDiff, scripted probes (sanity) | 19/20 | 0/6 | $0.00 (offline, no model calls) |
+| Hybrid: scripted gate, muse cost probe | 19/20 | 0/6 | $1.06 (computed, no extra runs) |
+
+The hybrid row is not a new run: detection and false alarms come from the
+scripted replay (the gate), and the cost is the recorded muse spend on the
+seeds where the gate fired, measuring the new path only where the old one
+broke. Seeds the gate never fires on cost nothing. Historical anchor,
+pre-T5c muse baseline (full, k=3): 15/20 caught, 6/6 false alarms, $2.44.
 
 Judge walkthrough k=3 consistency: 100% agreement over 18 verdicts (LOC_HIDE_DECLINE, LOC_DEFAULT_ON, LOC_CONFIRM_SHAME).
 
@@ -70,6 +77,7 @@ counts, because there is no run-to-run noise to guard against.
 
 - The bench crashed on the license_renewal_info contract: it was added by a parallel ticket, has no baseline reference path and no ground-truth seeds, and the scripted driver tried to replay a path that does not exist. The bench now runs only contracts that have a baseline reference path.
 - One dead browser killed the whole benchmark: a probe whose page died mid-run threw out of runProbe, through the pool, and out of the bench with no partial for its seed. Probes now retry with a fresh browser (3 attempts) and record an error trace instead of throwing, so infrastructure flakes cost one trace, not the run.
+- A wrong screenshot size would silently shift every model click, so the browser env now asserts each shot is exactly viewport times deviceScaleFactor and converts screenshot pixels to CSS pixels on execute (identity at scale 1).
 
 ## Notes
 

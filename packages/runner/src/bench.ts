@@ -66,6 +66,7 @@ const COST_GUARD_USD = 15;
 const BENCH_FIXES = [
   "The bench crashed on the license_renewal_info contract: it was added by a parallel ticket, has no baseline reference path and no ground-truth seeds, and the scripted driver tried to replay a path that does not exist. The bench now runs only contracts that have a baseline reference path.",
   "One dead browser killed the whole benchmark: a probe whose page died mid-run threw out of runProbe, through the pool, and out of the bench with no partial for its seed. Probes now retry with a fresh browser (3 attempts) and record an error trace instead of throwing, so infrastructure flakes cost one trace, not the run.",
+  "A wrong screenshot size would silently shift every model click, so the browser env now asserts each shot is exactly viewport times deviceScaleFactor and converts screenshot pixels to CSS pixels on execute (identity at scale 1).",
 ];
 
 const ROOT = path.resolve(import.meta.dirname, "../../..");
@@ -499,6 +500,8 @@ interface TableResult {
   falseAlarms: string[];
   controls: number;
   costUsd: number;
+  repeats?: number;
+  model?: string | null;
   lenientOnly?: string[];
   coverage?: string;
   coverageNote?: string;
@@ -519,6 +522,7 @@ async function writeSummary() {
   const judgeWalkthrough = await read("judge.json");
   const judgeFirst = await read("judge_first.json");
   if (!scripted && !muse && !judgeWalkthrough && !judgeFirst) return;
+  const hybrid = await hybridRow(scripted, muse);
   const row = (r: TableResult | null) =>
     r ? { caught: `${r.detected}/${r.regressions}`, falseAlarms: `${r.falseAlarms.length}/${r.controls}`, costUsd: r.costUsd } : null;
   const summary = {
@@ -528,6 +532,7 @@ async function writeSummary() {
       muse: muse
         ? { ...row(muse)!, coverage: muse.coverage, coverageNote: muse.coverageNote }
         : null,
+      hybrid,
     },
     judge: {
       walkthrough: judgeWalkthrough
@@ -540,8 +545,53 @@ async function writeSummary() {
   await writeFile(path.join(outRoot, "summary.json"), JSON.stringify(summary, null, 2));
   await writeFile(
     path.join(ROOT, "eval", "RESULTS.md"),
-    resultsMarkdown({ scripted, muse, judgeWalkthrough, judgeFirst }),
+    resultsMarkdown({ scripted, muse, judgeWalkthrough, judgeFirst, hybrid }),
   );
+}
+
+/**
+ * Hybrid row, computed from existing per-seed data with no new model runs:
+ * the scripted replay is the gate (detection and false alarms come from the
+ * scripted verdicts), and muse probes measure the new path's cost only on
+ * seeds where the scripted replay detected a Finding. Seeds the scripted
+ * gate never fires on (misses, controls) cost nothing because no muse probe
+ * is launched there. Null when either side has not run.
+ */
+async function hybridRow(
+  scripted: TableResult | null,
+  muse: TableResult | null,
+): Promise<{ caught: string; falseAlarms: string; costUsd: number } | null> {
+  if (!scripted || !muse) return null;
+  const bySeed = new Map(scripted.perSeed.map((v) => [v.seed, v]));
+  const regressions = muse.perSeed.filter((v) => v.kind === "regression" && bySeed.has(v.seed));
+  const controls = muse.perSeed.filter((v) => v.kind === "control" && bySeed.has(v.seed));
+  if (!regressions.length) return null;
+  const detected = regressions.filter((v) => bySeed.get(v.seed)!.detected);
+  const falseAlarms = controls.filter((v) => bySeed.get(v.seed)!.falseAlarm).map((v) => v.seed);
+  // Muse cost only where the gate fired: sum the recorded per-seed tokens.
+  let input = 0;
+  let output = 0;
+  for (const v of detected) {
+    try {
+      const p = JSON.parse(await readFile(path.join(outRoot, "per_seed", `muse.${v.seed}.json`), "utf8")) as {
+        driver: string;
+        repeats: number;
+        model: string | null;
+        tokens: { input: number; output: number };
+      };
+      if (p.driver === "muse" && p.repeats === muse.repeats && p.model === (muse.model ?? null)) {
+        input += p.tokens.input;
+        output += p.tokens.output;
+      }
+    } catch {
+      // A missing or stale partial contributes nothing to the hybrid cost.
+    }
+  }
+  return {
+    caught: `${detected.length}/${regressions.length}`,
+    falseAlarms: `${falseAlarms.length}/${controls.length}`,
+    costUsd: usdForTokens(input, output),
+  };
 }
 
 function resultsMarkdown(results: {
@@ -549,6 +599,7 @@ function resultsMarkdown(results: {
   muse: TableResult | null;
   judgeWalkthrough: TableResult | null;
   judgeFirst: TableResult | null;
+  hybrid: { caught: string; falseAlarms: string; costUsd: number } | null;
 }): string {
   const lines = [
     "# Benchmark results",
@@ -571,8 +622,21 @@ function resultsMarkdown(results: {
     row("Muse-as-judge, given a walkthrough (upper bound)", results.judgeWalkthrough, "(one call per seed)"),
     row("Muse-as-judge, first screens only", results.judgeFirst, "(one call per seed)"),
     row("AgencyDiff, scripted probes (sanity)", results.scripted, "(offline, no model calls)"),
+    results.hybrid
+      ? `| Hybrid: scripted gate, muse cost probe | ${results.hybrid.caught} | ${results.hybrid.falseAlarms} | $${results.hybrid.costUsd.toFixed(2)} (computed, no extra runs) |`
+      : `| Hybrid: scripted gate, muse cost probe | not run yet | not run yet | — |`,
     "",
   );
+  if (results.hybrid) {
+    lines.push(
+      "The hybrid row is not a new run: detection and false alarms come from the",
+      "scripted replay (the gate), and the cost is the recorded muse spend on the",
+      "seeds where the gate fired, measuring the new path only where the old one",
+      "broke. Seeds the gate never fires on cost nothing. Historical anchor,",
+      "pre-T5c muse baseline (full, k=3): 15/20 caught, 6/6 false alarms, $2.44.",
+      "",
+    );
+  }
   if (results.muse?.coverage === "subset" && results.muse.coverageNote) {
     lines.push(results.muse.coverageNote + ".", "");
   }

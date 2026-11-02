@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T12:22:26.933Z",
+  "generatedAt": "2026-11-02T12:37:36.426Z",
   "agencydiff": {
     "scripted": {
       "caught": "19/20",
@@ -12,6 +12,11 @@
       "costUsd": 2.4389296000000003,
       "coverage": "full",
       "coverageNote": "full run over 26 seeds"
+    },
+    "hybrid": {
+      "caught": "19/20",
+      "falseAlarms": "0/6",
+      "costUsd": 1.0627236
     }
   },
   "judge": {

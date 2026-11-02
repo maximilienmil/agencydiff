@@ -17,8 +17,10 @@ import {
   isBlockedProdSafeType,
   type ProdSafeElementInfo,
 } from "./prodSafe.js";
+import { assertScreenshotSpace, toCssPixels } from "./coordinates.js";
 
 export const VIEWPORT = { width: 430, height: 860 };
+export const DEVICE_SCALE_FACTOR = 1;
 
 /** Thrown when Audit mode refuses an action before it touches the page. */
 export class AuditBlockedError extends Error {
@@ -66,7 +68,7 @@ export class BrowserEnv {
     const browser = await chromium.launch();
     const ctx = await browser.newContext({
       viewport: VIEWPORT,
-      deviceScaleFactor: 1,
+      deviceScaleFactor: DEVICE_SCALE_FACTOR,
       ...(opts?.storageState ? { storageState: opts.storageState } : {}),
     });
     const page = await ctx.newPage();
@@ -96,6 +98,9 @@ export class BrowserEnv {
     const release = await maskSecrets(this.page).catch(() => null);
     try {
       const png = await this.page.screenshot({ path: path.join(this.outDir, file) });
+      // The model grounds in screenshot pixels, so a shot that is not exactly
+      // viewport times scale would shift every click. Fail here, not as noise.
+      assertScreenshotSpace(png, VIEWPORT, DEVICE_SCALE_FACTOR);
       return { png, file };
     } finally {
       await release?.()?.catch(() => {});
@@ -357,30 +362,43 @@ export class BrowserEnv {
   async execute(actions: Action[]): Promise<void> {
     if (this.audit) await this.refuseUnsafe(actions);
     if (this.prodSafe) await this.refuseProdUnsafe(actions);
+    // Actions arrive in screenshot pixels; Playwright's mouse takes CSS
+    // pixels. Identical at scale 1, divided out otherwise.
+    const pt = (x: number, y: number) => toCssPixels(x, y, DEVICE_SCALE_FACTOR);
     const m = this.page.mouse;
     const k = this.page.keyboard;
     for (const a of actions) {
       switch (a.type) {
-        case "click":
-          await m.click(a.x, a.y, { button: a.button === "right" ? "right" : a.button === "wheel" ? "middle" : "left" });
+        case "click": {
+          const p = pt(a.x, a.y);
+          await m.click(p.x, p.y, { button: a.button === "right" ? "right" : a.button === "wheel" ? "middle" : "left" });
           break;
-        case "double_click":
-          await m.dblclick(a.x, a.y);
+        }
+        case "double_click": {
+          const p = pt(a.x, a.y);
+          await m.dblclick(p.x, p.y);
           break;
-        case "move":
-          await m.move(a.x, a.y);
+        }
+        case "move": {
+          const p = pt(a.x, a.y);
+          await m.move(p.x, p.y);
           break;
-        case "drag":
+        }
+        case "drag": {
           if (!a.path.length) break;
-          await m.move(a.path[0].x, a.path[0].y);
+          const pts = a.path.map((p) => pt(p.x, p.y));
+          await m.move(pts[0].x, pts[0].y);
           await m.down();
-          for (const p of a.path.slice(1)) await m.move(p.x, p.y);
+          for (const p of pts.slice(1)) await m.move(p.x, p.y);
           await m.up();
           break;
-        case "scroll":
-          await m.move(a.x, a.y);
+        }
+        case "scroll": {
+          const p = pt(a.x, a.y);
+          await m.move(p.x, p.y);
           await m.wheel(a.scroll_x, a.scroll_y);
           break;
+        }
         case "type":
           await k.type(a.text);
           break;

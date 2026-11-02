@@ -1,0 +1,74 @@
+{
+  "summary": {
+    "variant": "baseline",
+    "model": "muse-spark-1.3-contributor",
+    "viewport": {
+      "width": 430,
+      "height": 860
+    },
+    "deviceScaleFactor": 1,
+    "screenshot": {
+      "width": 430,
+      "height": 860
+    },
+    "coordinateConvention": "native computer tool: pixels of the last screenshot sent, (0,0) top-left",
+    "probes": 2,
+    "hits": 2,
+    "hitRate": 1,
+    "meanDx": -1,
+    "meanDy": -14.5,
+    "meanAbsDx": 1,
+    "meanAbsDy": 14.5,
+    "errors": 0,
+    "tokens": {
+      "inputTokens": 16125,
+      "outputTokens": 2556,
+      "calls": 7
+    },
+    "costUsd": 0.0021236999999999996
+  },
+  "probes": [
+    {
+      "button": "tap-01",
+      "label": "Apricot",
+      "repeat": 0,
+      "click": {
+        "x": 214,
+        "y": 47
+      },
+      "box": [
+        12,
+        43,
+        406,
+        28
+      ],
+      "boxHeight": 28,
+      "hit": true,
+      "dx": -1,
+      "dy": -10,
+      "landedIn": "tap-01",
+      "calls": 7
+    },
+    {
+      "button": "tap-02",
+      "label": "Bilberry",
+      "repeat": 0,
+      "click": {
+        "x": 214,
+        "y": 82
+      },
+      "box": [
+        12,
+        79,
+        406,
+        44
+      ],
+      "boxHeight": 44,
+      "hit": true,
+      "dx": -1,
+      "dy": -19,
+      "landedIn": "tap-02",
+      "calls": 6
+    }
+  ]
+}

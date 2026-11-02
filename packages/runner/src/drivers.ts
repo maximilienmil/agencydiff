@@ -136,6 +136,8 @@ export interface MuseOptions {
   model?: string;
   baseUrl?: string;
   maxSteps?: number;
+  /** Extra instructions appended to the system prompt (prompt experiments). */
+  instructionsExtra?: string;
   /** Device description for the system prompt: web (default) or android. */
   target?: "web" | "android";
   /** Read-only discovery: extra safety instructions, no submits or purchases. */
@@ -184,6 +186,7 @@ export class MuseDriver implements Driver {
     let extra = "";
     if (this.opts.audit) extra += `\n\n${AUDIT_INSTRUCTIONS}`;
     if (this.opts.prodSafe) extra += `\n\n${PROD_SAFE_INSTRUCTIONS}`;
+    if (this.opts.instructionsExtra) extra += `\n\n${this.opts.instructionsExtra}`;
     const base = this.opts.target === "android" ? ANDROID_PROMPT : SYSTEM_PROMPT;
     return `${base}${extra}`;
   }

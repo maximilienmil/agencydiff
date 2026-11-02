@@ -1,6 +1,23 @@
 {
   "runs": [
     {
+      "id": "teen_dm",
+      "decision": "teen_dm",
+      "date": "2026-11-02T05:06:46.860Z",
+      "passed": false,
+      "driver": "muse",
+      "target": {
+        "baseline": "http://localhost:5173/?variant=baseline",
+        "candidate": "http://localhost:5173/?seeds=DM_HIDE_BLOCK"
+      },
+      "traces": 2,
+      "findings": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
       "id": "2026-11-01T20-44-46-245Z-precise_location",
       "decision": "precise_location",
       "date": "2026-11-01T20:44:55.011Z",

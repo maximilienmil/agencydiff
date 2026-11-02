@@ -5,8 +5,9 @@ import { RunsPage } from "./pages/Runs";
 import { DiffPage } from "./pages/Diff";
 import { ReplayPage } from "./pages/Replay";
 import { ContractPage } from "./pages/Contract";
+import { LivePage } from "./pages/Live";
 
-export type Page = "runs" | "diff" | "replay" | "contract";
+export type Page = "runs" | "diff" | "replay" | "contract" | "live";
 
 export interface Route {
   page: Page;
@@ -14,6 +15,8 @@ export interface Route {
   intent?: string;
   variant?: string;
   trace?: string;
+  source?: string;
+  live?: string;
 }
 
 export function parseHash(): Route {
@@ -22,11 +25,13 @@ export function parseHash(): Route {
   const page = (path.replace(/^\//, "") || "runs") as Page;
   const q = new URLSearchParams(query ?? "");
   return {
-    page: ["runs", "diff", "replay", "contract"].includes(page) ? page : "runs",
+    page: ["runs", "diff", "replay", "contract", "live"].includes(page) ? page : "runs",
     run: q.get("run") ?? undefined,
     intent: q.get("intent") ?? undefined,
     variant: q.get("variant") ?? undefined,
     trace: q.get("trace") ?? undefined,
+    source: q.get("source") ?? undefined,
+    live: q.get("live") ?? undefined,
   };
 }
 
@@ -36,6 +41,8 @@ export function link(r: Route): string {
   if (r.intent) q.set("intent", r.intent);
   if (r.variant) q.set("variant", r.variant);
   if (r.trace) q.set("trace", r.trace);
+  if (r.source) q.set("source", r.source);
+  if (r.live) q.set("live", r.live);
   const qs = q.toString();
   return `#/${r.page}${qs ? `?${qs}` : ""}`;
 }
@@ -55,6 +62,7 @@ const TABS: { id: Page; label: string }[] = [
   { id: "diff", label: "Diff" },
   { id: "replay", label: "Replay" },
   { id: "contract", label: "Contract" },
+  { id: "live", label: "Live" },
 ];
 
 export function App() {
@@ -109,6 +117,7 @@ export function App() {
               <ReplayPage runId={runId} intent={route.intent} trace={route.trace} variant={route.variant} />
             )}
             {route.page === "contract" && <ContractPage runId={runId} />}
+            {route.page === "live" && <LivePage runId={runId} intent={route.intent} liveUrl={route.live} source={route.source} />}
           </>
         )}
         <footer>

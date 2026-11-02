@@ -232,3 +232,17 @@ export interface TraceEvidence {
   producedAt: string;
   steps: StepEvidence[];
 }
+
+/** One event streamed by a runner with live probes enabled. Additive and
+ *  transport-agnostic: the runner serialises these over SSE, the report app
+ *  reduces them into the same shape a recorded Trace replay produces. */
+export type LiveEvent =
+  | { type: "run_started"; runId: string; decision: string; intentId: string; goal: string; at: string }
+  | { type: "probe_started"; traceId: string; variant: Variant; intentId: string; at: string }
+  | { type: "step_started"; traceId: string; variant: Variant; step: number; at: string }
+  | { type: "screenshot"; traceId: string; variant: Variant; step: number; screenshot: string; url?: string; screen?: string; at: string }
+  | { type: "action"; traceId: string; variant: Variant; step: number; actions: Action[]; note?: string; at: string }
+  | { type: "oracle_result"; traceId: string; variant: Variant; passed?: boolean; checked: boolean; stoppedReason: string; at: string }
+  | { type: "probe_finished"; traceId: string; variant: Variant; steps: number; at: string }
+  | { type: "finding"; finding: Finding; at: string }
+  | { type: "run_finished"; runId: string; passed: boolean; at: string };

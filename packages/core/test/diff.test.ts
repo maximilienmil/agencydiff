@@ -33,7 +33,13 @@ function trace(
   intentId: string,
   variant: Variant,
   clicks: number,
-  opts: { visibleAt0?: string; precise0?: boolean; passed?: boolean } = {},
+  opts: {
+    visibleAt0?: string;
+    precise0?: boolean;
+    passed?: boolean;
+    driver?: "scripted" | "muse";
+    repeat?: number;
+  } = {},
 ): Trace {
   const obs = (screen: string, tags: string[] = []) => ({
     url: "http://circle",
@@ -42,12 +48,12 @@ function trace(
     tags: tags.map((tag) => ({ tag, box: [0, 0, 1, 1] as [number, number, number, number], inViewport: true })),
   });
   return {
-    id: `${intentId}-${variant}`,
+    id: `${intentId}-${variant}-${opts.repeat ?? 0}`,
     decision: contract.decision,
     intentId,
     variant,
-    repeat: 0,
-    driver: { kind: "scripted" },
+    repeat: opts.repeat ?? 0,
+    driver: { kind: opts.driver ?? "scripted" },
     startedAt: "2026-10-28T00:00:00Z",
     initial: {
       state: { "location.precise": opts.precise0 ?? false },
@@ -63,6 +69,22 @@ function trace(
     oracle: { checked: true, passed: opts.passed ?? true },
     stoppedReason: "agent_done",
   };
+}
+
+function repeats(
+  intentId: string,
+  variant: Variant,
+  clicks: number[],
+  opts: { driver?: "scripted" | "muse"; passed?: boolean[] } = {},
+): Trace[] {
+  return clicks.map((c, i) =>
+    trace(intentId, variant, c, {
+      visibleAt0: "location.decline",
+      driver: opts.driver,
+      repeat: i,
+      passed: opts.passed?.[i] ?? true,
+    }),
+  );
 }
 
 describe("diffContract", () => {
@@ -107,5 +129,57 @@ describe("diffContract", () => {
       candidate: 0,
       severity: "high",
     });
+  });
+
+  it("ignores overlapping muse repeats: a higher median alone is noise", () => {
+    const traces = [
+      ...repeats("withhold", "baseline", [1, 5, 5], { driver: "muse" }),
+      ...repeats("withhold", "candidate", [2, 6, 6], { driver: "muse" }),
+    ];
+    const r = diffContract(contract, traces);
+    expect(r.findings.find((f) => f.kind === "action_cost")).toBeUndefined();
+    expect(r.findings.find((f) => f.kind === "navigation_depth")).toBeUndefined();
+  });
+
+  it("flags separated muse repeats: every candidate run cost more", () => {
+    const traces = [
+      ...repeats("withhold", "baseline", [1, 2, 3], { driver: "muse" }),
+      ...repeats("withhold", "candidate", [4, 5, 6], { driver: "muse" }),
+    ];
+    const r = diffContract(contract, traces);
+    expect(r.findings.find((f) => f.kind === "action_cost")).toMatchObject({
+      intentId: "withhold",
+      baseline: 2,
+      candidate: 5,
+    });
+  });
+
+  it("needs a 2/3 success-rate gap across muse repeats", () => {
+    const close = diffContract(contract, [
+      ...repeats("withhold", "baseline", [1, 1, 1], { driver: "muse" }),
+      ...repeats("withhold", "candidate", [1, 1, 1], { driver: "muse", passed: [true, true, false] }),
+    ]);
+    expect(close.findings.find((f) => f.kind === "goal_unreachable")).toBeUndefined();
+    const wide = diffContract(contract, [
+      ...repeats("withhold", "baseline", [1, 1, 1], { driver: "muse" }),
+      ...repeats("withhold", "candidate", [1, 1, 1], { driver: "muse", passed: [true, false, false] }),
+    ]);
+    expect(wide.findings.find((f) => f.kind === "goal_unreachable")).toMatchObject({
+      baseline: 1,
+      candidate: 1 / 3,
+    });
+  });
+
+  it("keeps the old rule for scripted repeats and single muse runs", () => {
+    const scripted = diffContract(contract, [
+      ...repeats("withhold", "baseline", [1, 5, 5]),
+      ...repeats("withhold", "candidate", [2, 6, 6]),
+    ]);
+    expect(scripted.findings.find((f) => f.kind === "action_cost")).toBeDefined();
+    const single = diffContract(contract, [
+      trace("withhold", "baseline", 1, { visibleAt0: "location.decline", driver: "muse" }),
+      trace("withhold", "candidate", 2, { visibleAt0: "location.decline", driver: "muse" }),
+    ]);
+    expect(single.findings.find((f) => f.kind === "action_cost")).toBeDefined();
   });
 });

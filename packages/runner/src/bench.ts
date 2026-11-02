@@ -1,4 +1,5 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { spawn, type ChildProcess } from "node:child_process";
 import path from "node:path";
 import { parseArgs } from "node:util";
@@ -11,7 +12,7 @@ import {
 } from "@agencydiff/core";
 import { MuseDriver, ScriptedDriver, type Driver, type MuseUsage } from "./drivers.js";
 import { runProbe } from "./probe.js";
-import { captureShots, judgeSeed, type JudgeVerdict } from "./benchJudge.js";
+import { captureFirstScreens, captureShots, judgeSeed, type JudgeVerdict } from "./benchJudge.js";
 import {
   actionVariance,
   qualify,
@@ -58,6 +59,13 @@ const SUBSET = [
 ];
 const COST_GUARD_USD = 15;
 
+/** Harness bugs found while diagnosing the benchmark, fixed rather than
+ *  tuned around. Extended as diagnosis finds more. Declared up here because
+ *  the top-level flow calls resultsMarkdown before later declarations run. */
+const BENCH_FIXES = [
+  "The bench crashed on the license_renewal_info contract: it was added by a parallel ticket, has no baseline reference path and no ground-truth seeds, and the scripted driver tried to replay a path that does not exist. The bench now runs only contracts that have a baseline reference path.",
+];
+
 const ROOT = path.resolve(import.meta.dirname, "../../..");
 
 const { values } = parseArgs({
@@ -71,6 +79,7 @@ const { values } = parseArgs({
     model: { type: "string" },
     "max-steps": { type: "string", default: "12" },
     "force-full": { type: "boolean", default: false },
+    shots: { type: "string", default: "walkthrough" },
   },
 });
 
@@ -82,7 +91,13 @@ const base = values.base!.replace(/\/$/, "");
 const model = values.model ?? process.env.MUSE_MODEL ?? "muse-spark-1.3-contributor";
 const baseUrl = process.env.MODEL_API_BASE ?? "https://api.meta.ai/v1";
 
-const contracts = await loadContracts();
+// Only contracts with a baseline reference path run in the bench: the
+// scripted driver replays that path, and unscored contracts (e.g. the
+// license_renewal_info audit contract, which has no ground-truth seeds)
+// would only add noise to the control seeds.
+const contracts = (await loadContracts()).filter((c) =>
+  existsSync(path.join(ROOT, "eval", "reference_paths", c.file)),
+);
 const contractFile = new Map(contracts.map((c) => [c.decision, c.file]));
 const truth: GroundTruthEntry[] = JSON.parse(
   await readFile(path.join(ROOT, "eval", "ground_truth.json"), "utf8"),
@@ -118,6 +133,33 @@ async function runDiff(seedList: GroundTruthEntry[]) {
   if (values.driver === "muse" && !apiKey) throw new Error("MODEL_API_KEY is not set");
   const usage: MuseUsage = { inputTokens: 0, outputTokens: 0, calls: 0 };
 
+  // Per-seed partial results: every scored seed is saved at once, so an
+  // interrupted run resumes where it stopped instead of starting over.
+  const partialDir = path.join(outRoot, "per_seed");
+  await mkdir(partialDir, { recursive: true });
+  const modelKey = values.driver === "muse" ? model : null;
+  interface SeedPartial {
+    driver: string;
+    repeats: number;
+    model: string | null;
+    seed: string;
+    verdict: SeedVerdict;
+    variance: Record<string, number>;
+    tokens: { input: number; output: number; calls: number };
+  }
+  const partialFile = (seed: string) => path.join(partialDir, `${values.driver}.${seed}.json`);
+  async function loadPartial(seed: string): Promise<SeedPartial | null> {
+    try {
+      const p = JSON.parse(await readFile(partialFile(seed), "utf8")) as SeedPartial;
+      if (p.driver === values.driver && p.repeats === repeats && p.model === modelKey && p.seed === seed) {
+        return p;
+      }
+    } catch {
+      // Missing or stale partial: the seed runs below.
+    }
+    return null;
+  }
+
   // Reference paths for the BASELINE variant only; the scripted candidate
   // replays the same path so seeded friction becomes a Finding.
   const refsCache = new Map<string, Record<Variant, Record<string, string[]>>>();
@@ -133,12 +175,65 @@ async function runDiff(seedList: GroundTruthEntry[]) {
 
   const verdicts: SeedVerdict[] = [];
   const variance: Record<string, number> = {};
+  const resumedTokens = { input: 0, output: 0, calls: 0 };
   let plan: GroundTruthEntry[] = seedList;
   let coverageNote = `full run over ${seedList.length} seeds`;
   let estimated = false;
 
+  const resumed = new Map<string, SeedPartial>();
+  for (const entry of seedList) {
+    const p = await loadPartial(entry.seed);
+    if (p) resumed.set(entry.seed, p);
+  }
+  if (resumed.size) {
+    console.log(`resuming: ${resumed.size} seeds already scored, skipping their probes`);
+  }
+
+  async function writeDiffResult(interim: boolean) {
+    const totals = summarizeVerdicts(verdicts);
+    const tokens = {
+      input: usage.inputTokens + resumedTokens.input,
+      output: usage.outputTokens + resumedTokens.output,
+      calls: usage.calls + resumedTokens.calls,
+    };
+    const costUsd = usdForTokens(tokens.input, tokens.output);
+    const subset = estimated || !!onlySeeds;
+    if (!interim && onlySeeds && !estimated) {
+      coverageNote = `subset run over ${seedList.length} seeds (--seeds ${onlySeeds.join(",")})`;
+    }
+    const result = {
+      driver: values.driver,
+      method: "diff",
+      model: modelKey,
+      repeats,
+      coverage: subset ? "subset" : "full",
+      coverageNote: interim ? `interim: ${verdicts.length}/${plan.length} seeds scored so far` : coverageNote,
+      partial: interim,
+      perSeed: verdicts,
+      ...totals,
+      actionVariance: variance,
+      tokens,
+      costUsd,
+    };
+    await mkdir(outRoot, { recursive: true });
+    await writeFile(path.join(outRoot, `${values.driver}.json`), JSON.stringify(result, null, 2));
+    return { totals, costUsd };
+  }
+
   for (let si = 0; si < plan.length; si++) {
     const entry = plan[si];
+    const hit = resumed.get(entry.seed);
+    if (hit) {
+      verdicts.push(hit.verdict);
+      Object.assign(variance, hit.variance);
+      resumedTokens.input += hit.tokens.input;
+      resumedTokens.output += hit.tokens.output;
+      resumedTokens.calls += hit.tokens.calls;
+      console.log(`${entry.seed}: resumed (${hit.verdict.detected ? "caught" : hit.verdict.kind === "control" ? (hit.verdict.falseAlarm ? "false alarm" : "clean") : "missed"})`);
+      await writeDiffResult(true);
+      continue;
+    }
+    const tokensBefore = { ...usage };
     const affected = contractsFor(entry.seed);
     const target = {
       baseline: `${base}/?variant=baseline`,
@@ -184,9 +279,32 @@ async function runDiff(seedList: GroundTruthEntry[]) {
         `${entry.seed} ${contract.decision}: ${reports[reports.length - 1].findings.length} findings (${done} failed oracle checks)`,
       );
     }
-    verdicts.push(
-      scoreSeed({ seed: entry.seed, truth: entry, contracts: affected.map((c) => c.decision), reports, tracesByIntent }),
+    const verdict = scoreSeed({ seed: entry.seed, truth: entry, contracts: affected.map((c) => c.decision), reports, tracesByIntent });
+    verdicts.push(verdict);
+    const seedVariance = Object.fromEntries(
+      Object.entries(variance).filter(([k]) => k.startsWith(`${entry.seed}/`)),
     );
+    await writeFile(
+      partialFile(entry.seed),
+      JSON.stringify(
+        {
+          driver: values.driver,
+          repeats,
+          model: modelKey,
+          seed: entry.seed,
+          verdict,
+          variance: seedVariance,
+          tokens: {
+            input: usage.inputTokens - tokensBefore.inputTokens,
+            output: usage.outputTokens - tokensBefore.outputTokens,
+            calls: usage.calls - tokensBefore.calls,
+          },
+        } satisfies SeedPartial,
+        null,
+        2,
+      ),
+    );
+    await writeDiffResult(true);
 
     if (values.driver === "muse" && !values["force-full"] && !onlySeeds && si === 2 && plan.length > SUBSET.length) {
       const projection = projectCost(usage, plan, si);
@@ -202,23 +320,7 @@ async function runDiff(seedList: GroundTruthEntry[]) {
     }
   }
 
-  const totals = summarizeVerdicts(verdicts);
-  const costUsd = usdForTokens(usage.inputTokens, usage.outputTokens);
-  const result = {
-    driver: values.driver,
-    method: "diff",
-    model: values.driver === "muse" ? model : null,
-    repeats,
-    coverage: estimated ? "subset" : "full",
-    coverageNote,
-    perSeed: verdicts,
-    ...totals,
-    actionVariance: variance,
-    tokens: { input: usage.inputTokens, output: usage.outputTokens, calls: usage.calls },
-    costUsd,
-  };
-  await mkdir(outRoot, { recursive: true });
-  await writeFile(path.join(outRoot, `${values.driver}.json`), JSON.stringify(result, null, 2));
+  const { totals, costUsd } = await writeDiffResult(false);
   console.log(
     `\n${values.driver}: caught ${totals.detected}/${totals.regressions} regressions, ${totals.falseAlarms.length}/${totals.controls} control false alarms, $${costUsd.toFixed(2)}`,
   );
@@ -237,19 +339,30 @@ function projectCost(usage: MuseUsage, plan: GroundTruthEntry[], doneThrough: nu
 async function runJudge(seedList: GroundTruthEntry[]) {
   const apiKey = process.env.MODEL_API_KEY;
   if (!apiKey) throw new Error("MODEL_API_KEY is not set");
+  const shotsMode = values.shots === "first" ? "first" : values.shots === "walkthrough" ? "walkthrough" : null;
+  if (!shotsMode) throw new Error(`--shots must be walkthrough or first, got ${values.shots}`);
+  const outFile = shotsMode === "first" ? "judge_first.json" : "judge.json";
   const usage = { inputTokens: 0, outputTokens: 0, calls: 0 };
   const verdicts: SeedVerdict[] = [];
   const judgeRepeats: Record<string, Record<string, JudgeVerdict>[]> = {};
+
+  // Screenshots per seed: the full reference tour (the judge gets a
+  // human-written walkthrough of where each control lives), or only the
+  // screen where each intent starts (what a PR-screenshot reviewer sees).
+  async function shotsFor(entry: GroundTruthEntry, contract: AgencyContract & { file: string }) {
+    if (shotsMode === "first") return captureFirstScreens({ base, seed: entry.seed, contract });
+    const refs = JSON.parse(
+      await readFile(path.join(ROOT, "eval", "reference_paths", contractFile.get(contract.decision)!), "utf8"),
+    ).baseline as Record<string, string[]>;
+    return captureShots({ base, seed: entry.seed, contract, refs });
+  }
 
   for (const entry of seedList) {
     const affected = contractsFor(entry.seed);
     // One call per seed. Control seeds span all contracts, so judge the
     // first contract's intents on a short shared tour to bound cost.
     const contract = affected.length === 1 ? affected[0] : await controlContract();
-    const refs = JSON.parse(
-      await readFile(path.join(ROOT, "eval", "reference_paths", contractFile.get(contract.decision)!), "utf8"),
-    ).baseline as Record<string, string[]>;
-    const shots = await captureShots({ base, seed: entry.seed, contract, refs });
+    const shots = await shotsFor(entry, contract);
     const first = await judgeSeed({ apiKey, model, baseUrl, contract, shots, usage });
     verdicts.push(
       scoreJudgeSeed({ seed: entry.seed, truth: entry, contracts: [contract.decision], verdicts: first }),
@@ -259,17 +372,15 @@ async function runJudge(seedList: GroundTruthEntry[]) {
   }
 
   // k=3 consistency on the first three regression seeds, if cheap.
-  const repeatSeeds = seedList.filter((s) => s.direction === "regression").slice(0, 3);
+  // First-screens runs stay at k=1.
+  const repeatSeeds = shotsMode === "walkthrough" ? seedList.filter((s) => s.direction === "regression").slice(0, 3) : [];
   let consistency = 0;
   let consistencyPairs = 0;
   for (const entry of repeatSeeds) {
     const affected = contractsFor(entry.seed);
     const contract = affected[0];
-    const refs = JSON.parse(
-      await readFile(path.join(ROOT, "eval", "reference_paths", contractFile.get(contract.decision)!), "utf8"),
-    ).baseline as Record<string, string[]>;
     for (let k = 1; k < 3; k++) {
-      const shots = await captureShots({ base, seed: entry.seed, contract, refs });
+      const shots = await shotsFor(entry, contract);
       const v = await judgeSeed({ apiKey, model, baseUrl, contract, shots, usage });
       for (const [key, val] of Object.entries(v)) {
         consistencyPairs++;
@@ -281,11 +392,12 @@ async function runJudge(seedList: GroundTruthEntry[]) {
   const costUsd = usdForTokens(usage.inputTokens, usage.outputTokens);
   await mkdir(outRoot, { recursive: true });
   await writeFile(
-    path.join(outRoot, "judge.json"),
+    path.join(outRoot, outFile),
     JSON.stringify(
       {
         driver: "judge",
         method: "judge",
+        shots: shotsMode,
         model,
         repeats: 1,
         coverage: seedList.length === truth.length ? "full" : "subset",
@@ -303,7 +415,7 @@ async function runJudge(seedList: GroundTruthEntry[]) {
     ),
   );
   console.log(
-    `\njudge: caught ${totals.detected}/${totals.regressions} regressions, ${totals.falseAlarms.length}/${totals.controls} control false alarms, $${costUsd.toFixed(2)}`,
+    `\njudge (${shotsMode}): caught ${totals.detected}/${totals.regressions} regressions, ${totals.falseAlarms.length}/${totals.controls} control false alarms, $${costUsd.toFixed(2)}`,
   );
 }
 
@@ -373,8 +485,21 @@ async function runPooled(limit: number, tasks: (() => Promise<void>)[]): Promise
   await Promise.all(running);
 }
 
+interface TableResult {
+  detected: number;
+  regressions: number;
+  falseAlarms: string[];
+  controls: number;
+  costUsd: number;
+  lenientOnly?: string[];
+  coverage?: string;
+  coverageNote?: string;
+  consistencyK3?: { agreement: number; pairs: number; seeds: string[] } | null;
+  perSeed: SeedVerdict[];
+}
+
 async function writeSummary() {
-  const read = async (f: string) => {
+  const read = async (f: string): Promise<TableResult | null> => {
     try {
       return JSON.parse(await readFile(path.join(outRoot, f), "utf8"));
     } catch {
@@ -383,90 +508,142 @@ async function writeSummary() {
   };
   const scripted = await read("scripted.json");
   const muse = await read("muse.json");
-  const judge = await read("judge.json");
-  if (!scripted && !muse && !judge) return;
+  const judgeWalkthrough = await read("judge.json");
+  const judgeFirst = await read("judge_first.json");
+  if (!scripted && !muse && !judgeWalkthrough && !judgeFirst) return;
+  const row = (r: TableResult | null) =>
+    r ? { caught: `${r.detected}/${r.regressions}`, falseAlarms: `${r.falseAlarms.length}/${r.controls}`, costUsd: r.costUsd } : null;
   const summary = {
     generatedAt: new Date().toISOString(),
     agencydiff: {
-      scripted: scripted
-        ? { caught: `${scripted.detected}/${scripted.regressions}`, falseAlarms: `${scripted.falseAlarms.length}/${scripted.controls}`, costUsd: scripted.costUsd }
-        : null,
+      scripted: row(scripted),
       muse: muse
-        ? { caught: `${muse.detected}/${muse.regressions}`, falseAlarms: `${muse.falseAlarms.length}/${muse.controls}`, costUsd: muse.costUsd, coverage: muse.coverage, coverageNote: muse.coverageNote }
+        ? { ...row(muse)!, coverage: muse.coverage, coverageNote: muse.coverageNote }
         : null,
     },
-    judge: judge
-      ? { caught: `${judge.detected}/${judge.regressions}`, falseAlarms: `${judge.falseAlarms.length}/${judge.controls}`, costUsd: judge.costUsd, consistencyK3: judge.consistencyK3 }
-      : null,
+    judge: {
+      walkthrough: judgeWalkthrough
+        ? { ...row(judgeWalkthrough)!, consistencyK3: judgeWalkthrough.consistencyK3 ?? null }
+        : null,
+      firstScreens: row(judgeFirst),
+    },
   };
   await mkdir(outRoot, { recursive: true });
   await writeFile(path.join(outRoot, "summary.json"), JSON.stringify(summary, null, 2));
   await writeFile(
     path.join(ROOT, "eval", "RESULTS.md"),
-    resultsMarkdown(summary, { scripted, muse, judge }),
+    resultsMarkdown({ scripted, muse, judgeWalkthrough, judgeFirst }),
   );
 }
 
-function resultsMarkdown(
-  summary: {
-    agencydiff: {
-      scripted: { caught: string; falseAlarms: string; costUsd: number } | null;
-      muse: { caught: string; falseAlarms: string; costUsd: number; coverage: string; coverageNote: string } | null;
-    };
-    judge: { caught: string; falseAlarms: string; costUsd: number; consistencyK3: { agreement: number; pairs: number; seeds: string[] } | null } | null;
-  },
-  results: { scripted: { perSeed: SeedVerdict[] } | null; muse: { perSeed: SeedVerdict[] } | null; judge: { perSeed: SeedVerdict[] } | null },
-): string {
+function resultsMarkdown(results: {
+  scripted: TableResult | null;
+  muse: TableResult | null;
+  judgeWalkthrough: TableResult | null;
+  judgeFirst: TableResult | null;
+}): string {
   const lines = [
     "# Benchmark results",
     "",
     "Each of the 26 Circle seeds runs in isolation against its baseline: the same",
     "intent is probed on the unseeded app and on the app with exactly one seed,",
     "and the resulting Findings are scored against `eval/ground_truth.json`.",
-    "Caught means every intent the seed should move was flagged; a false alarm",
-    "means a no-change control seed produced a Finding.",
+    "Caught means every intent the seed should move got a written Finding; a",
+    "false alarm means a no-change control seed produced a Finding.",
     "",
-    "| Method | Caught real regressions | False alarms on harmless changes | Cost per full run |",
+    "| Method | Caught regressions /20 | False alarms /6 | Cost per full run |",
     "| --- | --- | --- | --- |",
   ];
-  if (summary.agencydiff.scripted) {
-    const s = summary.agencydiff.scripted;
-    lines.push(
-      `| AgencyDiff, scripted probes | ${s.caught} | ${s.falseAlarms} | $${s.costUsd.toFixed(2)} (offline, no model calls) |`,
-    );
+  const row = (label: string, r: TableResult | null, costNote: string) =>
+    r
+      ? `| ${label} | ${r.detected}/${r.regressions} | ${r.falseAlarms.length}/${r.controls} | $${r.costUsd.toFixed(2)} ${costNote} |`
+      : `| ${label} | not run yet | not run yet | — |`;
+  lines.push(
+    row("AgencyDiff, muse probes", results.muse, results.muse?.coverage === "subset" ? "for the seeds run" : "(k=3, model calls)"),
+    row("Muse-as-judge, given a walkthrough (upper bound)", results.judgeWalkthrough, "(one call per seed)"),
+    row("Muse-as-judge, first screens only", results.judgeFirst, "(one call per seed)"),
+    row("AgencyDiff, scripted probes (sanity)", results.scripted, "(offline, no model calls)"),
+    "",
+  );
+  if (results.muse?.coverage === "subset" && results.muse.coverageNote) {
+    lines.push(results.muse.coverageNote + ".", "");
   }
-  if (summary.agencydiff.muse) {
-    const m = summary.agencydiff.muse;
+  if (results.judgeWalkthrough?.consistencyK3) {
+    const k3 = results.judgeWalkthrough.consistencyK3;
     lines.push(
-      `| AgencyDiff, muse probes (${m.coverage}) | ${m.caught} | ${m.falseAlarms} | $${m.costUsd.toFixed(2)} for the seeds run |`,
+      `Judge walkthrough k=3 consistency: ${(k3.agreement * 100).toFixed(0)}% agreement over ${k3.pairs} verdicts (${k3.seeds.join(", ")}).`,
+      "",
     );
-    if (m.coverage === "subset") lines.push("", m.coverageNote + ".");
-  }
-  if (summary.judge) {
-    const j = summary.judge;
-    lines.push(`| Muse-as-judge | ${j.caught} | ${j.falseAlarms} | $${j.costUsd.toFixed(2)} (one call per seed) |`);
-    if (j.consistencyK3) {
-      lines.push(
-        "",
-        `Judge k=3 consistency: ${(j.consistencyK3.agreement * 100).toFixed(0)}% agreement over ${j.consistencyK3.pairs} verdicts (${j.consistencyK3.seeds.join(", ")}).`,
-      );
-    }
   }
   lines.push(
-    "",
     "Scripted probes replay the baseline reference path on both variants, so the",
-    "scripted row is a sanity check on the harness itself: it should read 20/20",
-    "with 0/6 false alarms. Muse probes and the judge use the same ground truth",
-    "but see only screenshots, exactly as a reviewer would.",
+    "scripted row is a sanity check on the harness itself: it should read 19/20",
+    "strict with 0/6 false alarms. The twentieth seed, DM_BURY_MESSAGES, is",
+    "caught only leniently: burying Messages strands the scripted replay before",
+    "it can act, while the friends_only oracle already holds in the default",
+    "state, so no Finding names that intent. Muse probes and both judges see",
+    "only screenshots, exactly as a reviewer would.",
+    "",
+    "## What each method is good and bad at",
+    "",
+    "AgencyDiff with muse probes drives the app like a person would, so it is",
+    "the only method that produces quantified evidence: how many taps an intent",
+    "takes, and traces anyone can replay. That makes it the only method that can",
+    "catch a control that vanished entirely. Its weakness is noise: the same",
+    "intent can take a different number of taps on each run with nothing changed,",
+    "so small differences do not count (see the counting rule below), and a full",
+    "run costs on the order of a dollar in model calls.",
+    "",
+    "The judge with a walkthrough is the upper bound for screenshot review: it",
+    "is shown every screen along the reference path, which is a human-written",
+    "tour of where each control lives. It is cheap (pennies per run) and good at",
+    "visible changes such as moved or renamed controls, but it cannot measure",
+    "effort, and it misses anything the tour does not show, such as defaults",
+    "that only appear before the user has chosen anything.",
+    "",
+    "The judge with first screens only is what a reviewer looking at PR",
+    "screenshots would see: one starting screen per intent, no tour. It is the",
+    "fairest comparison for review-time usefulness, and the weakest: anything",
+    "buried deeper than the first screen is invisible to it by construction.",
+    "",
+    "Scripted probes are not a contender. They replay a fixed path, so they",
+    "cannot discover anything new; they only check that the harness itself",
+    "works.",
+    "",
+    "## How we count a Finding from noisy probes",
+    "",
+    "Model probes are noisy: the same intent can take 3 taps on one run and 6",
+    "on the next with nothing changed. So a cost or depth change only counts",
+    "when the slowest baseline run is still faster than the fastest candidate",
+    "run, and the typical (median) difference is at least one tap. A drop in",
+    "success rate only counts when at least two thirds of runs flip from pass",
+    "to fail. A seed counts as caught only when there is a written Finding on",
+    "one of the intents it was supposed to move; a visible-but-unmeasured",
+    "behaviour change counts only as a second-chance lenient score, reported",
+    "separately. Any Finding on a no-change control seed is a false alarm.",
+    "Single runs and scripted replays use the old rule: any median increase",
+    "counts, because there is no run-to-run noise to guard against.",
+    "",
+    "## Harness bugs found and fixed",
+    "",
+    ...BENCH_FIXES.map((f) => `- ${f}`),
     "",
   );
   const perSeed: Record<string, SeedVerdict[]> = {
     scripted: results.scripted?.perSeed ?? [],
     muse: results.muse?.perSeed ?? [],
-    judge: results.judge?.perSeed ?? [],
+    walkthrough: results.judgeWalkthrough?.perSeed ?? [],
+    first: results.judgeFirst?.perSeed ?? [],
   };
   const notes: string[] = [];
-  for (const [label, verdicts] of [["AgencyDiff scripted", perSeed.scripted], ["AgencyDiff muse", perSeed.muse], ["Judge", perSeed.judge]] as const) {
+  for (
+    const [label, verdicts] of [
+      ["AgencyDiff scripted", perSeed.scripted],
+      ["AgencyDiff muse", perSeed.muse],
+      ["Judge walkthrough", perSeed.walkthrough],
+      ["Judge first-screens", perSeed.first],
+    ] as const
+  ) {
     for (const v of verdicts) {
       if (v.kind === "regression" && v.unexpected.length) {
         notes.push(
@@ -474,7 +651,8 @@ function resultsMarkdown(
         );
       }
       if (v.kind === "regression" && !v.detected) {
-        notes.push(`- ${label} missed ${v.seed} (expected ${v.missed.join(", ") || "nothing"} to move).`);
+        const lenient = v.lenientDetected ? " (caught leniently: trace difference, no Finding)" : "";
+        notes.push(`- ${label} missed ${v.seed} (expected ${v.missed.join(", ") || "nothing"} to move)${lenient}.`);
       }
     }
   }

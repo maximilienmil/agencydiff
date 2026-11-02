@@ -14,6 +14,7 @@ import {
 import type { Driver } from "./drivers.js";
 import type { LiveEvent } from "@agencydiff/core";
 import { AuditBlockedError, BrowserEnv } from "./env.js";
+import { statesMatch } from "./prodSafe.js";
 
 export interface ProbeTarget {
   baseline: string;
@@ -27,6 +28,21 @@ export interface ProbeOracle {
   judge?: (png: Buffer) => Promise<boolean>;
   /** Read-only discovery: the env refuses submits, credentials and purchases. */
   audit?: boolean;
+}
+
+export interface ProbeAuth {
+  /** Playwright storageState file: the probe starts from this saved session. */
+  storageState?: string;
+}
+
+/** Production-safe probing: the contract allow-list plus a post-probe
+ *  restore that returns the account to its starting fixture state. */
+export interface ProbeProdSafe {
+  allowedTags?: string[];
+  /** Re-navigate to the starting fixture URL after the run and verify the
+   *  app state matches the pre-probe snapshot. Disable only when the
+   *  target restores itself some other verified way. */
+  restore?: boolean;
 }
 
 function withFixture(url: string, fixture?: string): string {
@@ -49,6 +65,27 @@ export function oracleSelectors(assertions: DomAssertion[] | undefined): string[
   return [...new Set(out)];
 }
 
+/** Return the account to its starting fixture state after a `--prod-safe`
+ *  probe: re-navigate to the fixture URL and verify the app state matches
+ *  the pre-probe snapshot. Stateless test apps (Circle) restore by reload;
+ *  stateful backends need the fixture URL itself to reset the account,
+ *  which the restore check then verifies rather than assumes. */
+export async function restoreFixture(
+  env: BrowserEnv,
+  startUrl: string,
+  initialState: Record<string, unknown> | undefined,
+): Promise<{ verified: boolean; detail?: string }> {
+  await env.page.goto(startUrl, { waitUntil: "networkidle" });
+  const restored = await env.state();
+  const { equal, changed } = statesMatch(
+    initialState as Record<string, unknown> | undefined,
+    restored as Record<string, unknown> | undefined,
+  );
+  return equal
+    ? { verified: true }
+    : { verified: false, detail: `restore left residue on: ${changed.join(", ")}` };
+}
+
 /** Run one intent against one variant from a fresh browser, and save its trace. */
 export async function runProbe(opts: {
   contract: AgencyContract;
@@ -60,6 +97,8 @@ export async function runProbe(opts: {
   outDir: string;
   oracle?: ProbeOracle;
   onEvent?: (event: LiveEvent) => void;
+  auth?: ProbeAuth;
+  prodSafe?: ProbeProdSafe;
 }): Promise<Trace> {
   const { contract, intent, variant, repeat, driver } = opts;
   const adapter = opts.oracle?.adapter ?? "state-hook";
@@ -68,8 +107,11 @@ export async function runProbe(opts: {
   }
   const id = `${contract.decision}.${intent.id}.${variant}.${repeat}`;
   const dir = path.join(opts.outDir, id);
-  const env = await BrowserEnv.open(withFixture(opts.target[variant], intent.fixture), dir, {
+  const startUrl = withFixture(opts.target[variant], intent.fixture);
+  const env = await BrowserEnv.open(startUrl, dir, {
     audit: opts.oracle?.audit,
+    storageState: opts.auth?.storageState,
+    ...(opts.prodSafe ? { prodSafe: { allowedTags: opts.prodSafe.allowedTags } } : {}),
   });
   const t0 = Date.now();
   const emit = opts.onEvent;
@@ -139,6 +181,9 @@ export async function runProbe(opts: {
       ...satisfaction,
     };
     if (modelJudged) trace.modelJudged = true;
+    if (opts.prodSafe && opts.prodSafe.restore !== false) {
+      trace.restore = await restoreFixture(env, startUrl, initialState);
+    }
     await writeFile(path.join(dir, "trace.json"), JSON.stringify(trace, null, 2));
     emit?.({ type: "oracle_result", traceId: id, variant, passed, checked: passed !== undefined, stoppedReason: result.stoppedReason, at: at() });
     emit?.({ type: "probe_finished", traceId: id, variant, steps: trace.steps.length, at: at() });

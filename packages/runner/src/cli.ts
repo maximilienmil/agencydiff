@@ -45,6 +45,12 @@ const { values } = parseArgs({
     live: { type: "boolean", default: false },
     "live-port": { type: "string" },
     "live-hold-ms": { type: "string" },
+    /** Production-safe probing: allow-listed settings only, restore after. */
+    "prod-safe": { type: "boolean", default: false },
+    /** storageState session file; overrides the target's auth declaration. */
+    "storage-state": { type: "string" },
+    // Like --no-export: Node's parseArgs has no automatic --no- negation.
+    "no-restore": { type: "boolean", default: false },
   },
 });
 
@@ -61,7 +67,11 @@ async function makeDriver(contractPath: string, variant: Variant): Promise<Drive
   if (values.driver === "muse") {
     const apiKey = process.env.MODEL_API_KEY;
     if (!apiKey) throw new Error("MODEL_API_KEY is not set");
-    return new MuseDriver({ apiKey, model: values.model ?? process.env.MUSE_MODEL });
+    return new MuseDriver({
+      apiKey,
+      model: values.model ?? process.env.MUSE_MODEL,
+      prodSafe: values["prod-safe"] === true,
+    });
   }
   const refPath = path.join(ROOT, "eval", "reference_paths", path.basename(contractPath));
   const refs: Record<Variant, Record<string, string[]>> = JSON.parse(await readFile(refPath, "utf8"));
@@ -84,12 +94,29 @@ async function runOneContract(
   const target = { baseline: values.baseline!, candidate: values.candidate! };
   const traces: Trace[] = [];
   if (hub) { await hub.start(); hub.serveTraces(outDir); for (const i of intents) hub.emit({ type: "run_started", runId: path.basename(outDir), decision: contract.decision, intentId: i.id, goal: i.goal, at: new Date().toISOString() }); console.log(`live probes: ${hub.url}/events  (report: #/live?source=live&live=${encodeURIComponent(hub.url)})`); }
+  const storageState = values["storage-state"] ? path.resolve(ROOT, values["storage-state"]) : undefined;
+  // An explicit CLI flag overrides the target file's auth declaration.
+  const auth = storageState ?? targetAuth?.storageState;
+  const prodSafe = values["prod-safe"] === true
+    ? { allowedTags: contract.prodSafe?.allowedTags, restore: values["no-restore"] !== true }
+    : undefined;
 
   for (const variant of ["baseline", "candidate"] as const) {
     const driver = await makeDriver(contractPath, variant);
     for (const intent of intents) {
       for (let repeat = 0; repeat < repeats; repeat++) {
-        const t = await runProbe({ contract, intent, variant, repeat, target, driver, outDir: dir, onEvent: hub ? (e) => hub.emit(e) : undefined });
+        const t = await runProbe({
+          contract,
+          intent,
+          variant,
+          repeat,
+          target,
+          driver,
+          outDir: dir,
+          onEvent: hub ? (e) => hub.emit(e) : undefined,
+          ...(auth ? { auth: { storageState: auth } } : {}),
+          ...(prodSafe ? { prodSafe } : {}),
+        });
         traces.push(t);
         const mark = t.oracle.passed === false ? "✗" : t.oracle.passed ? "✓" : "?";
         console.log(
@@ -181,9 +208,14 @@ const outDir = path.resolve(
 await mkdir(outDir, { recursive: true });
 
 const contractPaths: string[] = [];
+let targetAuth: { storageState?: string } | undefined;
 if (values.target) {
-  const { config, dir } = await loadTargetConfig(path.resolve(ROOT, values.target));
+  const targetFile = path.resolve(ROOT, values.target);
+  const { config, dir } = await loadTargetConfig(targetFile);
   assertDiffOracle(config, values.target);
+  if (config.auth?.storageState) {
+    targetAuth = { storageState: path.resolve(dir, config.auth.storageState) };
+  }
   const given = (flag: string) =>
     process.argv.some((a) => a === `--${flag}` || a.startsWith(`--${flag}=`));
   // Explicit CLI flags override the target file's URLs; otherwise use the file.

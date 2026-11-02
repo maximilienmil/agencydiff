@@ -38,6 +38,10 @@ const { values } = parseArgs({
     live: { type: "boolean", default: false },
     "live-port": { type: "string" },
     "live-hold-ms": { type: "string" },
+    /** Production-safe probing: allow-listed settings only, restore after. */
+    "prod-safe": { type: "boolean", default: false },
+    /** storageState session file; overrides the target's auth declaration. */
+    "storage-state": { type: "string" },
   },
 });
 
@@ -69,6 +73,7 @@ async function makeMuseDriver(): Promise<Driver> {
     apiKey,
     model: values.model ?? process.env.MUSE_MODEL,
     audit: true,
+    prodSafe: values["prod-safe"] === true,
     maxSteps,
   });
 }
@@ -116,6 +121,15 @@ for (const contractRel of config.contracts) {
   const traces: Trace[] = [];
   const target = { baseline: url, candidate: url } as Record<Variant, string>;
 
+  const storageState = values["storage-state"]
+    ? path.resolve(ROOT, values["storage-state"])
+    : config.auth?.storageState
+      ? path.resolve(dir, config.auth.storageState)
+      : undefined;
+  const prodSafe = values["prod-safe"] === true
+    ? { allowedTags: contract.prodSafe?.allowedTags, restore: true }
+    : undefined;
+
   for (const intent of intents) {
     for (let repeat = 0; repeat < repeats; repeat++) {
       const t = await runProbe({
@@ -140,6 +154,8 @@ for (const contractRel of config.contracts) {
                 })
             : undefined,
         },
+        ...(storageState ? { auth: { storageState } } : {}),
+        ...(prodSafe ? { prodSafe } : {}),
       });
       traces.push(t);
       const mark = t.modelJudged ? "◉" : t.oracle.passed === false ? "✗" : t.oracle.passed ? "✓" : "?";

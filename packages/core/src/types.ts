@@ -36,6 +36,29 @@ export interface TargetConfig {
   oracle: OracleAdapter;
   /** Variant probed by `pnpm audit`. Defaults to "baseline". */
   auditVariant?: string;
+  /** How probes start authenticated. Absent means the target needs no login. */
+  auth?: AuthConfig;
+}
+
+/** Login declaration on a target: probes start from a saved session or from
+ *  scripted test-account credentials. Secrets never reach the model: the
+ *  storageState file is loaded into the browser context directly, and env
+ *  credentials are filled by Playwright, never placed in a prompt. */
+export interface AuthConfig {
+  /** Path to a Playwright storageState file (see `pnpm login`), resolved
+   *  against the target file. Takes precedence over env credentials. */
+  storageState?: string;
+  /** Env var holding the test-account username for scripted login. */
+  usernameEnv?: string;
+  /** Env var holding the test-account password. Never sent to the model. */
+  passwordEnv?: string;
+}
+
+/** Production-safe probing: the per-contract allow-list of instrumented
+ *  controls a probe may touch. Purchases, deletion and messaging stay
+ *  blocked even when listed. */
+export interface ProdSafeConfig {
+  allowedTags?: string[];
 }
 
 export interface IntentSpec {
@@ -62,6 +85,9 @@ export interface AgencyContract {
   defaultKey?: string;
   intents: IntentSpec[];
   pairs: { accept: string; reject: string }[];
+  /** Production-safe allow-list for this decision. Absent means no
+   *  instrumented control may be touched in `--prod-safe` runs. */
+  prodSafe?: ProdSafeConfig;
 }
 
 // Muse computer-use action vocabulary (see dev.meta.ai/docs/computer-use).
@@ -121,6 +147,9 @@ export interface Trace {
   firstSatisfiedStep?: number;
   /** Effortful actions up to firstSatisfiedStep: the audit cost of the Intent. */
   actionsToSatisfy?: number;
+  /** Present on `--prod-safe` probes: the post-probe restore step that
+   *  returns the test account to its starting fixture state. */
+  restore?: { verified: boolean; detail?: string };
 }
 
 export interface TraceMetrics {

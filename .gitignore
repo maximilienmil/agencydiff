@@ -12,3 +12,4 @@ video/public/footage/
 video/out/
 packages/cli/data/
 packages/cli/runs/
+.auth/

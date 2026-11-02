@@ -24,6 +24,17 @@ export async function loadTargetConfig(file: string): Promise<ResolvedTarget> {
   if (!ADAPTERS.includes(raw.oracle)) {
     throw new Error(`Target config ${file} needs "oracle" to be one of ${ADAPTERS.join(", ")}`);
   }
+  if (raw.auth !== undefined) {
+    if (typeof raw.auth !== "object") throw new Error(`Target config ${file}: "auth" must be an object`);
+    if (raw.auth.storageState !== undefined && typeof raw.auth.storageState !== "string") {
+      throw new Error(`Target config ${file}: "auth.storageState" must be a path string`);
+    }
+    for (const k of ["usernameEnv", "passwordEnv"] as const) {
+      if (raw.auth[k] !== undefined && typeof raw.auth[k] !== "string") {
+        throw new Error(`Target config ${file}: "auth.${k}" must be an env var name`);
+      }
+    }
+  }
   return { config: raw, dir: path.dirname(abs) };
 }
 

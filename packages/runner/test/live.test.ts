@@ -16,8 +16,8 @@ describe("LiveHub", () => {
   });
   it("serves health and buffered SSE over HTTP", async () => {
     const hub = new LiveHub(0);
-    // Port 0 is not assignable through constructor check; use a fixed high port.
-    const h2 = new LiveHub(5198);
+    // Random high port so parallel runs on this machine do not collide.
+    const h2 = new LiveHub(20000 + Math.floor(Math.random() * 20000));
     await h2.start();
     try {
       h2.emit({ type: "run_finished", runId: "r2", passed: false, at: "2026-11-01T00:00:00Z" });

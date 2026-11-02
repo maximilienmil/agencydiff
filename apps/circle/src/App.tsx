@@ -124,11 +124,31 @@ export function App() {
   const [stConfirm, setStConfirm] = useState<null | (() => void)>(null);
   const [subRetain, setSubRetain] = useState(false);
   const [dark, setDark] = useState(false);
+  // Fake login gate for Ticket 16 demos: behind ?auth=1 the app shows a
+  // sign-in screen until the test user is authenticated. The session
+  // persists in localStorage so a saved storageState file carries it.
+  const needsAuth = params.get("auth") === "1";
+  const [authed, setAuthed] = useState(() => !needsAuth || localStorage.getItem("circle.auth") === "1");
+  const [loginUser, setLoginUser] = useState("");
+  const [loginPass, setLoginPass] = useState("");
+  const [loginError, setLoginError] = useState<string | null>(null);
   const screen = stack[stack.length - 1];
+
+  const signIn = () => {
+    // Demo gate only, not a real credential check: the documented test
+    // user signs in with any non-empty password; anything else is refused.
+    if (loginUser === "test-user" && loginPass.length > 0) {
+      localStorage.setItem("circle.auth", "1");
+      setAuthed(true);
+    } else {
+      setLoginError("Use the test account test-user with any password.");
+    }
+  };
 
   useEffect(() => {
     window.__circle = {
       state: () => ({
+        "auth.signedIn": needsAuth ? authed : true,
         "location.precise": loc.mode === "precise",
         "location.mode": loc.mode,
         "location.prompt": loc.prompt,
@@ -144,7 +164,7 @@ export function App() {
       }),
       seeds: [...seeds],
     };
-  }, [loc, dm, st, sub, seen, seeds]);
+  }, [loc, dm, st, sub, seen, seeds, needsAuth, authed]);
 
   const push = (s: Screen) => {
     setStack((stck) => [...stck, s]);
@@ -235,6 +255,56 @@ export function App() {
   const posts = has("UI_FEED_SHUFFLE") ? [...POSTS].reverse() : POSTS;
   const stSelected = (v: number | null) =>
     has("ST_REQUIRE_SAVE") ? (stPending !== null && stPending.value === v) : st.limit === v;
+
+  if (needsAuth && !authed) {
+    return (
+      <div className="app" data-screen="login">
+        <header className="bar">
+          <span className="icon" />
+          <h1 className="logo">Circle</h1>
+          <span className="icon" />
+        </header>
+        <main>
+          <form
+            className="sheet login"
+            onSubmit={(e) => {
+              e.preventDefault();
+              signIn();
+            }}
+          >
+            <h2>Sign in to Circle</h2>
+            <p>Demo gate: use the test account test-user with any password.</p>
+            <label className="field">
+              Username
+              <input
+                type="text"
+                name="username"
+                autoComplete="username"
+                data-agency="auth.username"
+                value={loginUser}
+                onChange={(e) => setLoginUser(e.target.value)}
+              />
+            </label>
+            <label className="field">
+              Password
+              <input
+                type="password"
+                name="password"
+                autoComplete="current-password"
+                data-agency="auth.password"
+                value={loginPass}
+                onChange={(e) => setLoginPass(e.target.value)}
+              />
+            </label>
+            {loginError && <p className="error">{loginError}</p>}
+            <button className="primary" type="submit" data-agency="auth.signin">
+              Sign in
+            </button>
+          </form>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div

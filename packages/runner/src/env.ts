@@ -10,6 +10,13 @@ import {
   type AuditElementInfo,
   type AuditSubmitContext,
 } from "./auditGuard.js";
+import { assertStorageStateFile, maskSecrets } from "./auth.js";
+import {
+  isBlockedProdSafeClick,
+  isBlockedProdSafeKeypress,
+  isBlockedProdSafeType,
+  type ProdSafeElementInfo,
+} from "./prodSafe.js";
 
 export const VIEWPORT = { width: 430, height: 860 };
 
@@ -18,6 +25,20 @@ export class AuditBlockedError extends Error {
   constructor(reason: string) {
     super(`audit-blocked: ${reason}`);
   }
+}
+
+/** Thrown when `--prod-safe` refuses an action. A subclass of the audit
+ *  error so probes record it as a refused error trace the same way. */
+export class ProdSafeBlockedError extends AuditBlockedError {
+  constructor(reason: string) {
+    super(`prod-safe: ${reason}`);
+  }
+}
+
+/** Which instrumented controls a `--prod-safe` probe may touch: the
+ *  contract's allow-list. Absent means default-deny on every control. */
+export interface ProdSafeEnvOptions {
+  allowedTags?: string[];
 }
 
 /**
@@ -32,15 +53,25 @@ export class BrowserEnv {
     readonly page: Page,
     private outDir: string,
     readonly audit = false,
+    private readonly prodSafe?: ProdSafeEnvOptions,
   ) {}
 
-  static async open(url: string, outDir: string, opts?: { audit?: boolean }): Promise<BrowserEnv> {
+  static async open(
+    url: string,
+    outDir: string,
+    opts?: { audit?: boolean; storageState?: string; prodSafe?: ProdSafeEnvOptions },
+  ): Promise<BrowserEnv> {
     await mkdir(outDir, { recursive: true });
+    if (opts?.storageState) assertStorageStateFile(opts.storageState);
     const browser = await chromium.launch();
-    const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 1 });
+    const ctx = await browser.newContext({
+      viewport: VIEWPORT,
+      deviceScaleFactor: 1,
+      ...(opts?.storageState ? { storageState: opts.storageState } : {}),
+    });
     const page = await ctx.newPage();
-    const env = new BrowserEnv(browser, page, outDir, opts?.audit ?? false);
-    if (env.audit) {
+    const env = new BrowserEnv(browser, page, outDir, opts?.audit ?? false, opts?.prodSafe);
+    if (env.audit || env.prodSafe) {
       // Purchase-flow navigation never leaves the lab: abort it at the
       // network layer as well as refusing the triggering action.
       await ctx.route("**/*", (route) => {
@@ -60,8 +91,15 @@ export class BrowserEnv {
 
   async screenshot(): Promise<{ png: Buffer; file: string }> {
     const file = `${String(this.shot++).padStart(3, "0")}.png`;
-    const png = await this.page.screenshot({ path: path.join(this.outDir, file) });
-    return { png, file };
+    // Password values never reach a screenshot file or the model: cover
+    // the fields, shoot, then uncover (values are untouched).
+    const release = await maskSecrets(this.page).catch(() => null);
+    try {
+      const png = await this.page.screenshot({ path: path.join(this.outDir, file) });
+      return { png, file };
+    } finally {
+      await release?.()?.catch(() => {});
+    }
   }
 
   async observe(): Promise<{ observation: Observation; png: Buffer }> {
@@ -265,8 +303,60 @@ export class BrowserEnv {
     }
   }
 
+  private async describeProdSafeElement(x: number, y: number): Promise<ProdSafeElementInfo> {
+    const base = await this.describeAuditElement(x, y);
+    const agencyTag = await this.page
+      .evaluate(({ px, py }) => {
+        const el = document.elementFromPoint(px, py) as HTMLElement | null;
+        return el?.closest?.("[data-agency]")?.getAttribute?.("data-agency") ?? undefined;
+      }, { px: x, py: y })
+      .catch(() => undefined);
+    return { ...base, agencyTag: agencyTag ?? undefined };
+  }
+
+  private async refuseProdUnsafe(actions: Action[]): Promise<void> {
+    const allowed = this.prodSafe?.allowedTags;
+    for (const a of actions) {
+      switch (a.type) {
+        case "click":
+        case "double_click": {
+          const info = await this.describeProdSafeElement(a.x, a.y);
+          if (isBlockedProdSafeClick(info, allowed)) {
+            throw new ProdSafeBlockedError(`refusing ${a.type} at ${a.x},${a.y} (${info.agencyTag ?? info.tag ?? "unknown element"})`);
+          }
+          break;
+        }
+        case "type": {
+          const focus = await this.describeAuditFocus();
+          const pageHasPassword = await this.page
+            .evaluate(() => !!document.querySelector('input[type="password"]'))
+            .catch(() => false);
+          const agencyTag = await this.page
+            .evaluate(() => {
+              const el = document.activeElement as HTMLElement | null;
+              return el?.closest?.("[data-agency]")?.getAttribute?.("data-agency") ?? undefined;
+            })
+            .catch(() => undefined);
+          if (isBlockedProdSafeType({ ...focus, agencyTag: agencyTag ?? undefined }, pageHasPassword, allowed)) {
+            throw new ProdSafeBlockedError("refusing to type into a control outside the allow-list");
+          }
+          break;
+        }
+        case "keypress": {
+          if (isBlockedProdSafeKeypress(a.keys, await this.describeAuditFocus())) {
+            throw new ProdSafeBlockedError("refusing Enter outside site search: it would submit the focused form");
+          }
+          break;
+        }
+        default:
+          break;
+      }
+    }
+  }
+
   async execute(actions: Action[]): Promise<void> {
     if (this.audit) await this.refuseUnsafe(actions);
+    if (this.prodSafe) await this.refuseProdUnsafe(actions);
     const m = this.page.mouse;
     const k = this.page.keyboard;
     for (const a of actions) {
@@ -305,8 +395,9 @@ export class BrowserEnv {
       }
     }
     await this.page.waitForTimeout(250);
-    if (this.audit && isBlockedNavigationUrl(this.page.url())) {
-      throw new AuditBlockedError(`refusing to stay on a purchase-flow page: ${this.page.url()}`);
+    if ((this.audit || this.prodSafe) && isBlockedNavigationUrl(this.page.url())) {
+      const Err = this.prodSafe ? ProdSafeBlockedError : AuditBlockedError;
+      throw new Err(`refusing to stay on a purchase-flow page: ${this.page.url()}`);
     }
   }
 }

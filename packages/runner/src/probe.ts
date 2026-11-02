@@ -12,6 +12,7 @@ import {
   type Variant,
 } from "@agencydiff/core";
 import type { Driver } from "./drivers.js";
+import type { LiveEvent } from "@agencydiff/core";
 import { AuditBlockedError, BrowserEnv } from "./env.js";
 
 export interface ProbeTarget {
@@ -58,6 +59,7 @@ export async function runProbe(opts: {
   driver: Driver;
   outDir: string;
   oracle?: ProbeOracle;
+  onEvent?: (event: LiveEvent) => void;
 }): Promise<Trace> {
   const { contract, intent, variant, repeat, driver } = opts;
   const adapter = opts.oracle?.adapter ?? "state-hook";
@@ -70,9 +72,13 @@ export async function runProbe(opts: {
     audit: opts.oracle?.audit,
   });
   const t0 = Date.now();
+  const emit = opts.onEvent;
+  const at = () => new Date().toISOString();
+  emit?.({ type: "probe_started", traceId: id, variant, intentId: intent.id, at: at() });
   try {
     const initialState = await env.state();
     const initial = await env.observe();
+    emit?.({ type: "screenshot", traceId: id, variant, step: 0, screenshot: initial.observation.screenshot, url: initial.observation.url, screen: initial.observation.screen, at: at() });
     // The dom oracle is cheap local DOM, so evaluate it after every step
     // and stop the probe once the needed fact is on screen. The recorded
     // cost is actions until that point, not the step budget.
@@ -82,9 +88,16 @@ export async function runProbe(opts: {
         ? async () => checkDomAssertions(intent.domOracle, await env.collectDomFacts(domSelectors)) === true
         : undefined;
     const initialSatisfied = isSatisfied ? await isSatisfied() : false;
+    const onStep = emit
+      ? async (step: import("@agencydiff/core").TraceStep) => {
+          emit({ type: "step_started", traceId: id, variant, step: step.index + 1, at: at() });
+          emit({ type: "action", traceId: id, variant, step: step.index + 1, actions: step.actions, note: step.note, at: at() });
+          emit({ type: "screenshot", traceId: id, variant, step: step.index + 1, screenshot: step.after.screenshot, url: step.after.url, screen: step.after.screen, at: at() });
+        }
+      : undefined;
     const result = initialSatisfied
       ? { steps: [], stoppedReason: "satisfied" as const, satisfiedFlags: [] as boolean[] }
-      : await driver.run(intent, env, t0, initial.png, isSatisfied ? { isSatisfied } : undefined);
+      : await driver.run(intent, env, t0, initial.png, { ...(isSatisfied ? { isSatisfied } : {}), ...(onStep ? { onStep } : {}) });
     const finalState = await env.state();
 
     let passed: boolean | undefined;
@@ -127,6 +140,8 @@ export async function runProbe(opts: {
     };
     if (modelJudged) trace.modelJudged = true;
     await writeFile(path.join(dir, "trace.json"), JSON.stringify(trace, null, 2));
+    emit?.({ type: "oracle_result", traceId: id, variant, passed, checked: passed !== undefined, stoppedReason: result.stoppedReason, at: at() });
+    emit?.({ type: "probe_finished", traceId: id, variant, steps: trace.steps.length, at: at() });
     return trace;
   } catch (e) {
     if (e instanceof AuditBlockedError) {

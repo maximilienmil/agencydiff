@@ -6,6 +6,7 @@ import { MuseDriver, ScriptedDriver, type Driver } from "./drivers.js";
 import { runProbe } from "./probe.js";
 import { loadTargetConfig, assertDiffOracle } from "./targets.js";
 import { buildEntry, mergeRuns, type RunIndexEntry } from "./reportExport.js";
+import { LiveHub, livePortFrom } from "./live.js";
 
 // Usage:
 //   pnpm diff --contract contracts/location.json --driver scripted
@@ -41,10 +42,15 @@ const { values } = parseArgs({
     marker: { type: "string", default: "agencydiff" },
     "base-ref": { type: "string" },
     "head-ref": { type: "string" },
+    live: { type: "boolean", default: false },
+    "live-port": { type: "string" },
+    "live-hold-ms": { type: "string" },
   },
 });
 
 if (values["no-export"]) values.export = false;
+const livePort = livePortFrom(values as { live?: boolean; "live-port"?: string });
+const hub = livePort !== null ? new LiveHub(livePort) : null;
 
 const scriptedFrom = values["scripted-from"];
 if (scriptedFrom !== "each" && scriptedFrom !== "baseline" && scriptedFrom !== "candidate") {
@@ -77,12 +83,13 @@ async function runOneContract(
   const repeats = Number(values.repeats);
   const target = { baseline: values.baseline!, candidate: values.candidate! };
   const traces: Trace[] = [];
+  if (hub) { await hub.start(); hub.serveTraces(outDir); for (const i of intents) hub.emit({ type: "run_started", runId: path.basename(outDir), decision: contract.decision, intentId: i.id, goal: i.goal, at: new Date().toISOString() }); console.log(`live probes: ${hub.url}/events  (report: #/live?source=live&live=${encodeURIComponent(hub.url)})`); }
 
   for (const variant of ["baseline", "candidate"] as const) {
     const driver = await makeDriver(contractPath, variant);
     for (const intent of intents) {
       for (let repeat = 0; repeat < repeats; repeat++) {
-        const t = await runProbe({ contract, intent, variant, repeat, target, driver, outDir: dir });
+        const t = await runProbe({ contract, intent, variant, repeat, target, driver, outDir: dir, onEvent: hub ? (e) => hub.emit(e) : undefined });
         traces.push(t);
         const mark = t.oracle.passed === false ? "✗" : t.oracle.passed ? "✓" : "?";
         console.log(
@@ -93,6 +100,7 @@ async function runOneContract(
   }
 
   const report = diffContract({ ...contract, intents }, traces);
+  if (hub) for (const f of report.findings) hub.emit({ type: "finding", finding: f, at: new Date().toISOString() });
   await writeFile(path.join(dir, "report.json"), JSON.stringify(report, null, 2));
   printReport(report);
   if (values.export) await exportToReportApp({ contract, report, outDir: dir, target });
@@ -194,6 +202,13 @@ await writeFile(path.join(outDir, "comment.md"), comment);
 console.log(`\ntraces + reports: ${path.relative(process.cwd(), outDir)}`);
 console.log(`comment: ${path.relative(process.cwd(), path.join(outDir, "comment.md"))}`);
 
+if (hub) {
+  for (const r of results) hub.emit({ type: "run_finished", runId: path.basename(outDir), passed: r.report.passed, at: new Date().toISOString() });
+  const hold = Number(values["live-hold-ms"] ?? 0);
+  if (hold > 0) { console.log(`live server holding for ${hold}ms`); await new Promise((r) => setTimeout(r, hold)); }
+  else if (process.env.LIVE_HOLD !== "0") console.log("live server still serving buffered events; stop with Ctrl+C or set LIVE_HOLD=0");
+  if (hold > 0 || process.env.LIVE_HOLD === "0") await hub.close();
+}
 process.exitCode = results.every((r) => r.report.passed) ? 0 : 1;
 
 /**

@@ -12,6 +12,7 @@ import {
 import { MuseDriver, ScriptedDriver, type Driver, type MuseUsage } from "./drivers.js";
 import { runProbe } from "./probe.js";
 import { captureShots, judgeSeed, type JudgeVerdict } from "./benchJudge.js";
+import { LiveHub, livePortFrom } from "./live.js";
 import {
   actionVariance,
   qualify,
@@ -71,10 +72,15 @@ const { values } = parseArgs({
     model: { type: "string" },
     "max-steps": { type: "string", default: "12" },
     "force-full": { type: "boolean", default: false },
+    live: { type: "boolean", default: false },
+    "live-port": { type: "string" },
   },
 });
 
 loadDotEnv(path.join(ROOT, ".env"));
+const livePortB = livePortFrom(values as { live?: boolean; "live-port"?: string });
+const hub = livePortB !== null ? new LiveHub(livePortB) : null;
+if (hub) { await hub.start(); console.log(`live probes: ${hub.url}/events`); }
 
 const repeats = Number(values.repeats);
 const outRoot = path.resolve(ROOT, values.out ?? "eval/results");
@@ -102,6 +108,7 @@ try {
   await writeSummary();
 } finally {
   server?.kill();
+  if (hub) await hub.close();
 }
 
 function contractsFor(seed: string): (AgencyContract & { file: string })[] {
@@ -161,7 +168,7 @@ async function runDiff(seedList: GroundTruthEntry[]) {
       const tasks = contract.intents.flatMap((intent) =>
         Array.from({ length: repeats }, (_, repeat) => async () => {
           for (const variant of ["baseline", "candidate"] as const) {
-            traces.push(await runProbe({ contract, intent, variant, repeat, target, driver, outDir }));
+            traces.push(await runProbe({ contract, intent, variant, repeat, target, driver, outDir, onEvent: hub ? (e) => hub!.emit(e) : undefined }));
           }
         }),
       );

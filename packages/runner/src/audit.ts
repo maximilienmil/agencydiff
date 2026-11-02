@@ -12,6 +12,7 @@ import { MuseDriver, ScriptedDriver, type Driver } from "./drivers.js";
 import { judgeScreenshot } from "./judge.js";
 import { runProbe } from "./probe.js";
 import { assertDiffOracle, loadTargetConfig } from "./targets.js";
+import { LiveHub, livePortFrom } from "./live.js";
 
 // Usage:
 //   pnpm audit --target targets/circle.json --driver scripted
@@ -34,6 +35,9 @@ const { values } = parseArgs({
     intents: { type: "string" },
     out: { type: "string" },
     "max-steps": { type: "string" },
+    live: { type: "boolean", default: false },
+    "live-port": { type: "string" },
+    "live-hold-ms": { type: "string" },
   },
 });
 
@@ -69,11 +73,14 @@ async function makeMuseDriver(): Promise<Driver> {
   });
 }
 
+const livePortA = livePortFrom(values as { live?: boolean; "live-port"?: string });
+const hub = livePortA !== null ? new LiveHub(livePortA) : null;
 const outDir = path.resolve(
   ROOT,
   values.out ?? path.join("runs", `audit-${Date.now()}-${config.oracle}`),
 );
 await mkdir(outDir, { recursive: true });
+if (hub) { await hub.start(); hub.serveTraces(outDir); console.log(`live probes: ${hub.url}/events`); }
 
 const only = values.intents?.split(",");
 const repeats = Number(values.repeats);
@@ -119,6 +126,7 @@ for (const contractRel of config.contracts) {
         target,
         driver,
         outDir: path.join(outDir, contract.decision),
+        onEvent: hub ? (e) => hub!.emit(e) : undefined,
         oracle: {
           adapter: config.oracle,
           audit: true,
@@ -150,6 +158,7 @@ for (const contractRel of config.contracts) {
   printAudit(report);
 }
 
+if (hub) { const hold = Number(values["live-hold-ms"] ?? 0); if (hold > 0) await new Promise((r) => setTimeout(r, hold)); if (hold > 0 || process.env.LIVE_HOLD === "0") await hub.close(); }
 console.log(`\naudits: ${path.relative(process.cwd(), outDir)}`);
 
 function printAudit(r: AuditReport) {

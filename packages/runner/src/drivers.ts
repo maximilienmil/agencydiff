@@ -16,6 +16,8 @@ export interface DriverResult {
 export interface DriverHooks {
   /** Cheap local check after each step; a true value stops the run early. */
   isSatisfied?: () => Promise<boolean>;
+  /** Called with each recorded step as soon as it is observed (live probes). */
+  onStep?: (step: TraceStep) => void | Promise<void>;
 }
 
 export interface Driver {
@@ -67,7 +69,9 @@ export class ScriptedDriver implements Driver {
       };
       await env.execute([action]);
       const { observation } = await env.observe();
-      steps.push({ index: steps.length, tMs: Date.now() - t0, actions: [action], after: observation, note: tag });
+      const step: TraceStep = { index: steps.length, tMs: Date.now() - t0, actions: [action], after: observation, note: tag };
+      steps.push(step);
+      await hooks?.onStep?.(step);
       if (hooks?.isSatisfied) {
         const satisfied = await hooks.isSatisfied();
         satisfiedFlags.push(satisfied);
@@ -188,7 +192,7 @@ export class MuseDriver implements Driver {
     hooks?: DriverHooks,
   ): Promise<DriverResult> {
     if (this.opts.historyLimit !== undefined) {
-      return this.runWindowed(intent, env, t0, initialPng);
+      return this.runWindowed(intent, env, t0, initialPng, hooks);
     }
     const steps: TraceStep[] = [];
     const satisfiedFlags: boolean[] | undefined = hooks?.isSatisfied ? [] : undefined;
@@ -232,7 +236,7 @@ export class MuseDriver implements Driver {
           note = [note, `refused: ${e.message}`].filter(Boolean).join("; ");
         }
         const { observation, png } = await env.observe();
-        steps.push({ index: steps.length, tMs: Date.now() - t0, actions: call.actions, after: observation, note });
+        { const s: TraceStep = { index: steps.length, tMs: Date.now() - t0, actions: call.actions, after: observation, note }; steps.push(s); await hooks?.onStep?.(s); }
         if (hooks?.isSatisfied) {
           const satisfied = await hooks.isSatisfied();
           satisfiedFlags!.push(satisfied);
@@ -269,6 +273,7 @@ export class MuseDriver implements Driver {
     env: BrowserEnv,
     t0: number,
     initialPng: Buffer,
+    hooks?: DriverHooks,
   ): Promise<DriverResult> {
     const steps: TraceStep[] = [];
     const dataUrl = (png: Buffer) => `data:image/png;base64,${png.toString("base64")}`;
@@ -320,13 +325,7 @@ export class MuseDriver implements Driver {
         const checks = call.pending_safety_checks ?? [];
         await env.execute(call.actions);
         const { observation, png } = await env.observe();
-        steps.push({
-          index: steps.length,
-          tMs: Date.now() - t0,
-          actions: call.actions,
-          after: observation,
-          note: checks.length ? `safety checks acknowledged: ${checks.map((c) => c.code).join(", ")}` : undefined,
-        });
+        { const s: TraceStep = { index: steps.length, tMs: Date.now() - t0, actions: call.actions, after: observation, note: checks.length ? `safety checks acknowledged: ${checks.map((c) => c.code).join(", ")}` : undefined }; steps.push(s); await hooks?.onStep?.(s); }
         for (const a of call.actions) {
           done.push(
             a.type === "click" || a.type === "double_click"

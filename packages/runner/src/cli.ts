@@ -125,7 +125,8 @@ function renderComment(results: { contract: AgencyContract; report: AgencyReport
   for (const { contract, report } of results) {
     lines.push(`### ${report.passed ? "PASS" : "FAIL"} — ${contract.decision}: ${contract.promise}`);
     lines.push("");
-    lines.push("| Intent | Steps needed | Visible on first screen | Still possible | Severity |");
+    const possibleHeader = values.driver === "scripted" ? "Baseline path still works" : "Still possible";
+    lines.push(`| Intent | Steps needed | Visible on first screen | ${possibleHeader} | Severity |`);
     lines.push("| --- | --- | --- | --- | --- |");
     for (const intent of contract.intents) {
       const agg = (v: Variant) => report.aggregates.find((a) => a.intentId === intent.id && a.variant === v);
@@ -157,6 +158,9 @@ function renderComment(results: { contract: AgencyContract; report: AgencyReport
   if (values["report-url"]) {
     lines.push(`Full traces and screenshots: [workflow run artifact](${values["report-url"]}).`);
     lines.push("");
+  }
+  if (values.driver === "scripted") {
+    lines.push("_Scripted check: the candidate replays the baseline's recorded path. A broken path means a control moved or disappeared; add the `agencydiff:muse` label to have Muse probes search for the new path and measure its cost._");
   }
   lines.push("_Numbers come from recorded probe traces checked against final app state, never from a model's claim._");
   return lines.join("\n") + "\n";

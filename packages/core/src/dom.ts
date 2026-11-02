@@ -7,6 +7,9 @@ export interface DomElementFact {
   exists: boolean;
   visible: boolean;
   text: string;
+  /** Text of the element's descendants that intersect the viewport.
+   *  Collected alongside `text` so viewport checks stay pure and offline. */
+  visibleText?: string;
   checked?: boolean;
   value?: string;
 }
@@ -29,6 +32,8 @@ export function checkDomAssertions(
         return f.visible;
       case "textContains":
         return f.text.includes(a.text);
+      case "visibleText":
+        return (f.visibleText ?? "").includes(a.text);
       case "checked":
         return (f.checked ?? false) === (a.checked ?? true);
       case "value":

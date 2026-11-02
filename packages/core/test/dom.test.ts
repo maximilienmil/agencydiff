@@ -46,6 +46,33 @@ describe("checkDomAssertions", () => {
     expect(checkDomAssertions([{ kind: "exists", selector: "#missing" }], facts)).toBe(false);
   });
 
+  it("checks visibleText against in-viewport text only", () => {
+    const viewport: DomElementFact[] = [
+      { selector: "main", exists: true, visible: true, text: "Alpha fact Beta detail", visibleText: "Alpha fact" },
+    ];
+    expect(
+      checkDomAssertions([{ kind: "visibleText", selector: "main", text: "Alpha fact" }], viewport),
+    ).toBe(true);
+    expect(
+      checkDomAssertions([{ kind: "visibleText", selector: "main", text: "Beta detail" }], viewport),
+    ).toBe(false);
+  });
+
+  it("fails visibleText for hidden elements and facts without viewport text", () => {
+    const hidden: DomElementFact[] = [
+      { selector: "main", exists: true, visible: false, text: "Alpha fact", visibleText: "" },
+    ];
+    expect(
+      checkDomAssertions([{ kind: "visibleText", selector: "main", text: "Alpha fact" }], hidden),
+    ).toBe(false);
+    const legacy: DomElementFact[] = [
+      { selector: "main", exists: true, visible: true, text: "Alpha fact" },
+    ];
+    expect(
+      checkDomAssertions([{ kind: "visibleText", selector: "main", text: "Alpha fact" }], legacy),
+    ).toBe(false);
+  });
+
   it("treats one failing assertion as a failed oracle", () => {
     expect(
       checkDomAssertions(

@@ -51,15 +51,18 @@ function toMarkdown(rows: ComparisonRow[], beforeDir: string, afterDir: string):
   const lines = [
     `# Before/after: ${beforeDir} vs ${afterDir}`,
     "",
-    "| Intent | Success before → after | Steps (med) | Screens (med) | Time (med) |",
-    "| --- | --- | --- | --- | --- |",
+    "Actions to fact is the headline cost: median effortful actions until the oracle first held.",
+    "",
+    "| Intent | Success before → after | To fact (med) | Steps (med) | Screens (med) | Time (med) |",
+    "| --- | --- | --- | --- | --- | --- |",
   ];
   for (const r of rows) {
     const s = `${r.before.successes}/${r.before.attempts} → ${r.after.successes}/${r.after.attempts}`;
+    const toFact = `${fmt(r.before.medianActionsToSatisfy, 0)} → ${fmt(r.after.medianActionsToSatisfy, 0)}`;
     const steps = `${fmt(r.before.medianSteps, 0)} → ${fmt(r.after.medianSteps, 0)}`;
     const screens = `${fmt(r.before.medianDepth, 0)} → ${fmt(r.after.medianDepth, 0)}`;
     const time = `${fmt(r.before.medianMs !== undefined ? r.before.medianMs / 1000 : undefined)}s → ${fmt(r.after.medianMs !== undefined ? r.after.medianMs / 1000 : undefined)}s`;
-    lines.push(`| ${r.intentId} | ${s} | ${steps} | ${screens} | ${time} |`);
+    lines.push(`| ${r.intentId} | ${s} | ${toFact} | ${steps} | ${screens} | ${time} |`);
   }
   return lines.join("\n") + "\n";
 }

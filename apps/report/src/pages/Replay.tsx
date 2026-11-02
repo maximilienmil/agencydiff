@@ -152,8 +152,8 @@ export function ReplayPage({
         <p className="eyebrow">Replay · {contract?.decision?.replace(/_/g, " ") ?? runId}</p>
         <h1 style={{ maxWidth: "26ch" }}>{goal ?? "Replay"}</h1>
         <p className="lede" style={{ marginBottom: 0 }}>
-          The same Intent attempted on both Variants, step by step, with every tap drawn on its
-          recorded screenshot, on the screen where it happened{overlaySeen ? " and SAM segment overlays where the runner stored them" : ""}.
+          The same Intent on both Variants, step by step. Each tap is drawn on the screen where
+          it happened{overlaySeen ? ", with SAM segment overlays where the runner stored them" : ""}.
         </p>
       </div>
 

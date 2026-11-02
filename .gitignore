@@ -17,3 +17,4 @@ packages/cli/runs/
 apps/report/public/data/benchmark/
 apps/report/tests/overview-*.png
 video/public/vo/
+media/frames-draft/

@@ -1,8 +1,10 @@
 # AgencyDiff demo video
 
-A 3:00, 1920x1080, 30fps film: typography-led scenes, real Trace screenshots
-shown full phone-column (never letterboxed), and burned-in captions. Palette
-and type match the report viewer (`apps/report/src/styles.css`).
+A 3:00, 1920x1080, 30fps film with burned-in captions. It uses the shared
+design tokens in `design/tokens.css` (colours, Inter, radii), the same file
+the report site and Circle use. Recorded Trace screenshots play back step by
+step inside phone frames, with a tap ripple where the Probe tapped, step
+counters ticking, and Finding cards sliding in.
 
 ## Structure (all timings in `src/Demo.tsx`)
 
@@ -37,11 +39,17 @@ file. `src/footage.ts` does the same for stills and voiceover.
 
 ## Footage
 
-Real footage only: phone-column Trace screenshots staged by
-`npm run capture` (see `scripts/capture.ts`) plus a decision-sheet crop of
-the SAM 3.1 overlay fixture. The report viewer's live/replay clip is
-deliberately unused: its footer carries driver debug text ("safety checks
-acknowledged…") and its phones are tiny inside a wide panel.
+Real footage only. `pnpm --filter video capture` (`scripts/capture.ts`)
+stages whole recorded Traces from `apps/report/public/data` into
+`public/footage` with a `clips.json` manifest: each screenshot, the tap the
+Probe made on it, and the Oracle verdict. The cold open uses
+`teen_dm.block_unknown.baseline.1` (Oracle passed: it ends on Messages with
+"Block unknown people" selected) against `teen_dm.block_unknown.candidate.0`
+(ran out of its 20-step budget on the location prompt). Older Traces carry
+Circle's "fictional test app" banner; capture detects it per frame and crops
+it, shifting tap positions by the same amount. Nothing else is retouched.
+Current Circle builds hide that banner from automated browsers, so new Traces
+have none.
 
 ## Tooling: Remotion, not HyperFrames
 
@@ -53,18 +61,20 @@ plain React, so porting the scenes to HyperFrames HTML later is mechanical.
 
 ## Voiceover and render
 
+`video` is a pnpm workspace member, so from the repo root:
+
 ```bash
-cd video
-npm install
-npm run capture   # stage stills into public/footage (gitignored)
-npm run tts       # per-scene AIFFs into public/vo (gitignored, macOS `say`)
-npm test && npm run typecheck
-npx tsx scripts/stills.ts [seconds...]  # layout check without the encode
-nohup npx tsx scripts/render.ts > /tmp/agencydiff-render.log 2>&1 &
+pnpm install
+pnpm --filter video capture   # stage Traces into public/footage (gitignored)
+pnpm --filter video tts       # per-scene voiceover into public/vo (macOS `say`; optional)
+pnpm --filter video test && pnpm --filter video typecheck
+pnpm --filter video exec tsx scripts/stills.ts 6 45 80   # layout check, no encode
+pnpm --filter video render
 ```
 
-Long renders go through `nohup` so they survive host restarts. The render
-writes `media/agencydiff-demo.mp4` (voiced) and
-`media/agencydiff-demo-captions.mp4` (identical video, no audio), asserts
-both are within (0, 180.0] seconds, and fails otherwise. Large mp4s, staged
-footage, and generated voiceover stay out of git (see the repo `.gitignore`).
+The render writes `media/agencydiff-demo.mp4` and
+`media/agencydiff-demo-captions.mp4` (same video, no audio track), asserts
+both are within (0, 180.0] seconds, and fails otherwise. It needs `ffmpeg`
+and `ffprobe` on PATH (or `FFMPEG` / `FFPROBE`). Without `public/vo` the
+film is captions-only. Large mp4s, staged footage and generated voiceover
+stay out of git (see the repo `.gitignore`).

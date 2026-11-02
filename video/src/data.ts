@@ -161,6 +161,6 @@ export function loadVideoData(repoRoot: string): VideoData {
     declineBaseline: withhold.declineBaseline,
     declineCandidate: withhold.declineCandidate,
     declineVisibility: withhold.declineVisibility,
-    repoUrl: "github.com/maximilianmilovidov/agencydiff",
+    repoUrl: "github.com/maximilienmil/agencydiff",
   };
 }

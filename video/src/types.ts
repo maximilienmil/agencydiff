@@ -42,14 +42,36 @@ export interface VideoData {
   repoUrl: string;
 }
 
+/** One recorded screenshot of a staged Trace. */
+export interface ClipFrame {
+  file: string;
+  /** Banner rows cropped off the top of this shot (0 when it had none). */
+  crop: number;
+  screen: string | null;
+  /** Where the Probe tapped on this screen, as fractions of the cropped
+   *  window (x of 430, y of 860 minus crop); null on the last frame. */
+  tap: { x: number; y: number } | null;
+}
+
+/** A whole Trace staged for playback by scripts/capture.ts. */
+export interface Clip {
+  traceId: string;
+  steps: number;
+  oraclePassed: boolean;
+  /** Visible window height in shot pixels (860 minus the largest crop). */
+  window: number;
+  frames: ClipFrame[];
+}
+
+export interface Clips {
+  coldBaseline: Clip | null;
+  coldCandidate: Clip | null;
+  withBaseline: Clip | null;
+  withCandidate: Clip | null;
+}
+
 export interface Footage {
-  coldBaselineStart: string | null;
-  coldBaselineDecided: string | null;
-  coldCandidateStart: string | null;
-  coldCandidateLost: string | null;
-  withBaseline: string | null;
-  withCandidate: string | null;
-  withCandidateDeep: string | null;
+  clips: Clips;
   samOverlay: string | null;
   samTeen: string | null;
   samSheet: string | null;
@@ -90,17 +112,13 @@ export const FALLBACK_DATA: VideoData = {
   declineBaseline: null,
   declineCandidate: null,
   declineVisibility: null,
-  repoUrl: "github.com/maximilianmilovidov/agencydiff",
+  repoUrl: "github.com/maximilienmil/agencydiff",
 };
 
+export const EMPTY_CLIPS: Clips = { coldBaseline: null, coldCandidate: null, withBaseline: null, withCandidate: null };
+
 export const EMPTY_FOOTAGE: Footage = {
-  coldBaselineStart: null,
-  coldBaselineDecided: null,
-  coldCandidateStart: null,
-  coldCandidateLost: null,
-  withBaseline: null,
-  withCandidate: null,
-  withCandidateDeep: null,
+  clips: EMPTY_CLIPS,
   samOverlay: null,
   samTeen: null,
   samSheet: null,

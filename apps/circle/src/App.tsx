@@ -987,9 +987,9 @@ function Feed({ posts }: { posts: typeof POSTS }) {
             className="photo"
             style={{
               background: [
-                `radial-gradient(circle at 28% 30%, hsl(${p.hue + 20} 95% 80% / 0.95), transparent 42%)`,
-                `radial-gradient(circle at 78% 72%, hsl(${p.hue + 60} 85% 60% / 0.9), transparent 48%)`,
-                `linear-gradient(160deg, hsl(${p.hue} 75% 70%), hsl(${p.hue + 40} 65% 48%))`,
+                `radial-gradient(circle at 28% 30%, hsl(${p.hue + 25} 100% 82% / 0.95), transparent 40%)`,
+                `radial-gradient(circle at 80% 75%, hsl(${p.hue - 30} 85% 62% / 0.85), transparent 50%)`,
+                `linear-gradient(160deg, hsl(${p.hue + 10} 85% 72%), hsl(${p.hue - 15} 70% 56%))`,
               ].join(", "),
             }}
           />

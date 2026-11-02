@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import type { AgencyContract } from "@agencydiff/core";
 import { loadContract } from "../data";
 import { polarityLabel } from "../format";
+import { Table } from "@astryxdesign/core/Table";
+
+interface PairRow extends Record<string, unknown> {
+  key: string;
+  accept: string;
+  reject: string;
+}
 
 function oracleText(oracle?: AgencyContract["intents"][number]["oracle"]): string {
   if (!oracle) return "Not specified (black-box target: success is agent-claimed).";
@@ -50,28 +57,20 @@ export function ContractPage({ runId }: { runId: string }) {
         Each pair holds two opposing Intents on the same Decision so the cost of saying no can
         be compared against the cost of saying yes.
       </p>
-      <div className="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Saying yes</th>
-            <th>Saying no (Protective)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contract.pairs.map((p) => (
-            <tr key={`${p.accept}/${p.reject}`}>
-              <td>{contract.intents.find((i) => i.id === p.accept)?.goal ?? p.accept}</td>
-              <td>{contract.intents.find((i) => i.id === p.reject)?.goal ?? p.reject}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="table-block">
+        <Table<PairRow>
+          data={contract.pairs.map((p) => ({ key: `${p.accept}/${p.reject}`, accept: p.accept, reject: p.reject }))}
+          columns={[
+            { key: "accept", header: "Saying yes", renderCell: (r) => contract.intents.find((i) => i.id === r.accept)?.goal ?? r.accept },
+            { key: "reject", header: "Saying no (Protective)", renderCell: (r) => contract.intents.find((i) => i.id === r.reject)?.goal ?? r.reject },
+          ]}
+          idKey="key"
+        />
       </div>
 
       <h2>Intents</h2>
       {contract.intents.map((i) => (
-        <div className="card" key={i.id}>
+        <div className="intent-card" key={i.id}>
           <h3>{i.goal}</h3>
           <dl className="deflist">
             <dt>Kind</dt>
@@ -101,7 +100,7 @@ export function ContractPage({ runId }: { runId: string }) {
             <dt>Must succeed</dt>
             <dd>{i.mustSucceed ? "Yes — failure here fails the run" : "No"}</dd>
           </dl>
-          <h3>Oracle</h3>
+          <h3 style={{ fontSize: 18 }}>Oracle</h3>
           <p className="muted" style={{ fontSize: 13.5 }}>
             Checked against the app&apos;s final state. The Probe&apos;s own claim never counts.
           </p>

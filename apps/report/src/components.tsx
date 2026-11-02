@@ -1,3 +1,4 @@
+import type React from "react";
 import type { ReactNode } from "react";
 import type { Action, Trace } from "@agencydiff/core";
 import { cursorFor } from "./live";
@@ -161,3 +162,99 @@ export function BrandMark() {
 
 export const REPO_URL = "https://github.com/maximilienmil/agencydiff";
 export const blob = (p: string) => `${REPO_URL}/blob/main/${p}`;
+
+// ---------------------------------------------------------------------------
+// Signature assets. Everything below is drawn from recorded data.
+
+/** Screens a Trace passed through, consecutive repeats collapsed. */
+export function route(trace: Trace): string[] {
+  const screens = [trace.initial.observation.screen, ...trace.steps.map((s) => s.after.screen)];
+  const out: string[] = [];
+  for (const s of screens) {
+    const name = screenName(s) ?? "Unknown";
+    if (out[out.length - 1] !== name) out.push(name);
+  }
+  return out;
+}
+
+/** Index into route(trace) of the screen shown after `step` actions. */
+export function routeIndexAt(trace: Trace, step: number): number {
+  const screens = [trace.initial.observation.screen, ...trace.steps.map((s) => s.after.screen)];
+  let idx = 0;
+  let prev: string | undefined;
+  for (let i = 0; i <= Math.min(step, screens.length - 1); i++) {
+    const name = screenName(screens[i]) ?? "Unknown";
+    if (i > 0 && name !== prev) idx++;
+    prev = name;
+  }
+  return idx;
+}
+
+/** The route a Probe took, as a line of stations. Visited stations are ink,
+ *  the current one is filled with the accent, the rest are hairlines. */
+export function RouteMap({ trace, step, label, compact }: { trace: Trace; step?: number; label?: string; compact?: boolean }) {
+  const stations = route(trace);
+  const at = step === undefined ? stations.length - 1 : routeIndexAt(trace, step);
+  return (
+    <figure className={`routemap${compact ? " compact" : ""}`} aria-label={`${label ?? "Route"}: ${stations.join(", then ")}`}>
+      {label && <figcaption>{label}</figcaption>}
+      <ol>
+        {stations.map((s, i) => (
+          <li key={`${s}-${i}`} className={i === at ? "now" : i < at ? "past" : "next"}>
+            <span>{s}</span>
+          </li>
+        ))}
+      </ol>
+    </figure>
+  );
+}
+
+/** Tally marks: four strokes and a strike per five, the way people count. */
+export function Tally({ n, tone = "ink", height = 34, label }: { n: number; tone?: "ink" | "bad" | "good"; height?: number; label?: string }) {
+  const groups = Math.floor(n / 5);
+  const rest = n % 5;
+  const gap = height * 0.24;
+  const groupW = gap * 4 + height * 0.5;
+  const marks: React.ReactElement[] = [];
+  let x = 2;
+  for (let g = 0; g < groups; g++) {
+    for (let i = 0; i < 4; i++) marks.push(<line key={`g${g}-${i}`} x1={x + i * gap} y1={2} x2={x + i * gap - 1} y2={height - 2} />);
+    marks.push(<line key={`g${g}-s`} x1={x - gap * 0.6} y1={height * 0.72} x2={x + gap * 3.6} y2={height * 0.28} />);
+    x += groupW;
+  }
+  for (let i = 0; i < rest; i++) marks.push(<line key={`r${i}`} x1={x + i * gap} y1={2} x2={x + i * gap - 1} y2={height - 2} />);
+  const w = Math.max(x + rest * gap + 4, 8);
+  return (
+    <svg className={`tally ${tone}`} width={w} height={height} viewBox={`0 0 ${w} ${height}`} role="img" aria-label={label ?? `${n} steps`}>
+      {marks}
+    </svg>
+  );
+}
+
+/** A big measured number. A regressed value is set in the degraded cut of
+ *  the display face, so a number that got worse looks worse. */
+export function Readout({ b, c, unit, higherIsBetter = false, fmt = fmtNum, size = "lg" }: { b: unknown; c: unknown; unit?: string; higherIsBetter?: boolean; fmt?: (v: unknown) => string; size?: "md" | "lg" | "xl" }) {
+  let dir: "worse" | "better" | "same" = "same";
+  if (typeof b === "number" && typeof c === "number") {
+    if (c !== b) dir = (c > b) !== higherIsBetter ? "worse" : "better";
+  } else if (typeof b === "number" && c === undefined) dir = "worse";
+  else if (fmt(b) !== fmt(c)) dir = "worse";
+  return (
+    <span className={`readout ${size} ${dir}`} aria-label={`${fmt(b)} to ${fmt(c)}${unit ? ` ${unit}` : ""}`}>
+      <span className="b">{fmt(b)}</span>
+      <span className="arrow" aria-hidden>→</span>
+      <span className="c">{fmt(c)}</span>
+      {unit && <span className="unit">{unit}</span>}
+    </span>
+  );
+}
+
+/** The mark: two rows, the lower one shifted and shortened. A diff. */
+export function Mark({ size = 26 }: { size?: number }) {
+  return (
+    <svg className="mark" width={size} height={size} viewBox="0 0 26 26" aria-hidden>
+      <rect x="1" y="5" width="24" height="6" rx="1.5" fill="currentColor" />
+      <rect x="7" y="15" width="12" height="6" rx="1.5" fill="#0866FF" />
+    </svg>
+  );
+}

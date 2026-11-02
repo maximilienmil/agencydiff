@@ -3,7 +3,7 @@ import type { AgencyReport, Trace } from "@agencydiff/core";
 import { loadReport, loadShowcase, loadTrace, shotUrl, type RunIndex, type ShowcaseEntry } from "../data";
 import { link } from "../App";
 import { BenchmarkSection, useBenchmark } from "./Benchmark";
-import { Delta, Phone, VisDelta, blob, REPO_URL } from "../components";
+import { Phone, Readout, RouteMap, Tally, blob, REPO_URL } from "../components";
 import { shotList } from "../format";
 
 interface CardData {
@@ -23,37 +23,34 @@ function ShowcaseCard({ card }: { card: CardData }) {
   const { entry, report } = card;
   const replay = link({ page: "replay", run: entry.runId, intent: entry.intent });
   return (
-    <article className="card showcase-card">
+    <article className="showcase-card">
       <a href={replay} aria-label={`Replay ${entry.seedDescription}`}>
         <Phone src={card.thumb} alt={`Candidate screen for ${entry.intentGoal}`} />
       </a>
-      <div className="body">
-        <p className="card-seed">
-          {report ? (
-            report.passed ? <span className="pill pass">Pass</span> : <span className="pill fail">Fail</span>
-          ) : null}
-          <code>{entry.seed}</code>
-        </p>
+      <div>
         <h3>{entry.seedDescription}</h3>
         <p className="goal">“{entry.intentGoal}”</p>
-        <div className="metric">
-          {report ? (
-            <>
-              <div className="k">Steps needed, baseline → candidate</div>
-              <Delta b={card.baseline} c={card.candidate} />
-            </>
-          ) : (
-            <div className="k">Run data pending.</div>
-          )}
-        </div>
-        <div className="links">
-          <a className="text-link replay-link" href={replay}>
-            Watch the Replay →
-          </a>
-          <a className="text-link" href={link({ page: "diff", run: entry.runId })}>
-            Diff
-          </a>
-        </div>
+        <span className="seed">
+          {entry.seed} · {report ? (report.passed ? "check passed" : "check failed") : "pending"}
+        </span>
+      </div>
+      <div className="metric">
+        {report ? (
+          <>
+            <div className="k">Steps needed, baseline to candidate</div>
+            <Readout b={card.baseline} c={card.candidate} size="md" />
+          </>
+        ) : (
+          <div className="k">Run data pending.</div>
+        )}
+      </div>
+      <div className="links">
+        <a className="text-link replay-link" href={replay}>
+          Watch the Replay
+        </a>
+        <a className="text-link" href={link({ page: "diff", run: entry.runId })}>
+          Open the Diff
+        </a>
       </div>
     </article>
   );
@@ -62,52 +59,53 @@ function ShowcaseCard({ card }: { card: CardData }) {
 interface Hero {
   runId: string;
   intent: string;
+  goal: string;
   baseline?: Trace;
   candidate?: Trace;
   report: AgencyReport;
 }
 
-function HeroVisual({ hero }: { hero: Hero | null }) {
-  if (!hero) {
-    return (
-      <div className="hero-visual">
-        <Phone alt="" />
-        <Phone alt="" className="cand" />
-      </div>
-    );
-  }
-  const shot = (t?: Trace) => (t ? shotUrl(hero.runId, t.id, shotList(t)[0]) : undefined);
+/** The headline measurement, drawn from the first showcase run. */
+function Specimen({ hero }: { hero: Hero | null }) {
+  if (!hero) return <div className="specimen" />;
   const agg = (v: "baseline" | "candidate") => hero.report.aggregates.find((a) => a.intentId === hero.intent && a.variant === v);
   const b = agg("baseline");
   const c = agg("candidate");
+  const shot = (t?: Trace) => (t ? shotUrl(hero.runId, t.id, shotList(t)[0]) : undefined);
   return (
-    <div className="hero-visual">
-      <div style={{ position: "relative" }}>
-        <span className="tag">Baseline</span>
-        <Phone src={shot(hero.baseline)} alt="Baseline: the location prompt offers Not now next to Allow" />
-      </div>
-      <div style={{ position: "relative" }}>
-        <span className="tag">Candidate</span>
-        <Phone src={shot(hero.candidate)} className="cand" alt="Candidate: declining moved behind More options" />
-      </div>
-      <a className="finding-card hero-finding" href={link({ page: "replay", run: hero.runId, intent: hero.intent })} style={{ textDecoration: "none", color: "inherit" }}>
-        <h4>Finding</h4>
-        <dl>
-          <div>
-            <dt>Steps to say no</dt>
-            <dd>
-              <Delta b={b?.actionCount} c={c?.actionCount} />
-            </dd>
+    <figure className="specimen" aria-label="Headline measurement">
+      <p className="q">“{hero.goal}”</p>
+      <Readout b={b?.actionCount} c={c?.actionCount} unit="steps" size="lg" />
+      <div className="rows">
+        <div className="row">
+          <span className="who">Baseline</span>
+          <Tally n={hero.baseline?.steps.length ?? 0} label={`Baseline Trace: ${hero.baseline?.steps.length ?? 0} steps`} />
+        </div>
+        <div className="row cand">
+          <span className="who">Candidate</span>
+          <Tally n={hero.candidate?.steps.length ?? 0} tone="bad" label={`Candidate Trace: ${hero.candidate?.steps.length ?? 0} steps`} />
+        </div>
+        {hero.candidate && (
+          <div className="row cand">
+            <span className="who">Route</span>
+            <RouteMap trace={hero.candidate} compact />
           </div>
-          <div>
-            <dt>On the first screen</dt>
-            <dd>
-              <VisDelta b={b?.initiallyVisible} c={c?.initiallyVisible} />
-            </dd>
-          </div>
-        </dl>
-      </a>
-    </div>
+        )}
+      </div>
+      <div className="phones">
+        <figure>
+          <Phone src={shot(hero.baseline)} alt="Baseline: the location prompt offers Not now next to Allow" />
+          <figcaption>Baseline, start screen</figcaption>
+        </figure>
+        <figure>
+          <Phone src={shot(hero.candidate)} alt="Candidate: declining moved behind More options" />
+          <figcaption>Candidate, start screen</figcaption>
+        </figure>
+      </div>
+      <figcaption style={{ marginTop: 14 }}>
+        Steps are the median over {b?.runs ?? "—"} Muse Probes per Variant; tallies and route count the Traces shown.
+      </figcaption>
+    </figure>
   );
 }
 
@@ -160,7 +158,8 @@ export function OverviewPage({ index }: { index: RunIndex }) {
             return t ? loadTrace(first.entry.runId, t).catch(() => undefined) : Promise.resolve(undefined);
           }),
         );
-        if (live) setHero({ runId: first.entry.runId, intent: first.entry.intent, baseline, candidate, report: first.report });
+        if (live)
+          setHero({ runId: first.entry.runId, intent: first.entry.intent, goal: first.entry.intentGoal, baseline, candidate, report: first.report });
       }
     })();
     return () => {
@@ -170,128 +169,116 @@ export function OverviewPage({ index }: { index: RunIndex }) {
 
   const agent = bench?.agentPrs;
   const s = bench?.summary;
-  const ratio = (x?: string) => {
-    const m = x?.match(/^(\d+)\/(\d+)$/);
-    return m ? Number(m[1]) / Number(m[2]) : 0;
-  };
+  const n = (x?: string) => Number(x?.split("/")[0] ?? 0);
 
   return (
     <>
       <section className="hero">
-        <div>
-          <h1>
-            Regression tests for <span className="accent">human choice.</span>
-          </h1>
-          <p className="sub">
-            Your CI checks the code still works. AgencyDiff checks the user can still say no.
-          </p>
-          <div className="ctas hero-replay">
-            {heroLink ? (
-              <a className="button-link primary" href={heroLink}>
-                Watch a Replay
+        <div className="hero-grid">
+          <div>
+            <h1>
+              Regression tests for <em>human choice.</em>
+            </h1>
+            <p className="sub">Your CI checks the code still works. AgencyDiff checks the user can still say no.</p>
+            <div className="ctas hero-replay">
+              {heroLink ? (
+                <a className="cta primary" href={heroLink}>
+                  Watch a Replay
+                </a>
+              ) : (
+                <span className="muted">Showcase runs are pending.</span>
+              )}
+              <a className="cta" href={REPO_URL}>
+                Read the source
               </a>
-            ) : (
-              <span className="muted">Showcase runs are pending.</span>
-            )}
-            <a className="button-link" href={REPO_URL}>
-              View the source
-            </a>
+            </div>
           </div>
+          <Specimen hero={hero} />
         </div>
-        <HeroVisual hero={hero} />
       </section>
 
-      <section className="stats" aria-label="Headline results">
-        <a className="stat-card" href={blob("eval/agent-prs/RESULTS.md")}>
-          <p className="title">Coding-agent PRs that broke saying no</p>
+      <section className="results" aria-label="Headline results">
+        <a className="result" href={blob("eval/agent-prs/RESULTS.md")}>
+          <p className="title">Coding-agent pull requests that broke saying no</p>
           {agent ? (
             <>
-              <div className="figure">
-                <span className="big bad">
-                  {agent.noGate.broke}/{agent.noGate.attempts}
-                </span>
-                <span className="vs">→</span>
-                <span className="big good">
-                  {agent.gated.broke}/{agent.gated.attempts}
-                </span>
-              </div>
-              <div className="bars">
-                <div className="b">
-                  <span>Agent alone</span>
-                  <span className="track"><span className="fill red" style={{ display: "block", width: `${(agent.noGate.broke / Math.max(agent.noGate.attempts, 1)) * 100}%` }} /></span>
-                  <span className="n">{agent.noGate.broke}/{agent.noGate.attempts}</span>
+              <div className="pair">
+                <div>
+                  <span className="big bad">
+                    {agent.noGate.broke}/{agent.noGate.attempts}
+                  </span>
+                  <span className="cap">Agent alone</span>
+                  <Tally n={agent.noGate.broke} tone="bad" height={24} />
                 </div>
-                <div className="b">
-                  <span>With AgencyDiff</span>
-                  <span className="track"><span className="fill green" style={{ display: "block", width: `${(agent.gated.broke / Math.max(agent.gated.attempts, 1)) * 100}%` }} /></span>
-                  <span className="n">{agent.gated.broke}/{agent.gated.attempts}</span>
+                <div>
+                  <span className="big good">
+                    {agent.gated.broke}/{agent.gated.attempts}
+                  </span>
+                  <span className="cap">With AgencyDiff in the loop</span>
+                  {agent.gated.broke > 0 ? <Tally n={agent.gated.broke} tone="bad" height={24} /> : <span className="none">none</span>}
                 </div>
               </div>
               <p className="desc">
-                {agent.tasks} ordinary product tasks × {agent.noGate.attempts / Math.max(agent.tasks, 1)} attempts,
-                Muse-confirmed. Left: agents alone. Right: the same tasks with AgencyDiff in the loop.
+                {agent.tasks} ordinary product tasks, {agent.noGate.attempts / Math.max(agent.tasks, 1)} attempts each, regressions
+                confirmed by Muse Probes.
               </p>
             </>
           ) : (
             <p className="desc">Pending: eval/agent-prs/results.json was not found at build time.</p>
           )}
-          <span className="src">Evidence: eval/agent-prs/RESULTS.md →</span>
+          <span className="src">eval/agent-prs/RESULTS.md</span>
         </a>
-        <a className="stat-card" href={blob("eval/RESULTS.md")}>
+        <a className="result" href={blob("eval/RESULTS.md")}>
           <p className="title">Seeded agency regressions caught, of 20</p>
           {s ? (
             <>
-              <div className="figure">
-                <span className="big">{s.agencydiff.scripted.caught}</span>
-                <span className="vs">vs</span>
-                <span className="big bad">{s.judge.firstScreens?.caught ?? "—"}</span>
-              </div>
-              <div className="bars">
-                <div className="b">
-                  <span>Replay gate</span>
-                  <span className="track"><span className="fill blue" style={{ display: "block", width: `${ratio(s.agencydiff.scripted.caught) * 100}%` }} /></span>
-                  <span className="n">{s.agencydiff.scripted.caught}</span>
+              <div className="pair">
+                <div>
+                  <span className="big">{s.agencydiff.scripted.caught}</span>
+                  <span className="cap">AgencyDiff replay gate</span>
+                  <Tally n={n(s.agencydiff.scripted.caught)} height={24} />
                 </div>
-                <div className="b">
-                  <span>Screenshot review</span>
-                  <span className="track"><span className="fill red" style={{ display: "block", width: `${ratio(s.judge.firstScreens?.caught) * 100}%` }} /></span>
-                  <span className="n">{s.judge.firstScreens?.caught ?? "—"}</span>
+                <div>
+                  <span className="big bad">{s.judge.firstScreens?.caught ?? "—"}</span>
+                  <span className="cap">Model reviewing PR screenshots</span>
+                  <Tally n={n(s.judge.firstScreens?.caught)} tone="bad" height={24} />
                 </div>
               </div>
               <p className="desc">
-                The replay gate against a model reviewing PR screenshots.{" "}
                 {s.agencydiff.scripted.falseAlarms} false alarms on no-change controls, for{" "}
-                {s.agencydiff.scripted.costUsd === 0 ? "$0" : `$${s.agencydiff.scripted.costUsd.toFixed(2)}`}.
+                {s.agencydiff.scripted.costUsd === 0 ? "$0" : `$${s.agencydiff.scripted.costUsd.toFixed(2)}`} in model calls.
               </p>
             </>
           ) : (
             <p className="desc">Pending: eval/results/summary.json was not found at build time.</p>
           )}
-          <span className="src">Evidence: eval/RESULTS.md →</span>
+          <span className="src">eval/RESULTS.md</span>
         </a>
       </section>
 
-      <h2>How it works</h2>
-            <div className="steps">
-        <div className="step">
-          <div className="n">1</div>
-          <h3>Write the promise</h3>
-          <p>An Agency Contract names a Decision and its opposing Intents: subscribe and cancel, share and withhold.</p>
+      <div className="section-head">
+        <h2>How it works</h2>
+      </div>
+      <div className="method">
+        <div>
+          <span className="n">01</span>
+          <h3>Contract</h3>
+          <p>A Decision and its opposing Intents, written once: subscribe and cancel, share and withhold.</p>
         </div>
-        <div className="step">
-          <div className="n">2</div>
-          <h3>Probe both Variants</h3>
-          <p>The same Intent is attempted on the baseline and the candidate, every action recorded as a Trace.</p>
+        <div>
+          <span className="n">02</span>
+          <h3>Probes</h3>
+          <p>The same Intent is attempted on the baseline and the candidate; every action is recorded as a Trace.</p>
         </div>
-        <div className="step">
-          <div className="n">3</div>
-          <h3>Check final state</h3>
-          <p>An Oracle reads the app's final state. The agent's own claim never counts as success.</p>
+        <div>
+          <span className="n">03</span>
+          <h3>Oracle</h3>
+          <p>The app's final state decides success. The agent's own claim never counts.</p>
         </div>
-        <div className="step">
-          <div className="n">4</div>
-          <h3>Fail the PR</h3>
-          <p>Findings are measured deltas, such as steps, depth, visibility and defaults, posted as a PR check.</p>
+        <div>
+          <span className="n">04</span>
+          <h3>Diff</h3>
+          <p>Measured deltas in steps, depth, visibility and defaults, posted as a PR check.</p>
         </div>
       </div>
 
@@ -299,13 +286,13 @@ export function OverviewPage({ index }: { index: RunIndex }) {
         <h2>Showcase runs</h2>
       </div>
       <p className="lede">
-        One headline seed per Decision, probed with the Muse computer-use driver at k=3. The
-        candidate carries exactly that seed; the baseline carries none.
+        One seeded regression per Decision, probed with the Muse computer-use driver at k=3. The candidate carries
+        exactly that seed; the baseline carries none.
       </p>
       {cards.length === 0 ? (
         <div className="notice">Showcase runs pending: no exported Muse runs yet.</div>
       ) : (
-        <div className="showcase-grid">
+        <div className="showcase">
           {cards.map((c) => (
             <ShowcaseCard key={c.entry.runId} card={c} />
           ))}
@@ -317,12 +304,9 @@ export function OverviewPage({ index }: { index: RunIndex }) {
       <section className="cta-band">
         <div>
           <h2>Try Circle yourself</h2>
-          <p>
-            Circle is the fictional social app these Probes measure. Open the baseline and the
-            candidate and click through the same choices.
-          </p>
+          <p>Circle is the fictional social app these Probes measure. Open the baseline and the candidate and click through the same choices.</p>
         </div>
-        <a className="button-link" href="circle/">
+        <a className="cta" href="circle/">
           Open Circle
         </a>
       </section>

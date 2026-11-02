@@ -97,7 +97,7 @@ pnpm install && pnpm circle   # serves Circle on :5173
 pnpm diff --driver scripted   # deterministic gate, no model calls
 ```
 
-The [report](https://maximilienmil.github.io/agencydiff/) has Overview, Diff, Replay, Live and Contract views. In the [Circle demo](https://maximilienmil.github.io/agencydiff/circle/), compare `?variant=baseline` with `?variant=candidate`; the banner links each headline seed. Report, Circle and the [demo video](video/README.md) share one set of design tokens in [design/tokens.css](design/tokens.css).
+The [report](https://maximilienmil.github.io/agencydiff/) has Overview, Diff, Replay, Live and Contract views. In the [Circle demo](https://maximilienmil.github.io/agencydiff/circle/), compare `?variant=baseline` with `?variant=candidate`; the banner links each headline seed. Report, Circle and the [demo video](video/README.md) share one set of design tokens in [design/tokens.css](design/tokens.css); a regressed number is set in a degraded cut of the display face, so a value that got worse looks worse.
 
 ## Related work
 
@@ -107,4 +107,4 @@ Built during the Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026). Al
 
 ## License and acknowledgements
 
-MIT; see [LICENSE](LICENSE). Inter is used under the SIL Open Font License ([design/fonts/OFL.txt](design/fonts/OFL.txt)). The external benchmark's pattern taxonomy is from SusBench (Guo, Hiniker et al., University of Washington, IUI '26), as attributed in [docs/susbench.md](docs/susbench.md).
+MIT; see [LICENSE](LICENSE). Fonts are self-hosted under the SIL Open Font License: Redaction (MCKL), Atkinson Hyperlegible Next, Martian Mono and Inter ([design/fonts](design/fonts)). The report is built with [Astryx](https://astryx.atmeta.com/), Meta's design system (MIT). The external benchmark's pattern taxonomy is from SusBench (Guo, Hiniker et al., University of Washington, IUI '26), as attributed in [docs/susbench.md](docs/susbench.md).

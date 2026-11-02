@@ -3,7 +3,14 @@ import type { AgencyContract, AgencyReport, LiveEvent, Trace, Variant } from "@a
 import { loadContract, loadReport, loadTrace, samUrl, shotUrl } from "../data";
 import { shotList } from "../format";
 import { findingLines, initialLiveState, nextSpeed, paneAtStep, reduceLiveEvent, replayMaxStep, SPEEDS, type LiveState } from "../live";
-import { Phone, stepCaption, stepNote } from "../components";
+import { Phone, RouteMap, stepCaption, stepNote } from "../components";
+import { Button } from "@astryxdesign/core/Button";
+import { Selector } from "@astryxdesign/core/Selector";
+import { Slider } from "@astryxdesign/core/Slider";
+import { Switch } from "@astryxdesign/core/Switch";
+import { Kbd } from "@astryxdesign/core/Kbd";
+import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
+import { ChevronLeft, ChevronRight, Pause, Play, SkipBack } from "lucide-react";
 import { useTheme } from "../App";
 
 export function LivePage({ runId, intent, liveUrl, source }: { runId: string; intent?: string; liveUrl?: string; source?: string }) {
@@ -121,8 +128,9 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
         >No Trace for this Variant.</Phone>
         <div className="phone-caption">
           <strong>{trace ? stepCaption(trace, view.current) : ""}</strong>
-          {finished && trace && <><br /><span className={`pill ${trace.oracle.passed ? "pass" : "fail"}`} style={{ marginTop: 8 }}>Oracle {trace.oracle.passed ? "passed" : "failed"}</span></>}
+          {finished && trace && <> · Oracle {trace.oracle.passed ? "passed" : "failed"}</>}
         </div>
+        {trace && <RouteMap trace={trace} step={view.current} compact />}
       </div>
     );
   };
@@ -134,39 +142,40 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
 
   return (
     <div className="live-page">
-      <div className="live-head">
+      <div className="page-head compact live-head">
         <h1>{goal}</h1>
       </div>
       {!isLive && (
-        <div className="intent-select">
-          <label htmlFor="live-intent">Intent</label>
-          <select id="live-intent" value={activeIntent ?? ""} onChange={(e) => { window.location.hash = `#/live?run=${runId}&intent=${e.target.value}`; setStep(0); }}>{intents.map((i) => <option key={i.id} value={i.id}>{i.goal}</option>)}</select>
+        <div className="picker">
+          <Selector label="Intent" isLabelHidden value={activeIntent ?? ""} options={intents.map((i) => ({ value: i.id, label: i.goal }))} onChange={(value) => { window.location.hash = `#/live?run=${runId}&intent=${value}`; setStep(0); }} />
         </div>
       )}
-      <div className="toolbar" role="group" aria-label="Playback">
+      <div className="controls" role="group" aria-label="Playback">
         {!isLive && <>
-          <button onClick={() => { setPlaying(false); setStep(0); }} disabled={step === 0}>Start</button>
-          <button onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} disabled={step === 0}>Back</button>
-          <button className="primary" onClick={() => { if (step >= maxStep) setStep(0); setPlaying((p) => !p); }}>{playing ? "Pause" : step >= maxStep ? "Replay" : "Play"}</button>
-          <button onClick={() => { setPlaying(false); setStep((s) => Math.min(s + 1, maxStep)); }} disabled={step >= maxStep}>Next</button>
-          <span className="grow"><input type="range" min={0} max={maxStep} value={step} aria-label="Playback step" onChange={(e) => { setPlaying(false); setStep(Number(e.target.value)); }} /><span className="step-note">Step {step} of {maxStep}</span></span>
+          <span className="step-note">Step {step} of {maxStep}</span>
+          <Button label="Start" variant="ghost" icon={<SkipBack size={16} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep(0); }} />
+          <Button label="Back" icon={<ChevronLeft size={16} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} />
+          <Button label={playing ? "Pause" : step >= maxStep ? "Replay" : "Play"} variant="primary" icon={playing ? <Pause size={16} /> : <Play size={16} />} onClick={() => { if (step >= maxStep) setStep(0); setPlaying((p) => !p); }} />
+          <Button label="Next" icon={<ChevronRight size={16} />} isDisabled={step >= maxStep} onClick={() => { setPlaying(false); setStep((s) => Math.min(s + 1, maxStep)); }} />
+          <div className="grow"><Slider label="Playback step" isLabelHidden min={0} max={Math.max(maxStep, 1)} value={step} valueDisplay="none" onChange={(v: number) => { setPlaying(false); setStep(Number(v)); }} /></div>
         </>}
-        <label>Speed <select value={speed} onChange={(e) => setSpeed(Number(e.target.value))} style={{ height: 32, padding: "4px 30px 4px 12px" }}>{SPEEDS.map((s) => <option key={s} value={s}>{s}×</option>)}</select></label>
-        <label><input type="checkbox" checked={showOverlay} onChange={(e) => setShowOverlay(e.target.checked)} /> SAM overlay</label>
-        <a className="live-mode" href={isLive ? `#/live?run=${runId}&intent=${activeIntent ?? ""}` : `#/live?run=${runId}&intent=${activeIntent ?? ""}&source=live&live=${encodeURIComponent(liveBase)}`}>{isLive ? "Replay mode" : "Live mode"}</a>
+        <SegmentedControl label="Playback speed" size="sm" value={String(speed)} onChange={(v) => setSpeed(Number(v))}>
+          {SPEEDS.map((x) => <SegmentedControlItem key={x} value={String(x)} label={`${x}×`} />)}
+        </SegmentedControl>
+        <Switch label="SAM overlay" size="sm" value={showOverlay} onChange={(on) => setShowOverlay(on)} />
+        <a className="text-link" href={isLive ? `#/live?run=${runId}&intent=${activeIntent ?? ""}` : `#/live?run=${runId}&intent=${activeIntent ?? ""}&source=live&live=${encodeURIComponent(liveBase)}`}>{isLive ? "Replay mode" : "Live mode"}</a>
       </div>
-      <p className="keys"><kbd>Space</kbd> play · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>Home</kbd> <kbd>End</kbd> jump · <kbd>S</kbd> speed · <kbd>O</kbd> overlay · <kbd>T</kbd> theme</p>
+      <p className="keys"><span><Kbd keys="space" /> play</span><span><Kbd keys="left" /> <Kbd keys="right" /> step</span><span><Kbd keys="s" /> speed</span><span><Kbd keys="o" /> overlay</span><span><Kbd keys="t" /> theme</span></p>
       {liveError && <div className="error">{liveError}</div>}
       <div className="stage replay-stage live-stage">
         {renderPane("baseline")}
         <div className="stage-mid">
           <div className="counter">
             <div className="k">Steps taken</div>
-            <div className="row"><span>Baseline</span><b className="tick" key={`b${counts.b}`}>{counts.b}</b></div>
-            <div className="row cand"><span>Candidate</span><b className="tick" key={`c${counts.c}`}>{counts.c}</b></div>
+            <div className="rows"><span>Baseline</span><b className="tick" key={`b${counts.b}`}>{counts.b}</b><span>Candidate</span><b className="tick" key={`c${counts.c}`}>{counts.c}</b></div>
           </div>
           {showFinding && (
-            <section className={`finding-card live-finding ${shownLines.length ? "" : "ok"}`} aria-live="polite">
+            <section className={`finding live-finding ${shownLines.length ? "" : "ok"}`} aria-live="polite">
               <h4>Finding</h4>
               {shownLines.length === 0 && <p style={{ margin: 0 }}>No Finding for this Intent. Both Variants cost the same.</p>}
               <dl>{shownLines.slice(0, 3).map((l) => <div key={l.label}><dt>{l.label}</dt><dd className="tnum" style={{ fontWeight: 750 }}>{l.text}</dd></div>)}</dl>

@@ -7,8 +7,15 @@
  * shades each: the base hue for fills, bars and dots, and an "-ink" shade
  * that passes WCAG AA (4.5:1) as text on both white and --ds-surface-2.
  *
- * Type: Inter (SIL OFL 1.1, see fonts/OFL.txt), self-hosted, variable
- * weight 100-900, Latin subset.
+ * Type, all SIL OFL 1.1 (licences in fonts/):
+ *   --ds-display   Redaction (MCKL): headlines and big numbers.
+ *   --ds-degraded  Redaction 35, the same serif with degraded outlines. Used
+ *                  only for a regressed value at display size, so a number
+ *                  that got worse looks worse. Never for running text.
+ *   --ds-font      Atkinson Hyperlegible Next: body and UI. Designed for
+ *                  low-vision readers, which suits a product about access.
+ *   --ds-mono      Martian Mono: data, code, step counters.
+ *   --ds-font-app  Inter: Circle only, the fictional app under test.
  */
 
 @font-face {
@@ -21,6 +28,15 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
     U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+@font-face { font-family: "Redaction"; font-weight: 400; font-display: swap; src: url("./fonts/Redaction-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Redaction"; font-weight: 400; font-style: italic; font-display: swap; src: url("./fonts/Redaction-Italic.woff2") format("woff2"); }
+@font-face { font-family: "Redaction"; font-weight: 700; font-display: swap; src: url("./fonts/Redaction-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Redaction 35"; font-weight: 400; font-display: swap; src: url("./fonts/Redaction35-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Redaction 35"; font-weight: 700; font-display: swap; src: url("./fonts/Redaction35-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Atkinson Hyperlegible Next"; font-weight: 200 800; font-display: swap; src: url("./fonts/AtkinsonHyperlegibleNext-Variable.woff2") format("woff2"); }
+@font-face { font-family: "Atkinson Hyperlegible Next"; font-weight: 200 800; font-style: italic; font-display: swap; src: url("./fonts/AtkinsonHyperlegibleNext-VariableItalic.woff2") format("woff2"); }
+@font-face { font-family: "Martian Mono"; font-weight: 100 800; font-display: swap; src: url("./fonts/MartianMono-Variable.woff2") format("woff2"); }
 
 :root {
   /* Brand */
@@ -65,8 +81,11 @@
   --ds-shadow-3: 0 4px 8px rgba(28, 43, 51, 0.04), 0 24px 56px rgba(28, 43, 51, 0.14);
 
   /* Type */
-  --ds-font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --ds-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --ds-display: "Redaction", "Iowan Old Style", Georgia, serif;
+  --ds-degraded: "Redaction 35", "Redaction", Georgia, serif;
+  --ds-font: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
+  --ds-mono: "Martian Mono", ui-monospace, Menlo, Consolas, monospace;
+  --ds-font-app: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --ds-track-display: -0.035em;
   --ds-track-title: -0.02em;
   --ds-track-body: -0.006em;

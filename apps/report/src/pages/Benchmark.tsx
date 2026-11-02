@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { loadBenchmark, type BenchMethod, type Benchmark as Bench } from "../data";
+import { Table, proportional, type TableColumn } from "@astryxdesign/core/Table";
+import { Badge } from "@astryxdesign/core/Badge";
+import { loadBenchmark, type BenchMethod, type Benchmark as Bench, type SusPair } from "../data";
 import { fmtPct } from "../format";
 import { blob } from "../components";
 
@@ -14,8 +16,7 @@ export function useBenchmark(): Bench | undefined {
 function Pending({ what }: { what: string }) {
   return (
     <div className="notice">
-      {what}: pending. No results file was found when this site was built, so no numbers are
-      shown.
+      {what}: pending. No results file was found when this site was built, so no numbers are shown.
     </div>
   );
 }
@@ -31,175 +32,148 @@ function money(v?: number): string {
   return v === 0 ? "$0" : `$${v.toFixed(2)}`;
 }
 
-function Row({ name, note, m, highlight }: { name: string; note: string; m?: BenchMethod | null; highlight?: boolean }) {
-  if (!m) {
-    return (
-      <tr>
-        <td>
-          <strong>{name}</strong>
-          <br />
-          <span className="muted">{note}</span>
-        </td>
-        <td className="num" colSpan={3}>
-          pending
-        </td>
-      </tr>
-    );
-  }
-  const r = ratio(m.caught);
-  return (
-    <tr className={highlight ? "highlight" : undefined}>
-      <td>
-        <strong>{name}</strong>
-        <br />
-        <span className="muted">{note}</span>
-      </td>
-      <td className="num">
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
-          <span className="bars" style={{ margin: 0, width: 96 }} aria-hidden>
-            <span className="track" style={{ display: "block" }}>
-              <span className={`fill ${r >= 0.9 ? "blue" : r < 0.25 ? "red" : ""}`} style={{ display: "block", width: `${r * 100}%` }} />
-            </span>
-          </span>
-          <strong>{m.caught}</strong>
-        </span>
-      </td>
-      <td className="num">{m.falseAlarms}</td>
-      <td className="num">{money(m.costUsd)}</td>
-    </tr>
-  );
+interface MethodRow extends Record<string, unknown> {
+  id: string;
+  name: string;
+  note: string;
+  m: BenchMethod | null | undefined;
+  lead?: boolean;
 }
+
+const methodColumns: TableColumn<MethodRow>[] = [
+  {
+    key: "name",
+    header: "Method",
+    width: proportional(2.4),
+    renderCell: (r) => (
+      <span>
+        <strong style={{ fontWeight: 650 }}>{r.name}</strong>
+        <br />
+        <span className="muted" style={{ fontSize: 14 }}>
+          {r.note}
+        </span>
+      </span>
+    ),
+  },
+  {
+    key: "caught",
+    header: "Caught",
+    width: proportional(1.4),
+    renderCell: (r) =>
+      r.m ? (
+        <span className="bench-bar">
+          <span className="track" aria-hidden>
+            <span className={`fill ${r.lead ? "blue" : ratio(r.m.caught) < 0.25 ? "red" : ""}`} style={{ width: `${ratio(r.m.caught) * 100}%` }} />
+          </span>
+          <span className="mono">{r.m.caught}</span>
+        </span>
+      ) : (
+        <span className="muted">pending</span>
+      ),
+  },
+  { key: "fa", header: "False alarms", align: "end", renderCell: (r) => <span className="mono">{r.m?.falseAlarms ?? "—"}</span> },
+  { key: "cost", header: "Cost per run", align: "end", renderCell: (r) => <span className="mono">{money(r.m?.costUsd)}</span> },
+];
+
+interface SusRow extends Record<string, unknown> {
+  pair: string;
+  p: SusPair;
+}
+
+const susColumns: TableColumn<SusRow>[] = [
+  { key: "pattern", header: "Pattern", width: proportional(1.4), renderCell: (r) => <strong style={{ fontWeight: 650 }}>{r.p.pattern}</strong> },
+  { key: "kind", header: "Kind", renderCell: (r) => <span className="muted">{r.p.control ? "Control" : "Injected"}</span> },
+  {
+    key: "result",
+    header: "Result",
+    renderCell: (r) => {
+      const moved = r.p.detected || r.p.metricsMoved.length > 0;
+      if (r.p.control) return moved ? <Badge variant="error" label="False alarm" /> : <Badge variant="neutral" label="Quiet" />;
+      return r.p.detected ? <Badge variant="success" label="Detected" /> : <Badge variant="error" label="Missed" />;
+    },
+  },
+  {
+    key: "moved",
+    header: "Metrics moved",
+    width: proportional(1.6),
+    renderCell: (r) => <span className="mono muted">{r.p.metricsMoved.join(", ") || "—"}</span>,
+  },
+];
 
 export function BenchmarkSection({ bench }: { bench: Bench }) {
   const { summary, susbench } = bench;
   const walk = summary?.judge.walkthrough;
+  const rows: MethodRow[] = summary
+    ? [
+        { id: "gate", name: "AgencyDiff replay gate", note: "Scripted Probes replay the baseline path on the candidate", m: summary.agencydiff.scripted, lead: true },
+        { id: "hybrid", name: "Gate plus Muse cost probe", note: "Muse measures cost only where the gate fires", m: summary.agencydiff.hybrid },
+        { id: "muse", name: "Muse computer-use Probes alone", note: "Free-roaming at k=3, noisy without the gate", m: summary.agencydiff.muse },
+        { id: "walk", name: "Muse as judge, with a walkthrough", note: "Model opinion over every screen on the reference path", m: walk },
+        { id: "first", name: "Muse as judge, start screens only", note: "What a reviewer sees in PR screenshots", m: summary.judge.firstScreens },
+      ]
+    : [];
   return (
     <>
       <div className="section-head">
         <h2 id="benchmark">Benchmark</h2>
         <a className="text-link" href={blob("eval/RESULTS.md")}>
-          Method and per-seed results →
+          Method and per-seed results
         </a>
       </div>
       <p className="lede">
-        26 seeded changes to Circle, each run in isolation and scored against ground truth: 20
-        regressions and 6 no-change controls. Caught means every Intent a seed should move was
-        flagged; a false alarm means a control produced a Finding.
+        26 seeded changes to Circle, each run in isolation and scored against ground truth: 20 regressions and 6 no-change
+        controls. Caught means every Intent a seed should move was flagged; a false alarm means a control produced a Finding.
       </p>
       {!summary ? (
         <Pending what="Seeded benchmark (eval/results/summary.json)" />
       ) : (
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Method</th>
-                <th className="num">Caught</th>
-                <th className="num">False alarms</th>
-                <th className="num">Cost per run</th>
-              </tr>
-            </thead>
-            <tbody>
-              <Row
-                highlight
-                name="AgencyDiff replay gate"
-                note="Scripted Probes replay the baseline path on the candidate"
-                m={summary.agencydiff.scripted}
-              />
-              <Row
-                name="Hybrid: gate + Muse cost probe"
-                note="Muse measures cost only where the gate fires"
-                m={summary.agencydiff.hybrid}
-              />
-              <Row
-                name="Muse computer-use Probes alone"
-                note="Free-roaming, k=3; noisy without the gate"
-                m={summary.agencydiff.muse}
-              />
-              <Row
-                name="Muse as judge, with a walkthrough"
-                note="Model opinion over every screen on the reference path"
-                m={walk}
-              />
-              <Row
-                name="Muse as judge, first screens"
-                note="What a reviewer sees in PR screenshots"
-                m={summary.judge.firstScreens}
-              />
-            </tbody>
-          </table>
+        <div className="table-block">
+          <Table<MethodRow> data={rows} columns={methodColumns} idKey="id" density="spacious" hasHover />
         </div>
       )}
       {walk?.consistencyK3 && (
-        <p className="muted" style={{ fontSize: 13.5 }}>
-          Judge k=3 consistency: {fmtPct(walk.consistencyK3.agreement)} agreement over{" "}
-          {walk.consistencyK3.pairs} verdicts ({walk.consistencyK3.seeds.join(", ")}).
+        <p className="fig">
+          Judge k=3 consistency: {fmtPct(walk.consistencyK3.agreement)} agreement over {walk.consistencyK3.pairs} verdicts (
+          {walk.consistencyK3.seeds.join(", ")}).
         </p>
       )}
 
-      <div className="section-head">
-        <h3 style={{ fontSize: 20, marginTop: 48 }}>SusBench-derived lab pages</h3>
+      <div className="section-head" style={{ marginTop: 72 }}>
+        <h2 style={{ fontSize: 30 }}>SusBench-derived lab pages</h2>
         <a className="text-link" href={blob("docs/susbench.md")}>
-          About this benchmark →
+          About this benchmark
         </a>
       </div>
       {!susbench ? (
         <Pending what="SusBench (eval/susbench/results.json)" />
       ) : (
         <>
-          <div className="stat-row">
-            <div className="stat">
+          <div className="sus-stats">
+            <div>
               <div className="v">
                 {susbench.summary.detectedPairs}/{susbench.summary.injectedPairs}
               </div>
               <div className="k">Injected patterns detected</div>
             </div>
-            <div className="stat">
+            <div>
               <div className="v">
                 {susbench.summary.falseAlarms}/{susbench.summary.controlPairs}
               </div>
-              <div className="k">False alarms on controls</div>
+              <div className="k">Controls with a false alarm</div>
             </div>
-            <div className="stat">
+            <div>
               <div className="v">k={susbench.repeats}</div>
-              <div className="k">Repeats per Probe · {susbench.model}</div>
+              <div className="k">Repeats per Probe, {susbench.model}</div>
             </div>
           </div>
-          <div className="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Pattern</th>
-                  <th>Kind</th>
-                  <th>Result</th>
-                  <th>Metrics moved</th>
-                </tr>
-              </thead>
-              <tbody>
-                {susbench.pairs.map((p) => (
-                  <tr key={p.pair}>
-                    <td>
-                      <strong>{p.pattern}</strong>
-                    </td>
-                    <td className="muted">{p.control ? "Control" : "Injected"}</td>
-                    <td>
-                      {p.control ? (
-                        p.detected || p.metricsMoved.length > 0 ? (
-                          <span className="pill fail">False alarm</span>
-                        ) : (
-                          <span className="pill unchanged">Quiet</span>
-                        )
-                      ) : p.detected ? (
-                        <span className="pill pass">Detected</span>
-                      ) : (
-                        <span className="pill fail">Missed</span>
-                      )}
-                    </td>
-                    <td className="muted">{p.metricsMoved.join(", ") || "—"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="table-block">
+            <Table<SusRow>
+              data={susbench.pairs.map((p, i) => ({ pair: `${p.pair}-${i}`, p }))}
+              columns={susColumns}
+              idKey="pair"
+              density="compact"
+              hasHover
+            />
           </div>
         </>
       )}

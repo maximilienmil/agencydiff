@@ -7,7 +7,11 @@ import { DiffPage } from "./pages/Diff";
 import { ReplayPage } from "./pages/Replay";
 import { ContractPage } from "./pages/Contract";
 import { LivePage } from "./pages/Live";
-import { BrandMark, REPO_URL } from "./components";
+import { Mark, REPO_URL } from "./components";
+import { Theme } from "@astryxdesign/core/theme";
+import { TopNav } from "@astryxdesign/core/TopNav";
+import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
+import { agencyTheme } from "./theme";
 
 export type Page = "overview" | "runs" | "diff" | "replay" | "contract" | "live";
 
@@ -68,30 +72,37 @@ const TABS: { id: Page; label: string }[] = [
   { id: "live", label: "Live" },
 ];
 
-type Theme = "light" | "dark";
+type Mode = "light" | "dark" | "system";
 
-function initialTheme(): Theme {
+function initialMode(): Mode {
   try {
     const saved = localStorage.getItem("agencydiff.theme");
-    if (saved === "light" || saved === "dark") return saved;
+    if (saved === "light" || saved === "dark" || saved === "system") return saved;
   } catch {
-    /* storage blocked: fall back to the system preference */
+    /* storage blocked: follow the system */
   }
+  return "system";
+}
+
+function resolved(mode: Mode): "light" | "dark" {
+  if (mode !== "system") return mode;
   return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-export function useTheme(): [Theme, () => void] {
-  const [theme, setTheme] = useState<Theme>(initialTheme);
+/** Light, dark or system. Shared with pages through a window event so the
+ *  Live view's T shortcut and the nav control stay in step. */
+export function useTheme(): [Mode, (m?: Mode) => void] {
+  const [mode, setMode] = useState<Mode>(initialMode);
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-  }, [theme]);
+    document.documentElement.dataset.theme = resolved(mode);
+  }, [mode]);
   useEffect(() => {
-    const onSet = (e: Event) => setTheme((e as CustomEvent<Theme>).detail);
+    const onSet = (e: Event) => setMode((e as CustomEvent<Mode>).detail);
     window.addEventListener("agencydiff-theme", onSet);
     return () => window.removeEventListener("agencydiff-theme", onSet);
   }, []);
-  const toggle = () => {
-    const next: Theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  const set = (m?: Mode) => {
+    const next: Mode = m ?? (resolved(mode) === "dark" ? "light" : "dark");
     try {
       localStorage.setItem("agencydiff.theme", next);
     } catch {
@@ -99,14 +110,14 @@ export function useTheme(): [Theme, () => void] {
     }
     window.dispatchEvent(new CustomEvent("agencydiff-theme", { detail: next }));
   };
-  return [theme, toggle];
+  return [mode, set];
 }
 
 export function App() {
   const route = useRoute();
   const [index, setIndex] = useState<RunIndex | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [theme, toggleTheme] = useTheme();
+  const [mode, setMode] = useTheme();
 
   useEffect(() => {
     loadIndex().then(setIndex, (e) => setError(String(e)));
@@ -123,50 +134,44 @@ export function App() {
   );
 
   return (
-    <>
-      <header className="topbar">
-        <div className="topbar-inner">
-          <a className="brand" href="#/overview" aria-label="AgencyDiff home">
-            <BrandMark />
-            <span>AgencyDiff</span>
-          </a>
-          <nav className="tabs" aria-label="Report sections">
-            {TABS.map((t) => (
-              <a
-                key={t.id}
-                href={goDefault(t.id)}
-                aria-current={route.page === t.id ? "page" : undefined}
-              >
-                {t.label}
-              </a>
-            ))}
-          </nav>
-          <div className="topbar-actions">
-            <button
-              className="icon-btn"
-              onClick={toggleTheme}
-              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-              title="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
-              ) : (
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" /></svg>
-              )}
-            </button>
-            <a className="button-link gh" href={REPO_URL} style={{ height: 36, padding: "0 14px", fontSize: 14 }}>
-              GitHub
+    <Theme theme={agencyTheme} mode={resolved(mode)}>
+      <div className="shell-nav">
+        <TopNav
+          label="Report sections"
+          heading={
+            <a className="brand" href="#/overview" aria-label="AgencyDiff home">
+              <Mark />
+              <b>AgencyDiff</b>
             </a>
-          </div>
-        </div>
-      </header>
+          }
+          startContent={
+            <nav className="navlinks">
+              {TABS.map((t) => (
+                <a key={t.id} href={goDefault(t.id)} aria-current={route.page === t.id ? "page" : undefined}>
+                  {t.label}
+                </a>
+              ))}
+            </nav>
+          }
+          endContent={
+            <div className="nav-end">
+              <SegmentedControl label="Colour theme" size="sm" value={resolved(mode)} onChange={(v) => setMode(v as Mode)}>
+                <SegmentedControlItem value="light" label="Light" />
+                <SegmentedControlItem value="dark" label="Dark" />
+              </SegmentedControl>
+              <a className="gh" href={REPO_URL}>
+                Source
+              </a>
+            </div>
+          }
+        />
+      </div>
       <main>
         {error && <div className="error">Could not load report data: {error}</div>}
         {!error && !index && <p className="muted">Loading report data…</p>}
         {index && index.runs.length === 0 && (
           <div className="notice">
-            No runs exported yet. Serve Circle on :5173 and run{" "}
-            <code>pnpm diff --driver scripted</code> to produce one.
+            No runs exported yet. Serve Circle on :5173 and run <code>pnpm diff --driver scripted</code> to produce one.
           </div>
         )}
         {index && route.page === "overview" && <OverviewPage index={index} />}
@@ -185,15 +190,14 @@ export function App() {
       <footer className="site">
         <div className="inner">
           <span>
-            AgencyDiff measures the interface, not the person. Probes are standardized instruments;
-            success is decided by the Oracle on final app state
-            {index?.runs[0] ? ` · latest run ${fmtDate(index.runs[0].date)}` : ""}.
+            AgencyDiff measures the interface, not the person. Probes are standardized instruments; success is decided
+            by the Oracle on final app state{index?.runs[0] ? `. Latest run ${fmtDate(index.runs[0].date)}` : ""}.
           </span>
           <span>
-            <a href={REPO_URL}>Source</a> · MIT
+            <a href={REPO_URL}>Source</a> · MIT · Built with Astryx
           </span>
         </div>
       </footer>
-    </>
+    </Theme>
   );
 }

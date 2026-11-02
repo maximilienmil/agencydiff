@@ -27,6 +27,8 @@ const T = {
   badInk: "var(--ds-bad-ink)",
   goodInk: "var(--ds-good-ink)",
   font: "var(--ds-font)",
+  display: "var(--ds-display)",
+  degraded: "var(--ds-degraded)",
   mono: "var(--ds-mono)",
 };
 const NIGHT = "#0b0f14";
@@ -177,8 +179,8 @@ function TracePhone({
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ width, display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 18 }}>
-        <span style={{ fontSize: 26, fontWeight: 700, color: dark ? NIGHT_INK : T.ink }}>{label}</span>
-        <span style={{ fontSize: 24, color: dark ? NIGHT_INK2 : T.ink3, fontVariantNumeric: "tabular-nums" }}>
+        <span style={{ fontSize: 30, fontFamily: T.display, color: dark ? NIGHT_INK : T.ink }}>{label}</span>
+        <span style={{ fontSize: 19, fontFamily: T.mono, color: dark ? NIGHT_INK2 : T.ink3 }}>
           Step {stepShown} of {clip.steps}
         </span>
       </div>
@@ -208,7 +210,7 @@ function ColdOpen({ data, footage, vo }: { data: VideoData; footage: Footage; vo
       <div style={{ display: "flex", gap: 80, height: "100%" }}>
         <div style={{ width: 600, display: "flex", flexDirection: "column", paddingTop: 40 }}>
           <In>
-            <div style={{ fontSize: 72, fontWeight: 750, lineHeight: 1.05, letterSpacing: "-0.04em" }}>“I do not want strangers messaging me.”</div>
+            <div style={{ fontSize: 72, fontFamily: T.display, fontWeight: 400, lineHeight: 1.05, letterSpacing: "-0.02em" }}>“I do not want strangers messaging me.”</div>
           </In>
           <In at={24}>
             <div style={{ fontSize: 28, color: NIGHT_INK2, lineHeight: 1.45, marginTop: 30 }}>Muse computer-use Probes on the baseline and the candidate build of Circle.</div>
@@ -237,14 +239,14 @@ function Problem({ vo }: { vo: string | null }) {
       <Beat from={0} to={250}>
         <Frame>
           <In at={6}>
-            <div style={{ fontSize: 120, fontWeight: 800, lineHeight: 1.0, letterSpacing: "-0.05em", maxWidth: 1500 }}>Coding agents change interfaces every day.</div>
+            <div style={{ fontSize: 120, fontFamily: T.display, fontWeight: 400, lineHeight: 1.0, letterSpacing: "-0.02em", maxWidth: 1500 }}>Coding agents change interfaces every day.</div>
           </In>
         </Frame>
       </Beat>
       <Beat from={250} to={540} last>
         <Frame>
           <In at={6}>
-            <div style={{ fontSize: 96, fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.045em", maxWidth: 1600 }}>
+            <div style={{ fontSize: 96, fontFamily: T.display, fontWeight: 400, lineHeight: 1.05, letterSpacing: "-0.02em", maxWidth: 1600 }}>
               Few teams re-test whether people can still <span style={{ color: T.blue }}>say no</span>.
             </div>
           </In>
@@ -276,7 +278,7 @@ function DiffBlock({ lines, label }: { lines: string[]; label: string }) {
 function Verdict({ ok, text, at = 40 }: { ok: boolean; text: string; at?: number }) {
   return (
     <In at={at}>
-      <div style={{ marginTop: 36, fontSize: 40, fontWeight: 750, letterSpacing: "-0.02em", color: ok ? T.goodInk : T.badInk }}>{text}</div>
+      <div style={{ marginTop: 36, fontSize: 48, fontFamily: T.display, letterSpacing: "-0.015em", color: ok ? T.goodInk : T.badInk }}>{text}</div>
     </In>
   );
 }
@@ -292,7 +294,7 @@ function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; 
         <Frame>
           <Label>The task given to a coding agent</Label>
           <In at={8}>
-            <div style={{ fontSize: 62, fontWeight: 700, lineHeight: 1.25, letterSpacing: "-0.03em", marginTop: 26, maxWidth: 1600 }}>“{v(data.onboardPrompt)}”</div>
+            <div style={{ fontSize: 62, fontFamily: T.display, fontWeight: 400, lineHeight: 1.25, letterSpacing: "-0.02em", marginTop: 26, maxWidth: 1600 }}>“{v(data.onboardPrompt)}”</div>
           </In>
           <Caption>The prompt, verbatim, from eval/agent-prs/tasks.json.</Caption>
         </Frame>
@@ -314,9 +316,9 @@ function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; 
           <div style={{ display: "flex", gap: 90, alignItems: "center", justifyContent: "center" }}>
             <div style={{ width: 520 }}>
               <Label>Declining precise location, measured</Label>
-              <div style={{ fontSize: 120, fontWeight: 800, letterSpacing: "-0.05em", marginTop: 12, fontVariantNumeric: "tabular-nums" }}>
+              <div style={{ fontSize: 120, fontFamily: T.display, fontWeight: 400, letterSpacing: "-0.02em", marginTop: 12, fontVariantNumeric: "tabular-nums" }}>
                 <span style={{ color: T.ink3, fontWeight: 600 }}>{v(data.declineBaseline)} → </span>
-                <span style={{ color: T.badInk }}>{v(data.declineCandidate)}</span>
+                <span style={{ color: T.badInk, fontFamily: T.degraded }}>{v(data.declineCandidate)}</span>
               </div>
               <div style={{ fontSize: 30, color: T.ink2 }}>steps, baseline → candidate</div>
             </div>
@@ -340,11 +342,11 @@ function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; 
           <Label>Pull requests that broke saying no</Label>
           <div style={{ display: "flex", gap: 160, marginTop: 30 }}>
             <In at={10}>
-              <div style={{ fontSize: 200, fontWeight: 800, letterSpacing: "-0.06em", lineHeight: 1, color: T.badInk, fontVariantNumeric: "tabular-nums" }}>{v(data.agentNoGate)}</div>
+              <div style={{ fontSize: 200, fontWeight: 400, letterSpacing: "-0.02em", lineHeight: 1, color: T.badInk, fontFamily: T.degraded, fontVariantNumeric: "tabular-nums" }}>{v(data.agentNoGate)}</div>
               <div style={{ fontSize: 32, color: T.ink2, marginTop: 18 }}>Agent alone</div>
             </In>
             <In at={40}>
-              <div style={{ fontSize: 200, fontWeight: 800, letterSpacing: "-0.06em", lineHeight: 1, color: T.goodInk, fontVariantNumeric: "tabular-nums" }}>{v(data.agentGated)}</div>
+              <div style={{ fontSize: 200, fontFamily: T.display, fontWeight: 400, letterSpacing: "-0.02em", lineHeight: 1, color: T.goodInk, fontVariantNumeric: "tabular-nums" }}>{v(data.agentGated)}</div>
               <div style={{ fontSize: 32, color: T.ink2, marginTop: 18 }}>With AgencyDiff in the loop</div>
             </In>
           </div>
@@ -376,7 +378,7 @@ function HowItWorks({ data, footage, vo }: { data: VideoData; footage: Footage; 
               <In key={k} at={10 + i * 30}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 40 }}>
                   <span style={{ fontSize: 34, fontWeight: 700, color: T.blue, width: 40, fontVariantNumeric: "tabular-nums" }}>{i + 1}</span>
-                  <span style={{ fontSize: 76, fontWeight: 800, letterSpacing: "-0.04em", width: 420 }}>{k}</span>
+                  <span style={{ fontSize: 76, fontFamily: T.display, fontWeight: 400, letterSpacing: "-0.02em", width: 420 }}>{k}</span>
                   <span style={{ fontSize: 36, color: T.ink2 }}>{s}</span>
                 </div>
               </In>
@@ -391,12 +393,12 @@ function HowItWorks({ data, footage, vo }: { data: VideoData; footage: Footage; 
           <div style={{ display: "flex", flexDirection: "column", gap: 44, marginTop: 40, maxWidth: 1500 }}>
             {[
               ["AgencyDiff replay gate", data.gateCaught, T.blue, `${v(data.gateFalseAlarms)} false alarms · ${v(data.gateCost)}`],
-              ["Model reviewing PR screenshots", data.screensCaught, "#65676b", ""],
+              ["Model reviewing PR screenshots", data.screensCaught, "#e41e3f", ""],
             ].map(([name, val, color, note], i) => (
               <In key={String(name)} at={10 + i * 40}>
                 <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
                   <span style={{ fontSize: 40, fontWeight: 650 }}>{name}</span>
-                  <span style={{ fontSize: 110, fontWeight: 800, letterSpacing: "-0.05em", fontVariantNumeric: "tabular-nums" }}>{v(val as string | null)}</span>
+                  <span style={{ fontSize: 110, fontFamily: i === 1 ? T.degraded : T.display, color: i === 1 ? T.badInk : undefined, fontWeight: 400, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>{v(val as string | null)}</span>
                 </div>
                 <div style={{ height: 12, background: "var(--ds-surface-2)", borderRadius: 6, marginTop: 8 }}>
                   <div style={{ height: 12, borderRadius: 6, background: color as string, width: `${ratio(val as string | null) * 100}%` }} />
@@ -417,7 +419,7 @@ function HowItWorks({ data, footage, vo }: { data: VideoData; footage: Footage; 
               <PendingNote label="SAM 3.1 overlay" />
             )}
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 64, fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.1 }}>SAM 3.1 segments every control on the recorded screen.</div>
+              <div style={{ fontSize: 64, fontFamily: T.display, fontWeight: 400, letterSpacing: "-0.02em", lineHeight: 1.1 }}>SAM 3.1 segments every control on the recorded screen.</div>
               <In at={120}>
                 <div style={{ fontFamily: T.mono, fontSize: 30, marginTop: 50, color: T.ink2 }}>pnpm run propose-fix --report runs/&lt;id&gt;</div>
                 <div style={{ fontSize: 30, color: T.ink2, marginTop: 14, lineHeight: 1.4 }}>Turns a failing report into a minimal patch, re-run until the check passes.</div>
@@ -435,7 +437,7 @@ function Fact({ big, text, mono }: { big: string; text: string; mono?: boolean }
   return (
     <Frame>
       <In at={6}>
-        <div style={{ fontSize: mono ? 110 : 200, fontWeight: 800, letterSpacing: mono ? "-0.02em" : "-0.06em", lineHeight: 1, fontFamily: mono ? T.mono : T.font, fontVariantNumeric: "tabular-nums" }}>{big}</div>
+        <div style={{ fontSize: mono ? 100 : 220, fontWeight: mono ? 500 : 400, letterSpacing: mono ? "-0.02em" : "-0.03em", lineHeight: 1, fontFamily: mono ? T.mono : T.display, fontVariantNumeric: "tabular-nums" }}>{big}</div>
       </In>
       <In at={30}>
         <div style={{ fontSize: 44, color: T.ink2, marginTop: 40, maxWidth: 1400, lineHeight: 1.3, fontWeight: 500 }}>{text}</div>
@@ -464,7 +466,7 @@ function Generalize({ data, vo }: { data: VideoData; vo: string | null }) {
         <Frame>
           <In at={6}>
             <Label>Public-site audit</Label>
-            <div style={{ fontSize: 64, fontWeight: 750, letterSpacing: "-0.03em", marginTop: 16 }}>{v(data.auditRealId)}</div>
+            <div style={{ fontSize: 64, fontFamily: T.display, fontWeight: 400, letterSpacing: "-0.02em", marginTop: 16 }}>{v(data.auditRealId)}</div>
           </In>
           <In at={60}>
             <div style={{ fontSize: 44, color: T.ink2, marginTop: 70 }}>Ships as a CLI, a GitHub Action and an MCP server.</div>
@@ -489,7 +491,7 @@ function Built({ vo }: { vo: string | null }) {
         <Beat key={name} from={i * 200} to={i * 200 + 200}>
           <Frame>
             <In at={6}>
-              <div style={{ fontSize: 150, fontWeight: 800, letterSpacing: "-0.05em", color: T.blue }}>{name}</div>
+              <div style={{ fontSize: 150, fontFamily: T.display, fontWeight: 400, letterSpacing: "-0.02em", color: T.blue }}>{name}</div>
             </In>
             <In at={24}>
               <div style={{ fontSize: 56, fontWeight: 600, letterSpacing: "-0.025em", marginTop: 20 }}>{text}</div>
@@ -500,7 +502,7 @@ function Built({ vo }: { vo: string | null }) {
       <Beat from={600} to={900} last>
         <Frame>
           <In at={6}>
-            <div style={{ fontSize: 76, fontWeight: 750, letterSpacing: "-0.04em", lineHeight: 1.15, maxWidth: 1500 }}>
+            <div style={{ fontSize: 76, fontFamily: T.display, fontWeight: 400, letterSpacing: "-0.02em", lineHeight: 1.15, maxWidth: 1500 }}>
               None of them decides the result. The diff compares recorded Traces.
             </div>
           </In>
@@ -515,7 +517,7 @@ function Close({ data, vo }: { data: VideoData; vo: string | null }) {
     <Frame dark>
       <Voice file={vo} />
       <In dur={24}>
-        <div style={{ fontSize: 140, fontWeight: 800, letterSpacing: "-0.055em", lineHeight: 1.0 }}>
+        <div style={{ fontSize: 140, fontFamily: T.display, fontWeight: 400, letterSpacing: "-0.02em", lineHeight: 1.0 }}>
           Regression tests
           <br />
           for human choice.
@@ -523,7 +525,7 @@ function Close({ data, vo }: { data: VideoData; vo: string | null }) {
       </In>
       <In at={36}>
         <div style={{ display: "flex", gap: 28, alignItems: "baseline", marginTop: 60, fontSize: 36 }}>
-          <span style={{ fontWeight: 750, color: "#4c8dff" }}>AgencyDiff</span>
+          <span style={{ fontFamily: T.display, fontWeight: 700, color: "#4c8dff" }}>AgencyDiff</span>
           <span style={{ fontFamily: T.mono, color: NIGHT_INK2 }}>{data.repoUrl}</span>
         </div>
       </In>

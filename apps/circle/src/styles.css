@@ -13,7 +13,7 @@
   --muted: var(--ds-ink-3);
   --line: var(--ds-line);
   --accent: var(--ds-blue);
-  font-family: var(--ds-font);
+  font-family: var(--ds-font-app);
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;

@@ -3,7 +3,13 @@ import type { AgencyContract, AgencyReport, Trace } from "@agencydiff/core";
 import { loadContract, loadReport, loadTrace, samUrl, shotUrl } from "../data";
 import { shotList } from "../format";
 import { paneAtStep } from "../live";
-import { Delta, Phone, VisDelta, stepCaption } from "../components";
+import { Delta, Phone, Readout, RouteMap, VisDelta, stepCaption } from "../components";
+import { Button } from "@astryxdesign/core/Button";
+import { Selector } from "@astryxdesign/core/Selector";
+import { Slider } from "@astryxdesign/core/Slider";
+import { Switch } from "@astryxdesign/core/Switch";
+import { Kbd } from "@astryxdesign/core/Kbd";
+import { ChevronLeft, ChevronRight, Pause, Play, SkipBack } from "lucide-react";
 
 interface Pane {
   trace: Trace;
@@ -110,9 +116,7 @@ export function ReplayPage({
       <div className="side pane" key={v}>
         <div className={`phone-label ${v}`}>
           <span className="name">{v === "baseline" ? "Baseline" : "Candidate"}</span>
-          <span className="step-note">
-            {pane ? `Step ${view.current} of ${pane.trace.steps.length}` : ""}
-          </span>
+          <span className="step-note">{pane ? `${view.current} of ${pane.trace.steps.length}` : ""}</span>
         </div>
         <Phone
           src={pane && shot ? shotUrl(runId, pane.trace.id, shot) : undefined}
@@ -129,49 +133,38 @@ export function ReplayPage({
           {pane ? (
             <>
               <strong>{stepCaption(pane.trace, view.current)}</strong>
-              {finished && (
-                <>
-                  <br />
-                  {pane.trace.oracle.passed ? (
-                    <span className="pill pass" style={{ marginTop: 8 }}>Oracle passed</span>
-                  ) : (
-                    <span className="pill fail" style={{ marginTop: 8 }}>Oracle failed</span>
-                  )}
-                </>
-              )}
+              {finished && <> · Oracle {pane.trace.oracle.passed ? "passed" : "failed"}</>}
             </>
           ) : null}
         </div>
+        {pane && <RouteMap trace={pane.trace} step={view.current} compact />}
       </div>
     );
   };
 
+  const pct = (x: unknown) => (typeof x === "number" ? `${Math.round(x * 100)}%` : "—");
+
   return (
     <>
       <div className="page-head compact">
-        <h1 style={{ maxWidth: "26ch" }}>{goal ?? "Replay"}</h1>
-        <p className="lede" style={{ marginBottom: 0 }}>
-          The same Intent on both Variants, step by step. Each tap is drawn on the screen where
-          it happened{overlaySeen ? ", with SAM segment overlays where the runner stored them" : ""}.
+        <h1>{goal ?? "Replay"}</h1>
+        <p className="lede">
+          The same Intent on both Variants, step by step. Each tap is drawn on the screen where it happened
+          {overlaySeen ? ", with SAM segment overlays where the runner stored them" : ""}.
         </p>
       </div>
 
-      <div className="intent-select">
-        <label htmlFor="intent">Intent</label>
-        <select
-          id="intent"
+      <div className="picker">
+        <Selector
+          label="Intent"
+          isLabelHidden
           value={activeIntent ?? ""}
-          onChange={(e) => {
-            window.location.hash = `#/replay?run=${runId}&intent=${e.target.value}`;
+          options={intents.map((i) => ({ value: i.id, label: i.goal }))}
+          onChange={(value) => {
+            window.location.hash = `#/replay?run=${runId}&intent=${value}`;
             setStep(0);
           }}
-        >
-          {intents.map((i) => (
-            <option key={i.id} value={i.id}>
-              {i.goal}
-            </option>
-          ))}
-        </select>
+        />
       </div>
 
       {error && <div className="error">{error}</div>}
@@ -179,51 +172,26 @@ export function ReplayPage({
 
       {(panes.baseline || panes.candidate) && (
         <>
-          <div className="toolbar" role="group" aria-label="Playback">
-            <button onClick={() => { setPlaying(false); setStep(0); }} disabled={step === 0}>
-              Start
-            </button>
-            <button onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} disabled={step === 0}>
-              Back
-            </button>
-            <button
-              className="primary"
+          <div className="controls" role="group" aria-label="Playback">
+            <span className="step-note">
+              Step {step} of {maxStep}
+            </span>
+            <Button label="Start" variant="ghost" icon={<SkipBack size={16} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep(0); }} />
+            <Button label="Back" variant="secondary" icon={<ChevronLeft size={16} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} />
+            <Button
+              label={playing ? "Pause" : step >= maxStep ? "Replay" : "Play"}
+              variant="primary"
+              icon={playing ? <Pause size={16} /> : <Play size={16} />}
               onClick={() => {
                 if (step >= maxStep) setStep(0);
                 setPlaying((p) => !p);
               }}
-            >
-              {playing ? "Pause" : step >= maxStep ? "Replay" : "Play"}
-            </button>
-            <button
-              onClick={() => {
-                setPlaying(false);
-                setStep((s) => Math.min(s + 1, maxStep));
-              }}
-              disabled={step >= maxStep}
-            >
-              Next
-            </button>
-            <span className="grow">
-              <input
-                type="range"
-                min={0}
-                max={maxStep}
-                value={step}
-                aria-label="Playback step"
-                onChange={(e) => {
-                  setPlaying(false);
-                  setStep(Number(e.target.value));
-                }}
-              />
-              <span className="step-note">
-                Step {step} of {maxStep}
-              </span>
-            </span>
-            <label>
-              <input type="checkbox" checked={showOverlay} onChange={(e) => setShowOverlay(e.target.checked)} />
-              Segment overlays
-            </label>
+            />
+            <Button label="Next" variant="secondary" icon={<ChevronRight size={16} />} isDisabled={step >= maxStep} onClick={() => { setPlaying(false); setStep((s) => Math.min(s + 1, maxStep)); }} />
+            <div className="grow">
+              <Slider label="Playback step" isLabelHidden min={0} max={Math.max(maxStep, 1)} value={step} valueDisplay="none" onChange={(v: number) => { setPlaying(false); setStep(Number(v)); }} />
+            </div>
+            <Switch label="Segment overlays" value={showOverlay} onChange={(on) => setShowOverlay(on)} size="sm" />
           </div>
 
           <div className="stage replay-stage">
@@ -231,13 +199,11 @@ export function ReplayPage({
             <div className="stage-mid">
               <div className="counter">
                 <div className="k">Steps taken</div>
-                <div className="row">
+                <div className="rows">
                   <span>Baseline</span>
                   <b className="tick" key={`b${Math.min(step, panes.baseline?.trace.steps.length ?? 0)}`}>
                     {Math.min(step, panes.baseline?.trace.steps.length ?? 0)}
                   </b>
-                </div>
-                <div className="row cand">
                   <span>Candidate</span>
                   <b className="tick" key={`c${Math.min(step, panes.candidate?.trace.steps.length ?? 0)}`}>
                     {Math.min(step, panes.candidate?.trace.steps.length ?? 0)}
@@ -245,13 +211,13 @@ export function ReplayPage({
                 </div>
               </div>
               {report && done && (
-                <div className={`finding-card ${findings.length ? "" : "ok"}`}>
+                <div className={`finding ${findings.length ? "" : "ok"}`}>
                   <h4>{findings.length ? `${findings.length} Finding${findings.length === 1 ? "" : "s"}` : "No Finding"}</h4>
                   <dl>
                     <div>
-                      <dt>Steps needed (median)</dt>
+                      <dt>Steps needed, median of {agg("baseline")?.runs ?? "—"} runs</dt>
                       <dd>
-                        <Delta b={agg("baseline")?.actionCount} c={agg("candidate")?.actionCount} />
+                        <Readout b={agg("baseline")?.actionCount} c={agg("candidate")?.actionCount} size="md" />
                       </dd>
                     </div>
                     <div>
@@ -263,22 +229,21 @@ export function ReplayPage({
                     <div>
                       <dt>Success rate</dt>
                       <dd>
-                        <Delta
-                          b={agg("baseline")?.successRate}
-                          c={agg("candidate")?.successRate}
-                          higherIsBetter
-                          fmt={(v) => (typeof v === "number" ? `${Math.round(v * 100)}%` : "—")}
-                        />
+                        <Delta b={agg("baseline")?.successRate} c={agg("candidate")?.successRate} higherIsBetter fmt={pct} />
                       </dd>
                     </div>
                   </dl>
                 </div>
               )}
               {!done && (
-                <p className="muted" style={{ fontSize: 13, margin: 0 }}>
-                  Play or step through. The Finding appears when both Traces finish. Keys: ← → step, Space play.
+                <p className="muted" style={{ fontSize: 14, margin: 0 }}>
+                  Play or step through; the Finding appears when both Traces finish.
                 </p>
               )}
+              <p className="keys">
+                <span><Kbd keys="left" /> <Kbd keys="right" /> step</span>
+                <span><Kbd keys="space" /> play</span>
+              </p>
             </div>
             {side("candidate")}
           </div>

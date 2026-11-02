@@ -1,0 +1,14 @@
+{
+  "name": "circle-pr",
+  "urls": {
+    "baseline": "http://127.0.0.1:5181/",
+    "candidate": "http://127.0.0.1:5182/"
+  },
+  "contracts": [
+    "../contracts/location.json",
+    "../contracts/screen_time.json",
+    "../contracts/subscription.json",
+    "../contracts/teen_dm.json"
+  ],
+  "oracle": "state-hook"
+}

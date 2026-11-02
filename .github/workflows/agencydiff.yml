@@ -1,0 +1,128 @@
+name: AgencyDiff
+
+on:
+  pull_request:
+    paths:
+      - "apps/circle/**"
+      - "contracts/**"
+      - "eval/**"
+      - "packages/**"
+      - "targets/**"
+      - "scripts/ci-agencydiff.sh"
+      - ".github/workflows/agencydiff.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  # Free, deterministic gate: replays each contract's baseline reference path
+  # on the real head build. A moved control fails instead of passing quietly.
+  scripted:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+    outputs:
+      out: ${{ steps.diff.outputs.out }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @agencydiff/runner exec playwright install chromium --with-deps
+      - id: diff
+        env:
+          REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          scripts/ci-agencydiff.sh \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.event.pull_request.head.sha }}" \
+            --report-url "$REPORT_URL"
+      - name: Job summary
+        if: always()
+        run: cat "${{ steps.diff.outputs.out }}/comment.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Sticky PR comment
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BODY_FILE="${{ steps.diff.outputs.out }}/comment.md"
+          PR="${{ github.event.pull_request.number }}"
+          EXISTING="$(gh api "repos/${{ github.repository }}/issues/$PR/comments" --paginate \
+            -q '.[] | select(.body | contains("<!-- agencydiff -->")) | .id' | head -1)"
+          if [ -n "$EXISTING" ]; then
+            gh api --method PATCH "repos/${{ github.repository }}/issues/comments/$EXISTING" \
+              -F "body=@$BODY_FILE" >/dev/null
+          else
+            gh api "repos/${{ github.repository }}/issues/$PR/comments" \
+              -F "body=@$BODY_FILE" >/dev/null
+          fi
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agencydiff-report
+          path: ${{ steps.diff.outputs.out }}
+
+  # Optional deep probe: same diff with the Muse computer-use driver at k=3.
+  # Runs only when the repo secret exists and the PR carries the label.
+  muse:
+    if: contains(github.event.pull_request.labels.*.name, 'agencydiff:muse') && secrets.MODEL_API_KEY != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @agencydiff/runner exec playwright install chromium --with-deps
+      - id: diff
+        env:
+          MODEL_API_KEY: ${{ secrets.MODEL_API_KEY }}
+          REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          scripts/ci-agencydiff.sh \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.event.pull_request.head.sha }}" \
+            --out "runs/ci-muse-${{ github.event.pull_request.number }}-${{ github.run_id }}" \
+            --driver muse --repeats 3 --marker agencydiff-muse \
+            --report-url "$REPORT_URL"
+      - name: Job summary
+        if: always()
+        run: cat "${{ steps.diff.outputs.out }}/comment.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Sticky PR comment
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BODY_FILE="${{ steps.diff.outputs.out }}/comment.md"
+          PR="${{ github.event.pull_request.number }}"
+          EXISTING="$(gh api "repos/${{ github.repository }}/issues/$PR/comments" --paginate \
+            -q '.[] | select(.body | contains("<!-- agencydiff-muse -->")) | .id' | head -1)"
+          if [ -n "$EXISTING" ]; then
+            gh api --method PATCH "repos/${{ github.repository }}/issues/comments/$EXISTING" \
+              -F "body=@$BODY_FILE" >/dev/null
+          else
+            gh api "repos/${{ github.repository }}/issues/$PR/comments" \
+              -F "body=@$BODY_FILE" >/dev/null
+          fi
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agencydiff-report-muse
+          path: ${{ steps.diff.outputs.out }}

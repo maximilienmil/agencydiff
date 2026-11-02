@@ -64,12 +64,21 @@ export const SEEDS = {
 
 export type SeedId = keyof typeof SEEDS;
 
+/** Seeds baked into the build with e.g. `VITE_SEEDS=SUB_HIDE_DECLINE vite build`,
+ *  so a real pull request can carry a real regression without query flags. */
+function bakedSeeds(): Set<SeedId> {
+  const raw = import.meta.env?.VITE_SEEDS;
+  if (typeof raw !== "string" || raw.trim() === "") return new Set();
+  return new Set(raw.split(",").filter((s): s is SeedId => s in SEEDS));
+}
+
 export function activeSeeds(params: URLSearchParams): Set<SeedId> {
   const explicit = params.get("seeds");
   if (explicit !== null) {
     return new Set(explicit.split(",").filter((s): s is SeedId => s in SEEDS));
   }
-  return params.get("variant") === "candidate"
-    ? new Set(Object.keys(SEEDS) as SeedId[])
-    : new Set();
+  const seeds =
+    params.get("variant") === "candidate" ? new Set(Object.keys(SEEDS) as SeedId[]) : new Set<SeedId>();
+  for (const s of bakedSeeds()) seeds.add(s);
+  return seeds;
 }

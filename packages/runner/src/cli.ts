@@ -4,17 +4,23 @@ import { parseArgs } from "node:util";
 import { diffContract, type AgencyContract, type AgencyReport, type Trace, type Variant } from "@agencydiff/core";
 import { MuseDriver, ScriptedDriver, type Driver } from "./drivers.js";
 import { runProbe } from "./probe.js";
+import { loadTargetConfig, assertDiffOracle } from "./targets.js";
 import { buildEntry, mergeRuns, type RunIndexEntry } from "./reportExport.js";
 
 // Usage:
 //   pnpm diff --contract contracts/location.json --driver scripted
+//   pnpm diff --target targets/circle-pr.json --baseline <base-url> --candidate <head-url> \
+//     --driver scripted --scripted-from baseline --out runs/ci-... --report-url <run-url>
 //   MODEL_API_KEY=... pnpm diff --contract contracts/location.json --driver muse --repeats 3
+//
+// Exit code is non-zero when any contract fails, so the same command works as a CI gate.
 
 const ROOT = path.resolve(import.meta.dirname, "../../..");
 
 const { values } = parseArgs({
   options: {
     contract: { type: "string", default: "contracts/location.json" },
+    target: { type: "string" },
     baseline: { type: "string", default: "http://localhost:5173/?variant=baseline" },
     candidate: { type: "string", default: "http://localhost:5173/?variant=candidate" },
     driver: { type: "string", default: "scripted" },
@@ -23,18 +29,29 @@ const { values } = parseArgs({
     intents: { type: "string" },
     out: { type: "string" },
     export: { type: "boolean", default: true },
+    // Node's parseArgs has no automatic --no- negation, so declare it.
+    "no-export": { type: "boolean", default: false },
+    /** Which variant's reference path the scripted driver replays on both
+     *  builds. "baseline" turns a moved control into a failed finding on a
+     *  real candidate build, not just under ?seeds= flags. */
+    "scripted-from": { type: "string", default: "each" },
+    /** Link to the full report (workflow run URL), embedded in comment.md. */
+    "report-url": { type: "string" },
+    /** Marker identifying the sticky PR comment. Defaults to "agencydiff". */
+    marker: { type: "string", default: "agencydiff" },
+    "base-ref": { type: "string" },
+    "head-ref": { type: "string" },
   },
 });
 
-const contractPath = path.resolve(ROOT, values.contract!);
-const contract: AgencyContract = JSON.parse(await readFile(contractPath, "utf8"));
-const outDir = path.resolve(
-  ROOT,
-  values.out ?? path.join("runs", `${new Date().toISOString().replace(/[:.]/g, "-")}-${contract.decision}`),
-);
-await mkdir(outDir, { recursive: true });
+if (values["no-export"]) values.export = false;
 
-async function makeDriver(variant: Variant): Promise<Driver> {
+const scriptedFrom = values["scripted-from"];
+if (scriptedFrom !== "each" && scriptedFrom !== "baseline" && scriptedFrom !== "candidate") {
+  throw new Error(`--scripted-from must be each, baseline or candidate (got ${scriptedFrom})`);
+}
+
+async function makeDriver(contractPath: string, variant: Variant): Promise<Driver> {
   if (values.driver === "muse") {
     const apiKey = process.env.MODEL_API_KEY;
     if (!apiKey) throw new Error("MODEL_API_KEY is not set");
@@ -42,33 +59,45 @@ async function makeDriver(variant: Variant): Promise<Driver> {
   }
   const refPath = path.join(ROOT, "eval", "reference_paths", path.basename(contractPath));
   const refs: Record<Variant, Record<string, string[]>> = JSON.parse(await readFile(refPath, "utf8"));
-  return new ScriptedDriver((intent) => refs[variant][intent.id] ?? []);
+  const from = scriptedFrom === "each" ? variant : (scriptedFrom as Variant);
+  return new ScriptedDriver((intent) => refs[from]?.[intent.id] ?? []);
 }
 
-const only = values.intents?.split(",");
-const intents = contract.intents.filter((i) => !only || only.includes(i.id));
-const repeats = Number(values.repeats);
-const target = { baseline: values.baseline!, candidate: values.candidate! };
-const traces: Trace[] = [];
+async function runOneContract(
+  contractPath: string,
+  outDir: string,
+): Promise<{ contract: AgencyContract; report: AgencyReport; outDir: string }> {
+  const abs = path.resolve(ROOT, contractPath);
+  const contract: AgencyContract = JSON.parse(await readFile(abs, "utf8"));
+  const dir = path.join(outDir, contract.decision);
+  await mkdir(dir, { recursive: true });
 
-for (const variant of ["baseline", "candidate"] as const) {
-  const driver = await makeDriver(variant);
-  for (const intent of intents) {
-    for (let repeat = 0; repeat < repeats; repeat++) {
-      const t = await runProbe({ contract, intent, variant, repeat, target, driver, outDir });
-      traces.push(t);
-      const mark = t.oracle.passed === false ? "✗" : t.oracle.passed ? "✓" : "?";
-      console.log(`${mark} ${variant.padEnd(9)} ${intent.id.padEnd(10)} #${repeat} ${t.steps.length} steps (${t.stoppedReason})`);
+  const only = values.intents?.split(",");
+  const intents = contract.intents.filter((i) => !only || only.includes(i.id));
+  const repeats = Number(values.repeats);
+  const target = { baseline: values.baseline!, candidate: values.candidate! };
+  const traces: Trace[] = [];
+
+  for (const variant of ["baseline", "candidate"] as const) {
+    const driver = await makeDriver(contractPath, variant);
+    for (const intent of intents) {
+      for (let repeat = 0; repeat < repeats; repeat++) {
+        const t = await runProbe({ contract, intent, variant, repeat, target, driver, outDir: dir });
+        traces.push(t);
+        const mark = t.oracle.passed === false ? "✗" : t.oracle.passed ? "✓" : "?";
+        console.log(
+          `${mark} ${contract.decision} ${variant.padEnd(9)} ${intent.id.padEnd(12)} #${repeat} ${t.steps.length} steps (${t.stoppedReason})`,
+        );
+      }
     }
   }
-}
 
-const report = diffContract({ ...contract, intents }, traces);
-await writeFile(path.join(outDir, "report.json"), JSON.stringify(report, null, 2));
-printReport(report);
-console.log(`\ntraces + report: ${path.relative(process.cwd(), outDir)}`);
-if (values.export) await exportToReportApp({ contract, report, outDir, target });
-process.exitCode = report.passed ? 0 : 1;
+  const report = diffContract({ ...contract, intents }, traces);
+  await writeFile(path.join(dir, "report.json"), JSON.stringify(report, null, 2));
+  printReport(report);
+  if (values.export) await exportToReportApp({ contract, report, outDir: dir, target });
+  return { contract, report, outDir: dir };
+}
 
 function printReport(r: AgencyReport) {
   console.log(`\n${r.passed ? "PASS" : "FAIL"}  ${r.decision}: ${r.promise}`);
@@ -80,6 +109,88 @@ function printReport(r: AgencyReport) {
 function fmt(v: unknown): string {
   return typeof v === "number" && !Number.isInteger(v) ? v.toFixed(2) : String(v);
 }
+
+/** Plain-language PR comment / job summary: one intent table per contract. */
+function renderComment(results: { contract: AgencyContract; report: AgencyReport }[]): string {
+  const passed = results.every((r) => r.report.passed);
+  const lines = [
+    `<!-- ${values.marker} -->`,
+    `## AgencyDiff ${passed ? "passed" : "found regressions"}`,
+    "",
+  ];
+  if (values["base-ref"] || values["head-ref"]) {
+    lines.push(`Compared \`${values["base-ref"] ?? "?"}\` (baseline) against \`${values["head-ref"] ?? "?"}\` (candidate) with the ${values.driver} driver.`);
+    lines.push("");
+  }
+  for (const { contract, report } of results) {
+    lines.push(`### ${report.passed ? "PASS" : "FAIL"} — ${contract.decision}: ${contract.promise}`);
+    lines.push("");
+    lines.push("| Intent | Steps needed | Visible on first screen | Still possible | Severity |");
+    lines.push("| --- | --- | --- | --- | --- |");
+    for (const intent of contract.intents) {
+      const agg = (v: Variant) => report.aggregates.find((a) => a.intentId === intent.id && a.variant === v);
+      const b = agg("baseline");
+      const c = agg("candidate");
+      const steps = `${b?.actionCount ?? "—"} → ${c?.actionCount ?? "—"}`;
+      const vis = (a?: { initiallyVisible?: boolean }) =>
+        a?.initiallyVisible === undefined ? "n/a" : a.initiallyVisible ? "yes" : "no";
+      const possible = (a?: { successRate: number }) =>
+        a === undefined ? "n/a" : a.successRate >= 1 ? "yes" : a.successRate <= 0 ? "no" : `${Math.round(a.successRate * 100)}%`;
+      const sev = report.findings.filter((f) => f.intentId === intent.id).map((f) => f.severity);
+      const worst = sev.includes("high") ? "high" : sev.includes("medium") ? "medium" : sev.includes("low") ? "low" : "—";
+      lines.push(`| ${intent.goal} | ${steps} | ${vis(b)} → ${vis(c)} | ${possible(b)} → ${possible(c)} | ${worst} |`);
+    }
+    lines.push("");
+    for (const f of report.findings) {
+      lines.push(`- **[${f.severity}]** ${f.title}: ${fmt(f.baseline)} → ${fmt(f.candidate)}`);
+    }
+    if (report.findings.length > 0) lines.push("");
+    const asym = report.asymmetry.filter((a) => a.baseline !== undefined || a.candidate !== undefined);
+    const ratio = (v: number | undefined) => (v === undefined ? "n/a" : `${v.toFixed(1)}x`);
+    for (const a of asym) {
+      lines.push(
+        `- Asymmetry (${a.accept} vs ${a.reject}): ${ratio(a.baseline)} → ${ratio(a.candidate)} cost of saying no vs saying yes`,
+      );
+    }
+    if (asym.length > 0) lines.push("");
+  }
+  if (values["report-url"]) {
+    lines.push(`Full traces and screenshots: [workflow run artifact](${values["report-url"]}).`);
+    lines.push("");
+  }
+  lines.push("_Numbers come from recorded probe traces checked against final app state, never from a model's claim._");
+  return lines.join("\n") + "\n";
+}
+
+const outDir = path.resolve(
+  ROOT,
+  values.out ?? path.join("runs", `${new Date().toISOString().replace(/[:.]/g, "-")}-diff`),
+);
+await mkdir(outDir, { recursive: true });
+
+const contractPaths: string[] = [];
+if (values.target) {
+  const { config, dir } = await loadTargetConfig(path.resolve(ROOT, values.target));
+  assertDiffOracle(config, values.target);
+  const given = (flag: string) =>
+    process.argv.some((a) => a === `--${flag}` || a.startsWith(`--${flag}=`));
+  // Explicit CLI flags override the target file's URLs; otherwise use the file.
+  if (!given("baseline") && config.urls.baseline) values.baseline = config.urls.baseline;
+  if (!given("candidate") && config.urls.candidate) values.candidate = config.urls.candidate;
+  for (const c of config.contracts) contractPaths.push(path.relative(ROOT, path.resolve(dir, c)));
+} else {
+  contractPaths.push(values.contract!);
+}
+
+const results = [];
+for (const c of contractPaths) results.push(await runOneContract(c, outDir));
+
+const comment = renderComment(results);
+await writeFile(path.join(outDir, "comment.md"), comment);
+console.log(`\ntraces + reports: ${path.relative(process.cwd(), outDir)}`);
+console.log(`comment: ${path.relative(process.cwd(), path.join(outDir, "comment.md"))}`);
+
+process.exitCode = results.every((r) => r.report.passed) ? 0 : 1;
 
 /**
  * Copy a finished run into the report app's static data folder so the

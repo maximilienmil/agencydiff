@@ -4,3 +4,4 @@ runs/
 .env
 *.log
 .sam-cache/
+eval/results/traces/

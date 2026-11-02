@@ -68,18 +68,30 @@ fulfilled, or INFEASIBLE: when it cannot be done from the available UI.
 
 Do not guess hidden UI state and do not claim completion unless the screenshot supports it.`;
 
-interface MuseOptions {
+export interface MuseUsage {
+  inputTokens: number;
+  outputTokens: number;
+  calls: number;
+}
+
+export interface MuseOptions {
   apiKey: string;
   model?: string;
   baseUrl?: string;
   maxSteps?: number;
   /** Read-only discovery: extra safety instructions, no submits or purchases. */
   audit?: boolean;
+  /** Keep only the last N screenshots in the request history. Unset means
+   *  server-side chaining (previous_response_id) with full history. */
+  historyLimit?: number;
+  /** Accumulates API usage across run() calls when provided. */
+  usage?: MuseUsage;
 }
 
 type OutputItem =
   | {
       type: "computer_call";
+      id?: string;
       call_id: string;
       actions: Action[];
       pending_safety_checks?: { id: string; code: string; message: string }[];
@@ -114,10 +126,23 @@ export class MuseDriver implements Driver {
       body: JSON.stringify({ model: this.model, tools: [{ type: "computer" }], ...body }),
     });
     if (!res.ok) throw new Error(`Muse ${res.status}: ${await res.text()}`);
-    return res.json();
+    const json = (await res.json()) as {
+      id: string;
+      output: OutputItem[];
+      usage?: { input_tokens?: number; output_tokens?: number };
+    };
+    if (this.opts.usage && json.usage) {
+      this.opts.usage.inputTokens += json.usage.input_tokens ?? 0;
+      this.opts.usage.outputTokens += json.usage.output_tokens ?? 0;
+      this.opts.usage.calls += 1;
+    }
+    return json;
   }
 
   async run(intent: IntentSpec, env: BrowserEnv, t0: number, initialPng: Buffer): Promise<DriverResult> {
+    if (this.opts.historyLimit !== undefined) {
+      return this.runWindowed(intent, env, t0, initialPng);
+    }
     const steps: TraceStep[] = [];
     const dataUrl = (png: Buffer) => `data:image/png;base64,${png.toString("base64")}`;
     try {
@@ -170,6 +195,104 @@ export class MuseDriver implements Driver {
             },
           ],
         });
+      }
+      return { steps, stoppedReason: "step_budget" };
+    } catch (e) {
+      return { steps, stoppedReason: "error", error: String(e) };
+    }
+  }
+
+  /**
+   * Computer-use loop with a bounded screenshot window. Turns chain through
+   * previous_response_id (the only continuation shape the API accepts), but
+   * every `historyLimit` screenshots the chain re-roots: a fresh request with
+   * the goal, a compact action summary, and the latest screenshot. Input
+   * tokens per call stay flat instead of growing with the probe.
+   */
+  private async runWindowed(
+    intent: IntentSpec,
+    env: BrowserEnv,
+    t0: number,
+    initialPng: Buffer,
+  ): Promise<DriverResult> {
+    const steps: TraceStep[] = [];
+    const dataUrl = (png: Buffer) => `data:image/png;base64,${png.toString("base64")}`;
+    const keep = Math.max(1, this.opts.historyLimit ?? 3);
+    const done: string[] = [];
+    let previousId: string | undefined;
+    let lastOutput: Record<string, unknown> | undefined;
+    let segmentShots = 0;
+    let latestPng = initialPng;
+    const agentText = (output: OutputItem[]): string =>
+      output
+        .flatMap((o) => ("content" in o ? o.content : []))
+        .map((c) => c.text ?? "")
+        .join("\n")
+        .trim();
+    try {
+      for (let i = 0; i < this.maxSteps; i++) {
+        const fresh = previousId === undefined;
+        const response = fresh
+          ? await this.respond({
+              instructions: this.instructions(),
+              input: [
+                {
+                  role: "user",
+                  content: [
+                    {
+                      type: "input_text",
+                      text:
+                        `My intention: ${intent.goal}` +
+                        (done.length
+                          ? `\nActions taken so far (do not repeat what already worked): ${done.join("; ")}`
+                          : ""),
+                    },
+                    { type: "input_image", image_url: dataUrl(latestPng) },
+                  ],
+                },
+              ],
+            })
+          : await this.respond({
+              previous_response_id: previousId,
+              input: [lastOutput!],
+            });
+        const call = response.output.find((o) => o.type === "computer_call") as
+          | Extract<OutputItem, { type: "computer_call" }>
+          | undefined;
+        if (!call) {
+          return { steps, stoppedReason: "agent_done", agentMessage: agentText(response.output) };
+        }
+        const checks = call.pending_safety_checks ?? [];
+        await env.execute(call.actions);
+        const { observation, png } = await env.observe();
+        steps.push({
+          index: steps.length,
+          tMs: Date.now() - t0,
+          actions: call.actions,
+          after: observation,
+          note: checks.length ? `safety checks acknowledged: ${checks.map((c) => c.code).join(", ")}` : undefined,
+        });
+        for (const a of call.actions) {
+          done.push(
+            a.type === "click" || a.type === "double_click"
+              ? `${a.type} (${a.x},${a.y})`
+              : a.type === "type"
+                ? `type "${a.text.slice(0, 40)}"`
+                : a.type,
+          );
+        }
+        latestPng = png;
+        lastOutput = {
+          type: "computer_call_output",
+          call_id: call.call_id,
+          acknowledged_safety_checks: checks,
+          output: { type: "computer_screenshot", image_url: dataUrl(png) },
+        };
+        segmentShots++;
+        // Re-root once the segment holds `keep` screenshots so the server
+        // never carries more than that many in one chain.
+        previousId = segmentShots >= keep ? undefined : response.id;
+        if (previousId === undefined) segmentShots = 0;
       }
       return { steps, stoppedReason: "step_budget" };
     } catch (e) {

@@ -73,7 +73,7 @@ jobs:
   # Optional deep probe: same diff with the Muse computer-use driver at k=3.
   # Runs only when the repo secret exists and the PR carries the label.
   muse:
-    if: contains(github.event.pull_request.labels.*.name, 'agencydiff:muse') && secrets.MODEL_API_KEY != ''
+    if: contains(github.event.pull_request.labels.*.name, 'agencydiff:muse')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -134,7 +134,7 @@ jobs:
   # job; never applies anything to the PR branch.
   propose-fix:
     needs: [scripted]
-    if: always() && needs.scripted.result == 'failure' && contains(github.event.pull_request.labels.*.name, 'agencydiff:fix') && secrets.MODEL_API_KEY != ''
+    if: always() && needs.scripted.result == 'failure' && contains(github.event.pull_request.labels.*.name, 'agencydiff:fix')
     runs-on: ubuntu-latest
     permissions:
       contents: read

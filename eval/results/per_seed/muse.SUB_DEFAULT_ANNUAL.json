@@ -23,59 +23,54 @@
     "missed": [],
     "unexpected": [
       {
-        "intentId": "terms",
-        "kind": "action_cost",
-        "title": "\"I want to see the renewal terms for Circle+ before deciding.\" takes more actions"
-      },
-      {
-        "intentId": "terms",
-        "kind": "navigation_depth",
-        "title": "\"I want to see the renewal terms for Circle+ before deciding.\" is buried deeper"
-      },
-      {
         "intentId": "resume",
         "kind": "action_cost",
         "title": "\"I cancelled Circle+ before and want it back.\" takes more actions"
+      },
+      {
+        "intentId": "resume",
+        "kind": "navigation_depth",
+        "title": "\"I cancelled Circle+ before and want it back.\" is buried deeper"
       }
     ],
     "oraclePassRate": {
       "subscription.subscribe": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.3333333333333333
+        "baseline": 1,
+        "candidate": 0.6666666666666666
       },
       "subscription.decline": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.3333333333333333
+        "baseline": 0,
+        "candidate": 0.6666666666666666
       },
       "subscription.cancel": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.terms": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.resume": {
-        "baseline": 0.3333333333333333,
-        "candidate": 1
+        "baseline": 0.6666666666666666,
+        "candidate": 0.3333333333333333
       }
     }
   },
   "variance": {
-    "SUB_DEFAULT_ANNUAL/subscription.subscribe/baseline": 4.666666666666667,
-    "SUB_DEFAULT_ANNUAL/subscription.subscribe/candidate": 14.888888888888888,
-    "SUB_DEFAULT_ANNUAL/subscription.decline/baseline": 0,
-    "SUB_DEFAULT_ANNUAL/subscription.decline/candidate": 0.2222222222222222,
-    "SUB_DEFAULT_ANNUAL/subscription.cancel/baseline": 0,
-    "SUB_DEFAULT_ANNUAL/subscription.cancel/candidate": 0.2222222222222222,
-    "SUB_DEFAULT_ANNUAL/subscription.terms/baseline": 10.888888888888891,
-    "SUB_DEFAULT_ANNUAL/subscription.terms/candidate": 3.555555555555556,
-    "SUB_DEFAULT_ANNUAL/subscription.resume/baseline": 4.666666666666667,
-    "SUB_DEFAULT_ANNUAL/subscription.resume/candidate": 1.5555555555555556
+    "SUB_DEFAULT_ANNUAL/subscription.subscribe/baseline": 0.888888888888889,
+    "SUB_DEFAULT_ANNUAL/subscription.subscribe/candidate": 8,
+    "SUB_DEFAULT_ANNUAL/subscription.decline/baseline": 0.2222222222222222,
+    "SUB_DEFAULT_ANNUAL/subscription.decline/candidate": 10.888888888888888,
+    "SUB_DEFAULT_ANNUAL/subscription.cancel/baseline": 0.2222222222222222,
+    "SUB_DEFAULT_ANNUAL/subscription.cancel/candidate": 0.6666666666666666,
+    "SUB_DEFAULT_ANNUAL/subscription.terms/baseline": 0.888888888888889,
+    "SUB_DEFAULT_ANNUAL/subscription.terms/candidate": 2.6666666666666665,
+    "SUB_DEFAULT_ANNUAL/subscription.resume/baseline": 10.888888888888891,
+    "SUB_DEFAULT_ANNUAL/subscription.resume/candidate": 0
   },
   "tokens": {
-    "input": 667902,
-    "output": 103943,
-    "calls": 315
+    "input": 1015030,
+    "output": 86677,
+    "calls": 276
   }
 }

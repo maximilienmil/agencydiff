@@ -26,42 +26,42 @@
     "unexpected": [],
     "oraclePassRate": {
       "screen_time.set_limit": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "screen_time.reminders": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "screen_time.remove_limit": {
-        "baseline": 1,
-        "candidate": 0.6666666666666666
+        "baseline": 0,
+        "candidate": 0
       },
       "screen_time.check_usage": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "screen_time.shorten": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       }
     }
   },
   "variance": {
-    "ST_HIDE_REMOVE/screen_time.set_limit/baseline": 2.6666666666666665,
+    "ST_HIDE_REMOVE/screen_time.set_limit/baseline": 0,
     "ST_HIDE_REMOVE/screen_time.set_limit/candidate": 0,
-    "ST_HIDE_REMOVE/screen_time.reminders/baseline": 0.8888888888888888,
-    "ST_HIDE_REMOVE/screen_time.reminders/candidate": 8.666666666666666,
-    "ST_HIDE_REMOVE/screen_time.remove_limit/baseline": 5.5555555555555545,
-    "ST_HIDE_REMOVE/screen_time.remove_limit/candidate": 0.6666666666666666,
-    "ST_HIDE_REMOVE/screen_time.check_usage/baseline": 2,
-    "ST_HIDE_REMOVE/screen_time.check_usage/candidate": 8.666666666666666,
-    "ST_HIDE_REMOVE/screen_time.shorten/baseline": 1.5555555555555554,
-    "ST_HIDE_REMOVE/screen_time.shorten/candidate": 2.6666666666666665
+    "ST_HIDE_REMOVE/screen_time.reminders/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.reminders/candidate": 0,
+    "ST_HIDE_REMOVE/screen_time.remove_limit/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.remove_limit/candidate": 0,
+    "ST_HIDE_REMOVE/screen_time.check_usage/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.check_usage/candidate": 0,
+    "ST_HIDE_REMOVE/screen_time.shorten/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.shorten/candidate": 0
   },
   "tokens": {
-    "input": 447129,
-    "output": 60380,
-    "calls": 219
+    "input": 0,
+    "output": 0,
+    "calls": 0
   }
 }

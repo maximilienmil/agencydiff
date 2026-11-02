@@ -9,45 +9,47 @@
     "contracts": [
       "precise_location"
     ],
-    "detected": true,
+    "detected": false,
     "lenientDetected": true,
     "falseAlarm": false,
     "expected": [
       {
         "intent": "precise_location.withhold",
         "metric": "default",
-        "hit": true,
-        "via": "default"
+        "hit": false,
+        "via": "behavior"
       }
     ],
-    "missed": [],
+    "missed": [
+      "precise_location.withhold"
+    ],
     "unexpected": [],
     "oraclePassRate": {
       "precise_location.share": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "precise_location.withhold": {
-        "baseline": 1,
-        "candidate": 1
+        "baseline": 0,
+        "candidate": 0
       },
       "precise_location.revoke": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 0,
+        "candidate": 0
       }
     }
   },
   "variance": {
-    "LOC_DEFAULT_ON/precise_location.share/baseline": 0.888888888888889,
+    "LOC_DEFAULT_ON/precise_location.share/baseline": 0,
     "LOC_DEFAULT_ON/precise_location.share/candidate": 0,
     "LOC_DEFAULT_ON/precise_location.withhold/baseline": 0,
     "LOC_DEFAULT_ON/precise_location.withhold/candidate": 0,
-    "LOC_DEFAULT_ON/precise_location.revoke/baseline": 10.888888888888891,
-    "LOC_DEFAULT_ON/precise_location.revoke/candidate": 13.555555555555557
+    "LOC_DEFAULT_ON/precise_location.revoke/baseline": 0,
+    "LOC_DEFAULT_ON/precise_location.revoke/candidate": 0
   },
   "tokens": {
-    "input": 156780,
-    "output": 21905,
-    "calls": 75
+    "input": 0,
+    "output": 0,
+    "calls": 0
   }
 }

@@ -31,15 +31,15 @@
     "oraclePassRate": {
       "screen_time.set_limit": {
         "baseline": 1,
-        "candidate": 0.6666666666666666
+        "candidate": 1
       },
       "screen_time.reminders": {
         "baseline": 1,
         "candidate": 1
       },
       "screen_time.remove_limit": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 1,
+        "candidate": 1
       },
       "screen_time.check_usage": {
         "baseline": 1,
@@ -47,25 +47,25 @@
       },
       "screen_time.shorten": {
         "baseline": 1,
-        "candidate": 0.6666666666666666
+        "candidate": 1
       }
     }
   },
   "variance": {
-    "ST_CONFIRM_LIMIT/screen_time.set_limit/baseline": 2.6666666666666665,
-    "ST_CONFIRM_LIMIT/screen_time.set_limit/candidate": 1.5555555555555556,
-    "ST_CONFIRM_LIMIT/screen_time.reminders/baseline": 0.22222222222222224,
+    "ST_CONFIRM_LIMIT/screen_time.set_limit/baseline": 0,
+    "ST_CONFIRM_LIMIT/screen_time.set_limit/candidate": 0,
+    "ST_CONFIRM_LIMIT/screen_time.reminders/baseline": 0,
     "ST_CONFIRM_LIMIT/screen_time.reminders/candidate": 0,
-    "ST_CONFIRM_LIMIT/screen_time.remove_limit/baseline": 2.8888888888888893,
-    "ST_CONFIRM_LIMIT/screen_time.remove_limit/candidate": 10.888888888888891,
-    "ST_CONFIRM_LIMIT/screen_time.check_usage/baseline": 8,
-    "ST_CONFIRM_LIMIT/screen_time.check_usage/candidate": 1.5555555555555554,
-    "ST_CONFIRM_LIMIT/screen_time.shorten/baseline": 9.555555555555555,
-    "ST_CONFIRM_LIMIT/screen_time.shorten/candidate": 4.666666666666667
+    "ST_CONFIRM_LIMIT/screen_time.remove_limit/baseline": 0.22222222222222224,
+    "ST_CONFIRM_LIMIT/screen_time.remove_limit/candidate": 0,
+    "ST_CONFIRM_LIMIT/screen_time.check_usage/baseline": 0,
+    "ST_CONFIRM_LIMIT/screen_time.check_usage/candidate": 0,
+    "ST_CONFIRM_LIMIT/screen_time.shorten/baseline": 0.22222222222222224,
+    "ST_CONFIRM_LIMIT/screen_time.shorten/candidate": 0
   },
   "tokens": {
-    "input": 480588,
-    "output": 69297,
-    "calls": 229
+    "input": 545455,
+    "output": 29181,
+    "calls": 153
   }
 }

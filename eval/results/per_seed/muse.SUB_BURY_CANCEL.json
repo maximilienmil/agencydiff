@@ -23,59 +23,54 @@
     "missed": [],
     "unexpected": [
       {
-        "intentId": "subscribe",
-        "kind": "goal_unreachable",
-        "title": "\"I want to subscribe to Circle+.\" succeeds less often"
-      },
-      {
-        "intentId": "decline",
-        "kind": "navigation_depth",
-        "title": "\"I do not want Circle+. Decline the offer.\" is buried deeper"
-      },
-      {
-        "intentId": "terms",
+        "intentId": "resume",
         "kind": "action_cost",
-        "title": "\"I want to see the renewal terms for Circle+ before deciding.\" takes more actions"
+        "title": "\"I cancelled Circle+ before and want it back.\" takes more actions"
+      },
+      {
+        "intentId": "resume",
+        "kind": "navigation_depth",
+        "title": "\"I cancelled Circle+ before and want it back.\" is buried deeper"
       }
     ],
     "oraclePassRate": {
       "subscription.subscribe": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0
+        "baseline": 1,
+        "candidate": 0.6666666666666666
       },
       "subscription.decline": {
-        "baseline": 0.6666666666666666,
+        "baseline": 0,
         "candidate": 0.3333333333333333
       },
       "subscription.cancel": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.terms": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.3333333333333333
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.resume": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.3333333333333333
+        "baseline": 1,
+        "candidate": 1
       }
     }
   },
   "variance": {
-    "SUB_BURY_CANCEL/subscription.subscribe/baseline": 1.5555555555555556,
-    "SUB_BURY_CANCEL/subscription.subscribe/candidate": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.subscribe/baseline": 0,
+    "SUB_BURY_CANCEL/subscription.subscribe/candidate": 8,
     "SUB_BURY_CANCEL/subscription.decline/baseline": 0.2222222222222222,
-    "SUB_BURY_CANCEL/subscription.decline/candidate": 0.888888888888889,
-    "SUB_BURY_CANCEL/subscription.cancel/baseline": 1.5555555555555556,
-    "SUB_BURY_CANCEL/subscription.cancel/candidate": 0.6666666666666666,
-    "SUB_BURY_CANCEL/subscription.terms/baseline": 6.888888888888888,
-    "SUB_BURY_CANCEL/subscription.terms/candidate": 0.6666666666666666,
-    "SUB_BURY_CANCEL/subscription.resume/baseline": 9.555555555555555,
-    "SUB_BURY_CANCEL/subscription.resume/candidate": 0.2222222222222222
+    "SUB_BURY_CANCEL/subscription.decline/candidate": 0,
+    "SUB_BURY_CANCEL/subscription.cancel/baseline": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.cancel/candidate": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.terms/baseline": 0.888888888888889,
+    "SUB_BURY_CANCEL/subscription.terms/candidate": 0.888888888888889,
+    "SUB_BURY_CANCEL/subscription.resume/baseline": 8,
+    "SUB_BURY_CANCEL/subscription.resume/candidate": 0
   },
   "tokens": {
-    "input": 715253,
-    "output": 113302,
-    "calls": 341
+    "input": 1028677,
+    "output": 87778,
+    "calls": 278
   }
 }

@@ -21,26 +21,15 @@
       }
     ],
     "missed": [],
-    "unexpected": [
-      {
-        "intentId": "share",
-        "kind": "action_cost",
-        "title": "\"I want to share my precise location with this app.\" takes more actions"
-      },
-      {
-        "intentId": "share",
-        "kind": "navigation_depth",
-        "title": "\"I want to share my precise location with this app.\" is buried deeper"
-      }
-    ],
+    "unexpected": [],
     "oraclePassRate": {
       "precise_location.share": {
         "baseline": 1,
-        "candidate": 0.6666666666666666
+        "candidate": 1
       },
       "precise_location.withhold": {
         "baseline": 1,
-        "candidate": 0.6666666666666666
+        "candidate": 1
       },
       "precise_location.revoke": {
         "baseline": 1,
@@ -50,15 +39,15 @@
   },
   "variance": {
     "LOC_HIDE_DECLINE/precise_location.share/baseline": 0,
-    "LOC_HIDE_DECLINE/precise_location.share/candidate": 4.222222222222222,
-    "LOC_HIDE_DECLINE/precise_location.withhold/baseline": 10.888888888888888,
-    "LOC_HIDE_DECLINE/precise_location.withhold/candidate": 6.888888888888888,
+    "LOC_HIDE_DECLINE/precise_location.share/candidate": 0.8888888888888888,
+    "LOC_HIDE_DECLINE/precise_location.withhold/baseline": 0,
+    "LOC_HIDE_DECLINE/precise_location.withhold/candidate": 0,
     "LOC_HIDE_DECLINE/precise_location.revoke/baseline": 0,
-    "LOC_HIDE_DECLINE/precise_location.revoke/candidate": 0.888888888888889
+    "LOC_HIDE_DECLINE/precise_location.revoke/candidate": 0
   },
   "tokens": {
-    "input": 219088,
-    "output": 34897,
-    "calls": 105
+    "input": 193048,
+    "output": 14983,
+    "calls": 55
   }
 }

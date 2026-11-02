@@ -24,42 +24,42 @@
     "unexpected": [],
     "oraclePassRate": {
       "subscription.subscribe": {
-        "baseline": 1,
+        "baseline": 0.6666666666666666,
         "candidate": 1
       },
       "subscription.decline": {
-        "baseline": 0.6666666666666666,
-        "candidate": 0.6666666666666666
+        "baseline": 1,
+        "candidate": 1
       },
       "subscription.cancel": {
-        "baseline": 0.6666666666666666,
+        "baseline": 1,
         "candidate": 1
       },
       "subscription.terms": {
-        "baseline": 0.6666666666666666,
+        "baseline": 1,
         "candidate": 0
       },
       "subscription.resume": {
-        "baseline": 0.6666666666666666,
-        "candidate": 1
+        "baseline": 0.3333333333333333,
+        "candidate": 0.6666666666666666
       }
     }
   },
   "variance": {
-    "SUB_TERMS_AFTER_CHECKOUT/subscription.subscribe/baseline": 8.222222222222221,
-    "SUB_TERMS_AFTER_CHECKOUT/subscription.subscribe/candidate": 0.8888888888888888,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.subscribe/baseline": 2.6666666666666665,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.subscribe/candidate": 0.888888888888889,
     "SUB_TERMS_AFTER_CHECKOUT/subscription.decline/baseline": 0.2222222222222222,
-    "SUB_TERMS_AFTER_CHECKOUT/subscription.decline/candidate": 0.2222222222222222,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.decline/candidate": 3.555555555555556,
     "SUB_TERMS_AFTER_CHECKOUT/subscription.cancel/baseline": 0.2222222222222222,
-    "SUB_TERMS_AFTER_CHECKOUT/subscription.cancel/candidate": 0.888888888888889,
-    "SUB_TERMS_AFTER_CHECKOUT/subscription.terms/baseline": 2.6666666666666665,
-    "SUB_TERMS_AFTER_CHECKOUT/subscription.terms/candidate": 0.888888888888889,
-    "SUB_TERMS_AFTER_CHECKOUT/subscription.resume/baseline": 4.222222222222222,
-    "SUB_TERMS_AFTER_CHECKOUT/subscription.resume/candidate": 2.6666666666666665
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.cancel/candidate": 0.2222222222222222,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.terms/baseline": 0.8888888888888888,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.terms/candidate": 0.8888888888888888,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.resume/baseline": 0.2222222222222222,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.resume/candidate": 11.555555555555557
   },
   "tokens": {
-    "input": 623291,
-    "output": 95277,
-    "calls": 300
+    "input": 925142,
+    "output": 83288,
+    "calls": 251
   }
 }

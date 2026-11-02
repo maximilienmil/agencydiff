@@ -1,10 +1,9 @@
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import type { VideoData, FindingData } from "./types.js";
+import type { VideoData } from "./types.js";
 
 // Every number in the film is read from the repo's own evidence files at
-// render time. Nothing is hard-coded: a re-render after a new eval run picks
-// up the new numbers, and anything missing renders as [PENDING].
+// render time. Anything missing renders as [PENDING].
 
 function readJson<T>(path: string): T | null {
   if (!existsSync(path)) return null;
@@ -24,8 +23,13 @@ const str = (v: unknown): string | null =>
   v === null || v === undefined ? null : String(v);
 
 interface SummaryJson {
-  agencydiff?: { scripted?: { caught?: string; falseAlarms?: string } | null; muse?: unknown };
-  judge?: { caught?: string; falseAlarms?: string; consistencyK3?: { agreement?: number } } | null;
+  agencydiff?: {
+    scripted?: { caught?: string; falseAlarms?: string; costUsd?: number } | null;
+  } | null;
+  judge?: {
+    walkthrough?: { caught?: string } | null;
+    firstScreens?: { caught?: string } | null;
+  } | null;
 }
 
 interface SusJson {
@@ -34,83 +38,129 @@ interface SusJson {
 
 interface ReportJson {
   aggregates?: Array<{ intentId: string; variant: string; actionCount?: number; initiallyVisible?: boolean }>;
-  asymmetry?: Array<{ baseline?: number; candidate?: number }>;
-  findings?: Array<{ intentId?: string; kind: string; title: string; baseline?: unknown; candidate?: unknown }>;
+  findings?: Array<{ intentId?: string; kind: string; title: string }>;
 }
 
-function dmvTimeToFact(auditMd: string | null): string | null {
+interface AttemptJson {
+  arm?: string;
+  task?: string;
+  confirmedRegressions?: string[] | null;
+  gateClaim?: string;
+}
+
+interface TasksJson {
+  tasks?: Array<{ id: string; title: string; prompt: string }>;
+}
+
+function money(v: unknown): string | null {
+  if (typeof v !== "number") return null;
+  return v === 0 ? "$0" : `$${v.toFixed(2)}`;
+}
+
+function agentGate(attempts: AttemptJson[] | undefined): { noGate: string | null; gated: string | null } {
+  if (!attempts) return { noGate: null, gated: null };
+  const count = (arm: string) =>
+    attempts.filter((a) => a.arm === arm && (a.confirmedRegressions ?? []).length > 0).length;
+  const denom = (arm: string) => attempts.filter((a) => a.arm === arm).length;
+  const na = denom("a");
+  const nb = denom("b");
+  return {
+    noGate: na ? `${count("a")}/${na}` : null,
+    gated: nb ? `${count("b")}/${nb}` : null,
+  };
+}
+
+function auditRealId(auditMd: string | null): string | null {
   if (!auditMd) return null;
-  // The DMV before/after table in docs/audit.md: real-id-docs is the one
-  // Intent whose time-to-fact improved on both sides of the comparison.
   const row = auditMd
     .split("\n")
-    .find((l) => l.startsWith("| real-id-docs") && l.includes("/3"));
+    .find((l) => l.startsWith("| real-id-docs") && l.includes("→"));
   if (!row) return null;
   const cells = row.split("|").map((c) => c.trim());
-  // | Intent | Success before -> after | To fact before -> after | ... |
-  return cells[3] ? `REAL ID documents: ${cells[3].replaceAll("→", "->")}` : null;
+  // | Intent | Success before → after | To fact before → after | ... |
+  if (!cells[2] || !cells[3]) return null;
+  const toFact = cells[3].replace(/^—\s*→\s*/, "");
+  return `REAL ID documents: ${cells[2]} · ${toFact} actions to fact`;
+}
+
+function diffExcerpt(root: string, name: string, maxLines: number): string[] {
+  const text = readText(join(root, "eval/agent-prs/demo", name));
+  if (!text) return [];
+  return text
+    .split("\n")
+    .filter((l) => l.startsWith("+") || l.startsWith("-") || l.startsWith("@@"))
+    .filter((l) => !l.startsWith("+++") && !l.startsWith("---"))
+    .slice(0, maxLines)
+    .map((l) => l.slice(0, 88));
+}
+
+function firstFindingTitle(root: string, decision: string): string | null {
+  const report = readJson<ReportJson>(join(root, `apps/report/public/data/${decision}/report.json`));
+  const findings = report?.findings ?? [];
+  // The film's red card names the visibility finding ("no longer on first
+  // screen"); fall back to the first finding when there is none.
+  return findings.find((f) => f.kind === "visibility")?.title ?? findings[0]?.title ?? null;
+}
+
+function withholdAggregates(root: string): {
+  declineBaseline: string | null;
+  declineCandidate: string | null;
+  declineVisibility: string | null;
+} {
+  const report = readJson<ReportJson>(join(root, "apps/report/public/data/precise_location/report.json"));
+  const agg = (variant: string) =>
+    report?.aggregates?.find((a) => a.intentId === "withhold" && a.variant === variant);
+  const candidate = agg("candidate");
+  return {
+    declineBaseline: str(agg("baseline")?.actionCount),
+    declineCandidate: str(candidate?.actionCount),
+    declineVisibility:
+      candidate?.initiallyVisible === undefined
+        ? null
+        : candidate.initiallyVisible
+          ? "visible"
+          : "hidden",
+  };
 }
 
 export function loadVideoData(repoRoot: string): VideoData {
   const summary = readJson<SummaryJson>(join(repoRoot, "eval/results/summary.json"));
   const sus = readJson<SusJson>(join(repoRoot, "eval/susbench/results.json"));
   const auditMd = readText(join(repoRoot, "docs/audit.md"));
+  const tasks = readJson<TasksJson>(join(repoRoot, "eval/agent-prs/tasks.json"));
+  const agentPrs = readJson<{ attempts?: AttemptJson[] }>(join(repoRoot, "eval/agent-prs/results.json"));
+  const gate = agentGate(agentPrs?.attempts);
+  const withhold = withholdAggregates(repoRoot);
+  const onboard = tasks?.tasks?.find((t) => t.id === "onboard") ?? null;
 
-  const index = readJson<{ runs?: Array<{ id: string }> }>(
-    join(repoRoot, "apps/report/public/data/index.json"),
-  );
-  const runId = index?.runs?.[0]?.id;
-  const report = runId
-    ? readJson<ReportJson>(join(repoRoot, `apps/report/public/data/${runId}/report.json`))
-    : null;
-
-  const agg = (intent: string, variant: string) =>
-    report?.aggregates?.find((a) => a.intentId === intent && a.variant === variant);
-  const withholdB = agg("withhold", "baseline");
-  const withholdC = agg("withhold", "candidate");
-  const revokeB = agg("revoke", "baseline");
-  const revokeC = agg("revoke", "candidate");
-  const asym = report?.asymmetry?.[0];
-
-  const findings: FindingData[] = (report?.findings ?? []).slice(0, 5).map((f) => ({
-    intentId: f.intentId ?? "pair",
-    kind: f.kind,
-    title: f.title,
-    baseline: str(f.baseline) ?? "—",
-    candidate: str(f.candidate) ?? "—",
-  }));
-
-  const agreement = summary?.judge?.consistencyK3?.agreement;
+  const gateRow = summary?.agencydiff?.scripted;
   return {
-    scriptedCaught: summary?.agencydiff?.scripted?.caught ?? null,
-    scriptedFalseAlarms: summary?.agencydiff?.scripted?.falseAlarms ?? null,
-    judgeCaught: summary?.judge?.caught ?? null,
-    judgeFalseAlarms: summary?.judge?.falseAlarms ?? null,
-    judgeConsistency:
-      typeof agreement === "number" ? `${Math.round(agreement * 100)}% agreement (k=3)` : null,
-    museProbes: summary?.agencydiff?.muse ? "run recorded" : null,
+    agentNoGate: gate.noGate,
+    agentGated: gate.gated,
+    gateCaught: gateRow?.caught ?? null,
+    gateFalseAlarms: gateRow?.falseAlarms ?? null,
+    gateCost: gateRow ? money(gateRow.costUsd) : null,
+    screensCaught: summary?.judge?.firstScreens?.caught ?? null,
+    walkthroughCaught: summary?.judge?.walkthrough?.caught ?? null,
     susDetected:
       sus?.summary && sus.summary.detectedPairs !== undefined && sus.summary.injectedPairs !== undefined
-        ? `${sus.summary.detectedPairs}/${sus.summary.injectedPairs} injected patterns`
+        ? `${sus.summary.detectedPairs}/${sus.summary.injectedPairs}`
         : null,
     susFalseAlarms:
       sus?.summary?.falseAlarms !== undefined && sus?.summary?.controlPairs !== undefined
-        ? `${sus.summary.falseAlarms}/${sus.summary.controlPairs} controls`
+        ? `${sus.summary.falseAlarms}/${sus.summary.controlPairs}`
         : null,
-    dmvTimeToFact: dmvTimeToFact(auditMd),
-    declineBaseline: str(withholdB?.actionCount),
-    declineCandidate: str(withholdC?.actionCount),
-    declineVisibility:
-      withholdC?.initiallyVisible === undefined
-        ? null
-        : withholdC.initiallyVisible
-          ? "visible"
-          : "hidden",
-    revokeBaseline: str(revokeB?.actionCount),
-    revokeCandidate: str(revokeC?.actionCount),
-    asymmetryBaseline: str(asym?.baseline),
-    asymmetryCandidate: str(asym?.candidate),
-    findings,
+    auditRealId: auditRealId(auditMd),
+    onboardPrompt: onboard?.prompt ?? null,
+    onboardTitle: onboard?.title ?? null,
+    regressingDiff: diffExcerpt(repoRoot, "onboard-regressing-armA-attempt0.diff", 12),
+    fixedDiff: diffExcerpt(repoRoot, "onboard-fixed-armB-attempt0.diff", 12),
+    gateClaimB: agentPrs?.attempts?.find((a) => a.arm === "b" && a.task === "onboard")?.gateClaim ?? null,
+    withholdFinding: firstFindingTitle(repoRoot, "precise_location"),
+    teenFinding: firstFindingTitle(repoRoot, "teen_dm"),
+    declineBaseline: withhold.declineBaseline,
+    declineCandidate: withhold.declineCandidate,
+    declineVisibility: withhold.declineVisibility,
     repoUrl: "github.com/maximilianmilovidov/agencydiff",
   };
 }

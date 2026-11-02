@@ -16,3 +16,4 @@ packages/cli/runs/
 .auth/
 apps/report/public/data/benchmark/
 apps/report/tests/overview-*.png
+video/public/vo/

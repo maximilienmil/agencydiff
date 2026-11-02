@@ -1,0 +1,326 @@
+{
+  "id": "license_renewal_info.real-id-docs.baseline.1",
+  "decision": "license_renewal_info",
+  "intentId": "real-id-docs",
+  "variant": "baseline",
+  "repeat": 1,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-01T23:57:52.750Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 4369,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 364,
+          "y": 65
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 12621,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 365,
+          "y": 58
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 24496,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 214,
+          "y": 537
+        },
+        {
+          "text": "REAL ID documents",
+          "type": "type"
+        },
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 43414,
+      "actions": [
+        {
+          "keys": [
+            "Escape"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 54797,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "l"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 66794,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 80005,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 211,
+          "y": 539
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "text": "REAL ID",
+          "type": "type"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 98456,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "l"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "text": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/real-id/\n",
+          "type": "type"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 117662,
+      "actions": [
+        {
+          "keys": [
+            "Ctrl",
+            "t"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 138146,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 150661,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 215,
+          "y": 593
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 189583,
+      "actions": [
+        {
+          "text": "REAL ID",
+          "type": "type"
+        },
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 210397,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 292,
+          "y": 832
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "error",
+  "error": "Error: audit-blocked: refusing click at 215,648 (button)"
+}

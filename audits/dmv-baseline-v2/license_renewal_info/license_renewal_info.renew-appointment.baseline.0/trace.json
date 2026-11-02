@@ -1,0 +1,593 @@
+{
+  "id": "license_renewal_info.renew-appointment.baseline.0",
+  "decision": "license_renewal_info",
+  "intentId": "renew-appointment",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T00:08:07.305Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 8955,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 208,
+          "y": 592
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 19503,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 177,
+          "y": 594
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 30221,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      }
+    },
+    {
+      "index": 3,
+      "tMs": 44433,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 215,
+          "y": 594
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 55018,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "005.png"
+      }
+    },
+    {
+      "index": 5,
+      "tMs": 65411,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 359,
+          "y": 28
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 84576,
+      "actions": [
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 95702,
+      "actions": [
+        {
+          "keys": [
+            "Escape"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 113659,
+      "actions": [
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 125625,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "010.png"
+      }
+    },
+    {
+      "index": 10,
+      "tMs": 136315,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 211,
+          "y": 595
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 160224,
+      "actions": [
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 176056,
+      "actions": [
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 13,
+      "tMs": 194851,
+      "actions": [
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "014.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 14,
+      "tMs": 209263,
+      "actions": [
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        },
+        {
+          "keys": [
+            "Shift",
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "015.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 15,
+      "tMs": 277459,
+      "actions": [
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "016.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 16,
+      "tMs": 301283,
+      "actions": [
+        {
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "017.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 17,
+      "tMs": 321438,
+      "actions": [
+        {
+          "text": "schedule an appointment",
+          "type": "type"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "018.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 18,
+      "tMs": 337601,
+      "actions": [
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment",
+        "tags": [],
+        "screenshot": "019.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 19,
+      "tMs": 352344,
+      "actions": [
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment",
+        "tags": [],
+        "screenshot": "020.png"
+      }
+    },
+    {
+      "index": 20,
+      "tMs": 373958,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment",
+        "tags": [],
+        "screenshot": "021.png"
+      }
+    },
+    {
+      "index": 21,
+      "tMs": 399026,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 79,
+          "y": 489
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment",
+        "tags": [],
+        "screenshot": "022.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 22,
+      "tMs": 418465,
+      "actions": [
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment",
+        "tags": [],
+        "screenshot": "023.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 23,
+      "tMs": 441361,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 79,
+          "y": 490
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment",
+        "tags": [],
+        "screenshot": "024.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 24,
+      "tMs": 468766,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 4,
+          "type": "scroll",
+          "x": 201,
+          "y": 601
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/?s=schedule+an+appointment",
+        "tags": [],
+        "screenshot": "025.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "step_budget"
+}

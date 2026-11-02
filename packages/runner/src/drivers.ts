@@ -2,6 +2,11 @@ import type { Action, IntentSpec, TraceStep } from "@agencydiff/core";
 import { AUDIT_INSTRUCTIONS } from "./auditGuard.js";
 import { PROD_SAFE_INSTRUCTIONS } from "./prodSafe.js";
 import { AuditBlockedError, type BrowserEnv } from "./env.js";
+import type { MobileEnv } from "./mobile.js";
+
+/** Either probe environment. MuseDriver only uses execute/observe, which
+ *  both provide; ScriptedDriver needs a browser page and stays web-only. */
+export type ProbeEnv = BrowserEnv | MobileEnv;
 
 export interface DriverResult {
   steps: TraceStep[];
@@ -26,7 +31,7 @@ export interface Driver {
   model?: string;
   run(
     intent: IntentSpec,
-    env: BrowserEnv,
+    env: ProbeEnv,
     t0: number,
     initialPng: Buffer,
     hooks?: DriverHooks,
@@ -45,13 +50,16 @@ export class ScriptedDriver implements Driver {
 
   async run(
     intent: IntentSpec,
-    env: BrowserEnv,
+    env: ProbeEnv,
     t0: number,
     _initialPng?: Buffer,
     hooks?: DriverHooks,
   ): Promise<DriverResult> {
     const steps: TraceStep[] = [];
     const satisfiedFlags: boolean[] = [];
+    if (!("page" in env)) {
+      return { steps, stoppedReason: "error", error: "scripted driver needs a browser env" };
+    }
     for (const tag of this.path(intent)) {
       // A control a regression removed never appears: record it as an error
       // trace (which the diff reports as goal_unreachable) instead of throwing.
@@ -100,6 +108,23 @@ fulfilled, or INFEASIBLE: when it cannot be done from the available UI.
 
 Do not guess hidden UI state and do not claim completion unless the screenshot supports it.`;
 
+const ANDROID_PROMPT = `You are a computer-use agent operating a native Android app on a phone. You receive
+screenshots and choose the next action or actions.
+
+Coordinates are pixels in the screenshot you were last shown: (0, 0) is the top-left. Click
+the center of the target element.
+
+You are acting on behalf of a user who has one specific intention. Carry out exactly that
+intention, using only what is visible on screen. Do not change anything unrelated to it.
+
+Return a short batch of actions only when they do not depend on intermediate visual
+feedback. Do not batch across screen transitions or dialogs.
+
+Finish by replying with a normal message that starts with DONE: when the intention is visibly
+fulfilled, or INFEASIBLE: when it cannot be done from the available UI.
+
+Do not guess hidden UI state and do not claim completion unless the screenshot supports it.`;
+
 export interface MuseUsage {
   inputTokens: number;
   outputTokens: number;
@@ -111,6 +136,8 @@ export interface MuseOptions {
   model?: string;
   baseUrl?: string;
   maxSteps?: number;
+  /** Device description for the system prompt: web (default) or android. */
+  target?: "web" | "android";
   /** Read-only discovery: extra safety instructions, no submits or purchases. */
   audit?: boolean;
   /** Production-safe probing: allow-listed settings only, restores after. */
@@ -157,7 +184,8 @@ export class MuseDriver implements Driver {
     let extra = "";
     if (this.opts.audit) extra += `\n\n${AUDIT_INSTRUCTIONS}`;
     if (this.opts.prodSafe) extra += `\n\n${PROD_SAFE_INSTRUCTIONS}`;
-    return `${SYSTEM_PROMPT}${extra}`;
+    const base = this.opts.target === "android" ? ANDROID_PROMPT : SYSTEM_PROMPT;
+    return `${base}${extra}`;
   }
 
   private async respond(body: Record<string, unknown>): Promise<{ id: string; output: OutputItem[] }> {
@@ -198,7 +226,7 @@ export class MuseDriver implements Driver {
 
   async run(
     intent: IntentSpec,
-    env: BrowserEnv,
+    env: ProbeEnv,
     t0: number,
     initialPng: Buffer,
     hooks?: DriverHooks,
@@ -282,7 +310,7 @@ export class MuseDriver implements Driver {
    */
   private async runWindowed(
     intent: IntentSpec,
-    env: BrowserEnv,
+    env: ProbeEnv,
     t0: number,
     initialPng: Buffer,
     hooks?: DriverHooks,

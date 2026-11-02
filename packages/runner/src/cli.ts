@@ -51,6 +51,13 @@ const { values } = parseArgs({
     "storage-state": { type: "string" },
     // Like --no-export: Node's parseArgs has no automatic --no- negation.
     "no-restore": { type: "boolean", default: false },
+    /** "web" (default) drives a browser; "android" drives the native build
+     *  on the attached emulator via MobileEnv. */
+    platform: { type: "string", default: "web" },
+    /** Comma list of variants to probe (default "baseline,candidate"). */
+    variants: { type: "string", default: "baseline,candidate" },
+    /** adb serial for `adb -s`. Defaults to the single attached device. */
+    serial: { type: "string" },
   },
 });
 
@@ -71,6 +78,7 @@ async function makeDriver(contractPath: string, variant: Variant): Promise<Drive
       apiKey,
       model: values.model ?? process.env.MUSE_MODEL,
       prodSafe: values["prod-safe"] === true,
+      target: values.platform === "android" ? "android" : "web",
     });
   }
   const refPath = path.join(ROOT, "eval", "reference_paths", path.basename(contractPath));
@@ -91,7 +99,15 @@ async function runOneContract(
   const only = values.intents?.split(",");
   const intents = contract.intents.filter((i) => !only || only.includes(i.id));
   const repeats = Number(values.repeats);
-  const target = { baseline: values.baseline!, candidate: values.candidate! };
+  if (values.platform !== "web" && values.platform !== "android") {
+    throw new Error(`--platform must be web or android (got ${values.platform})`);
+  }
+  const target = {
+    baseline: values.baseline!,
+    candidate: values.candidate!,
+    platform: values.platform as "web" | "android",
+    serial: values.serial,
+  };
   const traces: Trace[] = [];
   if (hub) { await hub.start(); hub.serveTraces(outDir); for (const i of intents) hub.emit({ type: "run_started", runId: path.basename(outDir), decision: contract.decision, intentId: i.id, goal: i.goal, at: new Date().toISOString() }); console.log(`live probes: ${hub.url}/events  (report: #/live?source=live&live=${encodeURIComponent(hub.url)})`); }
   const storageState = values["storage-state"] ? path.resolve(ROOT, values["storage-state"]) : undefined;
@@ -101,7 +117,11 @@ async function runOneContract(
     ? { allowedTags: contract.prodSafe?.allowedTags, restore: values["no-restore"] !== true }
     : undefined;
 
-  for (const variant of ["baseline", "candidate"] as const) {
+  const variants = values.variants!.split(",") as Variant[];
+  for (const v of variants) {
+    if (v !== "baseline" && v !== "candidate") throw new Error(`--variants must list baseline,candidate (got ${values.variants})`);
+  }
+  for (const variant of variants) {
     const driver = await makeDriver(contractPath, variant);
     for (const intent of intents) {
       for (let repeat = 0; repeat < repeats; repeat++) {

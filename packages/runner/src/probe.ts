@@ -15,10 +15,24 @@ import type { Driver } from "./drivers.js";
 import type { LiveEvent } from "@agencydiff/core";
 import { AuditBlockedError, BrowserEnv } from "./env.js";
 import { statesMatch } from "./prodSafe.js";
+import {
+  ANDROID_STATE_PORT,
+  adbRunner,
+  androidActivityFor,
+  ensureStateForward,
+  launchAndroidApp,
+  MobileEnv,
+} from "./mobile.js";
 
 export interface ProbeTarget {
   baseline: string;
   candidate: string;
+  /** "web" (default) opens a browser; "android" drives the native build. */
+  platform?: "web" | "android";
+  /** adb serial for `adb -s`. Defaults to the single attached device. */
+  serial?: string;
+  /** Host-side URL of the app's state endpoint (needs `adb forward`). */
+  stateUrl?: string;
 }
 
 export interface ProbeOracle {
@@ -107,12 +121,31 @@ export async function runProbe(opts: {
   }
   const id = `${contract.decision}.${intent.id}.${variant}.${repeat}`;
   const dir = path.join(opts.outDir, id);
-  const startUrl = withFixture(opts.target[variant], intent.fixture);
-  const env = await BrowserEnv.open(startUrl, dir, {
-    audit: opts.oracle?.audit,
-    storageState: opts.auth?.storageState,
-    ...(opts.prodSafe ? { prodSafe: { allowedTags: opts.prodSafe.allowedTags } } : {}),
-  });
+  const android = opts.target.platform === "android";
+  if (android && adapter === "dom") {
+    throw new Error("android probes need the state-hook oracle (no DOM on device)");
+  }
+  let env: BrowserEnv | MobileEnv;
+  if (android) {
+    const run = adbRunner(opts.target.serial);
+    await ensureStateForward(run);
+    await launchAndroidApp(run, {
+      activity: androidActivityFor(contract.decision),
+      variant,
+      fixture: intent.fixture,
+    });
+    env = await MobileEnv.open(dir, {
+      serial: opts.target.serial,
+      stateUrl: opts.target.stateUrl ?? `http://127.0.0.1:${ANDROID_STATE_PORT}/`,
+      run,
+    });
+  } else {
+    env = await BrowserEnv.open(withFixture(opts.target[variant], intent.fixture), dir, {
+      audit: opts.oracle?.audit,
+      storageState: opts.auth?.storageState,
+      ...(opts.prodSafe ? { prodSafe: { allowedTags: opts.prodSafe.allowedTags } } : {}),
+    });
+  }
   const t0 = Date.now();
   const emit = opts.onEvent;
   const at = () => new Date().toISOString();
@@ -125,9 +158,11 @@ export async function runProbe(opts: {
     // and stop the probe once the needed fact is on screen. The recorded
     // cost is actions until that point, not the step budget.
     const domSelectors = adapter === "dom" ? oracleSelectors(intent.domOracle) : [];
+    // Android rejects the dom adapter above, so this cast is unreachable there.
+    const browser = env as BrowserEnv;
     const isSatisfied =
       adapter === "dom"
-        ? async () => checkDomAssertions(intent.domOracle, await env.collectDomFacts(domSelectors)) === true
+        ? async () => checkDomAssertions(intent.domOracle, await browser.collectDomFacts(domSelectors)) === true
         : undefined;
     const initialSatisfied = isSatisfied ? await isSatisfied() : false;
     const onStep = emit
@@ -147,7 +182,7 @@ export async function runProbe(opts: {
     if (adapter === "state-hook") {
       passed = checkOracle(intent.oracle, finalState);
     } else if (adapter === "dom") {
-      const facts = await env.collectDomFacts(domSelectors);
+      const facts = await browser.collectDomFacts(domSelectors);
       passed = checkDomAssertions(intent.domOracle, facts);
     } else {
       if (!opts.oracle?.judge) throw new Error("model-judged oracle needs opts.oracle.judge");
@@ -181,8 +216,8 @@ export async function runProbe(opts: {
       ...satisfaction,
     };
     if (modelJudged) trace.modelJudged = true;
-    if (opts.prodSafe && opts.prodSafe.restore !== false) {
-      trace.restore = await restoreFixture(env, startUrl, initialState);
+    if (opts.prodSafe && opts.prodSafe.restore !== false && env instanceof BrowserEnv) {
+      trace.restore = await restoreFixture(env, withFixture(opts.target[variant], intent.fixture), initialState);
     }
     await writeFile(path.join(dir, "trace.json"), JSON.stringify(trace, null, 2));
     emit?.({ type: "oracle_result", traceId: id, variant, passed, checked: passed !== undefined, stoppedReason: result.stoppedReason, at: at() });

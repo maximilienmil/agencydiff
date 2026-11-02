@@ -1,0 +1,15 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -417,10 +417,10 @@
+ 
+         {screen === "messages" && (
+           <List>
+-            <div className="note">Teen account · {copyTweak ? "pick who can reach you" : "Choose who can send you messages."}</div>
++            <div className="note">Teen account · You pick who can reach you — change it anytime.</div>
+             <Option
+               title="Everyone"
+-              sub="Anyone on Circle can message this account"
++              sub="Anyone on Circle can message this account, including people you don't know"
+               tag="dm.allow_all"
+               selected={dm.policy === "everyone"}
+               onPick={() => chooseDm("everyone")}

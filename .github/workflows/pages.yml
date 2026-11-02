@@ -2,7 +2,7 @@ name: Deploy report and Circle to Pages
 
 on:
   push:
-    branches: [claude/fervent-cannon-m0lh3n]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -25,8 +25,9 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # The report ships the committed sample data in apps/report/public/data
-      # (produced by `pnpm diff --driver scripted`); no model calls in CI.
+      # The report ships the committed showcase data in apps/report/public/data
+      # (Muse Probes at k=3 plus SAM evidence); no model calls in CI. The
+      # report build first syncs the real benchmark files from eval/.
       - run: pnpm --filter @agencydiff/report build
       # Circle is served from a subpath so probes and judges share one site.
       - run: pnpm --filter @agencydiff/circle exec vite build --base=/agencydiff/circle/

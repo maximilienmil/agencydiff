@@ -1,0 +1,77 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "ST_BURY_LIMIT",
+  "verdict": {
+    "seed": "ST_BURY_LIMIT",
+    "kind": "regression",
+    "contracts": [
+      "screen_time"
+    ],
+    "detected": true,
+    "lenientDetected": true,
+    "falseAlarm": false,
+    "expected": [
+      {
+        "intent": "screen_time.set_limit",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      },
+      {
+        "intent": "screen_time.remove_limit",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      },
+      {
+        "intent": "screen_time.shorten",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      }
+    ],
+    "missed": [],
+    "unexpected": [],
+    "oraclePassRate": {
+      "screen_time.set_limit": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.reminders": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.remove_limit": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.check_usage": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0.6666666666666666
+      },
+      "screen_time.shorten": {
+        "baseline": 1,
+        "candidate": 1
+      }
+    }
+  },
+  "variance": {
+    "ST_BURY_LIMIT/screen_time.set_limit/baseline": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.set_limit/candidate": 0,
+    "ST_BURY_LIMIT/screen_time.reminders/baseline": 0,
+    "ST_BURY_LIMIT/screen_time.reminders/candidate": 0,
+    "ST_BURY_LIMIT/screen_time.remove_limit/baseline": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.remove_limit/candidate": 0.888888888888889,
+    "ST_BURY_LIMIT/screen_time.check_usage/baseline": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.check_usage/candidate": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.shorten/baseline": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.shorten/candidate": 0.22222222222222224
+  },
+  "tokens": {
+    "input": 555680,
+    "output": 29595,
+    "calls": 157
+  }
+}

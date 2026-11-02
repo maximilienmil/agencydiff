@@ -1,0 +1,68 @@
+{
+  "traceId": "subscription.subscribe.candidate.1",
+  "model": "sam-3.1",
+  "producedAt": "2026-11-02T05:57:26.028Z",
+  "steps": [
+    {
+      "step": -1,
+      "screenshot": "000.png",
+      "controls": [
+        {
+          "tag": "sub.subscribe",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "sub.decline",
+          "inInitialViewport": false
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "screenshot": "004.png",
+      "controls": [
+        {
+          "tag": "sub.subscribe",
+          "inInitialViewport": false,
+          "objectId": "1",
+          "maskAreaPx": 18974,
+          "box": {
+            "left": 18,
+            "top": 403,
+            "right": 412,
+            "bottom": 453
+          }
+        },
+        {
+          "tag": "sub.decline",
+          "inInitialViewport": false,
+          "objectId": "2",
+          "maskAreaPx": 761.9999999999999,
+          "box": {
+            "left": 24,
+            "top": 454,
+            "right": 72,
+            "bottom": 474
+          }
+        }
+      ],
+      "prominenceRatio": 24.900262467191606,
+      "overlay": "evidence-step-3.png",
+      "imageHash": "e760480bb7182dc800632ea17d9afe21450e0eeb370683669047bb446ad4a220"
+    },
+    {
+      "step": 4,
+      "screenshot": "005.png",
+      "controls": [
+        {
+          "tag": "sub.subscribe",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "sub.decline",
+          "inInitialViewport": false
+        }
+      ]
+    }
+  ]
+}

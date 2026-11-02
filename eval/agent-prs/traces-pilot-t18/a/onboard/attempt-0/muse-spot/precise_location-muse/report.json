@@ -1,0 +1,376 @@
+{
+  "decision": "precise_location",
+  "promise": "Users can choose whether Circle gets their precise location, and change their mind later.",
+  "aggregates": [
+    {
+      "intentId": "share",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 1,
+      "navigationDepth": 1,
+      "initiallyVisible": true,
+      "defaultValue": false,
+      "traceIds": [
+        "precise_location.share.baseline.0",
+        "precise_location.share.baseline.1",
+        "precise_location.share.baseline.2"
+      ]
+    },
+    {
+      "intentId": "share",
+      "variant": "candidate",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": false,
+      "traceIds": [
+        "precise_location.share.candidate.0",
+        "precise_location.share.candidate.1",
+        "precise_location.share.candidate.2"
+      ]
+    },
+    {
+      "intentId": "withhold",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 1,
+      "navigationDepth": 1,
+      "initiallyVisible": true,
+      "defaultValue": false,
+      "traceIds": [
+        "precise_location.withhold.baseline.0",
+        "precise_location.withhold.baseline.1",
+        "precise_location.withhold.baseline.2"
+      ]
+    },
+    {
+      "intentId": "withhold",
+      "variant": "candidate",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": false,
+      "traceIds": [
+        "precise_location.withhold.candidate.0",
+        "precise_location.withhold.candidate.1",
+        "precise_location.withhold.candidate.2"
+      ]
+    },
+    {
+      "intentId": "revoke",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": true,
+      "traceIds": [
+        "precise_location.revoke.baseline.0",
+        "precise_location.revoke.baseline.1",
+        "precise_location.revoke.baseline.2"
+      ]
+    },
+    {
+      "intentId": "revoke",
+      "variant": "candidate",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 5,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": true,
+      "traceIds": [
+        "precise_location.revoke.candidate.0",
+        "precise_location.revoke.candidate.1",
+        "precise_location.revoke.candidate.2"
+      ]
+    }
+  ],
+  "asymmetry": [
+    {
+      "accept": "share",
+      "reject": "withhold",
+      "baseline": 1,
+      "candidate": 1.3333333333333333
+    }
+  ],
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "action_cost",
+      "intentId": "share",
+      "title": "\"I want to share my precise location with this app.\" takes more actions",
+      "baseline": 1,
+      "candidate": 3,
+      "evidence": [
+        {
+          "traceId": "precise_location.share.baseline.0"
+        },
+        {
+          "traceId": "precise_location.share.baseline.1"
+        },
+        {
+          "traceId": "precise_location.share.baseline.2"
+        },
+        {
+          "traceId": "precise_location.share.candidate.0"
+        },
+        {
+          "traceId": "precise_location.share.candidate.1"
+        },
+        {
+          "traceId": "precise_location.share.candidate.2"
+        }
+      ],
+      "id": "precise_location/action_cost/share",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "low",
+      "kind": "navigation_depth",
+      "intentId": "share",
+      "title": "\"I want to share my precise location with this app.\" is buried deeper",
+      "baseline": 1,
+      "candidate": 2,
+      "evidence": [
+        {
+          "traceId": "precise_location.share.baseline.0"
+        },
+        {
+          "traceId": "precise_location.share.baseline.1"
+        },
+        {
+          "traceId": "precise_location.share.baseline.2"
+        },
+        {
+          "traceId": "precise_location.share.candidate.0"
+        },
+        {
+          "traceId": "precise_location.share.candidate.1"
+        },
+        {
+          "traceId": "precise_location.share.candidate.2"
+        }
+      ],
+      "id": "precise_location/navigation_depth/share",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "medium",
+      "kind": "visibility",
+      "intentId": "share",
+      "title": "Option for \"I want to share my precise location with this app.\" no longer on first screen",
+      "baseline": "visible",
+      "candidate": "hidden",
+      "evidence": [
+        {
+          "traceId": "precise_location.share.baseline.0"
+        },
+        {
+          "traceId": "precise_location.share.baseline.1"
+        },
+        {
+          "traceId": "precise_location.share.baseline.2"
+        },
+        {
+          "traceId": "precise_location.share.candidate.0"
+        },
+        {
+          "traceId": "precise_location.share.candidate.1"
+        },
+        {
+          "traceId": "precise_location.share.candidate.2"
+        }
+      ],
+      "id": "precise_location/visibility/share",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "high",
+      "kind": "action_cost",
+      "intentId": "withhold",
+      "title": "\"I do not want to share my precise location with this app.\" takes more actions",
+      "baseline": 1,
+      "candidate": 4,
+      "evidence": [
+        {
+          "traceId": "precise_location.withhold.baseline.0"
+        },
+        {
+          "traceId": "precise_location.withhold.baseline.1"
+        },
+        {
+          "traceId": "precise_location.withhold.baseline.2"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.0"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.1"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.2"
+        }
+      ],
+      "id": "precise_location/action_cost/withhold",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "low",
+      "kind": "navigation_depth",
+      "intentId": "withhold",
+      "title": "\"I do not want to share my precise location with this app.\" is buried deeper",
+      "baseline": 1,
+      "candidate": 3,
+      "evidence": [
+        {
+          "traceId": "precise_location.withhold.baseline.0"
+        },
+        {
+          "traceId": "precise_location.withhold.baseline.1"
+        },
+        {
+          "traceId": "precise_location.withhold.baseline.2"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.0"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.1"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.2"
+        }
+      ],
+      "id": "precise_location/navigation_depth/withhold",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "high",
+      "kind": "visibility",
+      "intentId": "withhold",
+      "title": "Option for \"I do not want to share my precise location with this app.\" no longer on first screen",
+      "baseline": "visible",
+      "candidate": "hidden",
+      "evidence": [
+        {
+          "traceId": "precise_location.withhold.baseline.0"
+        },
+        {
+          "traceId": "precise_location.withhold.baseline.1"
+        },
+        {
+          "traceId": "precise_location.withhold.baseline.2"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.0"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.1"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.2"
+        }
+      ],
+      "id": "precise_location/visibility/withhold",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "medium",
+      "kind": "action_cost",
+      "intentId": "revoke",
+      "title": "\"I shared my precise location earlier and changed my mind. Turn it off.\" takes more actions",
+      "baseline": 3,
+      "candidate": 5,
+      "evidence": [
+        {
+          "traceId": "precise_location.revoke.baseline.0"
+        },
+        {
+          "traceId": "precise_location.revoke.baseline.1"
+        },
+        {
+          "traceId": "precise_location.revoke.baseline.2"
+        },
+        {
+          "traceId": "precise_location.revoke.candidate.0"
+        },
+        {
+          "traceId": "precise_location.revoke.candidate.1"
+        },
+        {
+          "traceId": "precise_location.revoke.candidate.2"
+        }
+      ],
+      "id": "precise_location/action_cost/revoke",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "low",
+      "kind": "navigation_depth",
+      "intentId": "revoke",
+      "title": "\"I shared my precise location earlier and changed my mind. Turn it off.\" is buried deeper",
+      "baseline": 2,
+      "candidate": 3,
+      "evidence": [
+        {
+          "traceId": "precise_location.revoke.baseline.0"
+        },
+        {
+          "traceId": "precise_location.revoke.baseline.1"
+        },
+        {
+          "traceId": "precise_location.revoke.baseline.2"
+        },
+        {
+          "traceId": "precise_location.revoke.candidate.0"
+        },
+        {
+          "traceId": "precise_location.revoke.candidate.1"
+        },
+        {
+          "traceId": "precise_location.revoke.candidate.2"
+        }
+      ],
+      "id": "precise_location/navigation_depth/revoke",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "medium",
+      "kind": "asymmetry",
+      "title": "Saying no became 1.3x the effort of saying yes",
+      "baseline": 1,
+      "candidate": 1.3333333333333333,
+      "evidence": [
+        {
+          "traceId": "precise_location.withhold.candidate.0"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.1"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.2"
+        },
+        {
+          "traceId": "precise_location.share.candidate.0"
+        },
+        {
+          "traceId": "precise_location.share.candidate.1"
+        },
+        {
+          "traceId": "precise_location.share.candidate.2"
+        }
+      ],
+      "id": "precise_location/asymmetry/pair",
+      "decision": "precise_location"
+    }
+  ],
+  "passed": false
+}

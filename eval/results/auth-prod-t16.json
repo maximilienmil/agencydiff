@@ -1,0 +1,80 @@
+{
+  "url": "http://localhost:5175",
+  "rows": [
+    {
+      "phase": "auth",
+      "repeat": 0,
+      "intent": "share",
+      "initialScreen": "home+location_prompt",
+      "passed": true,
+      "steps": 1,
+      "stoppedReason": "script_done"
+    },
+    {
+      "phase": "auth",
+      "repeat": 1,
+      "intent": "share",
+      "initialScreen": "home+location_prompt",
+      "passed": true,
+      "steps": 1,
+      "stoppedReason": "script_done"
+    },
+    {
+      "phase": "auth",
+      "repeat": 2,
+      "intent": "share",
+      "initialScreen": "home+location_prompt",
+      "passed": true,
+      "steps": 1,
+      "stoppedReason": "script_done"
+    },
+    {
+      "phase": "auth-no-session",
+      "repeat": 0,
+      "intent": "share",
+      "initialScreen": "login",
+      "passed": false,
+      "steps": 0,
+      "stoppedReason": "error",
+      "error": "reference tag not found: location.allow"
+    },
+    {
+      "phase": "prod-safe",
+      "repeat": 0,
+      "intent": "revoke",
+      "initialScreen": "home",
+      "passed": true,
+      "steps": 3,
+      "stoppedReason": "script_done",
+      "restoreVerified": true
+    },
+    {
+      "phase": "prod-safe",
+      "repeat": 1,
+      "intent": "revoke",
+      "initialScreen": "home",
+      "passed": true,
+      "steps": 3,
+      "stoppedReason": "script_done",
+      "restoreVerified": true
+    },
+    {
+      "phase": "prod-safe",
+      "repeat": 2,
+      "intent": "revoke",
+      "initialScreen": "home",
+      "passed": true,
+      "steps": 3,
+      "stoppedReason": "script_done",
+      "restoreVerified": true
+    },
+    {
+      "phase": "prod-safe-disallowed",
+      "repeat": 0,
+      "intent": "revoke",
+      "steps": 0,
+      "stoppedReason": "error",
+      "error": "audit-blocked: prod-safe: refusing click at 215,364 (settings.subscription)"
+    }
+  ]
+}

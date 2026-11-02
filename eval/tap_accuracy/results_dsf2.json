@@ -1,0 +1,2489 @@
+{
+  "summary": {
+    "variant": "baseline",
+    "model": "muse-spark-1.3-contributor",
+    "viewport": {
+      "width": 430,
+      "height": 860
+    },
+    "deviceScaleFactor": 2,
+    "screenshot": {
+      "width": 860,
+      "height": 1720
+    },
+    "coordinateConvention": "native computer tool: pixels of the last screenshot sent, (0,0) top-left",
+    "probes": 60,
+    "hits": 10,
+    "hitRate": 0.16666666666666666,
+    "eventualHits": 14,
+    "eventualRate": 0.23333333333333334,
+    "meanDx": -0.16666666666666666,
+    "meanDy": 46.68333333333333,
+    "meanAbsDx": 0.16666666666666666,
+    "meanAbsDy": 48.25,
+    "errors": 0,
+    "tokens": {
+      "inputTokens": 1021455,
+      "outputTokens": 158163,
+      "calls": 169
+    },
+    "costUsd": 0.1337781
+  },
+  "probes": [
+    {
+      "button": "tap-01",
+      "label": "Apricot",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 81
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 162
+      },
+      "box": [
+        12,
+        43,
+        406,
+        28
+      ],
+      "boxHeight": 28,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 81,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 24,
+      "landedIn": "tap-02",
+      "calls": 2
+    },
+    {
+      "button": "tap-01",
+      "label": "Apricot",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 79
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 158
+      },
+      "box": [
+        12,
+        43,
+        406,
+        28
+      ],
+      "boxHeight": 28,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 79,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 22,
+      "landedIn": "tap-02",
+      "calls": 2
+    },
+    {
+      "button": "tap-01",
+      "label": "Apricot",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 79
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 158
+      },
+      "box": [
+        12,
+        43,
+        406,
+        28
+      ],
+      "boxHeight": 28,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 79,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 22,
+      "landedIn": "tap-02",
+      "calls": 2
+    },
+    {
+      "button": "tap-02",
+      "label": "Bilberry",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 113
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 225
+      },
+      "box": [
+        12,
+        76,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 113,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 99,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": 19,
+      "landedIn": null,
+      "calls": 3
+    },
+    {
+      "button": "tap-02",
+      "label": "Bilberry",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 118
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 236
+      },
+      "box": [
+        12,
+        76,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 118,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 24,
+      "landedIn": "tap-03",
+      "calls": 2
+    },
+    {
+      "button": "tap-02",
+      "label": "Bilberry",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 112
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 223
+      },
+      "box": [
+        12,
+        76,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 112,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": 18,
+      "landedIn": "tap-02",
+      "calls": 2
+    },
+    {
+      "button": "tap-03",
+      "label": "Clementine",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 167
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 333
+      },
+      "box": [
+        12,
+        117,
+        406,
+        28
+      ],
+      "boxHeight": 28,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 167,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 163,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 36,
+      "landedIn": "tap-04",
+      "calls": 3
+    },
+    {
+      "button": "tap-03",
+      "label": "Clementine",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 159
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 318
+      },
+      "box": [
+        12,
+        117,
+        406,
+        28
+      ],
+      "boxHeight": 28,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 159,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 157,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": -1,
+      "dy": 28,
+      "landedIn": "tap-04",
+      "calls": 3
+    },
+    {
+      "button": "tap-03",
+      "label": "Clementine",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 162
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 323
+      },
+      "box": [
+        12,
+        117,
+        406,
+        28
+      ],
+      "boxHeight": 28,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 162,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 31,
+      "landedIn": "tap-04",
+      "calls": 2
+    },
+    {
+      "button": "tap-04",
+      "label": "Damson",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 229
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 457
+      },
+      "box": [
+        12,
+        150,
+        406,
+        40
+      ],
+      "boxHeight": 40,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 229,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 207,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 207,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 233,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 59,
+      "landedIn": "tap-06",
+      "calls": 5
+    },
+    {
+      "button": "tap-04",
+      "label": "Damson",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 207
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 414
+      },
+      "box": [
+        12,
+        150,
+        406,
+        40
+      ],
+      "boxHeight": 40,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 207,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 37,
+      "landedIn": "tap-05",
+      "calls": 2
+    },
+    {
+      "button": "tap-04",
+      "label": "Damson",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 213
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 426
+      },
+      "box": [
+        12,
+        150,
+        406,
+        40
+      ],
+      "boxHeight": 40,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 213,
+          "hit": false
+        },
+        {
+          "x": 214,
+          "y": 177,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": 43,
+      "landedIn": "tap-05",
+      "calls": 3
+    },
+    {
+      "button": "tap-05",
+      "label": "Elderberry",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 269
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 538
+      },
+      "box": [
+        12,
+        195,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 269,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 254,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 252,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 243,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 62,
+      "landedIn": "tap-07",
+      "calls": 5
+    },
+    {
+      "button": "tap-05",
+      "label": "Elderberry",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 231
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 461
+      },
+      "box": [
+        12,
+        195,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 231,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 24,
+      "landedIn": "tap-06",
+      "calls": 2
+    },
+    {
+      "button": "tap-05",
+      "label": "Elderberry",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 267
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 533
+      },
+      "box": [
+        12,
+        195,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 267,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 60,
+      "landedIn": "tap-07",
+      "calls": 2
+    },
+    {
+      "button": "tap-06",
+      "label": "Fig",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 266
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 531
+      },
+      "box": [
+        12,
+        224,
+        406,
+        32
+      ],
+      "boxHeight": 32,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 266,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 272,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 26,
+      "landedIn": "tap-07",
+      "calls": 3
+    },
+    {
+      "button": "tap-06",
+      "label": "Fig",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 282
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 564
+      },
+      "box": [
+        12,
+        224,
+        406,
+        32
+      ],
+      "boxHeight": 32,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 282,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 278,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 42,
+      "landedIn": "tap-07",
+      "calls": 3
+    },
+    {
+      "button": "tap-06",
+      "label": "Fig",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 287
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 574
+      },
+      "box": [
+        12,
+        224,
+        406,
+        32
+      ],
+      "boxHeight": 32,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 287,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": -1,
+      "dy": 47,
+      "landedIn": "tap-07",
+      "calls": 2
+    },
+    {
+      "button": "tap-07",
+      "label": "Grapefruit",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 308
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 615
+      },
+      "box": [
+        12,
+        261,
+        406,
+        44
+      ],
+      "boxHeight": 44,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 308,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 25,
+      "landedIn": null,
+      "calls": 2
+    },
+    {
+      "button": "tap-07",
+      "label": "Grapefruit",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 290
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 579
+      },
+      "box": [
+        12,
+        261,
+        406,
+        44
+      ],
+      "boxHeight": 44,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 290,
+          "hit": true
+        },
+        {
+          "x": 215,
+          "y": 289,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": 7,
+      "landedIn": "tap-07",
+      "calls": 3
+    },
+    {
+      "button": "tap-07",
+      "label": "Grapefruit",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 292
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 584
+      },
+      "box": [
+        12,
+        261,
+        406,
+        44
+      ],
+      "boxHeight": 44,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 292,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": 9,
+      "landedIn": "tap-07",
+      "calls": 2
+    },
+    {
+      "button": "tap-08",
+      "label": "Honeydew",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 312
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 624
+      },
+      "box": [
+        12,
+        310,
+        406,
+        26
+      ],
+      "boxHeight": 26,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 312,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": -11,
+      "landedIn": "tap-08",
+      "calls": 2
+    },
+    {
+      "button": "tap-08",
+      "label": "Honeydew",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 404
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 808
+      },
+      "box": [
+        12,
+        310,
+        406,
+        26
+      ],
+      "boxHeight": 26,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 404,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 402,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 402,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": -1,
+      "dy": 81,
+      "landedIn": "tap-10",
+      "calls": 5
+    },
+    {
+      "button": "tap-08",
+      "label": "Honeydew",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 344
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 688
+      },
+      "box": [
+        12,
+        310,
+        406,
+        26
+      ],
+      "boxHeight": 26,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 344,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 343,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 21,
+      "landedIn": "tap-09",
+      "calls": 3
+    },
+    {
+      "button": "tap-09",
+      "label": "Imbe",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 438
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 875
+      },
+      "box": [
+        12,
+        341,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 438,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 79,
+      "landedIn": "tap-11",
+      "calls": 2
+    },
+    {
+      "button": "tap-09",
+      "label": "Imbe",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 401
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 801
+      },
+      "box": [
+        12,
+        341,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 401,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 42,
+      "landedIn": "tap-10",
+      "calls": 2
+    },
+    {
+      "button": "tap-09",
+      "label": "Imbe",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 424
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 847
+      },
+      "box": [
+        12,
+        341,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 424,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 65,
+      "landedIn": "tap-11",
+      "calls": 2
+    },
+    {
+      "button": "tap-10",
+      "label": "Jackfruit",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 466
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 932
+      },
+      "box": [
+        12,
+        382,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 466,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 431,
+          "hit": false
+        },
+        {
+          "x": 216,
+          "y": 416,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 421,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 72,
+      "landedIn": "tap-12",
+      "calls": 5
+    },
+    {
+      "button": "tap-10",
+      "label": "Jackfruit",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 473
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 945
+      },
+      "box": [
+        12,
+        382,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 473,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 470,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 79,
+      "landedIn": "tap-12",
+      "calls": 3
+    },
+    {
+      "button": "tap-10",
+      "label": "Jackfruit",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 423
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 846
+      },
+      "box": [
+        12,
+        382,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 423,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 408,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 29,
+      "landedIn": "tap-11",
+      "calls": 3
+    },
+    {
+      "button": "tap-11",
+      "label": "Kumquat",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 527
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1054
+      },
+      "box": [
+        12,
+        411,
+        406,
+        30
+      ],
+      "boxHeight": 30,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 527,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 524,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 101,
+      "landedIn": "tap-14",
+      "calls": 3
+    },
+    {
+      "button": "tap-11",
+      "label": "Kumquat",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 502
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1004
+      },
+      "box": [
+        12,
+        411,
+        406,
+        30
+      ],
+      "boxHeight": 30,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 502,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 474,
+          "hit": false
+        },
+        {
+          "x": 216,
+          "y": 476,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 459,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 76,
+      "landedIn": "tap-13",
+      "calls": 5
+    },
+    {
+      "button": "tap-11",
+      "label": "Kumquat",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 527
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1054
+      },
+      "box": [
+        12,
+        411,
+        406,
+        30
+      ],
+      "boxHeight": 30,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 527,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 507,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 101,
+      "landedIn": "tap-14",
+      "calls": 3
+    },
+    {
+      "button": "tap-12",
+      "label": "Lime",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 564
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1128
+      },
+      "box": [
+        12,
+        446,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 564,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 100,
+      "landedIn": "tap-15",
+      "calls": 2
+    },
+    {
+      "button": "tap-12",
+      "label": "Lime",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 557
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1114
+      },
+      "box": [
+        12,
+        446,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 557,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 512,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 485,
+          "hit": false
+        },
+        {
+          "x": 214,
+          "y": 495,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 93,
+      "landedIn": "tap-15",
+      "calls": 5
+    },
+    {
+      "button": "tap-12",
+      "label": "Lime",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 527
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1054
+      },
+      "box": [
+        12,
+        446,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 527,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 63,
+      "landedIn": "tap-14",
+      "calls": 2
+    },
+    {
+      "button": "tap-13",
+      "label": "Mulberry",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 582
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1164
+      },
+      "box": [
+        12,
+        487,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 582,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 536,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 83,
+      "landedIn": "tap-15",
+      "calls": 3
+    },
+    {
+      "button": "tap-13",
+      "label": "Mulberry",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 631
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1262
+      },
+      "box": [
+        12,
+        487,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 631,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 605,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 600,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 132,
+      "landedIn": "tap-17",
+      "calls": 4
+    },
+    {
+      "button": "tap-13",
+      "label": "Mulberry",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 621
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1241
+      },
+      "box": [
+        12,
+        487,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 621,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 122,
+      "landedIn": "tap-16",
+      "calls": 3
+    },
+    {
+      "button": "tap-14",
+      "label": "Nectarine",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 635
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 1269
+      },
+      "box": [
+        12,
+        516,
+        406,
+        32
+      ],
+      "boxHeight": 32,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 635,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 576,
+          "hit": false
+        },
+        {
+          "x": 214,
+          "y": 587,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 597,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": -1,
+      "dy": 103,
+      "landedIn": "tap-17",
+      "calls": 5
+    },
+    {
+      "button": "tap-14",
+      "label": "Nectarine",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 574
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1148
+      },
+      "box": [
+        12,
+        516,
+        406,
+        32
+      ],
+      "boxHeight": 32,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 574,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 532,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": 42,
+      "landedIn": "tap-15",
+      "calls": 3
+    },
+    {
+      "button": "tap-14",
+      "label": "Nectarine",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 583
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 1165
+      },
+      "box": [
+        12,
+        516,
+        406,
+        32
+      ],
+      "boxHeight": 32,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 583,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 585,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": -1,
+      "dy": 51,
+      "landedIn": "tap-15",
+      "calls": 3
+    },
+    {
+      "button": "tap-15",
+      "label": "Olive",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 628
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 1255
+      },
+      "box": [
+        12,
+        553,
+        406,
+        40
+      ],
+      "boxHeight": 40,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 628,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 629,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": -1,
+      "dy": 55,
+      "landedIn": null,
+      "calls": 3
+    },
+    {
+      "button": "tap-15",
+      "label": "Olive",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 540
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1080
+      },
+      "box": [
+        12,
+        553,
+        406,
+        40
+      ],
+      "boxHeight": 40,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 540,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": -33,
+      "landedIn": "tap-14",
+      "calls": 2
+    },
+    {
+      "button": "tap-15",
+      "label": "Olive",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 589
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 1178
+      },
+      "box": [
+        12,
+        553,
+        406,
+        40
+      ],
+      "boxHeight": 40,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 589,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": -1,
+      "dy": 16,
+      "landedIn": "tap-15",
+      "calls": 2
+    },
+    {
+      "button": "tap-16",
+      "label": "Papaya",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 677
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1353
+      },
+      "box": [
+        12,
+        598,
+        406,
+        26
+      ],
+      "boxHeight": 26,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 677,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 66,
+      "landedIn": "tap-18",
+      "calls": 2
+    },
+    {
+      "button": "tap-16",
+      "label": "Papaya",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 673
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1346
+      },
+      "box": [
+        12,
+        598,
+        406,
+        26
+      ],
+      "boxHeight": 26,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 673,
+          "hit": false
+        },
+        {
+          "x": 214,
+          "y": 674,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 62,
+      "landedIn": "tap-18",
+      "calls": 3
+    },
+    {
+      "button": "tap-16",
+      "label": "Papaya",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 696
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1392
+      },
+      "box": [
+        12,
+        598,
+        406,
+        26
+      ],
+      "boxHeight": 26,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 696,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 85,
+      "landedIn": null,
+      "calls": 2
+    },
+    {
+      "button": "tap-17",
+      "label": "Quince",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 704
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1408
+      },
+      "box": [
+        12,
+        629,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 704,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 57,
+      "landedIn": "tap-19",
+      "calls": 2
+    },
+    {
+      "button": "tap-17",
+      "label": "Quince",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 712
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1423
+      },
+      "box": [
+        12,
+        629,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 712,
+          "hit": false
+        },
+        {
+          "x": 214,
+          "y": 718,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 65,
+      "landedIn": "tap-19",
+      "calls": 3
+    },
+    {
+      "button": "tap-17",
+      "label": "Quince",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 655
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1310
+      },
+      "box": [
+        12,
+        629,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 655,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": 8,
+      "landedIn": "tap-17",
+      "calls": 2
+    },
+    {
+      "button": "tap-18",
+      "label": "Rambutan",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 684
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 1368
+      },
+      "box": [
+        12,
+        670,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 684,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": -1,
+      "dy": 2,
+      "landedIn": "tap-18",
+      "calls": 2
+    },
+    {
+      "button": "tap-18",
+      "label": "Rambutan",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 758
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 1516
+      },
+      "box": [
+        12,
+        670,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 758,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 715,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 679,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": -1,
+      "dy": 76,
+      "landedIn": "tap-20",
+      "calls": 4
+    },
+    {
+      "button": "tap-18",
+      "label": "Rambutan",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 708
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1415
+      },
+      "box": [
+        12,
+        670,
+        406,
+        24
+      ],
+      "boxHeight": 24,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 708,
+          "hit": false
+        },
+        {
+          "x": 216,
+          "y": 706,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 26,
+      "landedIn": "tap-19",
+      "calls": 3
+    },
+    {
+      "button": "tap-19",
+      "label": "Salak",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 723
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1446
+      },
+      "box": [
+        12,
+        699,
+        406,
+        30
+      ],
+      "boxHeight": 30,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 723,
+          "hit": true
+        },
+        {
+          "x": 215,
+          "y": 720,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": 9,
+      "landedIn": "tap-19",
+      "calls": 3
+    },
+    {
+      "button": "tap-19",
+      "label": "Salak",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 749
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1497
+      },
+      "box": [
+        12,
+        699,
+        406,
+        30
+      ],
+      "boxHeight": 30,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 749,
+          "hit": false
+        },
+        {
+          "x": 214,
+          "y": 751,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 35,
+      "landedIn": "tap-20",
+      "calls": 3
+    },
+    {
+      "button": "tap-19",
+      "label": "Salak",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 214,
+        "y": 724
+      },
+      "rawClick": {
+        "x": 428,
+        "y": 1447
+      },
+      "box": [
+        12,
+        699,
+        406,
+        30
+      ],
+      "boxHeight": 30,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 214,
+          "y": 724,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": -1,
+      "dy": 10,
+      "landedIn": "tap-19",
+      "calls": 2
+    },
+    {
+      "button": "tap-20",
+      "label": "Tamarind",
+      "repeat": 0,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 782
+      },
+      "rawClick": {
+        "x": 430,
+        "y": 1564
+      },
+      "box": [
+        12,
+        734,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 782,
+          "hit": false
+        },
+        {
+          "x": 215,
+          "y": 783,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 30,
+      "landedIn": null,
+      "calls": 3
+    },
+    {
+      "button": "tap-20",
+      "label": "Tamarind",
+      "repeat": 1,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 749
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1497
+      },
+      "box": [
+        12,
+        734,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": true,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 749,
+          "hit": true
+        },
+        {
+          "x": 216,
+          "y": 746,
+          "hit": true
+        }
+      ],
+      "eventualHit": true,
+      "dx": 0,
+      "dy": -3,
+      "landedIn": "tap-20",
+      "calls": 3
+    },
+    {
+      "button": "tap-20",
+      "label": "Tamarind",
+      "repeat": 2,
+      "png": {
+        "width": 860,
+        "height": 1720
+      },
+      "click": {
+        "x": 215,
+        "y": 798
+      },
+      "rawClick": {
+        "x": 429,
+        "y": 1595
+      },
+      "box": [
+        12,
+        734,
+        406,
+        36
+      ],
+      "boxHeight": 36,
+      "hit": false,
+      "clicks": [
+        {
+          "x": 215,
+          "y": 798,
+          "hit": false
+        }
+      ],
+      "eventualHit": false,
+      "dx": 0,
+      "dy": 46,
+      "landedIn": null,
+      "calls": 2
+    }
+  ]
+}

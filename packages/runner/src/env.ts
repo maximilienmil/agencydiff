@@ -10,14 +10,62 @@ import {
   type AuditElementInfo,
   type AuditSubmitContext,
 } from "./auditGuard.js";
+import { assertStorageStateFile, maskSecrets } from "./auth.js";
+import {
+  isBlockedProdSafeClick,
+  isBlockedProdSafeKeypress,
+  isBlockedProdSafeType,
+  type ProdSafeElementInfo,
+} from "./prodSafe.js";
+import { assertScreenshotSpace, toCssPixels } from "./coordinates.js";
 
 export const VIEWPORT = { width: 430, height: 860 };
+export const DEVICE_SCALE_FACTOR = 1;
+
+function parseSizeEnv(raw: string | undefined, name: string): { width: number; height: number } | undefined {
+  if (!raw) return undefined;
+  const m = raw.match(/^(\d+)x(\d+)$/);
+  if (!m) throw new Error(`${name} must look like 1280x800, got ${raw}`);
+  return { width: Number(m[1]), height: Number(m[2]) };
+}
+
+function parseDsfEnv(raw: string | undefined, name: string): number | undefined {
+  if (raw === undefined) return undefined;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n <= 0) throw new Error(`${name} must be a positive number, got ${raw}`);
+  return n;
+}
+
+/**
+ * Viewport for Muse computer-use probes. Tap grounding measures far better
+ * at desktop width (83% hits at 1280x800 vs 43% at 430x860, same centred
+ * 430px column), so the Muse driver defaults to it; override with
+ * AGENCY_MUSE_VIEWPORT=WxH. Scripted probes and audits keep VIEWPORT.
+ */
+export const MUSE_VIEWPORT =
+  parseSizeEnv(process.env.AGENCY_MUSE_VIEWPORT, "AGENCY_MUSE_VIEWPORT") ?? { width: 1280, height: 800 };
+export const MUSE_DEVICE_SCALE_FACTOR =
+  parseDsfEnv(process.env.AGENCY_MUSE_DSF, "AGENCY_MUSE_DSF") ?? DEVICE_SCALE_FACTOR;
 
 /** Thrown when Audit mode refuses an action before it touches the page. */
 export class AuditBlockedError extends Error {
   constructor(reason: string) {
     super(`audit-blocked: ${reason}`);
   }
+}
+
+/** Thrown when `--prod-safe` refuses an action. A subclass of the audit
+ *  error so probes record it as a refused error trace the same way. */
+export class ProdSafeBlockedError extends AuditBlockedError {
+  constructor(reason: string) {
+    super(`prod-safe: ${reason}`);
+  }
+}
+
+/** Which instrumented controls a `--prod-safe` probe may touch: the
+ *  contract's allow-list. Absent means default-deny on every control. */
+export interface ProdSafeEnvOptions {
+  allowedTags?: string[];
 }
 
 /**
@@ -32,15 +80,35 @@ export class BrowserEnv {
     readonly page: Page,
     private outDir: string,
     readonly audit = false,
+    private readonly prodSafe?: ProdSafeEnvOptions,
+    private readonly viewport = VIEWPORT,
+    private readonly deviceScaleFactor = DEVICE_SCALE_FACTOR,
   ) {}
 
-  static async open(url: string, outDir: string, opts?: { audit?: boolean }): Promise<BrowserEnv> {
+  static async open(
+    url: string,
+    outDir: string,
+    opts?: {
+      audit?: boolean;
+      storageState?: string;
+      prodSafe?: ProdSafeEnvOptions;
+      viewport?: { width: number; height: number };
+      deviceScaleFactor?: number;
+    },
+  ): Promise<BrowserEnv> {
     await mkdir(outDir, { recursive: true });
+    if (opts?.storageState) assertStorageStateFile(opts.storageState);
+    const viewport = opts?.viewport ?? VIEWPORT;
+    const deviceScaleFactor = opts?.deviceScaleFactor ?? DEVICE_SCALE_FACTOR;
     const browser = await chromium.launch();
-    const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 1 });
+    const ctx = await browser.newContext({
+      viewport,
+      deviceScaleFactor,
+      ...(opts?.storageState ? { storageState: opts.storageState } : {}),
+    });
     const page = await ctx.newPage();
-    const env = new BrowserEnv(browser, page, outDir, opts?.audit ?? false);
-    if (env.audit) {
+    const env = new BrowserEnv(browser, page, outDir, opts?.audit ?? false, opts?.prodSafe, viewport, deviceScaleFactor);
+    if (env.audit || env.prodSafe) {
       // Purchase-flow navigation never leaves the lab: abort it at the
       // network layer as well as refusing the triggering action.
       await ctx.route("**/*", (route) => {
@@ -60,8 +128,18 @@ export class BrowserEnv {
 
   async screenshot(): Promise<{ png: Buffer; file: string }> {
     const file = `${String(this.shot++).padStart(3, "0")}.png`;
-    const png = await this.page.screenshot({ path: path.join(this.outDir, file) });
-    return { png, file };
+    // Password values never reach a screenshot file or the model: cover
+    // the fields, shoot, then uncover (values are untouched).
+    const release = await maskSecrets(this.page).catch(() => null);
+    try {
+      const png = await this.page.screenshot({ path: path.join(this.outDir, file) });
+      // The model grounds in screenshot pixels, so a shot that is not exactly
+      // viewport times scale would shift every click. Fail here, not as noise.
+      assertScreenshotSpace(png, this.viewport, this.deviceScaleFactor);
+      return { png, file };
+    } finally {
+      await release?.()?.catch(() => {});
+    }
   }
 
   async observe(): Promise<{ observation: Observation; png: Buffer }> {
@@ -265,32 +343,97 @@ export class BrowserEnv {
     }
   }
 
+  private async describeProdSafeElement(x: number, y: number): Promise<ProdSafeElementInfo> {
+    const base = await this.describeAuditElement(x, y);
+    const agencyTag = await this.page
+      .evaluate(({ px, py }) => {
+        const el = document.elementFromPoint(px, py) as HTMLElement | null;
+        return el?.closest?.("[data-agency]")?.getAttribute?.("data-agency") ?? undefined;
+      }, { px: x, py: y })
+      .catch(() => undefined);
+    return { ...base, agencyTag: agencyTag ?? undefined };
+  }
+
+  private async refuseProdUnsafe(actions: Action[]): Promise<void> {
+    const allowed = this.prodSafe?.allowedTags;
+    for (const a of actions) {
+      switch (a.type) {
+        case "click":
+        case "double_click": {
+          const info = await this.describeProdSafeElement(a.x, a.y);
+          if (isBlockedProdSafeClick(info, allowed)) {
+            throw new ProdSafeBlockedError(`refusing ${a.type} at ${a.x},${a.y} (${info.agencyTag ?? info.tag ?? "unknown element"})`);
+          }
+          break;
+        }
+        case "type": {
+          const focus = await this.describeAuditFocus();
+          const pageHasPassword = await this.page
+            .evaluate(() => !!document.querySelector('input[type="password"]'))
+            .catch(() => false);
+          const agencyTag = await this.page
+            .evaluate(() => {
+              const el = document.activeElement as HTMLElement | null;
+              return el?.closest?.("[data-agency]")?.getAttribute?.("data-agency") ?? undefined;
+            })
+            .catch(() => undefined);
+          if (isBlockedProdSafeType({ ...focus, agencyTag: agencyTag ?? undefined }, pageHasPassword, allowed)) {
+            throw new ProdSafeBlockedError("refusing to type into a control outside the allow-list");
+          }
+          break;
+        }
+        case "keypress": {
+          if (isBlockedProdSafeKeypress(a.keys, await this.describeAuditFocus())) {
+            throw new ProdSafeBlockedError("refusing Enter outside site search: it would submit the focused form");
+          }
+          break;
+        }
+        default:
+          break;
+      }
+    }
+  }
+
   async execute(actions: Action[]): Promise<void> {
     if (this.audit) await this.refuseUnsafe(actions);
+    if (this.prodSafe) await this.refuseProdUnsafe(actions);
+    // Actions arrive in screenshot pixels; Playwright's mouse takes CSS
+    // pixels. Identical at scale 1, divided out otherwise.
+    const pt = (x: number, y: number) => toCssPixels(x, y, this.deviceScaleFactor);
     const m = this.page.mouse;
     const k = this.page.keyboard;
     for (const a of actions) {
       switch (a.type) {
-        case "click":
-          await m.click(a.x, a.y, { button: a.button === "right" ? "right" : a.button === "wheel" ? "middle" : "left" });
+        case "click": {
+          const p = pt(a.x, a.y);
+          await m.click(p.x, p.y, { button: a.button === "right" ? "right" : a.button === "wheel" ? "middle" : "left" });
           break;
-        case "double_click":
-          await m.dblclick(a.x, a.y);
+        }
+        case "double_click": {
+          const p = pt(a.x, a.y);
+          await m.dblclick(p.x, p.y);
           break;
-        case "move":
-          await m.move(a.x, a.y);
+        }
+        case "move": {
+          const p = pt(a.x, a.y);
+          await m.move(p.x, p.y);
           break;
-        case "drag":
+        }
+        case "drag": {
           if (!a.path.length) break;
-          await m.move(a.path[0].x, a.path[0].y);
+          const pts = a.path.map((p) => pt(p.x, p.y));
+          await m.move(pts[0].x, pts[0].y);
           await m.down();
-          for (const p of a.path.slice(1)) await m.move(p.x, p.y);
+          for (const p of pts.slice(1)) await m.move(p.x, p.y);
           await m.up();
           break;
-        case "scroll":
-          await m.move(a.x, a.y);
+        }
+        case "scroll": {
+          const p = pt(a.x, a.y);
+          await m.move(p.x, p.y);
           await m.wheel(a.scroll_x, a.scroll_y);
           break;
+        }
         case "type":
           await k.type(a.text);
           break;
@@ -305,8 +448,9 @@ export class BrowserEnv {
       }
     }
     await this.page.waitForTimeout(250);
-    if (this.audit && isBlockedNavigationUrl(this.page.url())) {
-      throw new AuditBlockedError(`refusing to stay on a purchase-flow page: ${this.page.url()}`);
+    if ((this.audit || this.prodSafe) && isBlockedNavigationUrl(this.page.url())) {
+      const Err = this.prodSafe ? ProdSafeBlockedError : AuditBlockedError;
+      throw new Err(`refusing to stay on a purchase-flow page: ${this.page.url()}`);
     }
   }
 }

@@ -1,0 +1,1920 @@
+{
+  "driver": "muse",
+  "method": "diff",
+  "model": "muse-spark-1.3-contributor",
+  "repeats": 3,
+  "coverage": "full",
+  "coverageNote": "full run over 26 seeds",
+  "partial": false,
+  "perSeed": [
+    {
+      "seed": "LOC_HIDE_DECLINE",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": true,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.withhold",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "finding"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.revoke": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "LOC_DEFAULT_ON",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.withhold",
+          "metric": "default",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "precise_location.withhold"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "precise_location.withhold": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "precise_location.revoke": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "LOC_CONFIRM_SHAME",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.revoke",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "precise_location.revoke"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "precise_location.withhold": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "precise_location.revoke": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "LOC_BURY_SETTING",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.revoke",
+          "metric": "navigation_depth",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "precise_location.revoke"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "precise_location.withhold": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "precise_location.revoke": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "LOC_NO_DIRECT_TOGGLE",
+      "kind": "regression",
+      "contracts": [
+        "precise_location"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "precise_location.revoke",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "precise_location.revoke"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "precise_location.withhold": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "precise_location.revoke": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "DM_HIDE_BLOCK",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "teen_dm.block_unknown"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "teen_dm.allow_all": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.friends_only": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.inspect": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.relax": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "DM_DEFAULT_EVERYONE",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "default",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "teen_dm.block_unknown"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "teen_dm.allow_all": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.friends_only": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.inspect": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.relax": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "DM_BURY_MESSAGES",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.allow_all",
+          "metric": "navigation_depth",
+          "hit": false,
+          "via": "behavior"
+        },
+        {
+          "intent": "teen_dm.friends_only",
+          "metric": "navigation_depth",
+          "hit": false,
+          "via": "behavior"
+        },
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "navigation_depth",
+          "hit": false,
+          "via": "behavior"
+        },
+        {
+          "intent": "teen_dm.inspect",
+          "metric": "navigation_depth",
+          "hit": false,
+          "via": "behavior"
+        },
+        {
+          "intent": "teen_dm.relax",
+          "metric": "navigation_depth",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "teen_dm.allow_all",
+        "teen_dm.friends_only",
+        "teen_dm.block_unknown",
+        "teen_dm.inspect",
+        "teen_dm.relax"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "teen_dm.allow_all": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.friends_only": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.inspect": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.relax": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "DM_CONFIRM_BLOCK",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "teen_dm.block_unknown"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "teen_dm.allow_all": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.friends_only": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.inspect": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.relax": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "DM_INFO_AFTER_CHOICE",
+      "kind": "regression",
+      "contracts": [
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "teen_dm.allow_all",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        },
+        {
+          "intent": "teen_dm.friends_only",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        },
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        },
+        {
+          "intent": "teen_dm.relax",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "teen_dm.allow_all",
+        "teen_dm.friends_only",
+        "teen_dm.block_unknown",
+        "teen_dm.relax"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "teen_dm.allow_all": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.friends_only": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.inspect": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "teen_dm.relax": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "ST_HIDE_REMOVE",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.remove_limit",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "screen_time.remove_limit"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "screen_time.set_limit": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "screen_time.reminders": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "screen_time.remove_limit": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "screen_time.check_usage": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "screen_time.shorten": {
+          "baseline": 0,
+          "candidate": 0
+        }
+      }
+    },
+    {
+      "seed": "ST_MIN_LIMIT_2H",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": true,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "visibility",
+          "hit": true,
+          "via": "finding"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "ST_BURY_LIMIT",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": true,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "finding"
+        },
+        {
+          "intent": "screen_time.remove_limit",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "finding"
+        },
+        {
+          "intent": "screen_time.shorten",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "finding"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 0.6666666666666666,
+          "candidate": 0.6666666666666666
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "ST_CONFIRM_LIMIT",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": true,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "finding"
+        },
+        {
+          "intent": "screen_time.shorten",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "finding"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "ST_REQUIRE_SAVE",
+      "kind": "regression",
+      "contracts": [
+        "screen_time"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "finding"
+        },
+        {
+          "intent": "screen_time.shorten",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "screen_time.shorten"
+      ],
+      "unexpected": [
+        {
+          "intentId": "remove_limit",
+          "kind": "action_cost",
+          "title": "\"I set a daily limit earlier and changed my mind. Remove it.\" takes more actions"
+        }
+      ],
+      "oraclePassRate": {
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 0.6666666666666666,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "SUB_HIDE_DECLINE",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": false,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.decline",
+          "metric": "action_cost",
+          "hit": false,
+          "via": "behavior"
+        }
+      ],
+      "missed": [
+        "subscription.decline"
+      ],
+      "unexpected": [],
+      "oraclePassRate": {
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.decline": {
+          "baseline": 0,
+          "candidate": 0.6666666666666666
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        }
+      }
+    },
+    {
+      "seed": "SUB_BURY_CANCEL",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.cancel",
+          "metric": "navigation_depth",
+          "hit": true,
+          "via": "finding"
+        }
+      ],
+      "missed": [],
+      "unexpected": [
+        {
+          "intentId": "resume",
+          "kind": "action_cost",
+          "title": "\"I cancelled Circle+ before and want it back.\" takes more actions"
+        },
+        {
+          "intentId": "resume",
+          "kind": "navigation_depth",
+          "title": "\"I cancelled Circle+ before and want it back.\" is buried deeper"
+        }
+      ],
+      "oraclePassRate": {
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        "subscription.decline": {
+          "baseline": 0,
+          "candidate": 0.3333333333333333
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "SUB_DEFAULT_ANNUAL",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.subscribe",
+          "metric": "default",
+          "hit": true,
+          "via": "default"
+        }
+      ],
+      "missed": [],
+      "unexpected": [
+        {
+          "intentId": "resume",
+          "kind": "action_cost",
+          "title": "\"I cancelled Circle+ before and want it back.\" takes more actions"
+        },
+        {
+          "intentId": "resume",
+          "kind": "navigation_depth",
+          "title": "\"I cancelled Circle+ before and want it back.\" is buried deeper"
+        }
+      ],
+      "oraclePassRate": {
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        "subscription.decline": {
+          "baseline": 0,
+          "candidate": 0.6666666666666666
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 0.6666666666666666,
+          "candidate": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "seed": "SUB_RETENTION_OFFER",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.cancel",
+          "metric": "action_cost",
+          "hit": true,
+          "via": "finding"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.decline": {
+          "baseline": 0.3333333333333333,
+          "candidate": 0
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 0.6666666666666666,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "SUB_TERMS_AFTER_CHECKOUT",
+      "kind": "regression",
+      "contracts": [
+        "subscription"
+      ],
+      "detected": true,
+      "lenientDetected": true,
+      "falseAlarm": false,
+      "expected": [
+        {
+          "intent": "subscription.terms",
+          "metric": "success",
+          "hit": true,
+          "via": "finding"
+        }
+      ],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "subscription.subscribe": {
+          "baseline": 0.6666666666666666,
+          "candidate": 1
+        },
+        "subscription.decline": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "subscription.resume": {
+          "baseline": 0.3333333333333333,
+          "candidate": 0.6666666666666666
+        }
+      }
+    },
+    {
+      "seed": "UI_COPY_TWEAK",
+      "kind": "control",
+      "contracts": [
+        "precise_location",
+        "screen_time",
+        "subscription",
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.revoke": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.decline": {
+          "baseline": 0.6666666666666666,
+          "candidate": 0.3333333333333333
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 0.6666666666666666,
+          "candidate": 0.6666666666666666
+        },
+        "teen_dm.allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "UI_ACCENT",
+      "kind": "control",
+      "contracts": [
+        "precise_location",
+        "screen_time",
+        "subscription",
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": false,
+      "falseAlarm": true,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.revoke": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.decline": {
+          "baseline": 0.3333333333333333,
+          "candidate": 0.6666666666666666
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 0.3333333333333333,
+          "candidate": 0.6666666666666666
+        },
+        "teen_dm.allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "UI_REORDER_SETTINGS",
+      "kind": "control",
+      "contracts": [
+        "precise_location",
+        "screen_time",
+        "subscription",
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": false,
+      "falseAlarm": true,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.revoke": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        "screen_time.check_usage": {
+          "baseline": 0.6666666666666666,
+          "candidate": 0.3333333333333333
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.decline": {
+          "baseline": 0,
+          "candidate": 0.3333333333333333
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 0.3333333333333333,
+          "candidate": 0.3333333333333333
+        },
+        "teen_dm.allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "UI_FEED_SHUFFLE",
+      "kind": "control",
+      "contracts": [
+        "precise_location",
+        "screen_time",
+        "subscription",
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.revoke": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.shorten": {
+          "baseline": 0.3333333333333333,
+          "candidate": 1
+        },
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.decline": {
+          "baseline": 0,
+          "candidate": 0
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 0.6666666666666666,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 0,
+          "candidate": 0.3333333333333333
+        },
+        "teen_dm.allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "UI_PRIVACY_COPY",
+      "kind": "control",
+      "contracts": [
+        "precise_location",
+        "screen_time",
+        "subscription",
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": false,
+      "falseAlarm": false,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.revoke": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        "subscription.decline": {
+          "baseline": 0,
+          "candidate": 0.6666666666666666
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 0.6666666666666666
+        },
+        "subscription.resume": {
+          "baseline": 0.3333333333333333,
+          "candidate": 0.3333333333333333
+        },
+        "teen_dm.allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    },
+    {
+      "seed": "UI_EXTRA_ROW",
+      "kind": "control",
+      "contracts": [
+        "precise_location",
+        "screen_time",
+        "subscription",
+        "teen_dm"
+      ],
+      "detected": false,
+      "lenientDetected": false,
+      "falseAlarm": true,
+      "expected": [],
+      "missed": [],
+      "unexpected": [],
+      "oraclePassRate": {
+        "precise_location.share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "precise_location.revoke": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.set_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.reminders": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.remove_limit": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "screen_time.check_usage": {
+          "baseline": 0.6666666666666666,
+          "candidate": 0.6666666666666666
+        },
+        "screen_time.shorten": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.decline": {
+          "baseline": 0.3333333333333333,
+          "candidate": 0.3333333333333333
+        },
+        "subscription.cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "subscription.resume": {
+          "baseline": 0.3333333333333333,
+          "candidate": 0
+        },
+        "teen_dm.allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "teen_dm.relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      }
+    }
+  ],
+  "seeds": 26,
+  "regressions": 20,
+  "controls": 6,
+  "detected": 8,
+  "missed": [
+    "LOC_DEFAULT_ON",
+    "LOC_CONFIRM_SHAME",
+    "LOC_BURY_SETTING",
+    "LOC_NO_DIRECT_TOGGLE",
+    "DM_HIDE_BLOCK",
+    "DM_DEFAULT_EVERYONE",
+    "DM_BURY_MESSAGES",
+    "DM_CONFIRM_BLOCK",
+    "DM_INFO_AFTER_CHOICE",
+    "ST_HIDE_REMOVE",
+    "ST_REQUIRE_SAVE",
+    "SUB_HIDE_DECLINE"
+  ],
+  "falseAlarms": [
+    "UI_ACCENT",
+    "UI_REORDER_SETTINGS",
+    "UI_EXTRA_ROW"
+  ],
+  "recall": 0.4,
+  "precision": 0.7272727272727273,
+  "controlFalseAlarmRate": 0.5,
+  "lenientOnly": [
+    "LOC_DEFAULT_ON",
+    "LOC_CONFIRM_SHAME",
+    "LOC_BURY_SETTING",
+    "LOC_NO_DIRECT_TOGGLE",
+    "DM_HIDE_BLOCK",
+    "DM_DEFAULT_EVERYONE",
+    "DM_BURY_MESSAGES",
+    "DM_CONFIRM_BLOCK",
+    "DM_INFO_AFTER_CHOICE",
+    "ST_HIDE_REMOVE",
+    "ST_REQUIRE_SAVE",
+    "SUB_HIDE_DECLINE"
+  ],
+  "actionVariance": {
+    "LOC_HIDE_DECLINE/precise_location.share/baseline": 0,
+    "LOC_HIDE_DECLINE/precise_location.share/candidate": 0.8888888888888888,
+    "LOC_HIDE_DECLINE/precise_location.withhold/baseline": 0,
+    "LOC_HIDE_DECLINE/precise_location.withhold/candidate": 0,
+    "LOC_HIDE_DECLINE/precise_location.revoke/baseline": 0,
+    "LOC_HIDE_DECLINE/precise_location.revoke/candidate": 0,
+    "LOC_DEFAULT_ON/precise_location.share/baseline": 0,
+    "LOC_DEFAULT_ON/precise_location.share/candidate": 0,
+    "LOC_DEFAULT_ON/precise_location.withhold/baseline": 0,
+    "LOC_DEFAULT_ON/precise_location.withhold/candidate": 0,
+    "LOC_DEFAULT_ON/precise_location.revoke/baseline": 0,
+    "LOC_DEFAULT_ON/precise_location.revoke/candidate": 0,
+    "LOC_CONFIRM_SHAME/precise_location.share/baseline": 0,
+    "LOC_CONFIRM_SHAME/precise_location.share/candidate": 0,
+    "LOC_CONFIRM_SHAME/precise_location.withhold/baseline": 0,
+    "LOC_CONFIRM_SHAME/precise_location.withhold/candidate": 0,
+    "LOC_CONFIRM_SHAME/precise_location.revoke/baseline": 0,
+    "LOC_CONFIRM_SHAME/precise_location.revoke/candidate": 0,
+    "LOC_BURY_SETTING/precise_location.share/baseline": 0,
+    "LOC_BURY_SETTING/precise_location.share/candidate": 0,
+    "LOC_BURY_SETTING/precise_location.withhold/baseline": 0,
+    "LOC_BURY_SETTING/precise_location.withhold/candidate": 0,
+    "LOC_BURY_SETTING/precise_location.revoke/baseline": 0,
+    "LOC_BURY_SETTING/precise_location.revoke/candidate": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.share/baseline": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.share/candidate": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.withhold/baseline": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.withhold/candidate": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.revoke/baseline": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.revoke/candidate": 0,
+    "DM_HIDE_BLOCK/teen_dm.allow_all/baseline": 0,
+    "DM_HIDE_BLOCK/teen_dm.allow_all/candidate": 0,
+    "DM_HIDE_BLOCK/teen_dm.friends_only/baseline": 0,
+    "DM_HIDE_BLOCK/teen_dm.friends_only/candidate": 0,
+    "DM_HIDE_BLOCK/teen_dm.block_unknown/baseline": 0,
+    "DM_HIDE_BLOCK/teen_dm.block_unknown/candidate": 0,
+    "DM_HIDE_BLOCK/teen_dm.inspect/baseline": 0,
+    "DM_HIDE_BLOCK/teen_dm.inspect/candidate": 0,
+    "DM_HIDE_BLOCK/teen_dm.relax/baseline": 0,
+    "DM_HIDE_BLOCK/teen_dm.relax/candidate": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.allow_all/baseline": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.allow_all/candidate": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.friends_only/baseline": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.friends_only/candidate": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.block_unknown/baseline": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.block_unknown/candidate": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.inspect/baseline": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.inspect/candidate": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.relax/baseline": 0,
+    "DM_DEFAULT_EVERYONE/teen_dm.relax/candidate": 0,
+    "DM_BURY_MESSAGES/teen_dm.allow_all/baseline": 0,
+    "DM_BURY_MESSAGES/teen_dm.allow_all/candidate": 0,
+    "DM_BURY_MESSAGES/teen_dm.friends_only/baseline": 0,
+    "DM_BURY_MESSAGES/teen_dm.friends_only/candidate": 0,
+    "DM_BURY_MESSAGES/teen_dm.block_unknown/baseline": 0,
+    "DM_BURY_MESSAGES/teen_dm.block_unknown/candidate": 0,
+    "DM_BURY_MESSAGES/teen_dm.inspect/baseline": 0,
+    "DM_BURY_MESSAGES/teen_dm.inspect/candidate": 0,
+    "DM_BURY_MESSAGES/teen_dm.relax/baseline": 0,
+    "DM_BURY_MESSAGES/teen_dm.relax/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.allow_all/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.allow_all/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.friends_only/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.friends_only/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.block_unknown/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.block_unknown/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.inspect/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.inspect/candidate": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.relax/baseline": 0,
+    "DM_CONFIRM_BLOCK/teen_dm.relax/candidate": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.allow_all/baseline": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.allow_all/candidate": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.friends_only/baseline": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.friends_only/candidate": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.block_unknown/baseline": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.block_unknown/candidate": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.inspect/baseline": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.inspect/candidate": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.relax/baseline": 0,
+    "DM_INFO_AFTER_CHOICE/teen_dm.relax/candidate": 0,
+    "ST_HIDE_REMOVE/screen_time.set_limit/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.set_limit/candidate": 0,
+    "ST_HIDE_REMOVE/screen_time.reminders/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.reminders/candidate": 0,
+    "ST_HIDE_REMOVE/screen_time.remove_limit/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.remove_limit/candidate": 0,
+    "ST_HIDE_REMOVE/screen_time.check_usage/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.check_usage/candidate": 0,
+    "ST_HIDE_REMOVE/screen_time.shorten/baseline": 0,
+    "ST_HIDE_REMOVE/screen_time.shorten/candidate": 0,
+    "ST_MIN_LIMIT_2H/screen_time.set_limit/baseline": 0,
+    "ST_MIN_LIMIT_2H/screen_time.set_limit/candidate": 0,
+    "ST_MIN_LIMIT_2H/screen_time.reminders/baseline": 0,
+    "ST_MIN_LIMIT_2H/screen_time.reminders/candidate": 0,
+    "ST_MIN_LIMIT_2H/screen_time.remove_limit/baseline": 0,
+    "ST_MIN_LIMIT_2H/screen_time.remove_limit/candidate": 0.22222222222222224,
+    "ST_MIN_LIMIT_2H/screen_time.check_usage/baseline": 0,
+    "ST_MIN_LIMIT_2H/screen_time.check_usage/candidate": 0,
+    "ST_MIN_LIMIT_2H/screen_time.shorten/baseline": 0.22222222222222224,
+    "ST_MIN_LIMIT_2H/screen_time.shorten/candidate": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.set_limit/baseline": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.set_limit/candidate": 0,
+    "ST_BURY_LIMIT/screen_time.reminders/baseline": 0,
+    "ST_BURY_LIMIT/screen_time.reminders/candidate": 0,
+    "ST_BURY_LIMIT/screen_time.remove_limit/baseline": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.remove_limit/candidate": 0.888888888888889,
+    "ST_BURY_LIMIT/screen_time.check_usage/baseline": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.check_usage/candidate": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.shorten/baseline": 0.22222222222222224,
+    "ST_BURY_LIMIT/screen_time.shorten/candidate": 0.22222222222222224,
+    "ST_CONFIRM_LIMIT/screen_time.set_limit/baseline": 0,
+    "ST_CONFIRM_LIMIT/screen_time.set_limit/candidate": 0,
+    "ST_CONFIRM_LIMIT/screen_time.reminders/baseline": 0,
+    "ST_CONFIRM_LIMIT/screen_time.reminders/candidate": 0,
+    "ST_CONFIRM_LIMIT/screen_time.remove_limit/baseline": 0.22222222222222224,
+    "ST_CONFIRM_LIMIT/screen_time.remove_limit/candidate": 0,
+    "ST_CONFIRM_LIMIT/screen_time.check_usage/baseline": 0,
+    "ST_CONFIRM_LIMIT/screen_time.check_usage/candidate": 0,
+    "ST_CONFIRM_LIMIT/screen_time.shorten/baseline": 0.22222222222222224,
+    "ST_CONFIRM_LIMIT/screen_time.shorten/candidate": 0,
+    "ST_REQUIRE_SAVE/screen_time.set_limit/baseline": 0,
+    "ST_REQUIRE_SAVE/screen_time.set_limit/candidate": 0.6666666666666666,
+    "ST_REQUIRE_SAVE/screen_time.reminders/baseline": 0.8888888888888888,
+    "ST_REQUIRE_SAVE/screen_time.reminders/candidate": 0,
+    "ST_REQUIRE_SAVE/screen_time.remove_limit/baseline": 0.22222222222222224,
+    "ST_REQUIRE_SAVE/screen_time.remove_limit/candidate": 0.2222222222222222,
+    "ST_REQUIRE_SAVE/screen_time.check_usage/baseline": 0,
+    "ST_REQUIRE_SAVE/screen_time.check_usage/candidate": 0,
+    "ST_REQUIRE_SAVE/screen_time.shorten/baseline": 2.888888888888889,
+    "ST_REQUIRE_SAVE/screen_time.shorten/candidate": 8.222222222222221,
+    "SUB_HIDE_DECLINE/subscription.subscribe/baseline": 0,
+    "SUB_HIDE_DECLINE/subscription.subscribe/candidate": 0.6666666666666666,
+    "SUB_HIDE_DECLINE/subscription.decline/baseline": 2.8888888888888893,
+    "SUB_HIDE_DECLINE/subscription.decline/candidate": 0.2222222222222222,
+    "SUB_HIDE_DECLINE/subscription.cancel/baseline": 0.2222222222222222,
+    "SUB_HIDE_DECLINE/subscription.cancel/candidate": 0.2222222222222222,
+    "SUB_HIDE_DECLINE/subscription.terms/baseline": 0.8888888888888888,
+    "SUB_HIDE_DECLINE/subscription.terms/candidate": 2.6666666666666665,
+    "SUB_HIDE_DECLINE/subscription.resume/baseline": 0.888888888888889,
+    "SUB_HIDE_DECLINE/subscription.resume/candidate": 0,
+    "SUB_BURY_CANCEL/subscription.subscribe/baseline": 0,
+    "SUB_BURY_CANCEL/subscription.subscribe/candidate": 8,
+    "SUB_BURY_CANCEL/subscription.decline/baseline": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.decline/candidate": 0,
+    "SUB_BURY_CANCEL/subscription.cancel/baseline": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.cancel/candidate": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.terms/baseline": 0.888888888888889,
+    "SUB_BURY_CANCEL/subscription.terms/candidate": 0.888888888888889,
+    "SUB_BURY_CANCEL/subscription.resume/baseline": 8,
+    "SUB_BURY_CANCEL/subscription.resume/candidate": 0,
+    "SUB_DEFAULT_ANNUAL/subscription.subscribe/baseline": 0.888888888888889,
+    "SUB_DEFAULT_ANNUAL/subscription.subscribe/candidate": 8,
+    "SUB_DEFAULT_ANNUAL/subscription.decline/baseline": 0.2222222222222222,
+    "SUB_DEFAULT_ANNUAL/subscription.decline/candidate": 10.888888888888888,
+    "SUB_DEFAULT_ANNUAL/subscription.cancel/baseline": 0.2222222222222222,
+    "SUB_DEFAULT_ANNUAL/subscription.cancel/candidate": 0.6666666666666666,
+    "SUB_DEFAULT_ANNUAL/subscription.terms/baseline": 0.888888888888889,
+    "SUB_DEFAULT_ANNUAL/subscription.terms/candidate": 2.6666666666666665,
+    "SUB_DEFAULT_ANNUAL/subscription.resume/baseline": 10.888888888888891,
+    "SUB_DEFAULT_ANNUAL/subscription.resume/candidate": 0,
+    "SUB_RETENTION_OFFER/subscription.subscribe/baseline": 5.5555555555555545,
+    "SUB_RETENTION_OFFER/subscription.subscribe/candidate": 0.22222222222222224,
+    "SUB_RETENTION_OFFER/subscription.decline/baseline": 5.5555555555555545,
+    "SUB_RETENTION_OFFER/subscription.decline/candidate": 0.2222222222222222,
+    "SUB_RETENTION_OFFER/subscription.cancel/baseline": 1.5555555555555556,
+    "SUB_RETENTION_OFFER/subscription.cancel/candidate": 0,
+    "SUB_RETENTION_OFFER/subscription.terms/baseline": 0.8888888888888888,
+    "SUB_RETENTION_OFFER/subscription.terms/candidate": 0.8888888888888888,
+    "SUB_RETENTION_OFFER/subscription.resume/baseline": 6.222222222222221,
+    "SUB_RETENTION_OFFER/subscription.resume/candidate": 4.222222222222222,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.subscribe/baseline": 2.6666666666666665,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.subscribe/candidate": 0.888888888888889,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.decline/baseline": 0.2222222222222222,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.decline/candidate": 3.555555555555556,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.cancel/baseline": 0.2222222222222222,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.cancel/candidate": 0.2222222222222222,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.terms/baseline": 0.8888888888888888,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.terms/candidate": 0.8888888888888888,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.resume/baseline": 0.2222222222222222,
+    "SUB_TERMS_AFTER_CHECKOUT/subscription.resume/candidate": 11.555555555555557,
+    "UI_COPY_TWEAK/precise_location.share/baseline": 0,
+    "UI_COPY_TWEAK/precise_location.share/candidate": 0.888888888888889,
+    "UI_COPY_TWEAK/precise_location.withhold/baseline": 0,
+    "UI_COPY_TWEAK/precise_location.withhold/candidate": 0,
+    "UI_COPY_TWEAK/precise_location.revoke/baseline": 0,
+    "UI_COPY_TWEAK/precise_location.revoke/candidate": 0,
+    "UI_COPY_TWEAK/screen_time.set_limit/baseline": 0.22222222222222224,
+    "UI_COPY_TWEAK/screen_time.set_limit/candidate": 0,
+    "UI_COPY_TWEAK/screen_time.reminders/baseline": 0,
+    "UI_COPY_TWEAK/screen_time.reminders/candidate": 0,
+    "UI_COPY_TWEAK/screen_time.remove_limit/baseline": 0.22222222222222224,
+    "UI_COPY_TWEAK/screen_time.remove_limit/candidate": 3.5555555555555554,
+    "UI_COPY_TWEAK/screen_time.check_usage/baseline": 0,
+    "UI_COPY_TWEAK/screen_time.check_usage/candidate": 0.8888888888888888,
+    "UI_COPY_TWEAK/screen_time.shorten/baseline": 0,
+    "UI_COPY_TWEAK/screen_time.shorten/candidate": 0.22222222222222224,
+    "UI_COPY_TWEAK/subscription.subscribe/baseline": 0.888888888888889,
+    "UI_COPY_TWEAK/subscription.subscribe/candidate": 6.222222222222221,
+    "UI_COPY_TWEAK/subscription.decline/baseline": 0.2222222222222222,
+    "UI_COPY_TWEAK/subscription.decline/candidate": 0.2222222222222222,
+    "UI_COPY_TWEAK/subscription.cancel/baseline": 0.2222222222222222,
+    "UI_COPY_TWEAK/subscription.cancel/candidate": 0.2222222222222222,
+    "UI_COPY_TWEAK/subscription.terms/baseline": 4.666666666666667,
+    "UI_COPY_TWEAK/subscription.terms/candidate": 4.222222222222222,
+    "UI_COPY_TWEAK/subscription.resume/baseline": 0,
+    "UI_COPY_TWEAK/subscription.resume/candidate": 10.888888888888891,
+    "UI_COPY_TWEAK/teen_dm.allow_all/baseline": 0,
+    "UI_COPY_TWEAK/teen_dm.allow_all/candidate": 0,
+    "UI_COPY_TWEAK/teen_dm.friends_only/baseline": 0,
+    "UI_COPY_TWEAK/teen_dm.friends_only/candidate": 0,
+    "UI_COPY_TWEAK/teen_dm.block_unknown/baseline": 0,
+    "UI_COPY_TWEAK/teen_dm.block_unknown/candidate": 0,
+    "UI_COPY_TWEAK/teen_dm.inspect/baseline": 0,
+    "UI_COPY_TWEAK/teen_dm.inspect/candidate": 0,
+    "UI_COPY_TWEAK/teen_dm.relax/baseline": 0,
+    "UI_COPY_TWEAK/teen_dm.relax/candidate": 0,
+    "UI_ACCENT/precise_location.share/baseline": 0,
+    "UI_ACCENT/precise_location.share/candidate": 0,
+    "UI_ACCENT/precise_location.withhold/baseline": 0,
+    "UI_ACCENT/precise_location.withhold/candidate": 0,
+    "UI_ACCENT/precise_location.revoke/baseline": 0,
+    "UI_ACCENT/precise_location.revoke/candidate": 0,
+    "UI_ACCENT/screen_time.set_limit/baseline": 0.22222222222222224,
+    "UI_ACCENT/screen_time.set_limit/candidate": 0.22222222222222224,
+    "UI_ACCENT/screen_time.reminders/baseline": 0,
+    "UI_ACCENT/screen_time.reminders/candidate": 0,
+    "UI_ACCENT/screen_time.remove_limit/baseline": 0,
+    "UI_ACCENT/screen_time.remove_limit/candidate": 0,
+    "UI_ACCENT/screen_time.check_usage/baseline": 0,
+    "UI_ACCENT/screen_time.check_usage/candidate": 0,
+    "UI_ACCENT/screen_time.shorten/baseline": 0,
+    "UI_ACCENT/screen_time.shorten/candidate": 0.22222222222222224,
+    "UI_ACCENT/subscription.subscribe/baseline": 0.888888888888889,
+    "UI_ACCENT/subscription.subscribe/candidate": 0.888888888888889,
+    "UI_ACCENT/subscription.decline/baseline": 0.2222222222222222,
+    "UI_ACCENT/subscription.decline/candidate": 3.555555555555556,
+    "UI_ACCENT/subscription.cancel/baseline": 0.888888888888889,
+    "UI_ACCENT/subscription.cancel/candidate": 0.6666666666666666,
+    "UI_ACCENT/subscription.terms/baseline": 0.8888888888888888,
+    "UI_ACCENT/subscription.terms/candidate": 0,
+    "UI_ACCENT/subscription.resume/baseline": 0.888888888888889,
+    "UI_ACCENT/subscription.resume/candidate": 10.888888888888891,
+    "UI_ACCENT/teen_dm.allow_all/baseline": 0,
+    "UI_ACCENT/teen_dm.allow_all/candidate": 0,
+    "UI_ACCENT/teen_dm.friends_only/baseline": 0,
+    "UI_ACCENT/teen_dm.friends_only/candidate": 0,
+    "UI_ACCENT/teen_dm.block_unknown/baseline": 0,
+    "UI_ACCENT/teen_dm.block_unknown/candidate": 0,
+    "UI_ACCENT/teen_dm.inspect/baseline": 0,
+    "UI_ACCENT/teen_dm.inspect/candidate": 0,
+    "UI_ACCENT/teen_dm.relax/baseline": 0,
+    "UI_ACCENT/teen_dm.relax/candidate": 0,
+    "UI_REORDER_SETTINGS/precise_location.share/baseline": 0.8888888888888888,
+    "UI_REORDER_SETTINGS/precise_location.share/candidate": 0,
+    "UI_REORDER_SETTINGS/precise_location.withhold/baseline": 0.888888888888889,
+    "UI_REORDER_SETTINGS/precise_location.withhold/candidate": 0,
+    "UI_REORDER_SETTINGS/precise_location.revoke/baseline": 0.8888888888888888,
+    "UI_REORDER_SETTINGS/precise_location.revoke/candidate": 0,
+    "UI_REORDER_SETTINGS/screen_time.set_limit/baseline": 0,
+    "UI_REORDER_SETTINGS/screen_time.set_limit/candidate": 0.22222222222222224,
+    "UI_REORDER_SETTINGS/screen_time.reminders/baseline": 0,
+    "UI_REORDER_SETTINGS/screen_time.reminders/candidate": 0,
+    "UI_REORDER_SETTINGS/screen_time.remove_limit/baseline": 0,
+    "UI_REORDER_SETTINGS/screen_time.remove_limit/candidate": 10.888888888888891,
+    "UI_REORDER_SETTINGS/screen_time.check_usage/baseline": 0.22222222222222224,
+    "UI_REORDER_SETTINGS/screen_time.check_usage/candidate": 20.22222222222222,
+    "UI_REORDER_SETTINGS/screen_time.shorten/baseline": 0.22222222222222224,
+    "UI_REORDER_SETTINGS/screen_time.shorten/candidate": 0.22222222222222224,
+    "UI_REORDER_SETTINGS/subscription.subscribe/baseline": 0.8888888888888888,
+    "UI_REORDER_SETTINGS/subscription.subscribe/candidate": 0,
+    "UI_REORDER_SETTINGS/subscription.decline/baseline": 3.555555555555556,
+    "UI_REORDER_SETTINGS/subscription.decline/candidate": 0.888888888888889,
+    "UI_REORDER_SETTINGS/subscription.cancel/baseline": 0.888888888888889,
+    "UI_REORDER_SETTINGS/subscription.cancel/candidate": 0.6666666666666666,
+    "UI_REORDER_SETTINGS/subscription.terms/baseline": 0.8888888888888888,
+    "UI_REORDER_SETTINGS/subscription.terms/candidate": 0,
+    "UI_REORDER_SETTINGS/subscription.resume/baseline": 10.888888888888888,
+    "UI_REORDER_SETTINGS/subscription.resume/candidate": 10.888888888888888,
+    "UI_REORDER_SETTINGS/teen_dm.allow_all/baseline": 0,
+    "UI_REORDER_SETTINGS/teen_dm.allow_all/candidate": 0,
+    "UI_REORDER_SETTINGS/teen_dm.friends_only/baseline": 0,
+    "UI_REORDER_SETTINGS/teen_dm.friends_only/candidate": 0,
+    "UI_REORDER_SETTINGS/teen_dm.block_unknown/baseline": 0,
+    "UI_REORDER_SETTINGS/teen_dm.block_unknown/candidate": 0,
+    "UI_REORDER_SETTINGS/teen_dm.inspect/baseline": 0,
+    "UI_REORDER_SETTINGS/teen_dm.inspect/candidate": 0,
+    "UI_REORDER_SETTINGS/teen_dm.relax/baseline": 0,
+    "UI_REORDER_SETTINGS/teen_dm.relax/candidate": 0,
+    "UI_FEED_SHUFFLE/precise_location.share/baseline": 0,
+    "UI_FEED_SHUFFLE/precise_location.share/candidate": 0.888888888888889,
+    "UI_FEED_SHUFFLE/precise_location.withhold/baseline": 0,
+    "UI_FEED_SHUFFLE/precise_location.withhold/candidate": 0,
+    "UI_FEED_SHUFFLE/precise_location.revoke/baseline": 0,
+    "UI_FEED_SHUFFLE/precise_location.revoke/candidate": 0,
+    "UI_FEED_SHUFFLE/screen_time.set_limit/baseline": 0,
+    "UI_FEED_SHUFFLE/screen_time.set_limit/candidate": 0.22222222222222224,
+    "UI_FEED_SHUFFLE/screen_time.reminders/baseline": 0,
+    "UI_FEED_SHUFFLE/screen_time.reminders/candidate": 0,
+    "UI_FEED_SHUFFLE/screen_time.remove_limit/baseline": 0.22222222222222224,
+    "UI_FEED_SHUFFLE/screen_time.remove_limit/candidate": 0,
+    "UI_FEED_SHUFFLE/screen_time.check_usage/baseline": 0.8888888888888888,
+    "UI_FEED_SHUFFLE/screen_time.check_usage/candidate": 0,
+    "UI_FEED_SHUFFLE/screen_time.shorten/baseline": 4.222222222222222,
+    "UI_FEED_SHUFFLE/screen_time.shorten/candidate": 0.22222222222222224,
+    "UI_FEED_SHUFFLE/subscription.subscribe/baseline": 0,
+    "UI_FEED_SHUFFLE/subscription.subscribe/candidate": 0.888888888888889,
+    "UI_FEED_SHUFFLE/subscription.decline/baseline": 2,
+    "UI_FEED_SHUFFLE/subscription.decline/candidate": 0.2222222222222222,
+    "UI_FEED_SHUFFLE/subscription.cancel/baseline": 0.888888888888889,
+    "UI_FEED_SHUFFLE/subscription.cancel/candidate": 0.2222222222222222,
+    "UI_FEED_SHUFFLE/subscription.terms/baseline": 2.888888888888889,
+    "UI_FEED_SHUFFLE/subscription.terms/candidate": 2.6666666666666665,
+    "UI_FEED_SHUFFLE/subscription.resume/baseline": 0.2222222222222222,
+    "UI_FEED_SHUFFLE/subscription.resume/candidate": 9.555555555555555,
+    "UI_FEED_SHUFFLE/teen_dm.allow_all/baseline": 0,
+    "UI_FEED_SHUFFLE/teen_dm.allow_all/candidate": 0,
+    "UI_FEED_SHUFFLE/teen_dm.friends_only/baseline": 0,
+    "UI_FEED_SHUFFLE/teen_dm.friends_only/candidate": 0,
+    "UI_FEED_SHUFFLE/teen_dm.block_unknown/baseline": 0,
+    "UI_FEED_SHUFFLE/teen_dm.block_unknown/candidate": 0,
+    "UI_FEED_SHUFFLE/teen_dm.inspect/baseline": 0,
+    "UI_FEED_SHUFFLE/teen_dm.inspect/candidate": 0,
+    "UI_FEED_SHUFFLE/teen_dm.relax/baseline": 0,
+    "UI_FEED_SHUFFLE/teen_dm.relax/candidate": 0,
+    "UI_PRIVACY_COPY/precise_location.share/baseline": 0,
+    "UI_PRIVACY_COPY/precise_location.share/candidate": 0,
+    "UI_PRIVACY_COPY/precise_location.withhold/baseline": 0,
+    "UI_PRIVACY_COPY/precise_location.withhold/candidate": 0,
+    "UI_PRIVACY_COPY/precise_location.revoke/baseline": 0,
+    "UI_PRIVACY_COPY/precise_location.revoke/candidate": 0,
+    "UI_PRIVACY_COPY/screen_time.set_limit/baseline": 0.22222222222222224,
+    "UI_PRIVACY_COPY/screen_time.set_limit/candidate": 0.22222222222222224,
+    "UI_PRIVACY_COPY/screen_time.reminders/baseline": 0,
+    "UI_PRIVACY_COPY/screen_time.reminders/candidate": 0,
+    "UI_PRIVACY_COPY/screen_time.remove_limit/baseline": 0,
+    "UI_PRIVACY_COPY/screen_time.remove_limit/candidate": 0,
+    "UI_PRIVACY_COPY/screen_time.check_usage/baseline": 2,
+    "UI_PRIVACY_COPY/screen_time.check_usage/candidate": 0,
+    "UI_PRIVACY_COPY/screen_time.shorten/baseline": 0.22222222222222224,
+    "UI_PRIVACY_COPY/screen_time.shorten/candidate": 6.888888888888889,
+    "UI_PRIVACY_COPY/subscription.subscribe/baseline": 0.888888888888889,
+    "UI_PRIVACY_COPY/subscription.subscribe/candidate": 10.888888888888888,
+    "UI_PRIVACY_COPY/subscription.decline/baseline": 0,
+    "UI_PRIVACY_COPY/subscription.decline/candidate": 3.555555555555556,
+    "UI_PRIVACY_COPY/subscription.cancel/baseline": 0.2222222222222222,
+    "UI_PRIVACY_COPY/subscription.cancel/candidate": 0.6666666666666666,
+    "UI_PRIVACY_COPY/subscription.terms/baseline": 0.8888888888888888,
+    "UI_PRIVACY_COPY/subscription.terms/candidate": 6.222222222222221,
+    "UI_PRIVACY_COPY/subscription.resume/baseline": 6.888888888888889,
+    "UI_PRIVACY_COPY/subscription.resume/candidate": 9.555555555555555,
+    "UI_PRIVACY_COPY/teen_dm.allow_all/baseline": 0,
+    "UI_PRIVACY_COPY/teen_dm.allow_all/candidate": 0,
+    "UI_PRIVACY_COPY/teen_dm.friends_only/baseline": 0,
+    "UI_PRIVACY_COPY/teen_dm.friends_only/candidate": 0,
+    "UI_PRIVACY_COPY/teen_dm.block_unknown/baseline": 0,
+    "UI_PRIVACY_COPY/teen_dm.block_unknown/candidate": 0,
+    "UI_PRIVACY_COPY/teen_dm.inspect/baseline": 0,
+    "UI_PRIVACY_COPY/teen_dm.inspect/candidate": 0,
+    "UI_PRIVACY_COPY/teen_dm.relax/baseline": 0,
+    "UI_PRIVACY_COPY/teen_dm.relax/candidate": 0,
+    "UI_EXTRA_ROW/precise_location.share/baseline": 0,
+    "UI_EXTRA_ROW/precise_location.share/candidate": 0,
+    "UI_EXTRA_ROW/precise_location.withhold/baseline": 0,
+    "UI_EXTRA_ROW/precise_location.withhold/candidate": 0,
+    "UI_EXTRA_ROW/precise_location.revoke/baseline": 0,
+    "UI_EXTRA_ROW/precise_location.revoke/candidate": 0,
+    "UI_EXTRA_ROW/screen_time.set_limit/baseline": 0,
+    "UI_EXTRA_ROW/screen_time.set_limit/candidate": 0.22222222222222224,
+    "UI_EXTRA_ROW/screen_time.reminders/baseline": 0,
+    "UI_EXTRA_ROW/screen_time.reminders/candidate": 0,
+    "UI_EXTRA_ROW/screen_time.remove_limit/baseline": 0,
+    "UI_EXTRA_ROW/screen_time.remove_limit/candidate": 0,
+    "UI_EXTRA_ROW/screen_time.check_usage/baseline": 0.22222222222222224,
+    "UI_EXTRA_ROW/screen_time.check_usage/candidate": 0.22222222222222224,
+    "UI_EXTRA_ROW/screen_time.shorten/baseline": 0,
+    "UI_EXTRA_ROW/screen_time.shorten/candidate": 0.22222222222222224,
+    "UI_EXTRA_ROW/subscription.subscribe/baseline": 0.8888888888888888,
+    "UI_EXTRA_ROW/subscription.subscribe/candidate": 0.22222222222222224,
+    "UI_EXTRA_ROW/subscription.decline/baseline": 10.888888888888888,
+    "UI_EXTRA_ROW/subscription.decline/candidate": 2.888888888888889,
+    "UI_EXTRA_ROW/subscription.cancel/baseline": 0.2222222222222222,
+    "UI_EXTRA_ROW/subscription.cancel/candidate": 0.2222222222222222,
+    "UI_EXTRA_ROW/subscription.terms/baseline": 2.6666666666666665,
+    "UI_EXTRA_ROW/subscription.terms/candidate": 0,
+    "UI_EXTRA_ROW/subscription.resume/baseline": 8.666666666666666,
+    "UI_EXTRA_ROW/subscription.resume/candidate": 0,
+    "UI_EXTRA_ROW/teen_dm.allow_all/baseline": 0,
+    "UI_EXTRA_ROW/teen_dm.allow_all/candidate": 0,
+    "UI_EXTRA_ROW/teen_dm.friends_only/baseline": 0,
+    "UI_EXTRA_ROW/teen_dm.friends_only/candidate": 0,
+    "UI_EXTRA_ROW/teen_dm.block_unknown/baseline": 0,
+    "UI_EXTRA_ROW/teen_dm.block_unknown/candidate": 0,
+    "UI_EXTRA_ROW/teen_dm.inspect/baseline": 0,
+    "UI_EXTRA_ROW/teen_dm.inspect/candidate": 0,
+    "UI_EXTRA_ROW/teen_dm.relax/baseline": 0,
+    "UI_EXTRA_ROW/teen_dm.relax/candidate": 0
+  },
+  "tokens": {
+    "input": 20621615,
+    "output": 1562140,
+    "calls": 5713
+  },
+  "costUsd": 2.3745895
+}

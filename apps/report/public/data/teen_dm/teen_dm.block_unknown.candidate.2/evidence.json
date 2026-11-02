@@ -1,0 +1,35 @@
+{
+  "traceId": "teen_dm.block_unknown.candidate.2",
+  "model": "sam-3.1",
+  "producedAt": "2026-11-02T05:57:23.167Z",
+  "steps": [
+    {
+      "step": -1,
+      "screenshot": "000.png",
+      "controls": [
+        {
+          "tag": "dm.allow_all",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "dm.block_unknown",
+          "inInitialViewport": false
+        }
+      ]
+    },
+    {
+      "step": 19,
+      "screenshot": "020.png",
+      "controls": [
+        {
+          "tag": "dm.allow_all",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "dm.block_unknown",
+          "inInitialViewport": false
+        }
+      ]
+    }
+  ]
+}

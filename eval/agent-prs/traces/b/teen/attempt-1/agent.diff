@@ -1,0 +1,32 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -417,17 +417,17 @@
+ 
+         {screen === "messages" && (
+           <List>
+-            <div className="note">Teen account · {copyTweak ? "pick who can reach you" : "Choose who can send you messages."}</div>
++            <div className="note">Teen account · You&apos;re welcome here. Choose who can send you messages — you can change this anytime.</div>
+             <Option
+               title="Everyone"
+-              sub="Anyone on Circle can message this account"
++              sub="Anyone on Circle can message this account, including people you don't know"
+               tag="dm.allow_all"
+               selected={dm.policy === "everyone"}
+               onPick={() => chooseDm("everyone")}
+             />
+             <Option
+               title="Friends only"
+-              sub="Only people you follow back can message you"
++              sub="Just people you follow back can message you — a cozy, safe default"
+               tag="dm.friends_only"
+               selected={dm.policy === "friends"}
+               onPick={() => chooseDm("friends")}
+@@ -435,7 +435,7 @@
+             {!false ? (
+               <Option
+                 title="Block unknown people"
+-                sub="Only friends can reach you; everyone else is blocked"
++                sub="Only friends can reach you; messages from anyone else are blocked"
+                 tag="dm.block_unknown"
+                 selected={dm.policy === "blocked"}
+                 onPick={() => chooseDm("blocked")}

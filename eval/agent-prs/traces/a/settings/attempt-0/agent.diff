@@ -1,0 +1,85 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -334,34 +334,41 @@
+         {screen === "home" && <Feed posts={posts} />}
+ 
+         {screen === "settings" && (
+-          <List>
+-            {false ? (
+-              <>
+-                <Row label="Help" />
+-                <Row label="Account" />
+-                <Row label="Notifications" />
+-              </>
+-            ) : (
+-              <>
+-                <Row label="Account" />
+-                <Row label="Notifications" />
+-              </>
+-            )}
+-            <Row
+-              label={false ? "Messaging & privacy" : "Privacy"}
+-              tag="settings.privacy"
+-              onClick={() => push("privacy")}
+-            />
+-            {!false && (
+-              <Row label="Location" tag="settings.location" onClick={() => push("location")} />
+-            )}
+-            <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
+-            <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
+-            {false && (
+-              <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
+-            )}
+-            {!false && <Row label="Help" />}
+-          </List>
++          <>
++            <div className="section-label">Frequently used</div>
++            <List>
++              <Row
++                label={false ? "Messaging & privacy" : "Privacy"}
++                tag="settings.privacy"
++                onClick={() => push("privacy")}
++              />
++              <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
++              {!false && (
++                <Row label="Location" tag="settings.location" onClick={() => push("location")} />
++              )}
++            </List>
++            <div className="section-label">Account</div>
++            <List>
++              {false ? (
++                <>
++                  <Row label="Help" />
++                  <Row label="Account" />
++                  <Row label="Notifications" />
++                </>
++              ) : (
++                <>
++                  <Row label="Account" />
++                  <Row label="Notifications" />
++                </>
++              )}
++              <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
++              {false && (
++                <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
++              )}
++            </List>
++            <div className="section-label">Support</div>
++            <List>{!false && <Row label="Help" />}</List>
++          </>
+         )}
+ 
+         {screen === "privacy" && (
+
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index dc343e1..9b5da36 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -79,6 +79,7 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+ .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+ .stat small { color: var(--muted); font-size: 13px; }
+ .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
++.section-label { padding: 16px 18px 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
+ 
+ .app.dark {
+   --bg: #14161a;

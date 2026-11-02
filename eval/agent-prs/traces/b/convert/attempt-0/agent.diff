@@ -1,0 +1,13 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -587,8 +587,9 @@
+           <>
+             <div className="stat">
+               <span className="big">Circle+</span>
+-              <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
++              <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free Circle with early access to new features."}</small>
+             </div>
++            <div className="note">No ads in your feed. Try new features first. Cancel anytime in Settings.</div>
+             <List>
+               {!sub.active ? (
+                 <>

@@ -1,0 +1,24 @@
+# T18b decontamination record (representative agent worktree, baseRef b5983db0943bf7fc6ba9ce05ab9faddc7acc3204)
+
+Removed top-level: contracts, eval, packages, docs, research_notes, audits, media, reports, scripts, targets, video, .github, action.yml, README.md, GLOSSARY.md
+Removed apps: apps/circle-android, apps/redesigns, apps/report
+Remaining files (excl. node_modules/.git): 16; App.tsx bytes: 31838
+Banned-term grep hits: 0
+
+## Remaining files
+.env.example
+.git
+.gitignore
+.gitleaksignore
+apps/circle/index.html
+apps/circle/package.json
+apps/circle/src/App.tsx
+apps/circle/src/main.tsx
+apps/circle/src/styles.css
+apps/circle/src/vite-env.d.ts
+apps/circle/tsconfig.json
+apps/circle/vite.config.ts
+package.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+tsconfig.base.json

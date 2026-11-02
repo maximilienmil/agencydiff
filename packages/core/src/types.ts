@@ -17,16 +17,18 @@ export type Oracle = Record<string, string | number | boolean | null>;
  *  Muse to judge the final screenshot and is allowed only in Audit mode. */
 export type OracleAdapter = "state-hook" | "dom" | "model-judged";
 
-/** One assertion on the final page. Selectors are CSS, evaluated in the page. */
+/** One assertion on the final page. Selectors are CSS, evaluated in the page.
+ *  `screen` is provenance only (the screen the text or element was observed
+ *  on during exploration): it never affects the check. */
 export type DomAssertion =
-  | { kind: "exists"; selector: string }
-  | { kind: "visible"; selector: string }
-  | { kind: "textContains"; selector: string; text: string }
-  | { kind: "visibleText"; selector: string; text: string }
-  | { kind: "checked"; selector: string; checked?: boolean }
-  | { kind: "value"; selector: string; value: string }
-  | { kind: "anyOf"; assertions: DomAssertion[] }
-  | { kind: "facts"; selector: string; facts: FactNeed[]; minFacts: number };
+  | { kind: "exists"; selector: string; screen?: string }
+  | { kind: "visible"; selector: string; screen?: string }
+  | { kind: "textContains"; selector: string; text: string; screen?: string }
+  | { kind: "visibleText"; selector: string; text: string; screen?: string }
+  | { kind: "checked"; selector: string; checked?: boolean; screen?: string }
+  | { kind: "value"; selector: string; value: string; screen?: string }
+  | { kind: "anyOf"; assertions: DomAssertion[]; screen?: string }
+  | { kind: "facts"; selector: string; facts: FactNeed[]; minFacts: number; screen?: string };
 
 /** One ground-truth fact: covered when the element's visible text contains
  *  any of its synonym phrases, matched case- and punctuation-insensitively.
@@ -46,6 +48,29 @@ export interface TargetConfig {
   oracle: OracleAdapter;
   /** Variant probed by `pnpm audit`. Defaults to "baseline". */
   auditVariant?: string;
+  /** How probes start authenticated. Absent means the target needs no login. */
+  auth?: AuthConfig;
+}
+
+/** Login declaration on a target: probes start from a saved session or from
+ *  scripted test-account credentials. Secrets never reach the model: the
+ *  storageState file is loaded into the browser context directly, and env
+ *  credentials are filled by Playwright, never placed in a prompt. */
+export interface AuthConfig {
+  /** Path to a Playwright storageState file (see `pnpm login`), resolved
+   *  against the target file. Takes precedence over env credentials. */
+  storageState?: string;
+  /** Env var holding the test-account username for scripted login. */
+  usernameEnv?: string;
+  /** Env var holding the test-account password. Never sent to the model. */
+  passwordEnv?: string;
+}
+
+/** Production-safe probing: the per-contract allow-list of instrumented
+ *  controls a probe may touch. Purchases, deletion and messaging stay
+ *  blocked even when listed. */
+export interface ProdSafeConfig {
+  allowedTags?: string[];
 }
 
 export interface IntentSpec {
@@ -62,6 +87,13 @@ export interface IntentSpec {
    *  discoverability measurements, never shown to the agent. */
   target?: string;
   mustSucceed: boolean;
+  /** True for machine-drafted Intents that a human has not reviewed yet. */
+  draft?: boolean;
+  /** Why a drafted Intent needs a human look (oracle never held, agent
+   *  failed, promise text had no UI match, ...). Absent when it validated. */
+  needsReview?: string;
+  /** Screen the fulfilling control or oracle text was observed on. */
+  sourceScreen?: string;
 }
 
 export interface AgencyContract {
@@ -72,6 +104,13 @@ export interface AgencyContract {
   defaultKey?: string;
   intents: IntentSpec[];
   pairs: { accept: string; reject: string }[];
+  /** Production-safe allow-list for this decision. Absent means no
+   *  instrumented control may be touched in `--prod-safe` runs. */
+  prodSafe?: ProdSafeConfig;
+  /** True when the whole contract is a machine draft awaiting human review. */
+  draft?: boolean;
+  /** Promise sentences with no matching UI, in the drafter's words. */
+  unmappedPromises?: string[];
 }
 
 // Muse computer-use action vocabulary (see dev.meta.ai/docs/computer-use).
@@ -131,6 +170,9 @@ export interface Trace {
   firstSatisfiedStep?: number;
   /** Effortful actions up to firstSatisfiedStep: the audit cost of the Intent. */
   actionsToSatisfy?: number;
+  /** Present on `--prod-safe` probes: the post-probe restore step that
+   *  returns the test account to its starting fixture state. */
+  restore?: { verified: boolean; detail?: string };
 }
 
 export interface TraceMetrics {
@@ -242,3 +284,17 @@ export interface TraceEvidence {
   producedAt: string;
   steps: StepEvidence[];
 }
+
+/** One event streamed by a runner with live probes enabled. Additive and
+ *  transport-agnostic: the runner serialises these over SSE, the report app
+ *  reduces them into the same shape a recorded Trace replay produces. */
+export type LiveEvent =
+  | { type: "run_started"; runId: string; decision: string; intentId: string; goal: string; at: string }
+  | { type: "probe_started"; traceId: string; variant: Variant; intentId: string; at: string }
+  | { type: "step_started"; traceId: string; variant: Variant; step: number; at: string }
+  | { type: "screenshot"; traceId: string; variant: Variant; step: number; screenshot: string; url?: string; screen?: string; at: string }
+  | { type: "action"; traceId: string; variant: Variant; step: number; actions: Action[]; note?: string; at: string }
+  | { type: "oracle_result"; traceId: string; variant: Variant; passed?: boolean; checked: boolean; stoppedReason: string; at: string }
+  | { type: "probe_finished"; traceId: string; variant: Variant; steps: number; at: string }
+  | { type: "finding"; finding: Finding; at: string }
+  | { type: "run_finished"; runId: string; passed: boolean; at: string };

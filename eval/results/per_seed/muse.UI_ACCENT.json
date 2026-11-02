@@ -1,0 +1,139 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "UI_ACCENT",
+  "verdict": {
+    "seed": "UI_ACCENT",
+    "kind": "control",
+    "contracts": [
+      "precise_location",
+      "screen_time",
+      "subscription",
+      "teen_dm"
+    ],
+    "detected": false,
+    "lenientDetected": false,
+    "falseAlarm": true,
+    "expected": [],
+    "missed": [],
+    "unexpected": [],
+    "oraclePassRate": {
+      "precise_location.share": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "precise_location.withhold": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "precise_location.revoke": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.set_limit": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.reminders": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.remove_limit": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.check_usage": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.shorten": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "subscription.subscribe": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "subscription.decline": {
+        "baseline": 0.3333333333333333,
+        "candidate": 0.6666666666666666
+      },
+      "subscription.cancel": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "subscription.terms": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "subscription.resume": {
+        "baseline": 0.3333333333333333,
+        "candidate": 0.6666666666666666
+      },
+      "teen_dm.allow_all": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.friends_only": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.block_unknown": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.inspect": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.relax": {
+        "baseline": 1,
+        "candidate": 1
+      }
+    }
+  },
+  "variance": {
+    "UI_ACCENT/precise_location.share/baseline": 0,
+    "UI_ACCENT/precise_location.share/candidate": 0,
+    "UI_ACCENT/precise_location.withhold/baseline": 0,
+    "UI_ACCENT/precise_location.withhold/candidate": 0,
+    "UI_ACCENT/precise_location.revoke/baseline": 0,
+    "UI_ACCENT/precise_location.revoke/candidate": 0,
+    "UI_ACCENT/screen_time.set_limit/baseline": 0.22222222222222224,
+    "UI_ACCENT/screen_time.set_limit/candidate": 0.22222222222222224,
+    "UI_ACCENT/screen_time.reminders/baseline": 0,
+    "UI_ACCENT/screen_time.reminders/candidate": 0,
+    "UI_ACCENT/screen_time.remove_limit/baseline": 0,
+    "UI_ACCENT/screen_time.remove_limit/candidate": 0,
+    "UI_ACCENT/screen_time.check_usage/baseline": 0,
+    "UI_ACCENT/screen_time.check_usage/candidate": 0,
+    "UI_ACCENT/screen_time.shorten/baseline": 0,
+    "UI_ACCENT/screen_time.shorten/candidate": 0.22222222222222224,
+    "UI_ACCENT/subscription.subscribe/baseline": 0.888888888888889,
+    "UI_ACCENT/subscription.subscribe/candidate": 0.888888888888889,
+    "UI_ACCENT/subscription.decline/baseline": 0.2222222222222222,
+    "UI_ACCENT/subscription.decline/candidate": 3.555555555555556,
+    "UI_ACCENT/subscription.cancel/baseline": 0.888888888888889,
+    "UI_ACCENT/subscription.cancel/candidate": 0.6666666666666666,
+    "UI_ACCENT/subscription.terms/baseline": 0.8888888888888888,
+    "UI_ACCENT/subscription.terms/candidate": 0,
+    "UI_ACCENT/subscription.resume/baseline": 0.888888888888889,
+    "UI_ACCENT/subscription.resume/candidate": 10.888888888888891,
+    "UI_ACCENT/teen_dm.allow_all/baseline": 0,
+    "UI_ACCENT/teen_dm.allow_all/candidate": 0,
+    "UI_ACCENT/teen_dm.friends_only/baseline": 0,
+    "UI_ACCENT/teen_dm.friends_only/candidate": 0,
+    "UI_ACCENT/teen_dm.block_unknown/baseline": 0,
+    "UI_ACCENT/teen_dm.block_unknown/candidate": 0,
+    "UI_ACCENT/teen_dm.inspect/baseline": 0,
+    "UI_ACCENT/teen_dm.inspect/candidate": 0,
+    "UI_ACCENT/teen_dm.relax/baseline": 0,
+    "UI_ACCENT/teen_dm.relax/candidate": 0
+  },
+  "tokens": {
+    "input": 2117671,
+    "output": 157444,
+    "calls": 590
+  }
+}

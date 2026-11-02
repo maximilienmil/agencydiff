@@ -1,0 +1,23 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -234,8 +234,7 @@
+   const declineOffer = () => setSub((s) => ({ ...s, offer: "answered" }));
+ 
+   const requestCancel = () => {
+-    if (false) setSubRetain(true);
+-    else setSub((s) => ({ ...s, active: false }));
++    setSub((s) => ({ ...s, active: false }));
+   };
+   const confirmCancel = () => {
+     setSub((s) => ({ ...s, active: false }));
+@@ -684,6 +683,10 @@
+             <div className="note">
+               Circle+ · {PLAN_NAME[sub.plan]} · {PLAN_PRICE[sub.plan]}
+             </div>
++            <div className="note">
++              Before you cancel: you would lose ad-free browsing and early access to new features. If you
++              cancel, you keep Circle+ until the end of the paid period.
++            </div>
+             {false ? (
+               <Row label="Manage plan" tag="sub.billing_manage" onClick={() => push("plan_manage")} />
+             ) : (

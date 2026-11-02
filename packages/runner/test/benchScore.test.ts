@@ -102,7 +102,7 @@ describe("scoreSeed", () => {
     expect(v.expected[0].via).toBe("default");
   });
 
-  it("rescues a trivially-satisfied oracle through trace difference", () => {
+  it("counts a trace difference as lenient only, not a strict detection", () => {
     const base = trace({ id: "b", intentId: "i" });
     const cand = trace({
       id: "c",
@@ -116,8 +116,10 @@ describe("scoreSeed", () => {
       reports: [report("d", [])],
       tracesByIntent: new Map([["d.i", { baseline: [base], candidate: [cand] }]]),
     });
-    expect(v.detected).toBe(true);
-    expect(v.expected[0].via).toBe("behavior");
+    expect(v.detected).toBe(false);
+    expect(v.lenientDetected).toBe(true);
+    expect(v.expected[0]).toMatchObject({ hit: false, via: "behavior" });
+    expect(v.missed).toEqual(["d.i"]);
   });
 
   it("misses when nothing moved and records unexpected findings", () => {
@@ -151,6 +153,20 @@ describe("scoreSeed", () => {
       tracesByIntent: new Map(),
     });
     expect(dirty.falseAlarm).toBe(true);
+  });
+
+  it("does not false-alarm a control on trace noise alone", () => {
+    const noisy = scoreSeed({
+      seed: "C", truth: truth("C", [], "none"), contracts: ["d"], reports: [report("d", [])],
+      tracesByIntent: new Map([["d.i", {
+        baseline: [trace({ id: "a" })],
+        candidate: [trace({
+          id: "b",
+          steps: [{ index: 0, tMs: 1, actions: [], after: { url: "u", screen: "elsewhere", tags: [], screenshot: "" } }],
+        })],
+      }]]),
+    });
+    expect(noisy.falseAlarm).toBe(false);
   });
 });
 
@@ -187,12 +203,12 @@ describe("parseJudgeVerdicts", () => {
 describe("summarizeVerdicts", () => {
   it("computes recall, precision and control FAR at seed level", () => {
     const t = summarizeVerdicts([
-      { seed: "a", kind: "regression", contracts: [], detected: true, falseAlarm: false, expected: [], missed: [], unexpected: [], oraclePassRate: {} },
-      { seed: "b", kind: "regression", contracts: [], detected: false, falseAlarm: false, expected: [], missed: ["x"], unexpected: [], oraclePassRate: {} },
-      { seed: "c", kind: "control", contracts: [], detected: false, falseAlarm: true, expected: [], missed: [], unexpected: [], oraclePassRate: {} },
-      { seed: "d", kind: "control", contracts: [], detected: false, falseAlarm: false, expected: [], missed: [], unexpected: [], oraclePassRate: {} },
+      { seed: "a", kind: "regression", contracts: [], detected: true, lenientDetected: true, falseAlarm: false, expected: [], missed: [], unexpected: [], oraclePassRate: {} },
+      { seed: "b", kind: "regression", contracts: [], detected: false, lenientDetected: true, falseAlarm: false, expected: [], missed: ["x"], unexpected: [], oraclePassRate: {} },
+      { seed: "c", kind: "control", contracts: [], detected: false, lenientDetected: false, falseAlarm: true, expected: [], missed: [], unexpected: [], oraclePassRate: {} },
+      { seed: "d", kind: "control", contracts: [], detected: false, lenientDetected: false, falseAlarm: false, expected: [], missed: [], unexpected: [], oraclePassRate: {} },
     ]);
-    expect(t).toMatchObject({ detected: 1, recall: 0.5, precision: 0.5, controlFalseAlarmRate: 0.5 });
+    expect(t).toMatchObject({ detected: 1, recall: 0.5, precision: 0.5, controlFalseAlarmRate: 0.5, lenientOnly: ["b"] });
   });
 });
 

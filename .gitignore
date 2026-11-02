@@ -2,7 +2,17 @@ node_modules/
 dist/
 runs/
 audits/**/*.png
+eval/agent-prs/traces/**/*.png
 .env
 *.log
 .sam-cache/
 eval/results/traces/
+media/*.mp4
+media/footage/
+video/public/footage/
+video/out/
+packages/cli/data/
+packages/cli/runs/
+.auth/
+apps/report/public/data/benchmark/
+apps/report/tests/overview-*.png

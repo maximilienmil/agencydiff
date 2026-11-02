@@ -1,20 +1,71 @@
 {
   "runs": [
     {
-      "id": "2026-11-01T20-44-46-245Z-precise_location",
-      "decision": "precise_location",
-      "date": "2026-11-01T20:44:55.011Z",
+      "id": "subscription",
+      "decision": "subscription",
+      "date": "2026-11-02T05:54:19.670Z",
       "passed": false,
-      "driver": "scripted",
+      "driver": "muse",
       "target": {
-        "baseline": "http://127.0.0.1:5173/?variant=baseline",
-        "candidate": "http://127.0.0.1:5173/?variant=candidate"
+        "baseline": "http://localhost:5183/?variant=baseline",
+        "candidate": "http://localhost:5183/?seeds=SUB_DEFAULT_ANNUAL"
       },
       "traces": 6,
       "findings": {
-        "high": 5,
+        "high": 1,
+        "medium": 2,
+        "low": 0
+      }
+    },
+    {
+      "id": "teen_dm",
+      "decision": "teen_dm",
+      "date": "2026-11-02T05:24:07.249Z",
+      "passed": true,
+      "driver": "muse",
+      "target": {
+        "baseline": "http://localhost:5183/?variant=baseline",
+        "candidate": "http://localhost:5183/?seeds=DM_HIDE_BLOCK"
+      },
+      "traces": 6,
+      "findings": {
+        "high": 0,
         "medium": 0,
-        "low": 2
+        "low": 1
+      }
+    },
+    {
+      "id": "screen_time",
+      "decision": "screen_time",
+      "date": "2026-11-02T05:18:31.327Z",
+      "passed": false,
+      "driver": "muse",
+      "target": {
+        "baseline": "http://localhost:5183/?variant=baseline",
+        "candidate": "http://localhost:5183/?seeds=ST_HIDE_REMOVE"
+      },
+      "traces": 6,
+      "findings": {
+        "high": 1,
+        "medium": 1,
+        "low": 1
+      }
+    },
+    {
+      "id": "precise_location",
+      "decision": "precise_location",
+      "date": "2026-11-02T04:59:52.160Z",
+      "passed": false,
+      "driver": "muse",
+      "target": {
+        "baseline": "http://localhost:5183/?variant=baseline",
+        "candidate": "http://localhost:5183/?seeds=LOC_HIDE_DECLINE"
+      },
+      "traces": 6,
+      "findings": {
+        "high": 2,
+        "medium": 0,
+        "low": 1
       }
     }
   ]

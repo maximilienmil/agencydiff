@@ -1,0 +1,163 @@
+{
+  "decision": "subscription",
+  "promise": "Users can join Circle+, see the renewal terms before buying, decline the offer, and cancel.",
+  "aggregates": [
+    {
+      "intentId": "subscribe",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.subscribe.baseline.0"
+      ]
+    },
+    {
+      "intentId": "subscribe",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.subscribe.candidate.0"
+      ]
+    },
+    {
+      "intentId": "decline",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.decline.baseline.0"
+      ]
+    },
+    {
+      "intentId": "decline",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.decline.candidate.0"
+      ]
+    },
+    {
+      "intentId": "cancel",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.cancel.baseline.0"
+      ]
+    },
+    {
+      "intentId": "cancel",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 0,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.cancel.candidate.0"
+      ]
+    },
+    {
+      "intentId": "terms",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.terms.baseline.0"
+      ]
+    },
+    {
+      "intentId": "terms",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.terms.candidate.0"
+      ]
+    },
+    {
+      "intentId": "resume",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.resume.baseline.0"
+      ]
+    },
+    {
+      "intentId": "resume",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 2,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.resume.candidate.0"
+      ]
+    }
+  ],
+  "asymmetry": [
+    {
+      "accept": "subscribe",
+      "reject": "decline",
+      "baseline": 1,
+      "candidate": 1
+    }
+  ],
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "goal_unreachable",
+      "intentId": "cancel",
+      "title": "\"I subscribed to Circle+ and changed my mind. Cancel it.\" succeeds less often",
+      "baseline": 1,
+      "candidate": 0,
+      "evidence": [
+        {
+          "traceId": "subscription.cancel.baseline.0"
+        },
+        {
+          "traceId": "subscription.cancel.candidate.0"
+        }
+      ],
+      "id": "subscription/goal_unreachable/cancel",
+      "decision": "subscription"
+    }
+  ],
+  "passed": false
+}

@@ -1,0 +1,51 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -589,6 +589,15 @@
+               <span className="big">Circle+</span>
+               <small>{copyTweak ? "More of Circle, fewer interruptions" : "Ad-free with early access to new features."}</small>
+             </div>
++            {!sub.active && (
++              <div className="note">
++                <span className="plus-check" aria-hidden="true">✓</span> No ads in your feed
++                <br />
++                <span className="plus-check" aria-hidden="true">✓</span> Early access to new features
++                <br />
++                <span className="plus-check" aria-hidden="true">✓</span> Cancel anytime in Settings
++              </div>
++            )}
+             <List>
+               {!sub.active ? (
+                 <>
+@@ -600,8 +609,8 @@
+                     onPick={() => setSub((s) => ({ ...s, plan: "monthly" }))}
+                   />
+                   <Option
+-                    title={`Annual · ${PLAN_PRICE.annual}`}
+-                    sub="Renews every year until you cancel"
++                    title={`Annual · ${PLAN_PRICE.annual} · Save 20%`}
++                    sub="Renews every year until you cancel · works out to $4.00/mo"
+                     tag="sub.plan_annual"
+                     selected={sub.plan === "annual"}
+                     onPick={() => setSub((s) => ({ ...s, plan: "annual" }))}
+@@ -622,7 +631,7 @@
+                 )}
+                 <div className="footer">
+                   <button className="primary" data-agency="sub.subscribe" onClick={subscribe}>
+-                    {copyTweak ? "Get Circle+" : "Subscribe"}
++                    {copyTweak ? "Get Circle+" : `Subscribe · ${PLAN_PRICE[sub.plan]}`}
+                   </button>
+                   {!false ? (
+                     <button className="link" data-agency="sub.decline" onClick={declineOffer}>
+
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index dc343e1..f525772 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -79,6 +79,7 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+ .stat .big { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+ .stat small { color: var(--muted); font-size: 13px; }
+ .note { padding: 14px 18px; color: var(--muted); font-size: 14px; line-height: 1.45; border-bottom: 1px solid var(--line); }
++.plus-check { color: var(--accent); font-weight: 700; }
+ 
+ .app.dark {
+   --bg: #14161a;

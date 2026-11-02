@@ -20,6 +20,8 @@ export type HitVia = "finding" | "default" | "behavior" | "judge" | "none";
 export interface ExpectedHit {
   intent: string;
   metric: string;
+  /** Strict hit: a Finding names this intent (or a decision-level default
+   *  finding, for default seeds). Trace-difference hits are lenient only. */
   hit: boolean;
   via: HitVia;
 }
@@ -28,7 +30,11 @@ export interface SeedVerdict {
   seed: string;
   kind: "regression" | "control";
   contracts: string[];
+  /** Strict: every expected intent has a Finding on it. */
   detected: boolean;
+  /** Lenient: strict, or every expected intent was hit when observable trace
+   *  differences count alongside Findings. */
+  lenientDetected: boolean;
   falseAlarm: boolean;
   expected: ExpectedHit[];
   missed: string[];
@@ -68,12 +74,14 @@ export function oracleRate(traces: Trace[]): number {
 }
 
 /**
- * Score one seed against ground truth. A regression seed is detected when
- * every expected intent is hit: by a Finding that names it, by a
- * decision-level default finding when the seed is about the default, or by
- * an observable trace difference. Findings on other intents are recorded as
- * unexpected but do not fail the seed; the control false-alarm rate is
- * measured on the UI_* seeds only.
+ * Score one seed against ground truth. A regression seed is strictly
+ * detected when every expected intent is hit by a Finding that names it, or
+ * by a decision-level default finding when the seed is about the default.
+ * An observable trace difference without a Finding counts only toward the
+ * lenient verdict, reported separately. Findings on other intents are
+ * recorded as unexpected but do not fail the seed; the control false-alarm
+ * rate is measured on the UI_* seeds only, where any Finding is a false
+ * alarm.
  */
 export function scoreSeed(opts: {
   seed: string;
@@ -100,7 +108,7 @@ export function scoreSeed(opts: {
     }
     const pair = tracesByIntent.get(qualify(intent, contracts[0]));
     if (pair && tracesDiffer(pair.baseline, pair.candidate)) {
-      return { intent, metric: truth.metric, hit: true, via: "behavior" as const };
+      return { intent, metric: truth.metric, hit: false, via: "behavior" as const };
     }
     return { intent, metric: truth.metric, hit: false, via: "none" as const };
   });
@@ -117,10 +125,11 @@ export function scoreSeed(opts: {
 
   const isControl = truth.direction === "none";
   const detected = !isControl && missed.length === 0;
-  const falseAlarm = isControl
-    ? findings.length > 0 || [...tracesByIntent.values()].some((p) => tracesDiffer(p.baseline, p.candidate))
-    : false;
-  return { seed, kind: isControl ? "control" : "regression", contracts, detected, falseAlarm, expected, missed, unexpected, oraclePassRate };
+  // Lenient: every expected intent is hit once observable trace differences
+  // count alongside Findings.
+  const lenientDetected = !isControl && expected.every((e) => e.hit || e.via === "behavior");
+  const falseAlarm = isControl ? findings.length > 0 : false;
+  return { seed, kind: isControl ? "control" : "regression", contracts, detected, lenientDetected, falseAlarm, expected, missed, unexpected, oraclePassRate };
 }
 
 export function qualify(intent: string, decision: string): string {
@@ -143,6 +152,8 @@ export interface BenchTotals {
   recall: number;
   precision: number;
   controlFalseAlarmRate: number;
+  /** Regression seeds caught only under the lenient trace-difference rule. */
+  lenientOnly: string[];
 }
 
 /** Seed-level classification totals: true positives are detected regression
@@ -153,6 +164,7 @@ export function summarizeVerdicts(verdicts: SeedVerdict[]): BenchTotals {
   const detected = regressions.filter((v) => v.detected).length;
   const flaggedControls = controls.filter((v) => v.falseAlarm).map((v) => v.seed);
   const missed = regressions.filter((v) => !v.detected).map((v) => v.seed);
+  const lenientOnly = regressions.filter((v) => !v.detected && v.lenientDetected).map((v) => v.seed);
   const tp = detected;
   const fp = flaggedControls.length;
   return {
@@ -165,6 +177,7 @@ export function summarizeVerdicts(verdicts: SeedVerdict[]): BenchTotals {
     recall: regressions.length ? tp / regressions.length : 0,
     precision: tp + fp ? tp / (tp + fp) : 0,
     controlFalseAlarmRate: controls.length ? fp / controls.length : 0,
+    lenientOnly,
   };
 }
 
@@ -189,11 +202,13 @@ export function scoreJudgeSeed(opts: {
     .map(([k, v]) => ({ intentId: k, kind: `judge:${v}`, title: `Judge rated ${k} ${v}` }));
   const isControl = truth.direction === "none";
   const missed = expected.filter((e) => !e.hit).map((e) => e.intent);
+  const detected = !isControl && missed.length === 0;
   return {
     seed,
     kind: isControl ? "control" : "regression",
     contracts,
-    detected: !isControl && missed.length === 0,
+    detected,
+    lenientDetected: detected,
     falseAlarm: isControl && unexpected.length > 0,
     expected,
     missed,

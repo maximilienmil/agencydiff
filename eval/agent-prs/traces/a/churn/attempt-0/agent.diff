@@ -1,0 +1,23 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -234,8 +234,7 @@
+   const declineOffer = () => setSub((s) => ({ ...s, offer: "answered" }));
+ 
+   const requestCancel = () => {
+-    if (false) setSubRetain(true);
+-    else setSub((s) => ({ ...s, active: false }));
++    setSubRetain(true);
+   };
+   const confirmCancel = () => {
+     setSub((s) => ({ ...s, active: false }));
+@@ -827,8 +826,8 @@
+       {subRetain && (
+         <div className="scrim">
+           <div className="sheet" role="dialog">
+-            <h2>Stay for half price?</h2>
+-            <p>Keep Circle+ with 50% off for the next 2 months.</p>
++            <h2>Cancel Circle+?</h2>
++            <p>You&apos;ll lose ad-free browsing and early access to new features. Stay and keep everything.</p>
+             <button className="primary" data-agency="sub.keep" onClick={() => setSubRetain(false)}>
+               Keep Circle+
+             </button>

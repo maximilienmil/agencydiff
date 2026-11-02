@@ -1,0 +1,70 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -331,7 +331,25 @@
+       </header>
+ 
+       <main>
+-        {screen === "home" && <Feed posts={posts} />}
++        {screen === "home" && (
++          <>
++            {showPrompt && !confirm && (
++              <div className="note" role="dialog" aria-label="Location">
++                <span>Allow Circle to use your precise location?</span>{" "}
++                <small>Used to show friends and events near you. You can change this anytime in Settings.</small>
++                <div className="pair">
++                  <button className="secondary" data-agency="location.decline" onClick={() => choose("off")}>
++                    Not now
++                  </button>
++                  <button className="secondary" data-agency="location.allow" onClick={() => choose("precise")}>
++                    Allow precise location
++                  </button>
++                </div>
++              </div>
++            )}
++            <Feed posts={posts} />
++          </>
++        )}
+ 
+         {screen === "settings" && (
+           <List>
+@@ -725,40 +743,6 @@
+           </List>
+         )}
+       </main>
+-
+-      {showPrompt && !confirm && (
+-        <div className="scrim">
+-          <div className="sheet" role="dialog">
+-            {false ? (
+-              <>
+-                <div className="pin">📍</div>
+-                <h2>Find friends and events near you</h2>
+-                <p>Circle works best with your precise location.</p>
+-                <button className="primary" data-agency="location.allow" onClick={() => choose("precise")}>
+-                  Continue
+-                </button>
+-                <button className="link" data-agency="location.more" onClick={() => push("location_options")}>
+-                  More options
+-                </button>
+-              </>
+-            ) : (
+-              <>
+-                <div className="pin">📍</div>
+-                <h2>{copyTweak ? "Let Circle know where you are?" : "Allow Circle to use your precise location?"}</h2>
+-                <p>Used to show friends and events near you. You can change this anytime in Settings.</p>
+-                <div className="pair">
+-                  <button className="secondary" data-agency="location.decline" onClick={() => choose("off")}>
+-                    Not now
+-                  </button>
+-                  <button className="secondary" data-agency="location.allow" onClick={() => choose("precise")}>
+-                    Allow precise location
+-                  </button>
+-                </div>
+-              </>
+-            )}
+-          </div>
+-        </div>
+-      )}
+ 
+       {confirm && (
+         <div className="scrim">

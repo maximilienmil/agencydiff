@@ -1,0 +1,54 @@
+{
+  "traceId": "precise_location.withhold.baseline.1",
+  "model": "sam-3.1",
+  "producedAt": "2026-11-02T05:57:22.714Z",
+  "steps": [
+    {
+      "step": -1,
+      "screenshot": "000.png",
+      "controls": [
+        {
+          "tag": "location.allow",
+          "inInitialViewport": true,
+          "objectId": "1",
+          "maskAreaPx": 8882,
+          "box": {
+            "left": 220,
+            "top": 784,
+            "right": 410,
+            "bottom": 833
+          }
+        },
+        {
+          "tag": "location.decline",
+          "inInitialViewport": true,
+          "objectId": "2",
+          "maskAreaPx": 8942,
+          "box": {
+            "left": 20,
+            "top": 784,
+            "right": 210,
+            "bottom": 833
+          }
+        }
+      ],
+      "prominenceRatio": 0.99329009170208,
+      "overlay": "evidence-initial.png",
+      "imageHash": "0b08c820a0947c8a2040d590ecfd5a824315e650f3baf99c56f7046da0287820"
+    },
+    {
+      "step": 0,
+      "screenshot": "001.png",
+      "controls": [
+        {
+          "tag": "location.allow",
+          "inInitialViewport": true
+        },
+        {
+          "tag": "location.decline",
+          "inInitialViewport": true
+        }
+      ]
+    }
+  ]
+}

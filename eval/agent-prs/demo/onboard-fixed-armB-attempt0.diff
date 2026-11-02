@@ -1,0 +1,87 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -331,7 +331,28 @@
+       </header>
+ 
+       <main>
+-        {screen === "home" && <Feed posts={posts} />}
++        {screen === "home" && (
++          <>
++            {showPrompt && !confirm && (
++              <div className="location-banner">
++                <div className="sheet location-sheet" role="dialog">
++                  <div className="pin">📍</div>
++                  <h2>{copyTweak ? "Let Circle know where you are?" : "Allow Circle to use your precise location?"}</h2>
++                  <p>Used to show friends and events near you. You can change this anytime in Settings.</p>
++                  <div className="pair">
++                    <button className="secondary" data-agency="location.decline" onClick={() => choose("off")}>
++                      Not now
++                    </button>
++                    <button className="secondary" data-agency="location.allow" onClick={() => choose("precise")}>
++                      Allow precise location
++                    </button>
++                  </div>
++                </div>
++              </div>
++            )}
++            <Feed posts={posts} />
++          </>
++        )}
+ 
+         {screen === "settings" && (
+           <List>
+@@ -726,40 +747,6 @@
+         )}
+       </main>
+ 
+-      {showPrompt && !confirm && (
+-        <div className="scrim">
+-          <div className="sheet" role="dialog">
+-            {false ? (
+-              <>
+-                <div className="pin">📍</div>
+-                <h2>Find friends and events near you</h2>
+-                <p>Circle works best with your precise location.</p>
+-                <button className="primary" data-agency="location.allow" onClick={() => choose("precise")}>
+-                  Continue
+-                </button>
+-                <button className="link" data-agency="location.more" onClick={() => push("location_options")}>
+-                  More options
+-                </button>
+-              </>
+-            ) : (
+-              <>
+-                <div className="pin">📍</div>
+-                <h2>{copyTweak ? "Let Circle know where you are?" : "Allow Circle to use your precise location?"}</h2>
+-                <p>Used to show friends and events near you. You can change this anytime in Settings.</p>
+-                <div className="pair">
+-                  <button className="secondary" data-agency="location.decline" onClick={() => choose("off")}>
+-                    Not now
+-                  </button>
+-                  <button className="secondary" data-agency="location.allow" onClick={() => choose("precise")}>
+-                    Allow precise location
+-                  </button>
+-                </div>
+-              </>
+-            )}
+-          </div>
+-        </div>
+-      )}
+-
+       {confirm && (
+         <div className="scrim">
+           <div className="sheet" role="dialog">
+
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index dc343e1..ebcd30e 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -52,6 +52,8 @@ input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; accent-
+ .footer { padding: 20px 18px; }
+ 
+ .scrim { position: fixed; inset: 0; z-index: 10; background: rgba(0, 0, 0, 0.45); display: flex; align-items: flex-end; justify-content: center; }
++.location-banner { padding: 12px 14px 0; }
++.location-banner .location-sheet { border-radius: 14px; border: 1px solid var(--line); padding: 18px 16px 20px; }
+ .sheet {
+   width: 100%; max-width: 430px; background: var(--card); border-radius: 18px 18px 0 0;
+   padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 10px; text-align: center;

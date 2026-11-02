@@ -6,6 +6,7 @@ import { MuseDriver, ScriptedDriver, type Driver } from "./drivers.js";
 import { runProbe } from "./probe.js";
 import { loadTargetConfig, assertDiffOracle } from "./targets.js";
 import { buildEntry, mergeRuns, type RunIndexEntry } from "./reportExport.js";
+import { LiveHub, livePortFrom } from "./live.js";
 
 // Usage:
 //   pnpm diff --contract contracts/location.json --driver scripted
@@ -41,10 +42,28 @@ const { values } = parseArgs({
     marker: { type: "string", default: "agencydiff" },
     "base-ref": { type: "string" },
     "head-ref": { type: "string" },
+    live: { type: "boolean", default: false },
+    "live-port": { type: "string" },
+    "live-hold-ms": { type: "string" },
+    /** Production-safe probing: allow-listed settings only, restore after. */
+    "prod-safe": { type: "boolean", default: false },
+    /** storageState session file; overrides the target's auth declaration. */
+    "storage-state": { type: "string" },
+    // Like --no-export: Node's parseArgs has no automatic --no- negation.
+    "no-restore": { type: "boolean", default: false },
+    /** "web" (default) drives a browser; "android" drives the native build
+     *  on the attached emulator via MobileEnv. */
+    platform: { type: "string", default: "web" },
+    /** Comma list of variants to probe (default "baseline,candidate"). */
+    variants: { type: "string", default: "baseline,candidate" },
+    /** adb serial for `adb -s`. Defaults to the single attached device. */
+    serial: { type: "string" },
   },
 });
 
 if (values["no-export"]) values.export = false;
+const livePort = livePortFrom(values as { live?: boolean; "live-port"?: string });
+const hub = livePort !== null ? new LiveHub(livePort) : null;
 
 const scriptedFrom = values["scripted-from"];
 if (scriptedFrom !== "each" && scriptedFrom !== "baseline" && scriptedFrom !== "candidate") {
@@ -55,7 +74,12 @@ async function makeDriver(contractPath: string, variant: Variant): Promise<Drive
   if (values.driver === "muse") {
     const apiKey = process.env.MODEL_API_KEY;
     if (!apiKey) throw new Error("MODEL_API_KEY is not set");
-    return new MuseDriver({ apiKey, model: values.model ?? process.env.MUSE_MODEL });
+    return new MuseDriver({
+      apiKey,
+      model: values.model ?? process.env.MUSE_MODEL,
+      prodSafe: values["prod-safe"] === true,
+      target: values.platform === "android" ? "android" : "web",
+    });
   }
   const refPath = path.join(ROOT, "eval", "reference_paths", path.basename(contractPath));
   const refs: Record<Variant, Record<string, string[]>> = JSON.parse(await readFile(refPath, "utf8"));
@@ -75,14 +99,44 @@ async function runOneContract(
   const only = values.intents?.split(",");
   const intents = contract.intents.filter((i) => !only || only.includes(i.id));
   const repeats = Number(values.repeats);
-  const target = { baseline: values.baseline!, candidate: values.candidate! };
+  if (values.platform !== "web" && values.platform !== "android") {
+    throw new Error(`--platform must be web or android (got ${values.platform})`);
+  }
+  const target = {
+    baseline: values.baseline!,
+    candidate: values.candidate!,
+    platform: values.platform as "web" | "android",
+    serial: values.serial,
+  };
   const traces: Trace[] = [];
+  if (hub) { await hub.start(); hub.serveTraces(outDir); for (const i of intents) hub.emit({ type: "run_started", runId: path.basename(outDir), decision: contract.decision, intentId: i.id, goal: i.goal, at: new Date().toISOString() }); console.log(`live probes: ${hub.url}/events  (report: #/live?source=live&live=${encodeURIComponent(hub.url)})`); }
+  const storageState = values["storage-state"] ? path.resolve(ROOT, values["storage-state"]) : undefined;
+  // An explicit CLI flag overrides the target file's auth declaration.
+  const auth = storageState ?? targetAuth?.storageState;
+  const prodSafe = values["prod-safe"] === true
+    ? { allowedTags: contract.prodSafe?.allowedTags, restore: values["no-restore"] !== true }
+    : undefined;
 
-  for (const variant of ["baseline", "candidate"] as const) {
+  const variants = values.variants!.split(",") as Variant[];
+  for (const v of variants) {
+    if (v !== "baseline" && v !== "candidate") throw new Error(`--variants must list baseline,candidate (got ${values.variants})`);
+  }
+  for (const variant of variants) {
     const driver = await makeDriver(contractPath, variant);
     for (const intent of intents) {
       for (let repeat = 0; repeat < repeats; repeat++) {
-        const t = await runProbe({ contract, intent, variant, repeat, target, driver, outDir: dir });
+        const t = await runProbe({
+          contract,
+          intent,
+          variant,
+          repeat,
+          target,
+          driver,
+          outDir: dir,
+          onEvent: hub ? (e) => hub.emit(e) : undefined,
+          ...(auth ? { auth: { storageState: auth } } : {}),
+          ...(prodSafe ? { prodSafe } : {}),
+        });
         traces.push(t);
         const mark = t.oracle.passed === false ? "✗" : t.oracle.passed ? "✓" : "?";
         console.log(
@@ -93,6 +147,7 @@ async function runOneContract(
   }
 
   const report = diffContract({ ...contract, intents }, traces);
+  if (hub) for (const f of report.findings) hub.emit({ type: "finding", finding: f, at: new Date().toISOString() });
   await writeFile(path.join(dir, "report.json"), JSON.stringify(report, null, 2));
   printReport(report);
   if (values.export) await exportToReportApp({ contract, report, outDir: dir, target });
@@ -173,9 +228,14 @@ const outDir = path.resolve(
 await mkdir(outDir, { recursive: true });
 
 const contractPaths: string[] = [];
+let targetAuth: { storageState?: string } | undefined;
 if (values.target) {
-  const { config, dir } = await loadTargetConfig(path.resolve(ROOT, values.target));
+  const targetFile = path.resolve(ROOT, values.target);
+  const { config, dir } = await loadTargetConfig(targetFile);
   assertDiffOracle(config, values.target);
+  if (config.auth?.storageState) {
+    targetAuth = { storageState: path.resolve(dir, config.auth.storageState) };
+  }
   const given = (flag: string) =>
     process.argv.some((a) => a === `--${flag}` || a.startsWith(`--${flag}=`));
   // Explicit CLI flags override the target file's URLs; otherwise use the file.
@@ -194,6 +254,13 @@ await writeFile(path.join(outDir, "comment.md"), comment);
 console.log(`\ntraces + reports: ${path.relative(process.cwd(), outDir)}`);
 console.log(`comment: ${path.relative(process.cwd(), path.join(outDir, "comment.md"))}`);
 
+if (hub) {
+  for (const r of results) hub.emit({ type: "run_finished", runId: path.basename(outDir), passed: r.report.passed, at: new Date().toISOString() });
+  const hold = Number(values["live-hold-ms"] ?? 0);
+  if (hold > 0) { console.log(`live server holding for ${hold}ms`); await new Promise((r) => setTimeout(r, hold)); }
+  else if (process.env.LIVE_HOLD !== "0") console.log("live server still serving buffered events; stop with Ctrl+C or set LIVE_HOLD=0");
+  if (hold > 0 || process.env.LIVE_HOLD === "0") await hub.close();
+}
 process.exitCode = results.every((r) => r.report.passed) ? 0 : 1;
 
 /**

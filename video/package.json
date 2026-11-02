@@ -1,0 +1,29 @@
+{
+  "name": "agencydiff-video",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AgencyDiff demo video (Remotion composition, 1920x1080). See README.md for why Remotion instead of HyperFrames.",
+  "scripts": {
+    "data": "tsx scripts/print-data.ts",
+    "capture": "tsx scripts/capture.ts",
+    "render": "tsx scripts/render.ts",
+    "studio": "remotion studio src/index.ts",
+    "tts": "bash scripts/tts.sh",
+    "typecheck": "tsc -p .",
+    "test": "tsx --test src/data.test.ts"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.539",
+    "@remotion/renderer": "4.0.539",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.539"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "tsx": "4.19.2",
+    "typescript": "5.9.3"
+  }
+}

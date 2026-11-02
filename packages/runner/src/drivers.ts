@@ -1,6 +1,13 @@
 import type { Action, IntentSpec, TraceStep } from "@agencydiff/core";
 import { AUDIT_INSTRUCTIONS } from "./auditGuard.js";
+import { DEVICE_SCALE_FACTOR, VIEWPORT } from "./env.js";
+import { PROD_SAFE_INSTRUCTIONS } from "./prodSafe.js";
 import { AuditBlockedError, type BrowserEnv } from "./env.js";
+import type { MobileEnv } from "./mobile.js";
+
+/** Either probe environment. MuseDriver only uses execute/observe, which
+ *  both provide; ScriptedDriver needs a browser page and stays web-only. */
+export type ProbeEnv = BrowserEnv | MobileEnv;
 
 export interface DriverResult {
   steps: TraceStep[];
@@ -16,6 +23,8 @@ export interface DriverResult {
 export interface DriverHooks {
   /** Cheap local check after each step; a true value stops the run early. */
   isSatisfied?: () => Promise<boolean>;
+  /** Called with each recorded step as soon as it is observed (live probes). */
+  onStep?: (step: TraceStep) => void | Promise<void>;
 }
 
 export interface Driver {
@@ -23,7 +32,7 @@ export interface Driver {
   model?: string;
   run(
     intent: IntentSpec,
-    env: BrowserEnv,
+    env: ProbeEnv,
     t0: number,
     initialPng: Buffer,
     hooks?: DriverHooks,
@@ -42,13 +51,16 @@ export class ScriptedDriver implements Driver {
 
   async run(
     intent: IntentSpec,
-    env: BrowserEnv,
+    env: ProbeEnv,
     t0: number,
     _initialPng?: Buffer,
     hooks?: DriverHooks,
   ): Promise<DriverResult> {
     const steps: TraceStep[] = [];
     const satisfiedFlags: boolean[] = [];
+    if (!("page" in env)) {
+      return { steps, stoppedReason: "error", error: "scripted driver needs a browser env" };
+    }
     for (const tag of this.path(intent)) {
       // A control a regression removed never appears: record it as an error
       // trace (which the diff reports as goal_unreachable) instead of throwing.
@@ -67,7 +79,9 @@ export class ScriptedDriver implements Driver {
       };
       await env.execute([action]);
       const { observation } = await env.observe();
-      steps.push({ index: steps.length, tMs: Date.now() - t0, actions: [action], after: observation, note: tag });
+      const step: TraceStep = { index: steps.length, tMs: Date.now() - t0, actions: [action], after: observation, note: tag };
+      steps.push(step);
+      await hooks?.onStep?.(step);
       if (hooks?.isSatisfied) {
         const satisfied = await hooks.isSatisfied();
         satisfiedFlags.push(satisfied);
@@ -95,6 +109,23 @@ fulfilled, or INFEASIBLE: when it cannot be done from the available UI.
 
 Do not guess hidden UI state and do not claim completion unless the screenshot supports it.`;
 
+const ANDROID_PROMPT = `You are a computer-use agent operating a native Android app on a phone. You receive
+screenshots and choose the next action or actions.
+
+Coordinates are pixels in the screenshot you were last shown: (0, 0) is the top-left. Click
+the center of the target element.
+
+You are acting on behalf of a user who has one specific intention. Carry out exactly that
+intention, using only what is visible on screen. Do not change anything unrelated to it.
+
+Return a short batch of actions only when they do not depend on intermediate visual
+feedback. Do not batch across screen transitions or dialogs.
+
+Finish by replying with a normal message that starts with DONE: when the intention is visibly
+fulfilled, or INFEASIBLE: when it cannot be done from the available UI.
+
+Do not guess hidden UI state and do not claim completion unless the screenshot supports it.`;
+
 export interface MuseUsage {
   inputTokens: number;
   outputTokens: number;
@@ -106,8 +137,14 @@ export interface MuseOptions {
   model?: string;
   baseUrl?: string;
   maxSteps?: number;
+  /** Extra instructions appended to the system prompt (prompt experiments). */
+  instructionsExtra?: string;
+  /** Device description for the system prompt: web (default) or android. */
+  target?: "web" | "android";
   /** Read-only discovery: extra safety instructions, no submits or purchases. */
   audit?: boolean;
+  /** Production-safe probing: allow-listed settings only, restores after. */
+  prodSafe?: boolean;
   /** When true, a guard refusal becomes a recorded no-op step (the agent sees
    *  the unchanged screen and retries) instead of aborting the probe. Off by
    *  default: ordinary runs stop at the first refusal. */
@@ -147,7 +184,21 @@ export class MuseDriver implements Driver {
   }
 
   private instructions(): string {
-    return this.opts.audit ? `${SYSTEM_PROMPT}\n\n${AUDIT_INSTRUCTIONS}` : SYSTEM_PROMPT;
+    let extra = "";
+    if (this.opts.audit) extra += `\n\n${AUDIT_INSTRUCTIONS}`;
+    if (this.opts.prodSafe) extra += `\n\n${PROD_SAFE_INSTRUCTIONS}`;
+    if (this.opts.instructionsExtra) extra += `\n\n${this.opts.instructionsExtra}`;
+    const base = this.opts.target === "android" ? ANDROID_PROMPT : SYSTEM_PROMPT;
+    // Web grounding note, picked by tap-accuracy measurement (T5c): the exact
+    // screenshot size plus a verify-after-each-click rule beat the baseline
+    // 33/60 to 26/60 with lower offset noise. Android keeps its own prompt:
+    // its screenshots come from the device, not this viewport.
+    if (this.opts.target !== "android") {
+      const w = VIEWPORT.width * DEVICE_SCALE_FACTOR;
+      const h = VIEWPORT.height * DEVICE_SCALE_FACTOR;
+      extra += `\n\nThe screenshot you receive is exactly ${w} pixels wide and ${h} pixels tall. Click coordinates use the same pixels: x runs 0-${w - 1} left to right, y runs 0-${h - 1} top to bottom. After each click, look at the new screenshot and check the tap landed on the intended control before replying DONE. If it missed, tap again at the corrected position.`;
+    }
+    return `${base}${extra}`;
   }
 
   private async respond(body: Record<string, unknown>): Promise<{ id: string; output: OutputItem[] }> {
@@ -158,7 +209,13 @@ export class MuseDriver implements Driver {
       if (attempt > 0) await new Promise((r) => setTimeout(r, 1000 * 2 ** (attempt - 1)));
       const res = await fetch(`${this.baseUrl}/responses`, {
         method: "POST",
-        headers: { "content-type": "application/json", authorization: `Bearer ${this.opts.apiKey}` },
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${this.opts.apiKey}`,
+          // No keep-alive: a pooled idle socket otherwise keeps one-shot CLI
+          // runs from exiting after the last probe.
+          connection: "close",
+        },
         body: JSON.stringify({ model: this.model, tools: [{ type: "computer" }], ...body }),
       });
       if (res.ok) {
@@ -182,13 +239,13 @@ export class MuseDriver implements Driver {
 
   async run(
     intent: IntentSpec,
-    env: BrowserEnv,
+    env: ProbeEnv,
     t0: number,
     initialPng: Buffer,
     hooks?: DriverHooks,
   ): Promise<DriverResult> {
     if (this.opts.historyLimit !== undefined) {
-      return this.runWindowed(intent, env, t0, initialPng);
+      return this.runWindowed(intent, env, t0, initialPng, hooks);
     }
     const steps: TraceStep[] = [];
     const satisfiedFlags: boolean[] | undefined = hooks?.isSatisfied ? [] : undefined;
@@ -232,7 +289,7 @@ export class MuseDriver implements Driver {
           note = [note, `refused: ${e.message}`].filter(Boolean).join("; ");
         }
         const { observation, png } = await env.observe();
-        steps.push({ index: steps.length, tMs: Date.now() - t0, actions: call.actions, after: observation, note });
+        { const s: TraceStep = { index: steps.length, tMs: Date.now() - t0, actions: call.actions, after: observation, note }; steps.push(s); await hooks?.onStep?.(s); }
         if (hooks?.isSatisfied) {
           const satisfied = await hooks.isSatisfied();
           satisfiedFlags!.push(satisfied);
@@ -266,9 +323,10 @@ export class MuseDriver implements Driver {
    */
   private async runWindowed(
     intent: IntentSpec,
-    env: BrowserEnv,
+    env: ProbeEnv,
     t0: number,
     initialPng: Buffer,
+    hooks?: DriverHooks,
   ): Promise<DriverResult> {
     const steps: TraceStep[] = [];
     const dataUrl = (png: Buffer) => `data:image/png;base64,${png.toString("base64")}`;
@@ -320,13 +378,7 @@ export class MuseDriver implements Driver {
         const checks = call.pending_safety_checks ?? [];
         await env.execute(call.actions);
         const { observation, png } = await env.observe();
-        steps.push({
-          index: steps.length,
-          tMs: Date.now() - t0,
-          actions: call.actions,
-          after: observation,
-          note: checks.length ? `safety checks acknowledged: ${checks.map((c) => c.code).join(", ")}` : undefined,
-        });
+        { const s: TraceStep = { index: steps.length, tMs: Date.now() - t0, actions: call.actions, after: observation, note: checks.length ? `safety checks acknowledged: ${checks.map((c) => c.code).join(", ")}` : undefined }; steps.push(s); await hooks?.onStep?.(s); }
         for (const a of call.actions) {
           done.push(
             a.type === "click" || a.type === "double_click"

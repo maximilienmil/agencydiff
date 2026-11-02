@@ -1,0 +1,31 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -399,7 +399,7 @@
+               <label className="row toggle-row">
+                 <span>
+                   Precise location
+-                  <small>Share your exact location with Circle</small>
++                  <small>Share your exact location to see friends and events near you</small>
+                 </span>
+                 <input
+                   type="checkbox"
+@@ -744,8 +744,8 @@
+             ) : (
+               <>
+                 <div className="pin">📍</div>
+-                <h2>{copyTweak ? "Let Circle know where you are?" : "Allow Circle to use your precise location?"}</h2>
+-                <p>Used to show friends and events near you. You can change this anytime in Settings.</p>
++                <h2>See friends and events near you?</h2>
++                <p>Allow precise location to see friends nearby and events around you. You can change this anytime in Settings.</p>
+                 <div className="pair">
+                   <button className="secondary" data-agency="location.decline" onClick={() => choose("off")}>
+                     Not now
+@@ -843,7 +843,7 @@
+ }
+ 
+ function LocationOptions({ current, onSave }: { current: Mode; onSave: (m: Mode) => void }) {
+-  const [mode, setMode] = useState<Mode>(current === "off" ? "precise" : current);
++  const [mode, setMode] = useState<Mode>(current);
+   const opt = (m: Mode, label: string, tag: string) => (
+     <label className="row radio-row">
+       <input type="radio" name="loc" data-agency={tag} checked={mode === m} onChange={() => setMode(m)} />

@@ -1,0 +1,76 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "SUB_BURY_CANCEL",
+  "verdict": {
+    "seed": "SUB_BURY_CANCEL",
+    "kind": "regression",
+    "contracts": [
+      "subscription"
+    ],
+    "detected": true,
+    "lenientDetected": true,
+    "falseAlarm": false,
+    "expected": [
+      {
+        "intent": "subscription.cancel",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      }
+    ],
+    "missed": [],
+    "unexpected": [
+      {
+        "intentId": "resume",
+        "kind": "action_cost",
+        "title": "\"I cancelled Circle+ before and want it back.\" takes more actions"
+      },
+      {
+        "intentId": "resume",
+        "kind": "navigation_depth",
+        "title": "\"I cancelled Circle+ before and want it back.\" is buried deeper"
+      }
+    ],
+    "oraclePassRate": {
+      "subscription.subscribe": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "subscription.decline": {
+        "baseline": 0,
+        "candidate": 0.3333333333333333
+      },
+      "subscription.cancel": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "subscription.terms": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "subscription.resume": {
+        "baseline": 1,
+        "candidate": 1
+      }
+    }
+  },
+  "variance": {
+    "SUB_BURY_CANCEL/subscription.subscribe/baseline": 0,
+    "SUB_BURY_CANCEL/subscription.subscribe/candidate": 8,
+    "SUB_BURY_CANCEL/subscription.decline/baseline": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.decline/candidate": 0,
+    "SUB_BURY_CANCEL/subscription.cancel/baseline": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.cancel/candidate": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.terms/baseline": 0.888888888888889,
+    "SUB_BURY_CANCEL/subscription.terms/candidate": 0.888888888888889,
+    "SUB_BURY_CANCEL/subscription.resume/baseline": 8,
+    "SUB_BURY_CANCEL/subscription.resume/candidate": 0
+  },
+  "tokens": {
+    "input": 1028677,
+    "output": 87778,
+    "calls": 278
+  }
+}

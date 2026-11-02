@@ -1,0 +1,67 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..be52948 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -122,7 +122,6 @@ export function App() {
+   const [dmPending, setDmPending] = useState<DmPolicy | null>(null);
+   const [stPending, setStPending] = useState<{ value: number | null } | null>(null);
+   const [stConfirm, setStConfirm] = useState<null | (() => void)>(null);
+-  const [subRetain, setSubRetain] = useState(false);
+   const [dark, setDark] = useState(false);
+   const screen = stack[stack.length - 1];
+ 
+@@ -218,19 +217,14 @@ export function App() {
+   const declineOffer = () => setSub((s) => ({ ...s, offer: "answered" }));
+ 
+   const requestCancel = () => {
+-    if (has("SUB_RETENTION_OFFER")) setSubRetain(true);
+-    else setSub((s) => ({ ...s, active: false }));
+-  };
+-  const confirmCancel = () => {
+     setSub((s) => ({ ...s, active: false }));
+-    setSubRetain(false);
+   };
+ 
++
+   const showPrompt = screen === "home" && loc.prompt === "open";
+   const dmOverlay = dmConfirm ? "dm_confirm" : dmPending ? "dm_info" : null;
+   const stOverlay = stConfirm ? "st_confirm" : null;
+-  const subOverlay = subRetain ? "sub_retain" : null;
+-  const overlay = confirm ? "confirm_off" : showPrompt ? "location_prompt" : (dmOverlay ?? stOverlay ?? subOverlay);
++  const overlay = confirm ? "confirm_off" : showPrompt ? "location_prompt" : (dmOverlay ?? stOverlay);
+   const copyTweak = has("UI_COPY_TWEAK");
+   const posts = has("UI_FEED_SHUFFLE") ? [...POSTS].reverse() : POSTS;
+   const stSelected = (v: number | null) =>
+@@ -614,6 +608,10 @@ export function App() {
+             <div className="note">
+               Circle+ · {PLAN_NAME[sub.plan]} · {PLAN_PRICE[sub.plan]}
+             </div>
++            <div className="note">
++              Before you go: cancelling ends ad-free browsing and early access to new features. You keep
++              Circle+ until the end of the paid period.
++            </div>
+             {has("SUB_BURY_CANCEL") ? (
+               <Row label="Manage plan" tag="sub.billing_manage" onClick={() => push("plan_manage")} />
+             ) : (
+@@ -754,20 +752,7 @@ export function App() {
+         </div>
+       )}
+ 
+-      {subRetain && (
+-        <div className="scrim">
+-          <div className="sheet" role="dialog">
+-            <h2>Stay for half price?</h2>
+-            <p>Keep Circle+ with 50% off for the next 2 months.</p>
+-            <button className="primary" data-agency="sub.keep" onClick={() => setSubRetain(false)}>
+-              Keep Circle+
+-            </button>
+-            <button className="link" data-agency="sub.confirm_cancel" onClick={confirmCancel}>
+-              Cancel anyway
+-            </button>
+-          </div>
+-        </div>
+-      )}
++
+     </div>
+   );
+ }

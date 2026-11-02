@@ -1,0 +1,216 @@
+{
+  "id": "precise_location.revoke.candidate.0",
+  "decision": "precise_location",
+  "intentId": "revoke",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-02T09:34:43.173Z",
+  "initial": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": true,
+      "location.mode": "precise",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "observation": {
+      "url": "http://127.0.0.1:65366/?fixture=location-shared",
+      "screen": "home",
+      "tags": [
+        {
+          "tag": "nav.settings",
+          "box": [
+            378,
+            46,
+            44,
+            44
+          ],
+          "inViewport": true
+        }
+      ],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 341,
+      "actions": [
+        {
+          "type": "click",
+          "x": 400,
+          "y": 68
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:65366/?fixture=location-shared",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              208.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              264.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              320.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              376.5,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "001.png"
+      },
+      "note": "nav.settings"
+    },
+    {
+      "index": 1,
+      "tMs": 622,
+      "actions": [
+        {
+          "type": "click",
+          "x": 215,
+          "y": 293
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:65366/?fixture=location-shared",
+        "screen": "location",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.toggle",
+            "box": [
+              387,
+              113,
+              22,
+              22
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "002.png"
+      },
+      "note": "settings.location"
+    },
+    {
+      "index": 2,
+      "tMs": 909,
+      "actions": [
+        {
+          "type": "click",
+          "x": 398,
+          "y": 124
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:65366/?fixture=location-shared",
+        "screen": "location",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              46,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.toggle",
+            "box": [
+              387,
+              113,
+              22,
+              22
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "003.png"
+      },
+      "note": "location.toggle"
+    }
+  ],
+  "final": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done"
+}

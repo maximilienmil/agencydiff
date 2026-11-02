@@ -9,9 +9,12 @@
     "typecheck": "pnpm -r typecheck",
     "diff": "pnpm --filter @agencydiff/runner exec tsx src/cli.ts",
     "audit": "pnpm --filter @agencydiff/runner exec tsx src/audit.ts",
+    "auth-login": "pnpm --filter @agencydiff/runner exec tsx src/login.ts",
     "redesign": "pnpm --filter @agencydiff/runner exec tsx src/redesign.ts",
     "compare-audits": "pnpm --filter @agencydiff/runner exec tsx src/compare.ts",
     "serve-redesigns": "python3 -m http.server 5199 --directory apps/redesigns",
-    "bench": "pnpm --filter @agencydiff/runner exec tsx src/bench.ts"
+    "bench": "pnpm --filter @agencydiff/runner exec tsx src/bench.ts",
+    "init": "pnpm --filter @agencydiff/runner exec tsx src/init.ts",
+    "propose-fix": "pnpm --filter @agencydiff/runner exec tsx src/proposeFix.ts"
   }
 }

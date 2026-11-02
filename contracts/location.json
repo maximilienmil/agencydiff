@@ -29,5 +29,22 @@
       "mustSucceed": true
     }
   ],
-  "pairs": [{ "accept": "share", "reject": "withhold" }]
+  "pairs": [{ "accept": "share", "reject": "withhold" }],
+  "prodSafe": {
+    "allowedTags": [
+      "nav.back",
+      "nav.settings",
+      "settings.location",
+      "location.allow",
+      "location.decline",
+      "location.toggle",
+      "location.more",
+      "location.open_options",
+      "location.opt_precise",
+      "location.opt_approximate",
+      "location.save",
+      "location.confirm_off",
+      "location.keep"
+    ]
+  }
 }

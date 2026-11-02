@@ -1,0 +1,39 @@
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -343,10 +343,12 @@
+               </>
+             ) : (
+               <>
++                <div className="section-label">General</div>
+                 <Row label="Account" />
+                 <Row label="Notifications" />
+               </>
+             )}
++            <div className="section-label">Privacy &amp; wellbeing</div>
+             <Row
+               label={false ? "Messaging & privacy" : "Privacy"}
+               tag="settings.privacy"
+@@ -356,6 +358,7 @@
+               <Row label="Location" tag="settings.location" onClick={() => push("location")} />
+             )}
+             <Row label="Screen Time" tag="settings.screentime" onClick={() => push("screentime")} />
++            <div className="section-label">More</div>
+             <Row label="Circle+" tag="settings.subscription" onClick={() => push("plus")} />
+             {false && (
+               <Row label="Appearance" tag="settings.appearance" onClick={() => push("appearance")} />
+
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index dc343e1..c54d3b6 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -39,6 +39,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
+ .post p { margin: 10px 14px 0; font-size: 14px; }
+ 
+ .list { display: flex; flex-direction: column; }
++.section-label {
++  padding: 16px 18px 6px; font-size: 13px; font-weight: 600;
++  color: var(--muted);
++}
+ .row {
+   display: flex; align-items: center; justify-content: space-between; gap: 12px;
+   width: 100%; min-height: 56px; padding: 0 18px; text-align: left; font-size: 16px;

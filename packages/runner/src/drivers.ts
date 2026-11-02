@@ -1,5 +1,6 @@
 import type { Action, IntentSpec, TraceStep } from "@agencydiff/core";
 import { AUDIT_INSTRUCTIONS } from "./auditGuard.js";
+import { PROD_SAFE_INSTRUCTIONS } from "./prodSafe.js";
 import { AuditBlockedError, type BrowserEnv } from "./env.js";
 
 export interface DriverResult {
@@ -108,6 +109,8 @@ export interface MuseOptions {
   maxSteps?: number;
   /** Read-only discovery: extra safety instructions, no submits or purchases. */
   audit?: boolean;
+  /** Production-safe probing: allow-listed settings only, restores after. */
+  prodSafe?: boolean;
   /** When true, a guard refusal becomes a recorded no-op step (the agent sees
    *  the unchanged screen and retries) instead of aborting the probe. Off by
    *  default: ordinary runs stop at the first refusal. */
@@ -147,7 +150,10 @@ export class MuseDriver implements Driver {
   }
 
   private instructions(): string {
-    return this.opts.audit ? `${SYSTEM_PROMPT}\n\n${AUDIT_INSTRUCTIONS}` : SYSTEM_PROMPT;
+    let extra = "";
+    if (this.opts.audit) extra += `\n\n${AUDIT_INSTRUCTIONS}`;
+    if (this.opts.prodSafe) extra += `\n\n${PROD_SAFE_INSTRUCTIONS}`;
+    return `${SYSTEM_PROMPT}${extra}`;
   }
 
   private async respond(body: Record<string, unknown>): Promise<{ id: string; output: OutputItem[] }> {

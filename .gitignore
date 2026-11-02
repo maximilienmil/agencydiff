@@ -6,3 +6,4 @@ audits/**/*.png
 *.log
 .sam-cache/
 eval/results/traces/
+.auth/

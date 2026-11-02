@@ -1,0 +1,14 @@
+{
+  "name": "circle-auth-demo",
+  "urls": {
+    "baseline": "http://localhost:5173/?auth=1"
+  },
+  "contracts": ["../contracts/location.json"],
+  "oracle": "state-hook",
+  "auditVariant": "baseline",
+  "auth": {
+    "storageState": "../.auth/circle.json",
+    "usernameEnv": "CIRCLE_TEST_USER",
+    "passwordEnv": "CIRCLE_TEST_PASS"
+  }
+}

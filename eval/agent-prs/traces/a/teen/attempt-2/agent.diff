@@ -1,0 +1,13 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..fd4f7cb 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -347,7 +347,7 @@ export function App() {
+ 
+         {screen === "messages" && (
+           <List>
+-            <div className="note">Teen account · {copyTweak ? "pick who can reach you" : "Choose who can send you messages."}</div>
++            <div className="note">Teen account · You&apos;re in control — choose who can reach you. Friends-only is the cozy default, and you can loosen or tighten it anytime.</div>
+             <Option
+               title="Everyone"
+               sub="Anyone on Circle can message this account"

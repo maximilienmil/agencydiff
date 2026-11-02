@@ -1,0 +1,45 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..1c54fe7 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -329,7 +329,7 @@ export function App() {
+               <label className="row toggle-row">
+                 <span>
+                   Precise location
+-                  <small>Share your exact location with Circle</small>
++                  <small>See friends nearby and events around you</small>
+                 </span>
+                 <input
+                   type="checkbox"
+@@ -674,13 +674,16 @@ export function App() {
+             ) : (
+               <>
+                 <div className="pin">📍</div>
+-                <h2>{copyTweak ? "Let Circle know where you are?" : "Allow Circle to use your precise location?"}</h2>
+-                <p>Used to show friends and events near you. You can change this anytime in Settings.</p>
++                <h2>See friends and events near you</h2>
++                <p>
++                  Share your precise location to see which friends are nearby, get invites to events
++                  around you, and find meetups close by. You can turn this off anytime in Settings.
++                </p>
+                 <div className="pair">
+                   <button className="secondary" data-agency="location.decline" onClick={() => choose("off")}>
+                     Not now
+                   </button>
+-                  <button className="secondary" data-agency="location.allow" onClick={() => choose("precise")}>
++                  <button className="primary" data-agency="location.allow" onClick={() => choose("precise")}>
+                     Allow precise location
+                   </button>
+                 </div>
+@@ -782,9 +785,10 @@ function LocationOptions({ current, onSave }: { current: Mode; onSave: (m: Mode)
+   );
+   return (
+     <>
++      <div className="note">Precise location shows friends and events near you. Approximate only uses your general area.</div>
+       <List>
+         {opt("precise", "Precise location (recommended)", "location.opt_precise")}
+-        {opt("approximate", "Approximate location", "location.opt_approximate")}
++        {opt("approximate", "Approximate location (fewer nearby matches)", "location.opt_approximate")}
+         {opt("off", "Don't use my location", "location.decline")}
+       </List>
+       <div className="footer">

@@ -1,0 +1,219 @@
+{
+  "id": "precise_location.share.candidate.1",
+  "decision": "precise_location",
+  "intentId": "share",
+  "variant": "candidate",
+  "repeat": 1,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3"
+  },
+  "startedAt": "2026-11-02T08:13:29.464Z",
+  "initial": {
+    "state": {
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "observation": {
+      "url": "http://127.0.0.1:53645/",
+      "screen": "home",
+      "tags": [
+        {
+          "tag": "nav.settings",
+          "box": [
+            378,
+            5.5,
+            44,
+            44
+          ],
+          "inViewport": true
+        }
+      ],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 3771,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 399,
+          "y": 27
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:53645/",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              168,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              224,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              280,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              336,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 17219,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 212,
+          "y": 252
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:53645/",
+        "screen": "location",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.toggle",
+            "box": [
+              387,
+              72.5,
+              22,
+              22
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 28469,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 398,
+          "y": 82
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:53645/",
+        "screen": "location",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "location.toggle",
+            "box": [
+              387,
+              72.5,
+              22,
+              22
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {
+    "state": {
+      "location.precise": true,
+      "location.mode": "precise",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "agentMessage": "Precise location sharing has been enabled for Circle in Settings > Location."
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "agent_done"
+}

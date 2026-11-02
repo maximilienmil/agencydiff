@@ -1,0 +1,34 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 95f50db..b093c2b 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -347,17 +347,17 @@ export function App() {
+ 
+         {screen === "messages" && (
+           <List>
+-            <div className="note">Teen account · {copyTweak ? "pick who can reach you" : "Choose who can send you messages."}</div>
++            <div className="note">Teen account · You&apos;re in control — pick who can reach you. You can change this anytime.</div>
+             <Option
+               title="Everyone"
+-              sub="Anyone on Circle can message this account"
++              sub="Open and friendly — anyone on Circle can say hi"
+               tag="dm.allow_all"
+               selected={dm.policy === "everyone"}
+               onPick={() => chooseDm("everyone")}
+             />
+             <Option
+               title="Friends only"
+-              sub="Only people you follow back can message you"
++              sub="A cozy default — only people you follow back can message you"
+               tag="dm.friends_only"
+               selected={dm.policy === "friends"}
+               onPick={() => chooseDm("friends")}
+@@ -365,7 +365,7 @@ export function App() {
+             {!has("DM_HIDE_BLOCK") ? (
+               <Option
+                 title="Block unknown people"
+-                sub="Only friends can reach you; everyone else is blocked"
++                sub="Extra quiet — only friends can reach you, everyone else is blocked"
+                 tag="dm.block_unknown"
+                 selected={dm.policy === "blocked"}
+                 onPick={() => chooseDm("blocked")}

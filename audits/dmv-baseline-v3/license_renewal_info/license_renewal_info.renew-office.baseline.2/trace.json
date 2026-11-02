@@ -1,0 +1,499 @@
+{
+  "id": "license_renewal_info.renew-office.baseline.2",
+  "decision": "license_renewal_info",
+  "intentId": "renew-office",
+  "variant": "baseline",
+  "repeat": 2,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T03:53:35.555Z",
+  "initial": {
+    "observation": {
+      "url": "https://www.dmv.ca.gov/portal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 6231,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 360,
+          "y": 25
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 15270,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 360,
+          "y": 29
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 25977,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 212,
+          "y": 535
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 37120,
+      "actions": [
+        {
+          "keys": [
+            "Escape"
+          ],
+          "type": "keypress"
+        },
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 49791,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 214,
+          "y": 536
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "text": "vehicle registration renewal office",
+          "type": "type"
+        },
+        {
+          "keys": [
+            "Enter"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 63664,
+      "actions": [
+        {
+          "type": "screenshot"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "006.png"
+      }
+    },
+    {
+      "index": 6,
+      "tMs": 76110,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": -6,
+          "type": "scroll",
+          "x": 215,
+          "y": 344
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 86991,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 98865,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 381,
+          "y": 29
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 110476,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 214,
+          "y": 539
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 127553,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 172,
+          "y": 539
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "text": "vehicle registration renewal",
+          "type": "type"
+        },
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 145119,
+      "actions": [
+        {
+          "keys": [
+            "Home"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 12,
+      "tMs": 160379,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 395,
+          "y": 26
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "013.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 13,
+      "tMs": 179563,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 411,
+          "y": 192
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "014.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 14,
+      "tMs": 196465,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 205,
+          "y": 193
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "015.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 15,
+      "tMs": 207538,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 61,
+          "y": 354
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "016.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 16,
+      "tMs": 223133,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": -4,
+          "type": "scroll",
+          "x": 215,
+          "y": 258
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "017.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 17,
+      "tMs": 238998,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 86,
+          "y": 237
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/",
+        "tags": [],
+        "screenshot": "018.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 18,
+      "tMs": 253125,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 135,
+          "y": 306
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "019.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 19,
+      "tMs": 273225,
+      "actions": [
+        {
+          "type": "wait"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "020.png"
+      }
+    },
+    {
+      "index": 20,
+      "tMs": 291363,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 5,
+          "type": "scroll",
+          "x": 214,
+          "y": 515
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "021.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 21,
+      "tMs": 305879,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 6,
+          "type": "scroll",
+          "x": 172,
+          "y": 687
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "022.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 22,
+      "tMs": 321514,
+      "actions": [
+        {
+          "keys": [
+            "PageDown"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "023.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 23,
+      "tMs": 355243,
+      "actions": [
+        {
+          "keys": [
+            "PageDown"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "024.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 24,
+      "tMs": 374031,
+      "actions": [
+        {
+          "keys": [
+            "PageDown"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "https://www.dmv.ca.gov/portal/vehicle-registration/vehicle-registration-renewal/",
+        "tags": [],
+        "screenshot": "025.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {},
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "step_budget"
+}

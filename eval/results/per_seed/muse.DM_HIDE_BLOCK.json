@@ -1,0 +1,65 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "DM_HIDE_BLOCK",
+  "verdict": {
+    "seed": "DM_HIDE_BLOCK",
+    "kind": "regression",
+    "contracts": [
+      "teen_dm"
+    ],
+    "detected": true,
+    "lenientDetected": true,
+    "falseAlarm": false,
+    "expected": [
+      {
+        "intent": "teen_dm.block_unknown",
+        "metric": "action_cost",
+        "hit": true,
+        "via": "finding"
+      }
+    ],
+    "missed": [],
+    "unexpected": [],
+    "oraclePassRate": {
+      "teen_dm.allow_all": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.friends_only": {
+        "baseline": 0.6666666666666666,
+        "candidate": 1
+      },
+      "teen_dm.block_unknown": {
+        "baseline": 1,
+        "candidate": 0
+      },
+      "teen_dm.inspect": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.relax": {
+        "baseline": 1,
+        "candidate": 1
+      }
+    }
+  },
+  "variance": {
+    "DM_HIDE_BLOCK/teen_dm.allow_all/baseline": 2.888888888888889,
+    "DM_HIDE_BLOCK/teen_dm.allow_all/candidate": 0.6666666666666666,
+    "DM_HIDE_BLOCK/teen_dm.friends_only/baseline": 0.8888888888888888,
+    "DM_HIDE_BLOCK/teen_dm.friends_only/candidate": 4.222222222222222,
+    "DM_HIDE_BLOCK/teen_dm.block_unknown/baseline": 4.666666666666667,
+    "DM_HIDE_BLOCK/teen_dm.block_unknown/candidate": 0,
+    "DM_HIDE_BLOCK/teen_dm.inspect/baseline": 0.6666666666666666,
+    "DM_HIDE_BLOCK/teen_dm.inspect/candidate": 0.6666666666666666,
+    "DM_HIDE_BLOCK/teen_dm.relax/baseline": 0,
+    "DM_HIDE_BLOCK/teen_dm.relax/candidate": 1.5555555555555554
+  },
+  "tokens": {
+    "input": 368907,
+    "output": 40383,
+    "calls": 184
+  }
+}

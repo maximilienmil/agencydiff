@@ -593,7 +593,10 @@ function resultsMarkdown(results: {
     "catch a control that vanished entirely. Its weakness is noise: the same",
     "intent can take a different number of taps on each run with nothing changed,",
     "so small differences do not count (see the counting rule below), and a full",
-    "run costs on the order of a dollar in model calls.",
+    "run costs a couple of dollars in model calls. Even with the counting rule,",
+    "at three repeats per intent every no-change control still produced at",
+    "least one Finding: with so few runs, luck alone can separate the two",
+    "sides.",
     "",
     "The judge with a walkthrough is the upper bound for screenshot review: it",
     "is shown every screen along the reference path, which is a human-written",
@@ -645,6 +648,23 @@ function resultsMarkdown(results: {
       ["Judge first-screens", perSeed.first],
     ] as const
   ) {
+    // First screens miss nearly everything by construction; one summary line
+    // says more than nineteen identical ones.
+    const misses = verdicts.filter((v) => v.kind === "regression" && !v.detected);
+    if (label === "Judge first-screens" && misses.length > 5) {
+      const caught = verdicts.filter((v) => v.kind === "regression" && v.detected).map((v) => v.seed);
+      notes.push(
+        `- ${label} missed every regression seed except ${caught.join(", ") || "none"}: buried controls are invisible from the start screen by construction.`,
+      );
+      for (const v of verdicts) {
+        if (v.kind === "regression" && v.unexpected.length) {
+          notes.push(
+            `- ${label} on ${v.seed}: caught, and also flagged ${v.unexpected.map((u) => `${u.intentId} (${u.kind})`).join(", ")}.`,
+          );
+        }
+      }
+      continue;
+    }
     for (const v of verdicts) {
       if (v.kind === "regression" && v.unexpected.length) {
         notes.push(

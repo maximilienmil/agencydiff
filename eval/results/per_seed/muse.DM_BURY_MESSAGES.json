@@ -1,0 +1,89 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "DM_BURY_MESSAGES",
+  "verdict": {
+    "seed": "DM_BURY_MESSAGES",
+    "kind": "regression",
+    "contracts": [
+      "teen_dm"
+    ],
+    "detected": true,
+    "lenientDetected": true,
+    "falseAlarm": false,
+    "expected": [
+      {
+        "intent": "teen_dm.allow_all",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      },
+      {
+        "intent": "teen_dm.friends_only",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      },
+      {
+        "intent": "teen_dm.block_unknown",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      },
+      {
+        "intent": "teen_dm.inspect",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      },
+      {
+        "intent": "teen_dm.relax",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      }
+    ],
+    "missed": [],
+    "unexpected": [],
+    "oraclePassRate": {
+      "teen_dm.allow_all": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "teen_dm.friends_only": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.block_unknown": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0
+      },
+      "teen_dm.inspect": {
+        "baseline": 1,
+        "candidate": 0.3333333333333333
+      },
+      "teen_dm.relax": {
+        "baseline": 1,
+        "candidate": 1
+      }
+    }
+  },
+  "variance": {
+    "DM_BURY_MESSAGES/teen_dm.allow_all/baseline": 0.888888888888889,
+    "DM_BURY_MESSAGES/teen_dm.allow_all/candidate": 2,
+    "DM_BURY_MESSAGES/teen_dm.friends_only/baseline": 2,
+    "DM_BURY_MESSAGES/teen_dm.friends_only/candidate": 0.888888888888889,
+    "DM_BURY_MESSAGES/teen_dm.block_unknown/baseline": 11.555555555555557,
+    "DM_BURY_MESSAGES/teen_dm.block_unknown/candidate": 0.2222222222222222,
+    "DM_BURY_MESSAGES/teen_dm.inspect/baseline": 0.6666666666666666,
+    "DM_BURY_MESSAGES/teen_dm.inspect/candidate": 4.666666666666667,
+    "DM_BURY_MESSAGES/teen_dm.relax/baseline": 0,
+    "DM_BURY_MESSAGES/teen_dm.relax/candidate": 2
+  },
+  "tokens": {
+    "input": 515415,
+    "output": 76275,
+    "calls": 246
+  }
+}

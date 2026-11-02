@@ -1,6 +1,7 @@
 {
   "driver": "judge",
   "method": "judge",
+  "shots": "walkthrough",
   "model": "muse-spark-1.3-contributor",
   "repeats": 1,
   "coverage": "full",
@@ -12,6 +13,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -38,6 +40,7 @@
         "precise_location"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [
         {
@@ -60,6 +63,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -80,6 +84,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -100,6 +105,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -120,6 +126,7 @@
         "teen_dm"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -139,17 +146,20 @@
       "contracts": [
         "teen_dm"
       ],
-      "detected": true,
+      "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [
         {
           "intent": "teen_dm.block_unknown",
           "metric": "default",
-          "hit": true,
-          "via": "judge"
+          "hit": false,
+          "via": "none"
         }
       ],
-      "missed": [],
+      "missed": [
+        "teen_dm.block_unknown"
+      ],
       "unexpected": [
         {
           "intentId": "teen_dm.allow_all",
@@ -171,6 +181,7 @@
         "teen_dm"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -215,6 +226,7 @@
         "teen_dm"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -235,6 +247,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [
         {
@@ -276,6 +289,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -296,6 +310,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -316,6 +331,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -348,6 +364,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -374,6 +391,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -406,6 +424,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -426,6 +445,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -446,6 +466,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -456,7 +477,13 @@
         }
       ],
       "missed": [],
-      "unexpected": [],
+      "unexpected": [
+        {
+          "intentId": "subscription.resume",
+          "kind": "judge:harder",
+          "title": "Judge rated subscription.resume harder"
+        }
+      ],
       "oraclePassRate": {}
     },
     {
@@ -466,6 +493,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -486,6 +514,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -506,6 +535,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -519,6 +549,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -532,6 +563,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -545,6 +577,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -558,6 +591,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -571,6 +605,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -581,17 +616,19 @@
   "seeds": 26,
   "regressions": 20,
   "controls": 6,
-  "detected": 18,
+  "detected": 17,
   "missed": [
     "LOC_DEFAULT_ON",
+    "DM_DEFAULT_EVERYONE",
     "DM_INFO_AFTER_CHOICE"
   ],
   "falseAlarms": [],
-  "recall": 0.9,
+  "recall": 0.85,
   "precision": 1,
   "controlFalseAlarmRate": 0,
+  "lenientOnly": [],
   "consistencyK3": {
-    "agreement": 0.8888888888888888,
+    "agreement": 1,
     "pairs": 18,
     "seeds": [
       "LOC_HIDE_DECLINE",
@@ -601,8 +638,8 @@
   },
   "tokens": {
     "input": 137096,
-    "output": 49254,
+    "output": 49605,
     "calls": 32
   },
-  "costUsd": 0.023560400000000002
+  "costUsd": 0.023630599999999998
 }

@@ -17,15 +17,17 @@ export type Oracle = Record<string, string | number | boolean | null>;
  *  Muse to judge the final screenshot and is allowed only in Audit mode. */
 export type OracleAdapter = "state-hook" | "dom" | "model-judged";
 
-/** One assertion on the final page. Selectors are CSS, evaluated in the page. */
+/** One assertion on the final page. Selectors are CSS, evaluated in the page.
+ *  `screen` is provenance only (the screen the text or element was observed
+ *  on during exploration): it never affects the check. */
 export type DomAssertion =
-  | { kind: "exists"; selector: string }
-  | { kind: "visible"; selector: string }
-  | { kind: "textContains"; selector: string; text: string }
-  | { kind: "visibleText"; selector: string; text: string }
-  | { kind: "checked"; selector: string; checked?: boolean }
-  | { kind: "value"; selector: string; value: string }
-  | { kind: "anyOf"; assertions: DomAssertion[] };
+  | { kind: "exists"; selector: string; screen?: string }
+  | { kind: "visible"; selector: string; screen?: string }
+  | { kind: "textContains"; selector: string; text: string; screen?: string }
+  | { kind: "visibleText"; selector: string; text: string; screen?: string }
+  | { kind: "checked"; selector: string; checked?: boolean; screen?: string }
+  | { kind: "value"; selector: string; value: string; screen?: string }
+  | { kind: "anyOf"; assertions: DomAssertion[]; screen?: string };
 
 /** A testable web app: a URL per Variant, the contract(s) to run, and which
  *  Oracle adapter decides success. Resolved from a target config JSON file. */
@@ -52,6 +54,13 @@ export interface IntentSpec {
    *  discoverability measurements, never shown to the agent. */
   target?: string;
   mustSucceed: boolean;
+  /** True for machine-drafted Intents that a human has not reviewed yet. */
+  draft?: boolean;
+  /** Why a drafted Intent needs a human look (oracle never held, agent
+   *  failed, promise text had no UI match, ...). Absent when it validated. */
+  needsReview?: string;
+  /** Screen the fulfilling control or oracle text was observed on. */
+  sourceScreen?: string;
 }
 
 export interface AgencyContract {
@@ -62,6 +71,10 @@ export interface AgencyContract {
   defaultKey?: string;
   intents: IntentSpec[];
   pairs: { accept: string; reject: string }[];
+  /** True when the whole contract is a machine draft awaiting human review. */
+  draft?: boolean;
+  /** Promise sentences with no matching UI, in the drafter's words. */
+  unmappedPromises?: string[];
 }
 
 // Muse computer-use action vocabulary (see dev.meta.ai/docs/computer-use).

@@ -1,5 +1,6 @@
 import type { Action, IntentSpec, TraceStep } from "@agencydiff/core";
 import { AUDIT_INSTRUCTIONS } from "./auditGuard.js";
+import { DEVICE_SCALE_FACTOR, VIEWPORT } from "./env.js";
 import { PROD_SAFE_INSTRUCTIONS } from "./prodSafe.js";
 import { AuditBlockedError, type BrowserEnv } from "./env.js";
 import type { MobileEnv } from "./mobile.js";
@@ -188,6 +189,15 @@ export class MuseDriver implements Driver {
     if (this.opts.prodSafe) extra += `\n\n${PROD_SAFE_INSTRUCTIONS}`;
     if (this.opts.instructionsExtra) extra += `\n\n${this.opts.instructionsExtra}`;
     const base = this.opts.target === "android" ? ANDROID_PROMPT : SYSTEM_PROMPT;
+    // Web grounding note, picked by tap-accuracy measurement (T5c): the exact
+    // screenshot size plus a verify-after-each-click rule beat the baseline
+    // 33/60 to 26/60 with lower offset noise. Android keeps its own prompt:
+    // its screenshots come from the device, not this viewport.
+    if (this.opts.target !== "android") {
+      const w = VIEWPORT.width * DEVICE_SCALE_FACTOR;
+      const h = VIEWPORT.height * DEVICE_SCALE_FACTOR;
+      extra += `\n\nThe screenshot you receive is exactly ${w} pixels wide and ${h} pixels tall. Click coordinates use the same pixels: x runs 0-${w - 1} left to right, y runs 0-${h - 1} top to bottom. After each click, look at the new screenshot and check the tap landed on the intended control before replying DONE. If it missed, tap again at the corrected position.`;
+    }
     return `${base}${extra}`;
   }
 

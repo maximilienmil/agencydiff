@@ -30,6 +30,10 @@
         { "kind": "anyOf", "assertions": [
           { "kind": "visibleText", "selector": "body", "text": "office visit" },
           { "kind": "visibleText", "selector": "body", "text": "Get in Line Now" }
+        ] },
+        { "kind": "anyOf", "assertions": [
+          { "kind": "visibleText", "selector": "body", "text": "Driver's License Renew" },
+          { "kind": "visibleText", "selector": "body", "text": "Driver’s License Renew" }
         ] }
       ],
       "mustSucceed": true

@@ -8,7 +8,7 @@
     "kind": "muse",
     "model": "muse-spark-1.3-contributor"
   },
-  "startedAt": "2026-11-02T04:55:19.057Z",
+  "startedAt": "2026-11-02T05:13:52.183Z",
   "initial": {
     "state": {
       "location.precise": false,
@@ -25,14 +25,14 @@
       "sub.terms_viewed": false
     },
     "observation": {
-      "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+      "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
       "screen": "home",
       "tags": [
         {
           "tag": "nav.settings",
           "box": [
             378,
-            5.5,
+            65.5,
             44,
             44
           ],
@@ -45,66 +45,26 @@
   "steps": [
     {
       "index": 0,
-      "tMs": 3755,
+      "tMs": 3276,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 398,
-          "y": 23
+          "x": 393,
+          "y": 61
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "settings",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "screen": "home",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.privacy",
-            "box": [
-              0,
-              168,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.location",
-            "box": [
-              0,
-              224,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.screentime",
-            "box": [
-              0,
-              280,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.subscription",
-            "box": [
-              0,
-              336,
-              430,
-              56
             ],
             "inViewport": true
           }
@@ -115,94 +75,50 @@
     },
     {
       "index": 1,
-      "tMs": 12071,
+      "tMs": 16292,
       "actions": [
         {
-          "button": "left",
-          "type": "click",
-          "x": 208,
-          "y": 166
+          "type": "screenshot"
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "settings",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "screen": "home",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.privacy",
-            "box": [
-              0,
-              168,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.location",
-            "box": [
-              0,
-              224,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.screentime",
-            "box": [
-              0,
-              280,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.subscription",
-            "box": [
-              0,
-              336,
-              430,
-              56
             ],
             "inViewport": true
           }
         ],
         "screenshot": "002.png"
-      },
-      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+      }
     },
     {
       "index": 2,
-      "tMs": 24050,
+      "tMs": 26111,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 43,
-          "y": 166
+          "x": 401,
+          "y": 67
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -212,7 +128,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -222,7 +138,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              284,
               430,
               56
             ],
@@ -232,7 +148,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              340,
               430,
               56
             ],
@@ -242,7 +158,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              396,
               430,
               56
             ],
@@ -255,24 +171,24 @@
     },
     {
       "index": 3,
-      "tMs": 37144,
+      "tMs": 34773,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 405,
-          "y": 167
+          "x": 212,
+          "y": 213
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -282,7 +198,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -292,7 +208,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              284,
               430,
               56
             ],
@@ -302,7 +218,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              340,
               430,
               56
             ],
@@ -312,7 +228,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              396,
               430,
               56
             ],
@@ -325,33 +241,24 @@
     },
     {
       "index": 4,
-      "tMs": 57396,
+      "tMs": 45614,
       "actions": [
-        {
-          "type": "wait"
-        },
         {
           "button": "left",
           "type": "click",
-          "x": 214,
-          "y": 167
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 215,
+          "y": 208
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -361,7 +268,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -371,7 +278,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              284,
               430,
               56
             ],
@@ -381,7 +288,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              340,
               430,
               56
             ],
@@ -391,7 +298,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              396,
               430,
               56
             ],
@@ -404,29 +311,21 @@
     },
     {
       "index": 5,
-      "tMs": 70267,
+      "tMs": 59058,
       "actions": [
-        {
-          "type": "double_click",
-          "x": 172,
-          "y": 167
-        },
-        {
-          "type": "wait"
-        },
         {
           "type": "screenshot"
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -436,7 +335,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -446,7 +345,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              284,
               430,
               56
             ],
@@ -456,7 +355,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              340,
               430,
               56
             ],
@@ -466,7 +365,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              396,
               430,
               56
             ],
@@ -474,35 +373,28 @@
           }
         ],
         "screenshot": "006.png"
-      },
-      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+      }
     },
     {
       "index": 6,
-      "tMs": 83227,
+      "tMs": 68634,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 215,
-          "y": 83
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 408,
+          "y": 206
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -512,7 +404,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -522,7 +414,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              284,
               430,
               56
             ],
@@ -532,7 +424,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              340,
               430,
               56
             ],
@@ -542,7 +434,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              396,
               430,
               56
             ],
@@ -555,32 +447,66 @@
     },
     {
       "index": 7,
-      "tMs": 99802,
+      "tMs": 79698,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 28,
-          "y": 27
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 172,
+          "y": 114
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "home",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "screen": "settings",
         "tags": [
           {
-            "tag": "nav.settings",
+            "tag": "nav.back",
             "box": [
-              378,
-              5.5,
+              8,
+              65.5,
               44,
               44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              228,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              284,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              340,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              396,
+              430,
+              56
             ],
             "inViewport": true
           }
@@ -591,30 +517,21 @@
     },
     {
       "index": 8,
-      "tMs": 114886,
+      "tMs": 91912,
       "actions": [
-        {
-          "button": "left",
-          "type": "click",
-          "x": 399,
-          "y": 26
-        },
-        {
-          "type": "wait"
-        },
         {
           "type": "screenshot"
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
         "screen": "settings",
         "tags": [
           {
             "tag": "nav.back",
             "box": [
               8,
-              5.5,
+              65.5,
               44,
               44
             ],
@@ -624,7 +541,7 @@
             "tag": "settings.privacy",
             "box": [
               0,
-              168,
+              228,
               430,
               56
             ],
@@ -634,7 +551,7 @@
             "tag": "settings.location",
             "box": [
               0,
-              224,
+              284,
               430,
               56
             ],
@@ -644,7 +561,7 @@
             "tag": "settings.screentime",
             "box": [
               0,
-              280,
+              340,
               430,
               56
             ],
@@ -654,7 +571,7 @@
             "tag": "settings.subscription",
             "box": [
               0,
-              336,
+              396,
               430,
               56
             ],
@@ -662,77 +579,50 @@
           }
         ],
         "screenshot": "009.png"
-      },
-      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+      }
     },
     {
       "index": 9,
-      "tMs": 136227,
+      "tMs": 109381,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 215,
-          "y": 85
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 175,
+          "y": 35
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "settings",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "settings.privacy",
+            "tag": "location.decline",
             "box": [
-              0,
-              168,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "settings.location",
+            "tag": "location.allow",
             "box": [
-              0,
-              224,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.screentime",
-            "box": [
-              0,
-              280,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.subscription",
-            "box": [
-              0,
-              336,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -743,42 +633,46 @@
     },
     {
       "index": 10,
-      "tMs": 157991,
+      "tMs": 123530,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 215,
-          "y": 235
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 106,
+          "y": 780
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "location",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "location.decline",
+            "box": [
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "location.toggle",
+            "tag": "location.allow",
             "box": [
-              387,
-              72.5,
-              22,
-              22
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -789,128 +683,92 @@
     },
     {
       "index": 11,
-      "tMs": 174892,
+      "tMs": 136036,
       "actions": [
-        {
-          "button": "left",
-          "type": "click",
-          "x": 27,
-          "y": 27
-        },
-        {
-          "type": "wait"
-        },
         {
           "type": "screenshot"
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "settings",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "settings.privacy",
+            "tag": "location.decline",
             "box": [
-              0,
-              168,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "settings.location",
+            "tag": "location.allow",
             "box": [
-              0,
-              224,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.screentime",
-            "box": [
-              0,
-              280,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "settings.subscription",
-            "box": [
-              0,
-              336,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
         ],
         "screenshot": "012.png"
-      },
-      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+      }
     },
     {
       "index": 12,
-      "tMs": 187325,
+      "tMs": 150709,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 215,
-          "y": 186
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 107,
+          "y": 783
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "privacy",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "privacy.messages",
+            "tag": "location.decline",
             "box": [
-              0,
-              112,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "privacy.advanced",
+            "tag": "location.allow",
             "box": [
-              0,
-              168,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -921,52 +779,46 @@
     },
     {
       "index": 13,
-      "tMs": 203763,
+      "tMs": 168347,
       "actions": [
         {
-          "button": "left",
-          "type": "click",
-          "x": 214,
-          "y": 110
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "keys": [
+            "Escape"
+          ],
+          "type": "keypress"
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "privacy",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "privacy.messages",
+            "tag": "location.decline",
             "box": [
-              0,
-              112,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "privacy.advanced",
+            "tag": "location.allow",
             "box": [
-              0,
-              168,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -977,128 +829,92 @@
     },
     {
       "index": 14,
-      "tMs": 220961,
+      "tMs": 190330,
       "actions": [
-        {
-          "button": "left",
-          "type": "click",
-          "x": 215,
-          "y": 132
-        },
-        {
-          "type": "wait"
-        },
         {
           "type": "screenshot"
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "messages",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "dm.allow_all",
+            "tag": "location.decline",
             "box": [
-              0,
-              105.296875,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "dm.friends_only",
+            "tag": "location.allow",
             "box": [
-              0,
-              161.296875,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "dm.more",
-            "box": [
-              0,
-              217.296875,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
         ],
         "screenshot": "015.png"
-      },
-      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+      }
     },
     {
       "index": 15,
-      "tMs": 237009,
+      "tMs": 206247,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 214,
-          "y": 185
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 192,
+          "y": 17
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "messages",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "dm.allow_all",
+            "tag": "location.decline",
             "box": [
-              0,
-              105.296875,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "dm.friends_only",
+            "tag": "location.allow",
             "box": [
-              0,
-              161.296875,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "dm.more",
-            "box": [
-              0,
-              217.296875,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -1109,62 +925,46 @@
     },
     {
       "index": 16,
-      "tMs": 253195,
+      "tMs": 226920,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 215,
-          "y": 197
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 308,
+          "y": 783
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "messages",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "dm.allow_all",
+            "tag": "location.decline",
             "box": [
-              0,
-              105.296875,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "dm.friends_only",
+            "tag": "location.allow",
             "box": [
-              0,
-              161.296875,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "dm.more",
-            "box": [
-              0,
-              217.296875,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -1175,62 +975,46 @@
     },
     {
       "index": 17,
-      "tMs": 271307,
+      "tMs": 255610,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 58,
-          "y": 199
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 269,
+          "y": 17
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "messages",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "dm.allow_all",
+            "tag": "location.decline",
             "box": [
-              0,
-              105.296875,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "dm.friends_only",
+            "tag": "location.allow",
             "box": [
-              0,
-              161.296875,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "dm.more",
-            "box": [
-              0,
-              217.296875,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -1241,62 +1025,46 @@
     },
     {
       "index": 18,
-      "tMs": 297957,
+      "tMs": 279156,
       "actions": [
         {
           "button": "left",
           "type": "click",
-          "x": 408,
-          "y": 202
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "x": 123,
+          "y": 36
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "messages",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "dm.allow_all",
+            "tag": "location.decline",
             "box": [
-              0,
-              105.296875,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "dm.friends_only",
+            "tag": "location.allow",
             "box": [
-              0,
-              161.296875,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "dm.more",
-            "box": [
-              0,
-              217.296875,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -1307,62 +1075,46 @@
     },
     {
       "index": 19,
-      "tMs": 318005,
+      "tMs": 297369,
       "actions": [
         {
-          "button": "left",
-          "type": "click",
-          "x": 214,
-          "y": 209
-        },
-        {
-          "type": "wait"
-        },
-        {
-          "type": "screenshot"
+          "keys": [
+            "Tab"
+          ],
+          "type": "keypress"
         }
       ],
       "after": {
-        "url": "http://localhost:5173/?seeds=DM_HIDE_BLOCK&fixture=prompt-answered",
-        "screen": "messages",
+        "url": "http://localhost:5183/?seeds=DM_HIDE_BLOCK",
+        "screen": "home+location_prompt",
         "tags": [
           {
-            "tag": "nav.back",
+            "tag": "nav.settings",
             "box": [
-              8,
-              5.5,
+              378,
+              65.5,
               44,
               44
             ],
-            "inViewport": true
+            "inViewport": false
           },
           {
-            "tag": "dm.allow_all",
+            "tag": "location.decline",
             "box": [
-              0,
-              105.296875,
-              430,
-              56
+              20,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           },
           {
-            "tag": "dm.friends_only",
+            "tag": "location.allow",
             "box": [
-              0,
-              161.296875,
-              430,
-              56
-            ],
-            "inViewport": true
-          },
-          {
-            "tag": "dm.more",
-            "box": [
-              0,
-              217.296875,
-              430,
-              56
+              220,
+              784,
+              190,
+              48
             ],
             "inViewport": true
           }
@@ -1376,9 +1128,9 @@
     "state": {
       "location.precise": false,
       "location.mode": "off",
-      "location.prompt": "answered",
+      "location.prompt": "open",
       "dm.policy": "friends",
-      "dm.inspected": true,
+      "dm.inspected": false,
       "st.limit": null,
       "st.reminders": false,
       "st.viewed": false,

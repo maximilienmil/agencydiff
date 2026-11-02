@@ -312,6 +312,13 @@ export function App() {
       data-screen={overlay ? `${screen}+${overlay}` : screen}
       style={has("UI_ACCENT") ? ({ "--accent": "#0e7a5f" } as CSSProperties) : undefined}
     >
+      <div className="fiction-banner" role="note">
+        <span>This is a fictional test app.</span>{" "}
+        <a href="?variant=baseline">Baseline</a> · <a href="?variant=candidate">Candidate (all seeds)</a>
+        {" · Headline seeds: "}
+        <a href="?seeds=LOC_HIDE_DECLINE">location</a>, <a href="?seeds=DM_HIDE_BLOCK">teen_dm</a>,{" "}
+        <a href="?seeds=ST_HIDE_REMOVE">screen_time</a>, <a href="?seeds=SUB_DEFAULT_ANNUAL">subscription</a>
+      </div>
       <header className="bar">
         {stack.length > 1 ? (
           <button className="icon" data-agency="nav.back" aria-label="Back" onClick={pop}>

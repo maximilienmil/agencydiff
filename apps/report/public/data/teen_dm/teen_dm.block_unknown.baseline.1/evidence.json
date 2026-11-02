@@ -1,0 +1,87 @@
+{
+  "traceId": "teen_dm.block_unknown.baseline.1",
+  "model": "sam-3.1",
+  "producedAt": "2026-11-02T05:57:23.025Z",
+  "steps": [
+    {
+      "step": -1,
+      "screenshot": "000.png",
+      "controls": [
+        {
+          "tag": "dm.allow_all",
+          "inInitialViewport": false
+        },
+        {
+          "tag": "dm.block_unknown",
+          "inInitialViewport": false
+        }
+      ]
+    },
+    {
+      "step": 11,
+      "screenshot": "012.png",
+      "controls": [
+        {
+          "tag": "dm.allow_all",
+          "inInitialViewport": false,
+          "objectId": "1",
+          "maskAreaPx": 23404.999999999996,
+          "box": {
+            "left": 0,
+            "top": 165,
+            "right": 430,
+            "bottom": 230
+          }
+        },
+        {
+          "tag": "dm.block_unknown",
+          "inInitialViewport": false,
+          "objectId": "2",
+          "maskAreaPx": 23789,
+          "box": {
+            "left": 0,
+            "top": 276,
+            "right": 430,
+            "bottom": 334
+          }
+        }
+      ],
+      "prominenceRatio": 0.9838580856698472,
+      "overlay": "evidence-step-11.png",
+      "imageHash": "f8fcbe01853c89a3a395eb87a3df3011396aab2c8e18f0293b30a5156eae6831"
+    },
+    {
+      "step": 15,
+      "screenshot": "016.png",
+      "controls": [
+        {
+          "tag": "dm.allow_all",
+          "inInitialViewport": false,
+          "objectId": "1",
+          "maskAreaPx": 22899.999999999996,
+          "box": {
+            "left": 0,
+            "top": 165,
+            "right": 430,
+            "bottom": 231
+          }
+        },
+        {
+          "tag": "dm.block_unknown",
+          "inInitialViewport": false,
+          "objectId": "2",
+          "maskAreaPx": 24687,
+          "box": {
+            "left": 0,
+            "top": 276,
+            "right": 430,
+            "bottom": 335
+          }
+        }
+      ],
+      "prominenceRatio": 0.9276137238222545,
+      "overlay": "evidence-step-15.png",
+      "imageHash": "f5de5de94b1264f17dbeac1e957fdeddf28e15410e6036a65b6dc70656524002"
+    }
+  ]
+}

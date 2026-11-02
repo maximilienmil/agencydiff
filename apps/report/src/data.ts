@@ -21,25 +21,50 @@ export interface RunIndex {
   }[];
 }
 
-export interface BenchSeed {
-  seed: string;
-  description: string;
+export interface BenchMethod {
+  caught: string;
+  falseAlarms: string;
+  costUsd: number;
+}
+
+/** Shape of eval/results/summary.json, copied to data/benchmark/ at build time. */
+export interface BenchSummary {
+  generatedAt: string;
+  agencydiff: { scripted: BenchMethod; muse: BenchMethod | null };
+  judge: BenchMethod & {
+    consistencyK3?: { agreement: number; pairs: number; seeds: string[] };
+  };
+}
+
+export interface SusPair {
+  pair: string;
+  pattern: string;
+  control: boolean;
   detected: boolean;
-  evidence?: string;
+  metricsMoved: string[];
 }
 
-export interface BenchJudges {
-  agencyDiff: { precision: number; recall: number; falseAlarms: number };
-  museAsJudge: { precision: number; recall: number; falseAlarms: number };
+/** Shape of eval/susbench/results.json, copied to data/benchmark/ at build time. */
+export interface SusBench {
+  generatedAt: string;
+  repeats: number;
+  model: string;
+  summary: { injectedPairs: number; detectedPairs: number; controlPairs: number; falseAlarms: number };
+  pairs: SusPair[];
 }
 
-export interface EvalResults {
-  updatedAt: string;
+export interface Benchmark {
+  summary: BenchSummary | null;
+  susbench: SusBench | null;
+}
+
+export interface ShowcaseEntry {
+  runId: string;
   decision: string;
-  sample: boolean;
-  summary: { precision: number; recall: number; falseAlarms: number; controls: number };
-  seeds: BenchSeed[];
-  judges: BenchJudges;
+  seed: string;
+  seedDescription: string;
+  intent: string;
+  intentGoal: string;
 }
 
 const base = import.meta.env.BASE_URL || "/";
@@ -59,7 +84,23 @@ export const loadContract = (runId: string) =>
 export const loadMeta = (runId: string) => get<RunMeta>(`${runId}/meta.json`);
 export const loadTrace = (runId: string, traceId: string) =>
   get<Trace>(`${runId}/${traceId}/trace.json`);
-export const loadEval = () => get<EvalResults>("eval.json");
+export const loadShowcase = () => get<ShowcaseEntry[]>("showcase.json");
+
+/** Real benchmark files, synced from eval/ at build time. Missing means pending, never faked. */
+export async function loadBenchmark(): Promise<Benchmark> {
+  const tryGet = async <T,>(p: string): Promise<T | null> => {
+    try {
+      return await get<T>(p);
+    } catch {
+      return null;
+    }
+  };
+  const [summary, susbench] = await Promise.all([
+    tryGet<BenchSummary>("benchmark/summary.json"),
+    tryGet<SusBench>("benchmark/susbench.json"),
+  ]);
+  return { summary, susbench };
+}
 
 export const shotUrl = (runId: string, traceId: string, shot: string) =>
   dataUrl(`${runId}/${traceId}/${shot}`);

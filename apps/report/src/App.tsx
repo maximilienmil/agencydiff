@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { loadIndex, type RunIndex } from "./data";
 import { fmtDate } from "./format";
+import { OverviewPage } from "./pages/Overview";
 import { RunsPage } from "./pages/Runs";
 import { DiffPage } from "./pages/Diff";
 import { ReplayPage } from "./pages/Replay";
 import { ContractPage } from "./pages/Contract";
 import { LivePage } from "./pages/Live";
 
-export type Page = "runs" | "diff" | "replay" | "contract" | "live";
+export type Page = "overview" | "runs" | "diff" | "replay" | "contract" | "live";
 
 export interface Route {
   page: Page;
@@ -22,10 +23,10 @@ export interface Route {
 export function parseHash(): Route {
   const raw = window.location.hash.replace(/^#/, "");
   const [path, query] = raw.split("?");
-  const page = (path.replace(/^\//, "") || "runs") as Page;
+  const page = (path.replace(/^\//, "") || "overview") as Page;
   const q = new URLSearchParams(query ?? "");
   return {
-    page: ["runs", "diff", "replay", "contract", "live"].includes(page) ? page : "runs",
+    page: ["overview", "runs", "diff", "replay", "contract", "live"].includes(page) ? page : "overview",
     run: q.get("run") ?? undefined,
     intent: q.get("intent") ?? undefined,
     variant: q.get("variant") ?? undefined,
@@ -58,6 +59,7 @@ function useRoute(): Route {
 }
 
 const TABS: { id: Page; label: string }[] = [
+  { id: "overview", label: "Overview" },
   { id: "runs", label: "Runs" },
   { id: "diff", label: "Diff" },
   { id: "replay", label: "Replay" },
@@ -109,6 +111,7 @@ export function App() {
             <code>pnpm diff --driver scripted</code> to produce one.
           </div>
         )}
+        {index && route.page === "overview" && <OverviewPage index={index} />}
         {index && index.runs.length > 0 && runId && (
           <>
             {route.page === "runs" && <RunsPage index={index} />}

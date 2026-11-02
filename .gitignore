@@ -13,3 +13,5 @@ video/out/
 packages/cli/data/
 packages/cli/runs/
 .auth/
+apps/report/public/data/benchmark/
+apps/report/tests/overview-*.png

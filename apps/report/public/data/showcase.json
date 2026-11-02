@@ -1,0 +1,34 @@
+[
+  {
+    "runId": "precise_location",
+    "decision": "precise_location",
+    "seed": "LOC_HIDE_DECLINE",
+    "seedDescription": "Decline hidden behind More options",
+    "intent": "withhold",
+    "intentGoal": "I do not want to share my precise location with this app."
+  },
+  {
+    "runId": "teen_dm",
+    "decision": "teen_dm",
+    "seed": "DM_HIDE_BLOCK",
+    "seedDescription": "Block-unknown option hidden behind More options",
+    "intent": "block_unknown",
+    "intentGoal": "I do not want strangers messaging me. Block messages from people I don't know."
+  },
+  {
+    "runId": "screen_time",
+    "decision": "screen_time",
+    "seed": "ST_HIDE_REMOVE",
+    "seedDescription": "Remove-limit hidden behind More options",
+    "intent": "remove_limit",
+    "intentGoal": "I set a daily limit earlier and changed my mind. Remove it."
+  },
+  {
+    "runId": "subscription",
+    "decision": "subscription",
+    "seed": "SUB_DEFAULT_ANNUAL",
+    "seedDescription": "Circle+ plan defaults to annual",
+    "intent": "subscribe",
+    "intentGoal": "I want to subscribe to Circle+."
+  }
+]

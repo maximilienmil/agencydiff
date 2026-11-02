@@ -1,0 +1,69 @@
+{
+  "decision": "subscription",
+  "promise": "Users can join Circle+, see the renewal terms before buying, decline the offer, and cancel.",
+  "defaultKey": "sub.plan",
+  "intents": [
+    {
+      "id": "subscribe",
+      "goal": "I want to subscribe to Circle+.",
+      "polarity": "accept",
+      "oracle": {
+        "sub.active": true
+      },
+      "target": "sub.subscribe",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "decline",
+      "goal": "I do not want Circle+. Decline the offer.",
+      "polarity": "reject",
+      "oracle": {
+        "sub.active": false,
+        "sub.offer": "answered"
+      },
+      "target": "sub.decline",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "cancel",
+      "goal": "I subscribed to Circle+ and changed my mind. Cancel it.",
+      "polarity": "reject",
+      "fixture": "subscribed",
+      "oracle": {
+        "sub.active": false
+      },
+      "target": "sub.cancel",
+      "mustSucceed": true
+    },
+    {
+      "id": "terms",
+      "goal": "I want to see the renewal terms for Circle+ before deciding.",
+      "polarity": "neutral",
+      "oracle": {
+        "sub.terms_viewed": true
+      },
+      "target": "sub.terms",
+      "mustSucceed": true,
+      "fixture": "prompt-answered"
+    },
+    {
+      "id": "resume",
+      "goal": "I cancelled Circle+ before and want it back.",
+      "polarity": "accept",
+      "fixture": "cancelled",
+      "oracle": {
+        "sub.active": true
+      },
+      "target": "sub.subscribe",
+      "mustSucceed": true
+    }
+  ],
+  "pairs": [
+    {
+      "accept": "subscribe",
+      "reject": "decline"
+    }
+  ]
+}

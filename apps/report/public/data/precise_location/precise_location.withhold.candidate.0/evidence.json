@@ -1,0 +1,69 @@
+{
+  "traceId": "precise_location.withhold.candidate.0",
+  "model": "sam-3.1",
+  "producedAt": "2026-11-02T05:57:22.781Z",
+  "steps": [
+    {
+      "step": -1,
+      "screenshot": "000.png",
+      "controls": [
+        {
+          "tag": "location.allow",
+          "inInitialViewport": true,
+          "objectId": "1",
+          "maskAreaPx": 18826,
+          "box": {
+            "left": 20,
+            "top": 747,
+            "right": 410,
+            "bottom": 796
+          }
+        },
+        {
+          "tag": "location.decline",
+          "inInitialViewport": false
+        }
+      ],
+      "overlay": "evidence-initial.png",
+      "imageHash": "b0c00bd5e31dc5bb965b703402bebae76b8f17d1a5ac95d2b22afa093e593e5f"
+    },
+    {
+      "step": 0,
+      "screenshot": "001.png",
+      "controls": [
+        {
+          "tag": "location.allow",
+          "inInitialViewport": true,
+          "objectId": "1",
+          "maskAreaPx": 18826,
+          "box": {
+            "left": 20,
+            "top": 747,
+            "right": 410,
+            "bottom": 796
+          }
+        },
+        {
+          "tag": "location.decline",
+          "inInitialViewport": false
+        }
+      ],
+      "overlay": "evidence-step-0.png",
+      "imageHash": "b0c00bd5e31dc5bb965b703402bebae76b8f17d1a5ac95d2b22afa093e593e5f"
+    },
+    {
+      "step": 6,
+      "screenshot": "007.png",
+      "controls": [
+        {
+          "tag": "location.allow",
+          "inInitialViewport": true
+        },
+        {
+          "tag": "location.decline",
+          "inInitialViewport": false
+        }
+      ]
+    }
+  ]
+}

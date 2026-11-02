@@ -5,25 +5,31 @@
     {
       "intentId": "block_unknown",
       "variant": "baseline",
-      "runs": 1,
-      "successRate": 1,
-      "actionCount": 4,
+      "runs": 3,
+      "successRate": 0.3333333333333333,
+      "actionCount": 15,
       "navigationDepth": 3,
       "initiallyVisible": false,
       "defaultValue": "friends",
       "traceIds": [
-        "teen_dm.block_unknown.baseline.0"
+        "teen_dm.block_unknown.baseline.0",
+        "teen_dm.block_unknown.baseline.1",
+        "teen_dm.block_unknown.baseline.2"
       ]
     },
     {
       "intentId": "block_unknown",
       "variant": "candidate",
-      "runs": 1,
-      "successRate": 0,
+      "runs": 3,
+      "successRate": 0.3333333333333333,
+      "actionCount": 5,
+      "navigationDepth": 4,
       "initiallyVisible": false,
       "defaultValue": "friends",
       "traceIds": [
-        "teen_dm.block_unknown.candidate.0"
+        "teen_dm.block_unknown.candidate.0",
+        "teen_dm.block_unknown.candidate.1",
+        "teen_dm.block_unknown.candidate.2"
       ]
     }
   ],
@@ -35,23 +41,385 @@
   ],
   "findings": [
     {
-      "severity": "high",
-      "kind": "goal_unreachable",
+      "severity": "low",
+      "kind": "navigation_depth",
       "intentId": "block_unknown",
-      "title": "\"I do not want strangers messaging me. Block messages from people I don't know.\" succeeds less often",
-      "baseline": 1,
-      "candidate": 0,
+      "title": "\"I do not want strangers messaging me. Block messages from people I don't know.\" is buried deeper",
+      "baseline": 3,
+      "candidate": 4,
       "evidence": [
         {
           "traceId": "teen_dm.block_unknown.baseline.0"
         },
         {
+          "traceId": "teen_dm.block_unknown.baseline.1"
+        },
+        {
+          "traceId": "teen_dm.block_unknown.baseline.2"
+        },
+        {
           "traceId": "teen_dm.block_unknown.candidate.0"
+        },
+        {
+          "traceId": "teen_dm.block_unknown.candidate.1"
+        },
+        {
+          "traceId": "teen_dm.block_unknown.candidate.2"
         }
       ],
-      "id": "teen_dm/goal_unreachable/block_unknown",
+      "id": "teen_dm/navigation_depth/block_unknown",
       "decision": "teen_dm"
     }
   ],
-  "passed": false
+  "passed": true,
+  "evidence": [
+    {
+      "traceId": "teen_dm.block_unknown.baseline.0",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:22.955Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 16,
+          "screenshot": "017.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 22756.999999999996,
+              "box": {
+                "left": 0,
+                "top": 104,
+                "right": 430,
+                "bottom": 165
+              }
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 24565,
+              "box": {
+                "left": 0,
+                "top": 215,
+                "right": 430,
+                "bottom": 277
+              }
+            }
+          ],
+          "prominenceRatio": 0.9263993486668022,
+          "overlay": "evidence-step-16.png",
+          "imageHash": "c79bbe47280877764ddc0617c73650374345c89d3eeab9fb255ea8f4d46b0f78"
+        },
+        {
+          "step": 19,
+          "screenshot": "020.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 23195,
+              "box": {
+                "left": 0,
+                "top": 104,
+                "right": 430,
+                "bottom": 165
+              }
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 24110.999999999996,
+              "box": {
+                "left": 0,
+                "top": 216,
+                "right": 430,
+                "bottom": 276
+              }
+            }
+          ],
+          "prominenceRatio": 0.9620090415163205,
+          "overlay": "evidence-step-19.png",
+          "imageHash": "9d2516875004ac158b1a5cb2731dcecc4ba21c7ac296602ee505f2a8790038f7"
+        }
+      ]
+    },
+    {
+      "traceId": "teen_dm.block_unknown.baseline.1",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:23.025Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 11,
+          "screenshot": "012.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 23404.999999999996,
+              "box": {
+                "left": 0,
+                "top": 165,
+                "right": 430,
+                "bottom": 230
+              }
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 23789,
+              "box": {
+                "left": 0,
+                "top": 276,
+                "right": 430,
+                "bottom": 334
+              }
+            }
+          ],
+          "prominenceRatio": 0.9838580856698472,
+          "overlay": "evidence-step-11.png",
+          "imageHash": "f8fcbe01853c89a3a395eb87a3df3011396aab2c8e18f0293b30a5156eae6831"
+        },
+        {
+          "step": 15,
+          "screenshot": "016.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 22899.999999999996,
+              "box": {
+                "left": 0,
+                "top": 165,
+                "right": 430,
+                "bottom": 231
+              }
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 24687,
+              "box": {
+                "left": 0,
+                "top": 276,
+                "right": 430,
+                "bottom": 335
+              }
+            }
+          ],
+          "prominenceRatio": 0.9276137238222545,
+          "overlay": "evidence-step-15.png",
+          "imageHash": "f5de5de94b1264f17dbeac1e957fdeddf28e15410e6036a65b6dc70656524002"
+        }
+      ]
+    },
+    {
+      "traceId": "teen_dm.block_unknown.baseline.2",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:23.098Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 19,
+          "screenshot": "020.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "traceId": "teen_dm.block_unknown.candidate.0",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:23.105Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 19,
+          "screenshot": "020.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "traceId": "teen_dm.block_unknown.candidate.1",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:23.114Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "screenshot": "003.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false,
+              "objectId": "1",
+              "maskAreaPx": 23426.000000000004,
+              "box": {
+                "left": 0,
+                "top": 165,
+                "right": 430,
+                "bottom": 230
+              }
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ],
+          "overlay": "evidence-step-2.png",
+          "imageHash": "2941bae7d5c1c880a1d34d3e3ada7824d7d13bddec0eaafa59cc960e05b4c6b9"
+        },
+        {
+          "step": 4,
+          "screenshot": "005.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false,
+              "objectId": "2",
+              "maskAreaPx": 24078,
+              "box": {
+                "left": 0,
+                "top": 114,
+                "right": 430,
+                "bottom": 175
+              }
+            }
+          ],
+          "overlay": "evidence-step-4.png",
+          "imageHash": "7532155b7f819eb5baa79fb5361afab973d7a311ef16e30c8b587442d4a04320"
+        }
+      ]
+    },
+    {
+      "traceId": "teen_dm.block_unknown.candidate.2",
+      "model": "sam-3.1",
+      "producedAt": "2026-11-02T05:57:23.167Z",
+      "steps": [
+        {
+          "step": -1,
+          "screenshot": "000.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        },
+        {
+          "step": 19,
+          "screenshot": "020.png",
+          "controls": [
+            {
+              "tag": "dm.allow_all",
+              "inInitialViewport": false
+            },
+            {
+              "tag": "dm.block_unknown",
+              "inInitialViewport": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

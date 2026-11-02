@@ -2,7 +2,7 @@ name: Deploy report and Circle to Pages
 
 on:
   push:
-    branches: [claude/fervent-cannon-m0lh3n]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

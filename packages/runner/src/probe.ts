@@ -3,7 +3,9 @@ import path from "node:path";
 import {
   checkDomAssertions,
   checkOracle,
+  firstSatisfaction,
   type AgencyContract,
+  type DomAssertion,
   type IntentSpec,
   type OracleAdapter,
   type Trace,
@@ -33,6 +35,19 @@ function withFixture(url: string, fixture?: string): string {
   return u.toString();
 }
 
+/** Every selector an oracle reads, descending into anyOf disjunctions. */
+export function oracleSelectors(assertions: DomAssertion[] | undefined): string[] {
+  const out: string[] = [];
+  const walk = (list: DomAssertion[] | undefined) => {
+    for (const a of list ?? []) {
+      if (a.kind === "anyOf") walk(a.assertions);
+      else out.push(a.selector);
+    }
+  };
+  walk(assertions);
+  return [...new Set(out)];
+}
+
 /** Run one intent against one variant from a fresh browser, and save its trace. */
 export async function runProbe(opts: {
   contract: AgencyContract;
@@ -58,7 +73,18 @@ export async function runProbe(opts: {
   try {
     const initialState = await env.state();
     const initial = await env.observe();
-    const result = await driver.run(intent, env, t0, initial.png);
+    // The dom oracle is cheap local DOM, so evaluate it after every step
+    // and stop the probe once the needed fact is on screen. The recorded
+    // cost is actions until that point, not the step budget.
+    const domSelectors = adapter === "dom" ? oracleSelectors(intent.domOracle) : [];
+    const isSatisfied =
+      adapter === "dom"
+        ? async () => checkDomAssertions(intent.domOracle, await env.collectDomFacts(domSelectors)) === true
+        : undefined;
+    const initialSatisfied = isSatisfied ? await isSatisfied() : false;
+    const result = initialSatisfied
+      ? { steps: [], stoppedReason: "satisfied" as const, satisfiedFlags: [] as boolean[] }
+      : await driver.run(intent, env, t0, initial.png, isSatisfied ? { isSatisfied } : undefined);
     const finalState = await env.state();
 
     let passed: boolean | undefined;
@@ -66,8 +92,7 @@ export async function runProbe(opts: {
     if (adapter === "state-hook") {
       passed = checkOracle(intent.oracle, finalState);
     } else if (adapter === "dom") {
-      const selectors = [...new Set((intent.domOracle ?? []).map((a) => a.selector))];
-      const facts = await env.collectDomFacts(selectors);
+      const facts = await env.collectDomFacts(domSelectors);
       passed = checkDomAssertions(intent.domOracle, facts);
     } else {
       if (!opts.oracle?.judge) throw new Error("model-judged oracle needs opts.oracle.judge");
@@ -76,6 +101,14 @@ export async function runProbe(opts: {
       modelJudged = true;
     }
 
+    const satisfaction =
+      adapter === "dom"
+        ? firstSatisfaction(result.steps, {
+            initialSatisfied,
+            satisfiedFlags: result.satisfiedFlags ?? [],
+            finalPassed: passed === true,
+          })
+        : {};
     const trace: Trace = {
       id,
       decision: contract.decision,
@@ -90,6 +123,7 @@ export async function runProbe(opts: {
       oracle: { checked: passed !== undefined, passed },
       stoppedReason: result.stoppedReason,
       error: result.error,
+      ...satisfaction,
     };
     if (modelJudged) trace.modelJudged = true;
     await writeFile(path.join(dir, "trace.json"), JSON.stringify(trace, null, 2));

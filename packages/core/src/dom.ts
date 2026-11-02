@@ -7,6 +7,9 @@ export interface DomElementFact {
   exists: boolean;
   visible: boolean;
   text: string;
+  /** Text of the element's descendants that intersect the viewport.
+   *  Collected alongside `text` so viewport checks stay pure and offline. */
+  visibleText?: string;
   checked?: boolean;
   value?: string;
 }
@@ -19,20 +22,27 @@ export function checkDomAssertions(
 ): boolean | undefined {
   if (!assertions || assertions.length === 0) return undefined;
   const bySelector = new Map(facts.map((f) => [f.selector, f]));
-  return assertions.every((a) => {
-    const f = bySelector.get(a.selector);
-    if (!f || !f.exists) return false;
-    switch (a.kind) {
-      case "exists":
-        return true;
-      case "visible":
-        return f.visible;
-      case "textContains":
-        return f.text.includes(a.text);
-      case "checked":
-        return (f.checked ?? false) === (a.checked ?? true);
-      case "value":
-        return f.value === a.value;
-    }
-  });
+  return assertions.every((a) => checkOne(a, bySelector));
+}
+
+function checkOne(a: DomAssertion, bySelector: Map<string, DomElementFact>): boolean {
+  // One disjunction per fact: the same Intent can be answered by different
+  // pages (a dedicated page or a search advisor) in different words.
+  if (a.kind === "anyOf") return a.assertions.some((sub) => checkOne(sub, bySelector));
+  const f = bySelector.get(a.selector);
+  if (!f || !f.exists) return false;
+  switch (a.kind) {
+    case "exists":
+      return true;
+    case "visible":
+      return f.visible;
+    case "textContains":
+      return f.text.includes(a.text);
+    case "visibleText":
+      return (f.visibleText ?? "").includes(a.text);
+    case "checked":
+      return (f.checked ?? false) === (a.checked ?? true);
+    case "value":
+      return f.value === a.value;
+  }
 }

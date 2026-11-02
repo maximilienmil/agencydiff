@@ -98,7 +98,9 @@ export class BrowserEnv {
     return this.page.evaluate(() => window.__circle?.state());
   }
 
-  /** Facts for `domOracle` assertions, read from the live page. */
+  /** Facts for `domOracle` assertions, read from the live page. `visibleText`
+   *  holds only the element's text that intersects the viewport, so oracles
+   *  can require the needed fact to be on screen rather than in the DOM. */
   async collectDomFacts(selectors: string[]): Promise<DomElementFact[]> {
     // No nested named functions in this callback: the tsx loader wraps them
     // in a __name helper that does not exist in the browser, so Playwright's
@@ -111,7 +113,7 @@ export class BrowserEnv {
         } catch {
           el = null;
         }
-        if (!el) return { selector, exists: false, visible: false, text: "" };
+        if (!el) return { selector, exists: false, visible: false, text: "", visibleText: "" };
         const r = el.getBoundingClientRect();
         let shown = r.width > 0 && r.height > 0;
         if (shown) {
@@ -125,12 +127,35 @@ export class BrowserEnv {
           const top = document.elementFromPoint(cx, cy);
           onTop = !!top && (el === top || el.contains(top) || top.contains(el));
         }
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const parts: string[] = [];
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        let node = walker.nextNode();
+        while (node) {
+          const t = (node.nodeValue ?? "").trim();
+          if (t) {
+            const parent = (node as Text).parentElement;
+            const tag = parent ? parent.tagName.toLowerCase() : "";
+            if (parent && tag !== "script" && tag !== "style" && tag !== "noscript") {
+              const pr = parent.getBoundingClientRect();
+              if (pr.width > 0 && pr.height > 0 && pr.bottom > 0 && pr.top < vh && pr.right > 0 && pr.left < vw) {
+                const pstyle = getComputedStyle(parent);
+                if (pstyle.visibility !== "hidden" && pstyle.display !== "none" && pstyle.opacity !== "0") {
+                  parts.push(t);
+                }
+              }
+            }
+          }
+          node = walker.nextNode();
+        }
         const input = el as HTMLInputElement;
         return {
           selector,
           exists: true,
           visible: onTop,
           text: el.textContent ?? "",
+          visibleText: parts.join(" "),
           checked: "checked" in input ? !!input.checked : undefined,
           value: "value" in input ? String(input.value) : undefined,
         };

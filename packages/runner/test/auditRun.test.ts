@@ -4,6 +4,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { AgencyContract, Trace } from "@agencydiff/core";
 import {
+  actionsToSatisfy,
   compareAudits,
   extractHtml,
   findContract,
@@ -71,6 +72,21 @@ describe("auditRun helpers", () => {
   it("dedupes screens visited, preferring data-screen over URL", () => {
     const t = trace("a", 2, true);
     expect(screensVisited(t)).toEqual(["p", "x/p"]);
+  });
+
+  it("reports median actions until the oracle first held", () => {
+    const early = { ...trace("a", 1, true), actionsToSatisfy: 0, firstSatisfiedStep: 0 };
+    const late = { ...trace("a", 5, true), actionsToSatisfy: 4, firstSatisfiedStep: 5 };
+    const failed = trace("a", 9, false);
+    const s = summarizeIntent("a", [early, late, failed], contract);
+    expect(s.medianActionsToSatisfy).toBe(2);
+  });
+
+  it("falls back to total actions for passed traces without a recorded cost", () => {
+    const t = trace("a", 3, true);
+    expect(t.actionsToSatisfy).toBeUndefined();
+    expect(actionsToSatisfy(t)).toBe(3);
+    expect(actionsToSatisfy(trace("a", 3, false))).toBeUndefined();
   });
 
   it("summarizes an intent with core-compatible medians", () => {

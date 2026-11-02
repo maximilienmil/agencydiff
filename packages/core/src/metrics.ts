@@ -4,6 +4,7 @@ import type {
   IntentSpec,
   Trace,
   TraceMetrics,
+  TraceStep,
   Variant,
 } from "./types.js";
 
@@ -17,11 +18,41 @@ const EFFORTFUL: ReadonlySet<Action["type"]> = new Set([
   "type",
 ]);
 
-export function countActions(trace: Trace): number {
-  return trace.steps.reduce(
+function effortfulIn(steps: Pick<TraceStep, "actions">[]): number {
+  return steps.reduce(
     (n, s) => n + s.actions.filter((a) => EFFORTFUL.has(a.type)).length,
     0,
   );
+}
+
+export function countActions(trace: Trace): number {
+  return effortfulIn(trace.steps);
+}
+
+/** Where the dom oracle stood over one probe: whether it held on the
+ *  initial observation, after which steps it held, and whether the final
+ *  state satisfies it. Steps elapsed count the initial observation as 0. */
+export interface SatisfactionInput {
+  initialSatisfied: boolean;
+  satisfiedFlags: boolean[];
+  finalPassed: boolean;
+}
+
+/** First step at which the oracle held, and the effortful actions up to
+ *  that point: the audit cost of the Intent. Empty when it never held. */
+export function firstSatisfaction(
+  steps: Pick<TraceStep, "actions">[],
+  s: SatisfactionInput,
+): { firstSatisfiedStep?: number; actionsToSatisfy?: number } {
+  if (s.initialSatisfied) return { firstSatisfiedStep: 0, actionsToSatisfy: 0 };
+  const at = s.satisfiedFlags.findIndex(Boolean);
+  if (at !== -1) {
+    return { firstSatisfiedStep: at + 1, actionsToSatisfy: effortfulIn(steps.slice(0, at + 1)) };
+  }
+  if (s.finalPassed) {
+    return { firstSatisfiedStep: steps.length, actionsToSatisfy: effortfulIn(steps) };
+  }
+  return {};
 }
 
 /** Number of distinct screens entered after the initial one. Falls back to URL
@@ -57,6 +88,7 @@ export function traceMetrics(
     successGrade: graded ? "oracle" : "agent",
     success: graded ? trace.oracle.passed === true : trace.stoppedReason === "agent_done",
     actionCount: countActions(trace),
+    actionsToSatisfy: trace.actionsToSatisfy,
     navigationDepth: navigationDepth(trace),
     discoveryStep: discoveryStep(trace, intent.target),
     defaultValue: defaultKey ? trace.initial.state?.[defaultKey] : undefined,
@@ -77,12 +109,14 @@ export function aggregate(
   hasTarget = false,
 ): IntentAggregate {
   const ok = metrics.filter((m) => m.success);
+  const toFact = ok.map((m) => m.actionsToSatisfy).filter((v) => v !== undefined);
   return {
     intentId,
     variant,
     runs: metrics.length,
     successRate: metrics.length ? ok.length / metrics.length : 0,
     actionCount: median(ok.map((m) => m.actionCount)),
+    actionsToSatisfy: median(toFact),
     navigationDepth: median(ok.map((m) => m.navigationDepth)),
     // Visible on the first screen in a majority of runs.
     initiallyVisible: hasTarget

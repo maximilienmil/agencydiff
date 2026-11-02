@@ -4,15 +4,30 @@ import { AuditBlockedError, type BrowserEnv } from "./env.js";
 
 export interface DriverResult {
   steps: TraceStep[];
-  stoppedReason: "agent_done" | "script_done" | "step_budget" | "error";
+  stoppedReason: "agent_done" | "script_done" | "step_budget" | "satisfied" | "error";
   agentMessage?: string;
   error?: string;
+  /** One flag per step, true when the oracle held after that step.
+   *  Present only when the run carried an `isSatisfied` hook. */
+  satisfiedFlags?: boolean[];
+}
+
+/** Per-step hooks a probe can attach to a driver run. */
+export interface DriverHooks {
+  /** Cheap local check after each step; a true value stops the run early. */
+  isSatisfied?: () => Promise<boolean>;
 }
 
 export interface Driver {
   kind: "scripted" | "muse";
   model?: string;
-  run(intent: IntentSpec, env: BrowserEnv, t0: number, initialPng: Buffer): Promise<DriverResult>;
+  run(
+    intent: IntentSpec,
+    env: BrowserEnv,
+    t0: number,
+    initialPng: Buffer,
+    hooks?: DriverHooks,
+  ): Promise<DriverResult>;
 }
 
 /**
@@ -25,8 +40,15 @@ export class ScriptedDriver implements Driver {
 
   constructor(private path: (intent: IntentSpec) => string[]) {}
 
-  async run(intent: IntentSpec, env: BrowserEnv, t0: number): Promise<DriverResult> {
+  async run(
+    intent: IntentSpec,
+    env: BrowserEnv,
+    t0: number,
+    _initialPng?: Buffer,
+    hooks?: DriverHooks,
+  ): Promise<DriverResult> {
     const steps: TraceStep[] = [];
+    const satisfiedFlags: boolean[] = [];
     for (const tag of this.path(intent)) {
       // A control a regression removed never appears: record it as an error
       // trace (which the diff reports as goal_unreachable) instead of throwing.
@@ -46,8 +68,13 @@ export class ScriptedDriver implements Driver {
       await env.execute([action]);
       const { observation } = await env.observe();
       steps.push({ index: steps.length, tMs: Date.now() - t0, actions: [action], after: observation, note: tag });
+      if (hooks?.isSatisfied) {
+        const satisfied = await hooks.isSatisfied();
+        satisfiedFlags.push(satisfied);
+        if (satisfied) return { steps, stoppedReason: "satisfied", satisfiedFlags };
+      }
     }
-    return { steps, stoppedReason: "script_done" };
+    return { steps, stoppedReason: "script_done", satisfiedFlags: hooks?.isSatisfied ? satisfiedFlags : undefined };
   }
 }
 
@@ -124,30 +151,47 @@ export class MuseDriver implements Driver {
   }
 
   private async respond(body: Record<string, unknown>): Promise<{ id: string; output: OutputItem[] }> {
-    const res = await fetch(`${this.baseUrl}/responses`, {
-      method: "POST",
-      headers: { "content-type": "application/json", authorization: `Bearer ${this.opts.apiKey}` },
-      body: JSON.stringify({ model: this.model, tools: [{ type: "computer" }], ...body }),
-    });
-    if (!res.ok) throw new Error(`Muse ${res.status}: ${await res.text()}`);
-    const json = (await res.json()) as {
-      id: string;
-      output: OutputItem[];
-      usage?: { input_tokens?: number; output_tokens?: number };
-    };
-    if (this.opts.usage && json.usage) {
-      this.opts.usage.inputTokens += json.usage.input_tokens ?? 0;
-      this.opts.usage.outputTokens += json.usage.output_tokens ?? 0;
-      this.opts.usage.calls += 1;
+    // Server errors are transient: retry the same request with backoff so
+    // one 5xx does not sink the whole probe. Client errors throw at once.
+    let lastError = "";
+    for (let attempt = 0; attempt < 4; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 1000 * 2 ** (attempt - 1)));
+      const res = await fetch(`${this.baseUrl}/responses`, {
+        method: "POST",
+        headers: { "content-type": "application/json", authorization: `Bearer ${this.opts.apiKey}` },
+        body: JSON.stringify({ model: this.model, tools: [{ type: "computer" }], ...body }),
+      });
+      if (res.ok) {
+        const json = (await res.json()) as {
+          id: string;
+          output: OutputItem[];
+          usage?: { input_tokens?: number; output_tokens?: number };
+        };
+        if (this.opts.usage && json.usage) {
+          this.opts.usage.inputTokens += json.usage.input_tokens ?? 0;
+          this.opts.usage.outputTokens += json.usage.output_tokens ?? 0;
+          this.opts.usage.calls += 1;
+        }
+        return json;
+      }
+      lastError = `Muse ${res.status}: ${await res.text()}`;
+      if (res.status < 500 || res.status >= 600) throw new Error(lastError);
     }
-    return json;
+    throw new Error(lastError);
   }
 
-  async run(intent: IntentSpec, env: BrowserEnv, t0: number, initialPng: Buffer): Promise<DriverResult> {
+  async run(
+    intent: IntentSpec,
+    env: BrowserEnv,
+    t0: number,
+    initialPng: Buffer,
+    hooks?: DriverHooks,
+  ): Promise<DriverResult> {
     if (this.opts.historyLimit !== undefined) {
       return this.runWindowed(intent, env, t0, initialPng);
     }
     const steps: TraceStep[] = [];
+    const satisfiedFlags: boolean[] | undefined = hooks?.isSatisfied ? [] : undefined;
     const dataUrl = (png: Buffer) => `data:image/png;base64,${png.toString("base64")}`;
     try {
       let response = await this.respond({
@@ -173,7 +217,7 @@ export class MuseDriver implements Driver {
             .map((c) => c.text ?? "")
             .join("\n")
             .trim();
-          return { steps, stoppedReason: "agent_done", agentMessage: text };
+          return { steps, stoppedReason: "agent_done", agentMessage: text, satisfiedFlags };
         }
 
         // Targets are local sandboxed test apps, so checks are logged and acknowledged.
@@ -189,6 +233,11 @@ export class MuseDriver implements Driver {
         }
         const { observation, png } = await env.observe();
         steps.push({ index: steps.length, tMs: Date.now() - t0, actions: call.actions, after: observation, note });
+        if (hooks?.isSatisfied) {
+          const satisfied = await hooks.isSatisfied();
+          satisfiedFlags!.push(satisfied);
+          if (satisfied) return { steps, stoppedReason: "satisfied", satisfiedFlags };
+        }
 
         response = await this.respond({
           previous_response_id: response.id,
@@ -202,9 +251,9 @@ export class MuseDriver implements Driver {
           ],
         });
       }
-      return { steps, stoppedReason: "step_budget" };
+      return { steps, stoppedReason: "step_budget", satisfiedFlags };
     } catch (e) {
-      return { steps, stoppedReason: "error", error: String(e) };
+      return { steps, stoppedReason: "error", error: String(e), satisfiedFlags };
     }
   }
 

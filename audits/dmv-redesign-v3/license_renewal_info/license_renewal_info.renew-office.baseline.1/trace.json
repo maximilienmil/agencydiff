@@ -1,0 +1,103 @@
+{
+  "id": "license_renewal_info.renew-office.baseline.1",
+  "decision": "license_renewal_info",
+  "intentId": "renew-office",
+  "variant": "baseline",
+  "repeat": 1,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-02T02:03:48.651Z",
+  "initial": {
+    "observation": {
+      "url": "http://127.0.0.1:5199/dmv-renewal/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 3459,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 177,
+          "y": 337
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/dmv-renewal/#renew-online",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 11572,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 4,
+          "type": "scroll",
+          "x": 172,
+          "y": 601
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/dmv-renewal/#renew-online",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 22185,
+      "actions": [
+        {
+          "scroll_x": 0,
+          "scroll_y": 6,
+          "type": "scroll",
+          "x": 215,
+          "y": 430
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/dmv-renewal/#renew-online",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 40436,
+      "actions": [
+        {
+          "keys": [
+            "Page_Down"
+          ],
+          "type": "keypress"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5199/dmv-renewal/#renew-online",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {
+    "agentMessage": "**2. Renew at a DMV office instead of online**\n\n> **You can renew in person at any DMV office. Walk in or use Get in Line. To save time, complete the online application before you visit.**\n\nIf you prefer not to renew online, visit a DMV office for driver's license renewal. Staff can help with photos, tests, and REAL ID upgrades.\n\n**How to save time on your office visit:**\n* **Fill out the online driver's license application at home before you go.**\n* **Use Get in Line Now on the day of your visit, if available at that office.**\n* **Bring your current license and any letters or notices you received.**\n* **Bring your REAL ID documents if you want to upgrade at the same visit.**"
+  },
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "agent_done"
+}

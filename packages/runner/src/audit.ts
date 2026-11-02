@@ -155,7 +155,7 @@ console.log(`\naudits: ${path.relative(process.cwd(), outDir)}`);
 function printAudit(r: AuditReport) {
   console.log(`\nAUDIT ${r.decision} (${r.variant}${r.modelJudged ? ", model-judged" : ""}): ${r.promise}`);
   for (const a of r.aggregates) {
-    console.log(`  ${a.intentId}: success ${a.successRate} · actions ${a.actionCount ?? "—"} · depth ${a.navigationDepth ?? "—"}`);
+    console.log(`  ${a.intentId}: success ${a.successRate} · to-fact ${a.actionsToSatisfy ?? "—"} · actions ${a.actionCount ?? "—"} · depth ${a.navigationDepth ?? "—"}`);
   }
   for (const a of r.asymmetry) {
     console.log(`  asymmetry ${a.accept}/${a.reject}: ${a.ratio === undefined ? "—" : `${a.ratio.toFixed(2)}x`}`);

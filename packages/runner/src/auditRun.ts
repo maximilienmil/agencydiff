@@ -77,10 +77,19 @@ export interface IntentSummary {
   /** Medians over successful runs only, mirroring core aggregate(); undefined when none succeeded. */
   medianSteps?: number;
   medianActions?: number;
+  /** Median actions until the oracle first held: the headline audit cost. */
+  medianActionsToSatisfy?: number;
   medianDepth?: number;
   medianMs?: number;
   screens: string[];
   traceIds: string[];
+}
+
+/** Effort until the oracle first held. Older traces predate the recorded
+ *  field, so a passed trace without it falls back to its total actions. */
+export function actionsToSatisfy(t: Trace): number | undefined {
+  if (t.actionsToSatisfy !== undefined) return t.actionsToSatisfy;
+  return t.oracle.passed === true ? countActions(t) : undefined;
 }
 
 /** Per-Intent cost summary over one audit's traces, mirroring core metrics:
@@ -93,6 +102,7 @@ export function summarizeIntent(
   const goal = contract?.intents.find((i) => i.id === intentId)?.goal;
   const ok = traces.filter((t) => t.oracle.passed === true);
   const durations = ok.map((t) => t.steps.at(-1)?.tMs ?? 0);
+  const toFact = ok.map(actionsToSatisfy).filter((v) => v !== undefined);
   return {
     intentId,
     goal,
@@ -101,6 +111,7 @@ export function summarizeIntent(
     successRate: traces.length ? ok.length / traces.length : 0,
     medianSteps: median(ok.map((t) => t.steps.length)),
     medianActions: median(ok.map(countActions)),
+    medianActionsToSatisfy: median(toFact),
     medianDepth: median(ok.map(navigationDepth)),
     medianMs: median(durations),
     screens: [...new Set(traces.flatMap(screensVisited))],

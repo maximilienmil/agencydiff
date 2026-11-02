@@ -22,8 +22,10 @@ export type DomAssertion =
   | { kind: "exists"; selector: string }
   | { kind: "visible"; selector: string }
   | { kind: "textContains"; selector: string; text: string }
+  | { kind: "visibleText"; selector: string; text: string }
   | { kind: "checked"; selector: string; checked?: boolean }
-  | { kind: "value"; selector: string; value: string };
+  | { kind: "value"; selector: string; value: string }
+  | { kind: "anyOf"; assertions: DomAssertion[] };
 
 /** A testable web app: a URL per Variant, the contract(s) to run, and which
  *  Oracle adapter decides success. Resolved from a target config JSON file. */
@@ -110,10 +112,15 @@ export interface Trace {
   steps: TraceStep[];
   final: { state?: Record<string, unknown>; agentMessage?: string };
   oracle: { checked: boolean; passed?: boolean };
-  stoppedReason: "agent_done" | "script_done" | "step_budget" | "error";
+  stoppedReason: "agent_done" | "script_done" | "step_budget" | "satisfied" | "error";
   error?: string;
   /** True when success was judged by a model (Audit mode only), never by app state. */
   modelJudged?: boolean;
+  /** Steps elapsed when the dom oracle first held (0 = initial observation).
+   *  Absent when the oracle never held, or for non-dom adapters. */
+  firstSatisfiedStep?: number;
+  /** Effortful actions up to firstSatisfiedStep: the audit cost of the Intent. */
+  actionsToSatisfy?: number;
 }
 
 export interface TraceMetrics {
@@ -123,6 +130,8 @@ export interface TraceMetrics {
   success: boolean;
   actionCount: number;
   navigationDepth: number;
+  /** Effortful actions until the oracle first held, copied from the trace. */
+  actionsToSatisfy?: number;
   /** Step index at which the intent's target first appeared in the viewport
    *  (0 = initial screen). Undefined if it never did. */
   discoveryStep?: number;
@@ -137,6 +146,8 @@ export interface IntentAggregate {
   /** Median over successful runs; undefined when none succeeded. */
   actionCount?: number;
   navigationDepth?: number;
+  /** Median actions until the oracle first held, over successful runs. */
+  actionsToSatisfy?: number;
   initiallyVisible?: boolean;
   defaultValue?: unknown;
   traceIds: string[];

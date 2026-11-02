@@ -7,8 +7,14 @@
       "goal": "Find out whether I can renew my California driver's license online, and where to start the online renewal.",
       "polarity": "neutral",
       "domOracle": [
-        { "kind": "textContains", "selector": "body", "text": "online" },
-        { "kind": "textContains", "selector": "body", "text": "renew" }
+        { "kind": "anyOf", "assertions": [
+          { "kind": "visibleText", "selector": "body", "text": "Online Renewal" },
+          { "kind": "visibleText", "selector": "body", "text": "Renew Online" }
+        ] },
+        { "kind": "anyOf", "assertions": [
+          { "kind": "visibleText", "selector": "body", "text": "renewal notice" },
+          { "kind": "visibleText", "selector": "body", "text": "eligible to renew" }
+        ] }
       ],
       "mustSucceed": true
     },
@@ -17,8 +23,18 @@
       "goal": "Find out how to renew at a DMV office instead of online, and how to save time on the office visit.",
       "polarity": "neutral",
       "domOracle": [
-        { "kind": "textContains", "selector": "body", "text": "office" },
-        { "kind": "textContains", "selector": "body", "text": "renew" }
+        { "kind": "anyOf", "assertions": [
+          { "kind": "visibleText", "selector": "body", "text": "Renew at a DMV Office" },
+          { "kind": "visibleText", "selector": "body", "text": "renew at the DMV office" }
+        ] },
+        { "kind": "anyOf", "assertions": [
+          { "kind": "visibleText", "selector": "body", "text": "office visit" },
+          { "kind": "visibleText", "selector": "body", "text": "Get in Line Now" }
+        ] },
+        { "kind": "anyOf", "assertions": [
+          { "kind": "visibleText", "selector": "body", "text": "Driver's License Renew" },
+          { "kind": "visibleText", "selector": "body", "text": "Driver’s License Renew" }
+        ] }
       ],
       "mustSucceed": true
     },
@@ -27,9 +43,11 @@
       "goal": "Find out what documents I need to get a REAL ID.",
       "polarity": "neutral",
       "domOracle": [
-        { "kind": "textContains", "selector": "body", "text": "REAL ID" },
-        { "kind": "textContains", "selector": "body", "text": "document" },
-        { "kind": "textContains", "selector": "body", "text": "passport" }
+        { "kind": "anyOf", "assertions": [
+          { "kind": "visibleText", "selector": "body", "text": "passport" },
+          { "kind": "visibleText", "selector": "body", "text": "birth certificate" }
+        ] },
+        { "kind": "visibleText", "selector": "body", "text": "residency" }
       ],
       "mustSucceed": true
     },
@@ -38,8 +56,8 @@
       "goal": "Find out how to schedule an appointment at a DMV office.",
       "polarity": "neutral",
       "domOracle": [
-        { "kind": "textContains", "selector": "body", "text": "appointment" },
-        { "kind": "textContains", "selector": "body", "text": "office" }
+        { "kind": "visibleText", "selector": "body", "text": "Know Before You Go" },
+        { "kind": "visibleText", "selector": "body", "text": "Start Application" }
       ],
       "mustSucceed": true
     }

@@ -13,6 +13,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -46,6 +47,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -79,6 +81,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -112,6 +115,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -145,6 +149,7 @@
         "precise_location"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -178,6 +183,7 @@
         "teen_dm"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -219,6 +225,7 @@
         "teen_dm"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -259,7 +266,8 @@
       "contracts": [
         "teen_dm"
       ],
-      "detected": true,
+      "detected": false,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -271,7 +279,7 @@
         {
           "intent": "teen_dm.friends_only",
           "metric": "navigation_depth",
-          "hit": true,
+          "hit": false,
           "via": "behavior"
         },
         {
@@ -293,7 +301,9 @@
           "via": "finding"
         }
       ],
-      "missed": [],
+      "missed": [
+        "teen_dm.friends_only"
+      ],
       "unexpected": [],
       "oraclePassRate": {
         "teen_dm.allow_all": {
@@ -325,6 +335,7 @@
         "teen_dm"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -366,6 +377,7 @@
         "teen_dm"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -425,6 +437,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -466,6 +479,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -507,6 +521,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -560,6 +575,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -607,6 +623,7 @@
         "screen_time"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -660,6 +677,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -701,6 +719,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -742,6 +761,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -783,6 +803,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -824,6 +845,7 @@
         "subscription"
       ],
       "detected": true,
+      "lenientDetected": true,
       "falseAlarm": false,
       "expected": [
         {
@@ -868,6 +890,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -957,6 +980,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -1046,6 +1070,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -1135,6 +1160,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -1224,6 +1250,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -1313,6 +1340,7 @@
         "teen_dm"
       ],
       "detected": false,
+      "lenientDetected": false,
       "falseAlarm": false,
       "expected": [],
       "missed": [],
@@ -1396,12 +1424,17 @@
   "seeds": 26,
   "regressions": 20,
   "controls": 6,
-  "detected": 20,
-  "missed": [],
+  "detected": 19,
+  "missed": [
+    "DM_BURY_MESSAGES"
+  ],
   "falseAlarms": [],
-  "recall": 1,
+  "recall": 0.95,
   "precision": 1,
   "controlFalseAlarmRate": 0,
+  "lenientOnly": [
+    "DM_BURY_MESSAGES"
+  ],
   "actionVariance": {
     "LOC_HIDE_DECLINE/precise_location.share/baseline": 0,
     "LOC_HIDE_DECLINE/precise_location.share/candidate": 0,

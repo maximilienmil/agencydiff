@@ -1,0 +1,53 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "LOC_NO_DIRECT_TOGGLE",
+  "verdict": {
+    "seed": "LOC_NO_DIRECT_TOGGLE",
+    "kind": "regression",
+    "contracts": [
+      "precise_location"
+    ],
+    "detected": true,
+    "lenientDetected": true,
+    "falseAlarm": false,
+    "expected": [
+      {
+        "intent": "precise_location.revoke",
+        "metric": "action_cost",
+        "hit": true,
+        "via": "finding"
+      }
+    ],
+    "missed": [],
+    "unexpected": [],
+    "oraclePassRate": {
+      "precise_location.share": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "precise_location.withhold": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "precise_location.revoke": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      }
+    }
+  },
+  "variance": {
+    "LOC_NO_DIRECT_TOGGLE/precise_location.share/baseline": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.share/candidate": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.withhold/baseline": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.withhold/candidate": 0,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.revoke/baseline": 0.888888888888889,
+    "LOC_NO_DIRECT_TOGGLE/precise_location.revoke/candidate": 0.2222222222222222
+  },
+  "tokens": {
+    "input": 166922,
+    "output": 24374,
+    "calls": 80
+  }
+}

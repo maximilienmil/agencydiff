@@ -1,0 +1,150 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "UI_PRIVACY_COPY",
+  "verdict": {
+    "seed": "UI_PRIVACY_COPY",
+    "kind": "control",
+    "contracts": [
+      "precise_location",
+      "screen_time",
+      "subscription",
+      "teen_dm"
+    ],
+    "detected": false,
+    "lenientDetected": false,
+    "falseAlarm": true,
+    "expected": [],
+    "missed": [],
+    "unexpected": [
+      {
+        "intentId": "decline",
+        "kind": "action_cost",
+        "title": "\"I do not want Circle+. Decline the offer.\" takes more actions"
+      },
+      {
+        "intentId": "resume",
+        "kind": "action_cost",
+        "title": "\"I cancelled Circle+ before and want it back.\" takes more actions"
+      }
+    ],
+    "oraclePassRate": {
+      "precise_location.share": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "precise_location.withhold": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "precise_location.revoke": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "screen_time.set_limit": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "screen_time.reminders": {
+        "baseline": 0.6666666666666666,
+        "candidate": 1
+      },
+      "screen_time.remove_limit": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.check_usage": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "screen_time.shorten": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "subscription.subscribe": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0.3333333333333333
+      },
+      "subscription.decline": {
+        "baseline": 0.3333333333333333,
+        "candidate": 0.3333333333333333
+      },
+      "subscription.cancel": {
+        "baseline": 0.3333333333333333,
+        "candidate": 0.6666666666666666
+      },
+      "subscription.terms": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0.6666666666666666
+      },
+      "subscription.resume": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "teen_dm.allow_all": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.friends_only": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.block_unknown": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.inspect": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.relax": {
+        "baseline": 0.6666666666666666,
+        "candidate": 1
+      }
+    }
+  },
+  "variance": {
+    "UI_PRIVACY_COPY/precise_location.share/baseline": 0.888888888888889,
+    "UI_PRIVACY_COPY/precise_location.share/candidate": 0.888888888888889,
+    "UI_PRIVACY_COPY/precise_location.withhold/baseline": 0,
+    "UI_PRIVACY_COPY/precise_location.withhold/candidate": 0,
+    "UI_PRIVACY_COPY/precise_location.revoke/baseline": 0.888888888888889,
+    "UI_PRIVACY_COPY/precise_location.revoke/candidate": 14.888888888888891,
+    "UI_PRIVACY_COPY/screen_time.set_limit/baseline": 9.555555555555555,
+    "UI_PRIVACY_COPY/screen_time.set_limit/candidate": 11.555555555555557,
+    "UI_PRIVACY_COPY/screen_time.reminders/baseline": 2.8888888888888893,
+    "UI_PRIVACY_COPY/screen_time.reminders/candidate": 2.6666666666666665,
+    "UI_PRIVACY_COPY/screen_time.remove_limit/baseline": 0.888888888888889,
+    "UI_PRIVACY_COPY/screen_time.remove_limit/candidate": 0.888888888888889,
+    "UI_PRIVACY_COPY/screen_time.check_usage/baseline": 1.5555555555555554,
+    "UI_PRIVACY_COPY/screen_time.check_usage/candidate": 16.22222222222222,
+    "UI_PRIVACY_COPY/screen_time.shorten/baseline": 6.222222222222221,
+    "UI_PRIVACY_COPY/screen_time.shorten/candidate": 8,
+    "UI_PRIVACY_COPY/subscription.subscribe/baseline": 8.222222222222221,
+    "UI_PRIVACY_COPY/subscription.subscribe/candidate": 3.555555555555556,
+    "UI_PRIVACY_COPY/subscription.decline/baseline": 0.2222222222222222,
+    "UI_PRIVACY_COPY/subscription.decline/candidate": 0.6666666666666666,
+    "UI_PRIVACY_COPY/subscription.cancel/baseline": 0.2222222222222222,
+    "UI_PRIVACY_COPY/subscription.cancel/candidate": 0.888888888888889,
+    "UI_PRIVACY_COPY/subscription.terms/baseline": 14,
+    "UI_PRIVACY_COPY/subscription.terms/candidate": 13.555555555555557,
+    "UI_PRIVACY_COPY/subscription.resume/baseline": 3.5555555555555554,
+    "UI_PRIVACY_COPY/subscription.resume/candidate": 0.2222222222222222,
+    "UI_PRIVACY_COPY/teen_dm.allow_all/baseline": 0.888888888888889,
+    "UI_PRIVACY_COPY/teen_dm.allow_all/candidate": 0.888888888888889,
+    "UI_PRIVACY_COPY/teen_dm.friends_only/baseline": 2,
+    "UI_PRIVACY_COPY/teen_dm.friends_only/candidate": 2,
+    "UI_PRIVACY_COPY/teen_dm.block_unknown/baseline": 0.22222222222222224,
+    "UI_PRIVACY_COPY/teen_dm.block_unknown/candidate": 0.6666666666666666,
+    "UI_PRIVACY_COPY/teen_dm.inspect/baseline": 0.22222222222222224,
+    "UI_PRIVACY_COPY/teen_dm.inspect/candidate": 0.6666666666666666,
+    "UI_PRIVACY_COPY/teen_dm.relax/baseline": 6.888888888888888,
+    "UI_PRIVACY_COPY/teen_dm.relax/candidate": 2.888888888888889
+  },
+  "tokens": {
+    "input": 1726806,
+    "output": 250506,
+    "calls": 836
+  }
+}

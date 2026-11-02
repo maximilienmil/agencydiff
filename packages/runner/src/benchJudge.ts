@@ -5,6 +5,8 @@ export interface JudgeShot {
   variant: "baseline" | "candidate";
   screen: string;
   png: Buffer;
+  /** When set, pairs baseline/candidate shots of the same intent. */
+  intent?: string;
 }
 
 export type JudgeVerdict = "harder" | "easier" | "unchanged";
@@ -65,6 +67,39 @@ export async function captureShots(opts: {
   return shots;
 }
 
+/** One screenshot per intent per variant at the probe's start URL: what a
+ *  reviewer looking at a PR screenshot would see, with no walkthrough of
+ *  where each control lives. Shots pair by intent, not by screen. */
+export async function captureFirstScreens(opts: {
+  base: string;
+  seed: string;
+  contract: AgencyContract;
+}): Promise<JudgeShot[]> {
+  const { base, seed, contract } = opts;
+  const shots: JudgeShot[] = [];
+  const browser = await chromium.launch();
+  try {
+    for (const variant of ["baseline", "candidate"] as const) {
+      const url = variant === "baseline" ? `${base}/?variant=baseline` : `${base}/?seeds=${seed}`;
+      for (const intent of contract.intents) {
+        const ctx = await browser.newContext({ viewport: { width: 430, height: 860 } });
+        const page = await ctx.newPage();
+        const fixture = intent.fixture ? `&fixture=${intent.fixture}` : "";
+        await page.goto(`${url}${fixture}`, { waitUntil: "networkidle" });
+        const screen =
+          (await page.evaluate(
+            () => document.querySelector("[data-screen]")?.getAttribute("data-screen"),
+          )) ?? "?";
+        shots.push({ variant, screen, png: await page.screenshot(), intent: intent.id });
+        await ctx.close();
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+  return shots;
+}
+
 const JUDGE_INSTRUCTIONS = `You compare two versions of the same app screen by screen: BASELINE (before a change) and CANDIDATE (after). You are given, for one screen at a time, the baseline screenshot then the candidate screenshot.
 
 For each listed user intention, decide whether the change made that intention harder, easier, or left it unchanged. "Harder" means more taps, deeper navigation, a new confirmation or dialog, a worse default, or the option disappearing. Judge only what the screenshots show; do not guess about hidden behavior.
@@ -91,23 +126,30 @@ export async function judgeSeed(opts: {
         .join("\n")}`,
     },
   ];
-  const byScreen = new Map<string, { baseline?: Buffer; candidate?: Buffer }>();
+  const byScreen = new Map<string, { baseline?: Buffer; candidate?: Buffer; label: string }>();
   for (const s of shots) {
-    const e = byScreen.get(s.screen) ?? {};
-    (e as Record<string, Buffer>)[s.variant] = s.png;
-    byScreen.set(s.screen, e);
+    // First-screen shots pair by intent (each intent starts in its own
+    // fixture state); walkthrough shots pair by screen visited.
+    const key = s.intent ?? s.screen;
+    let e = byScreen.get(key);
+    if (!e) {
+      e = { label: s.intent ? `Start of intent "${s.intent}"` : `Screen "${s.screen}"` };
+      byScreen.set(key, e);
+    }
+    e[s.variant] = s.png;
   }
-  for (const [screen, pair] of byScreen) {
+  for (const [, pair] of byScreen) {
+    const caption = pair.label;
     if (pair.baseline && pair.candidate) {
-      content.push({ type: "input_text", text: `Screen "${screen}" BASELINE:` });
+      content.push({ type: "input_text", text: `${caption} BASELINE:` });
       content.push({ type: "input_image", image_url: dataUrl(pair.baseline) });
-      content.push({ type: "input_text", text: `Screen "${screen}" CANDIDATE:` });
+      content.push({ type: "input_text", text: `${caption} CANDIDATE:` });
       content.push({ type: "input_image", image_url: dataUrl(pair.candidate) });
     } else if (pair.candidate) {
-      content.push({ type: "input_text", text: `Screen "${screen}" appears only in CANDIDATE:` });
+      content.push({ type: "input_text", text: `${caption} appears only in CANDIDATE:` });
       content.push({ type: "input_image", image_url: dataUrl(pair.candidate) });
     } else if (pair.baseline) {
-      content.push({ type: "input_text", text: `Screen "${screen}" appears only in BASELINE:` });
+      content.push({ type: "input_text", text: `${caption} appears only in BASELINE:` });
       content.push({ type: "input_image", image_url: dataUrl(pair.baseline!) });
     }
   }

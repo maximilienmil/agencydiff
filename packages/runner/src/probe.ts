@@ -1,4 +1,4 @@
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
   checkDomAssertions,
@@ -100,7 +100,10 @@ export async function restoreFixture(
     : { verified: false, detail: `restore left residue on: ${changed.join(", ")}` };
 }
 
-/** Run one intent against one variant from a fresh browser, and save its trace. */
+/** Run one intent against one variant from a fresh browser, and save its trace.
+ *  A dead browser (crashed page, closed context) retries with a fresh one
+ *  instead of sinking the whole run; only persistent failure records an
+ *  error trace. */
 export async function runProbe(opts: {
   contract: AgencyContract;
   intent: IntentSpec;
@@ -113,14 +116,52 @@ export async function runProbe(opts: {
   onEvent?: (event: LiveEvent) => void;
   auth?: ProbeAuth;
   prodSafe?: ProbeProdSafe;
+  /** Fresh-browser attempts on infrastructure failure. Defaults to 3. */
+  retries?: number;
 }): Promise<Trace> {
-  const { contract, intent, variant, repeat, driver } = opts;
   const adapter = opts.oracle?.adapter ?? "state-hook";
   if (adapter === "model-judged" && !opts.oracle?.audit) {
     throw new Error('model-judged oracle is allowed only in Audit mode (opts.oracle.audit)');
   }
-  const id = `${contract.decision}.${intent.id}.${variant}.${repeat}`;
+  const id = `${opts.contract.decision}.${opts.intent.id}.${opts.variant}.${opts.repeat}`;
   const dir = path.join(opts.outDir, id);
+  const attempts = Math.max(1, opts.retries ?? 3);
+  let lastError: unknown;
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    try {
+      return await runProbeOnce(opts, id, dir);
+    } catch (e) {
+      lastError = e;
+    }
+  }
+  const { contract, intent, variant, repeat, driver } = opts;
+  const trace: Trace = {
+    id,
+    decision: contract.decision,
+    intentId: intent.id,
+    variant,
+    repeat,
+    driver: { kind: driver.kind, model: driver.model },
+    startedAt: new Date().toISOString(),
+    initial: { state: undefined, observation: { url: "", tags: [], screenshot: "" } },
+    steps: [],
+    final: {},
+    oracle: { checked: false },
+    stoppedReason: "error",
+    error: lastError instanceof Error ? lastError.message : String(lastError),
+  };
+  await mkdir(dir, { recursive: true });
+  await writeFile(path.join(dir, "trace.json"), JSON.stringify(trace, null, 2));
+  return trace;
+}
+
+async function runProbeOnce(
+  opts: Parameters<typeof runProbe>[0],
+  id: string,
+  dir: string,
+): Promise<Trace> {
+  const { contract, intent, variant, repeat, driver } = opts;
+  const adapter = opts.oracle?.adapter ?? "state-hook";
   const android = opts.target.platform === "android";
   if (android && adapter === "dom") {
     throw new Error("android probes need the state-hook oracle (no DOM on device)");
@@ -245,6 +286,8 @@ export async function runProbe(opts: {
     }
     throw e;
   } finally {
-    await env.close();
+    // Cleanup must not mask the probe result: a browser that already died
+    // reports its own error from the body above, not from close().
+    await env.close().catch(() => {});
   }
 }

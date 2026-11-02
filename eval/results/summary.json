@@ -1,25 +1,38 @@
 {
-  "generatedAt": "2026-11-01T21:41:57.039Z",
+  "generatedAt": "2026-11-02T12:22:26.933Z",
   "agencydiff": {
     "scripted": {
-      "caught": "20/20",
+      "caught": "19/20",
       "falseAlarms": "0/6",
       "costUsd": 0
     },
-    "muse": null
+    "muse": {
+      "caught": "15/20",
+      "falseAlarms": "6/6",
+      "costUsd": 2.4389296000000003,
+      "coverage": "full",
+      "coverageNote": "full run over 26 seeds"
+    }
   },
   "judge": {
-    "caught": "18/20",
-    "falseAlarms": "0/6",
-    "costUsd": 0.023560400000000002,
-    "consistencyK3": {
-      "agreement": 0.8888888888888888,
-      "pairs": 18,
-      "seeds": [
-        "LOC_HIDE_DECLINE",
-        "LOC_DEFAULT_ON",
-        "LOC_CONFIRM_SHAME"
-      ]
+    "walkthrough": {
+      "caught": "17/20",
+      "falseAlarms": "0/6",
+      "costUsd": 0.023630599999999998,
+      "consistencyK3": {
+        "agreement": 1,
+        "pairs": 18,
+        "seeds": [
+          "LOC_HIDE_DECLINE",
+          "LOC_DEFAULT_ON",
+          "LOC_CONFIRM_SHAME"
+        ]
+      }
+    },
+    "firstScreens": {
+      "caught": "1/20",
+      "falseAlarms": "0/6",
+      "costUsd": 0.0162097
     }
   }
 }

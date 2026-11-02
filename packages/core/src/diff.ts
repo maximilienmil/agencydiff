@@ -49,7 +49,38 @@ export function diffContract(contract: AgencyContract, traces: Trace[]): AgencyR
     const c = aggs.get(k(intent.id, "candidate"));
     if (!b || !c || b.runs === 0 || c.runs === 0) continue;
 
-    if (intent.mustSucceed && c.successRate < b.successRate) {
+    // Repeated model probes are noisy: one lucky baseline run must not read
+    // as a regression. Cost, depth and success changes count only when the
+    // runs separate. Single runs and scripted replays keep the old rule.
+    const bTs = traces.filter((t) => t.intentId === intent.id && t.variant === "baseline");
+    const cTs = traces.filter((t) => t.intentId === intent.id && t.variant === "candidate");
+    const noisy =
+      bTs.length > 1 &&
+      cTs.length > 1 &&
+      (bTs[0]?.driver.kind === "muse" || cTs[0]?.driver.kind === "muse");
+    const values = (ts: Trace[], pick: (m: { actionCount: number; navigationDepth: number }) => number) =>
+      ts
+        .map((t) => traceMetrics(t, intent, contract.defaultKey))
+        .filter((m) => m.success)
+        .map(pick);
+    // Separated when every candidate run cost more than every baseline run
+    // (or the reverse), with the medians at least 1 apart.
+    const separated = (pick: (m: { actionCount: number; navigationDepth: number }) => number) => {
+      if (!noisy) return true;
+      const bv = values(bTs, pick);
+      const cv = values(cTs, pick);
+      if (bv.length === 0 || cv.length === 0) return false;
+      const [bMed, cMed] = [b, c].map((a) =>
+        pick({ actionCount: a.actionCount ?? NaN, navigationDepth: a.navigationDepth ?? NaN }),
+      );
+      return Math.min(...cv) > Math.max(...bv) && cMed - bMed >= 1;
+    };
+
+    if (
+      intent.mustSucceed &&
+      c.successRate < b.successRate &&
+      (!noisy || b.successRate - c.successRate >= 2 / 3 - 1e-9)
+    ) {
       push({
         severity: c.successRate === 0 ? "high" : "medium",
         kind: "goal_unreachable",
@@ -60,7 +91,12 @@ export function diffContract(contract: AgencyContract, traces: Trace[]): AgencyR
         evidence: evidence(b, c),
       });
     }
-    if (b.actionCount !== undefined && c.actionCount !== undefined && c.actionCount > b.actionCount) {
+    if (
+      b.actionCount !== undefined &&
+      c.actionCount !== undefined &&
+      c.actionCount > b.actionCount &&
+      separated((m) => m.actionCount)
+    ) {
       push({
         severity: costSeverity(b.actionCount, c.actionCount),
         kind: "action_cost",
@@ -74,7 +110,8 @@ export function diffContract(contract: AgencyContract, traces: Trace[]): AgencyR
     if (
       b.navigationDepth !== undefined &&
       c.navigationDepth !== undefined &&
-      c.navigationDepth > b.navigationDepth
+      c.navigationDepth > b.navigationDepth &&
+      separated((m) => m.navigationDepth)
     ) {
       push({
         severity: "low",

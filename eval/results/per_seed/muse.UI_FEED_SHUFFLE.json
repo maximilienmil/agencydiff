@@ -1,0 +1,160 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "UI_FEED_SHUFFLE",
+  "verdict": {
+    "seed": "UI_FEED_SHUFFLE",
+    "kind": "control",
+    "contracts": [
+      "precise_location",
+      "screen_time",
+      "subscription",
+      "teen_dm"
+    ],
+    "detected": false,
+    "lenientDetected": false,
+    "falseAlarm": true,
+    "expected": [],
+    "missed": [],
+    "unexpected": [
+      {
+        "intentId": "subscribe",
+        "kind": "goal_unreachable",
+        "title": "\"I want to subscribe to Circle+.\" succeeds less often"
+      },
+      {
+        "intentId": "allow_all",
+        "kind": "goal_unreachable",
+        "title": "\"I want anyone on Circle to be able to message me.\" succeeds less often"
+      },
+      {
+        "intentId": "allow_all",
+        "kind": "action_cost",
+        "title": "\"I want anyone on Circle to be able to message me.\" takes more actions"
+      },
+      {
+        "intentId": "inspect",
+        "kind": "action_cost",
+        "title": "\"I want to check who can currently message me.\" takes more actions"
+      }
+    ],
+    "oraclePassRate": {
+      "precise_location.share": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "precise_location.withhold": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "precise_location.revoke": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.set_limit": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.reminders": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.remove_limit": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "screen_time.check_usage": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "screen_time.shorten": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "subscription.subscribe": {
+        "baseline": 1,
+        "candidate": 0.3333333333333333
+      },
+      "subscription.decline": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "subscription.cancel": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "subscription.terms": {
+        "baseline": 0.6666666666666666,
+        "candidate": 1
+      },
+      "subscription.resume": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      },
+      "teen_dm.allow_all": {
+        "baseline": 1,
+        "candidate": 0.3333333333333333
+      },
+      "teen_dm.friends_only": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.block_unknown": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.inspect": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "teen_dm.relax": {
+        "baseline": 1,
+        "candidate": 0.6666666666666666
+      }
+    }
+  },
+  "variance": {
+    "UI_FEED_SHUFFLE/precise_location.share/baseline": 0,
+    "UI_FEED_SHUFFLE/precise_location.share/candidate": 0,
+    "UI_FEED_SHUFFLE/precise_location.withhold/baseline": 0,
+    "UI_FEED_SHUFFLE/precise_location.withhold/candidate": 0,
+    "UI_FEED_SHUFFLE/precise_location.revoke/baseline": 2.6666666666666665,
+    "UI_FEED_SHUFFLE/precise_location.revoke/candidate": 0,
+    "UI_FEED_SHUFFLE/screen_time.set_limit/baseline": 8.666666666666666,
+    "UI_FEED_SHUFFLE/screen_time.set_limit/candidate": 1.5555555555555554,
+    "UI_FEED_SHUFFLE/screen_time.reminders/baseline": 0.8888888888888888,
+    "UI_FEED_SHUFFLE/screen_time.reminders/candidate": 2.6666666666666665,
+    "UI_FEED_SHUFFLE/screen_time.remove_limit/baseline": 0.888888888888889,
+    "UI_FEED_SHUFFLE/screen_time.remove_limit/candidate": 0,
+    "UI_FEED_SHUFFLE/screen_time.check_usage/baseline": 13.555555555555557,
+    "UI_FEED_SHUFFLE/screen_time.check_usage/candidate": 0.22222222222222224,
+    "UI_FEED_SHUFFLE/screen_time.shorten/baseline": 1.5555555555555554,
+    "UI_FEED_SHUFFLE/screen_time.shorten/candidate": 0,
+    "UI_FEED_SHUFFLE/subscription.subscribe/baseline": 6.888888888888889,
+    "UI_FEED_SHUFFLE/subscription.subscribe/candidate": 6.222222222222221,
+    "UI_FEED_SHUFFLE/subscription.decline/baseline": 0.2222222222222222,
+    "UI_FEED_SHUFFLE/subscription.decline/candidate": 0.2222222222222222,
+    "UI_FEED_SHUFFLE/subscription.cancel/baseline": 0.2222222222222222,
+    "UI_FEED_SHUFFLE/subscription.cancel/candidate": 0.2222222222222222,
+    "UI_FEED_SHUFFLE/subscription.terms/baseline": 8.222222222222221,
+    "UI_FEED_SHUFFLE/subscription.terms/candidate": 9.555555555555555,
+    "UI_FEED_SHUFFLE/subscription.resume/baseline": 0.888888888888889,
+    "UI_FEED_SHUFFLE/subscription.resume/candidate": 2.8888888888888893,
+    "UI_FEED_SHUFFLE/teen_dm.allow_all/baseline": 0.22222222222222224,
+    "UI_FEED_SHUFFLE/teen_dm.allow_all/candidate": 9.555555555555555,
+    "UI_FEED_SHUFFLE/teen_dm.friends_only/baseline": 0.8888888888888888,
+    "UI_FEED_SHUFFLE/teen_dm.friends_only/candidate": 8.666666666666666,
+    "UI_FEED_SHUFFLE/teen_dm.block_unknown/baseline": 0.22222222222222224,
+    "UI_FEED_SHUFFLE/teen_dm.block_unknown/candidate": 6.222222222222221,
+    "UI_FEED_SHUFFLE/teen_dm.inspect/baseline": 0.22222222222222224,
+    "UI_FEED_SHUFFLE/teen_dm.inspect/candidate": 0,
+    "UI_FEED_SHUFFLE/teen_dm.relax/baseline": 3.5555555555555554,
+    "UI_FEED_SHUFFLE/teen_dm.relax/candidate": 4.666666666666667
+  },
+  "tokens": {
+    "input": 1590059,
+    "output": 223986,
+    "calls": 773
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "driver": "muse",
+  "repeats": 3,
+  "model": "muse-spark-1.3-contributor",
+  "seed": "SUB_BURY_CANCEL",
+  "verdict": {
+    "seed": "SUB_BURY_CANCEL",
+    "kind": "regression",
+    "contracts": [
+      "subscription"
+    ],
+    "detected": true,
+    "lenientDetected": true,
+    "falseAlarm": false,
+    "expected": [
+      {
+        "intent": "subscription.cancel",
+        "metric": "navigation_depth",
+        "hit": true,
+        "via": "finding"
+      }
+    ],
+    "missed": [],
+    "unexpected": [
+      {
+        "intentId": "subscribe",
+        "kind": "goal_unreachable",
+        "title": "\"I want to subscribe to Circle+.\" succeeds less often"
+      },
+      {
+        "intentId": "decline",
+        "kind": "navigation_depth",
+        "title": "\"I do not want Circle+. Decline the offer.\" is buried deeper"
+      },
+      {
+        "intentId": "terms",
+        "kind": "action_cost",
+        "title": "\"I want to see the renewal terms for Circle+ before deciding.\" takes more actions"
+      }
+    ],
+    "oraclePassRate": {
+      "subscription.subscribe": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0
+      },
+      "subscription.decline": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0.3333333333333333
+      },
+      "subscription.cancel": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0.6666666666666666
+      },
+      "subscription.terms": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0.3333333333333333
+      },
+      "subscription.resume": {
+        "baseline": 0.6666666666666666,
+        "candidate": 0.3333333333333333
+      }
+    }
+  },
+  "variance": {
+    "SUB_BURY_CANCEL/subscription.subscribe/baseline": 1.5555555555555556,
+    "SUB_BURY_CANCEL/subscription.subscribe/candidate": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.decline/baseline": 0.2222222222222222,
+    "SUB_BURY_CANCEL/subscription.decline/candidate": 0.888888888888889,
+    "SUB_BURY_CANCEL/subscription.cancel/baseline": 1.5555555555555556,
+    "SUB_BURY_CANCEL/subscription.cancel/candidate": 0.6666666666666666,
+    "SUB_BURY_CANCEL/subscription.terms/baseline": 6.888888888888888,
+    "SUB_BURY_CANCEL/subscription.terms/candidate": 0.6666666666666666,
+    "SUB_BURY_CANCEL/subscription.resume/baseline": 9.555555555555555,
+    "SUB_BURY_CANCEL/subscription.resume/candidate": 0.2222222222222222
+  },
+  "tokens": {
+    "input": 715253,
+    "output": 113302,
+    "calls": 341
+  }
+}

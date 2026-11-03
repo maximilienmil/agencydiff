@@ -46,6 +46,25 @@ body{margin:0;background:${NIGHT};color:#e4e6eb;font-family:Inter,sans-serif;-we
 .cap{font-family:var(--ds-mono);font-size:15px;letter-spacing:.02em;color:#91a2af}
 `;
 
+/** Meta-style depth, as in the film: haze, a constellation of glowing nodes, vignette, grain. */
+function depth(w: number, h: number, seed: number): string {
+  let x = seed;
+  const rnd = () => (x = (x * 16807) % 2147483647) / 2147483647;
+  const pts = Array.from({ length: 30 }, () => ({ x: rnd() * (w + 160) - 80, y: rnd() * (h + 160) - 80, r: 1.2 + rnd() * 2.4 }));
+  const lines: string[] = [];
+  pts.forEach((a, i) => pts.forEach((b, j) => {
+    if (j > i && Math.hypot(a.x - b.x, a.y - b.y) < 360) lines.push(`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>`);
+  }));
+  const nodes = pts.map((p) => `<circle cx="${p.x}" cy="${p.y}" r="${p.r * 3}" fill="#5aa2ff" filter="url(#g)" opacity=".5"/><circle cx="${p.x}" cy="${p.y}" r="${p.r * 0.7}" fill="#e6f0ff" opacity=".8"/>`).join("");
+  const grain = `<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>`;
+  return `<div style="position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none">
+<div style="position:absolute;width:${w * 0.6}px;height:${h * 0.8}px;left:${-w * 0.14}px;top:${-h * 0.3}px;border-radius:50%;background:#0b3a6b;opacity:.34;filter:blur(150px)"></div>
+<div style="position:absolute;width:${w * 0.5}px;height:${h * 0.7}px;right:${-w * 0.12}px;bottom:${-h * 0.28}px;border-radius:50%;background:#0d4a48;opacity:.28;filter:blur(160px)"></div>
+<svg width="${w}" height="${h}" style="position:absolute;inset:0"><defs><filter id="g" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="5"/></filter></defs><g stroke="#2f6fb3" stroke-width=".8" opacity=".26">${lines.join("")}</g>${nodes}</svg>
+<div style="position:absolute;inset:0;box-shadow:inset 0 0 240px 60px rgba(0,0,0,.7)"></div>
+<div style="position:absolute;inset:0;opacity:.06;background-image:url(&quot;data:image/svg+xml;utf8,${encodeURIComponent(grain)}&quot;);background-size:320px"></div></div>`;
+}
+
 /** Just enough Markdown for comment.md: headings, tables, bullets, emphasis, code. */
 function md(src: string): string {
   const inline = (s: string) =>
@@ -104,7 +123,7 @@ async function main(): Promise<void> {
 
   // 1. Hero.
   await shot(page, `<!doctype html><meta charset="utf-8"><style>${base}
-.wrap{width:1600px;height:900px;display:grid;grid-template-columns:760px 1fr;padding:0 104px;align-items:center;gap:40px}
+.wrap{position:relative;z-index:1;width:1600px;height:900px;display:grid;grid-template-columns:760px 1fr;padding:0 104px;align-items:center;gap:40px}
 .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:26px;margin-bottom:48px;letter-spacing:-.02em}
 .brand i{display:block;width:26px;height:22px;background:linear-gradient(#e4e6eb,#e4e6eb) 0 0/100% 7px no-repeat,linear-gradient(#75b6ff,#75b6ff) 6px 14px/14px 8px no-repeat}
 h1{font-weight:700;font-size:112px;line-height:.98;letter-spacing:-.055em;margin:0 0 36px}
@@ -119,7 +138,7 @@ p{font-size:28px;line-height:1.4;color:#9aa7b0;margin:0;max-width:36ch}
 .ph img{display:block;width:100%}
 .r > div:nth-child(2){margin-top:60px}
 .lab{margin-top:18px;display:flex;justify-content:space-between;gap:16px;white-space:nowrap}
-</style><div class="wrap"><div>
+</style>${depth(1600, 900, 7)}<div class="wrap"><div>
 <div class="brand"><i></i>AgencyDiff</div>
 <h1>Regression tests for <span class="blue">human choice.</span></h1>
 <p>Your CI checks the code still works. AgencyDiff checks the user can still say no.</p>
@@ -145,7 +164,7 @@ p{font-size:28px;line-height:1.4;color:#9aa7b0;margin:0;max-width:36ch}
     })
     .join("")}</div></div>`;
   await shot(page, `<!doctype html><meta charset="utf-8"><style>${base}
-.wrap{width:1600px;height:900px;padding:48px 96px}
+.wrap{position:relative;z-index:1;width:1600px;height:900px;padding:48px 96px}
 h2{margin:0 0 24px;font-weight:700;font-size:40px;letter-spacing:-.04em}
 .row{margin-bottom:24px}
 .rh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #25303a;padding-bottom:8px;margin-bottom:12px}
@@ -154,7 +173,7 @@ h2{margin:0 0 24px;font-weight:700;font-size:40px;letter-spacing:-.04em}
 .p{position:relative;width:130px;border:1px solid #344550;border-radius:10px;overflow:hidden}
 .p img{display:block;width:100%}
 .p b{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border:3px solid #0866ff;border-radius:50%;background:rgba(8,102,255,.25)}
-</style><div class="wrap"><h2>“I do not want to share my precise location with this app.”</h2>
+</style>${depth(1600, 900, 11)}<div class="wrap"><h2>“I do not want to share my precise location with this app.”</h2>
 ${strip(baseFrames, "BASELINE · RECORDED PROBE", `${b?.actionCount ?? "—"} step`, false)}
 ${strip(candFrames, "CANDIDATE · RECORDED PROBE", `${c?.actionCount ?? "—"} steps`, true)}
 </div>`, "replay");

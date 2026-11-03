@@ -1,10 +1,10 @@
 # Evidence semantics: replay failure vs outcome regression
 
-Core no longer conflates three things that all look like "success rate
+When a success-rate drop triggers a finding, core distinguishes three things that all look like "success rate
 dropped": a reference path that could not be replayed, a probe that
 errored without an independent final state, and a completed run whose
-independent oracle still failed. Only the last one is a confirmed
-removal (`goal_unreachable`). The first two stay blocking but under
+independent oracle still failed. The last one is an observed outcome failure
+(`goal_unreachable`), not proof that no alternative path exists. The first two stay blocking but under
 their own kinds, visibly review-required.
 
 ## Kinds
@@ -60,9 +60,9 @@ Actual rediscovery still needs a runner-side independent probe and a
 `compareReachableCost` call. Without that second probe, a genuine
 removal whose only signal is a missing menuitem also reports
 `replay_blocked` (review-required, blocking) rather than
-`goal_unreachable`. A genuine removal is confirmed as
-`goal_unreachable` only when a completed run fails the independent
-oracle, or when independent rediscovery also fails.
+`goal_unreachable`. A completed run that fails the independent oracle may report
+`goal_unreachable`; this establishes a failure of the observed attempt,
+not exhaustive unreachability. Failed rediscovery remains uncertain.
 
 ## Runner follow-ups (sibling owner, not done here)
 
@@ -73,7 +73,7 @@ oracle, or when independent rediscovery also fails.
 2. After a `replay_blocked`, optionally run a Muse rediscovery probe on
    the same intent and attach `compareReachableCost` output as review
    evidence; on `reachable: true` report the delta as cost, on
-   `reachable: false` escalate to confirmed removal.
+   `reachable: false` retain the review-required status.
 3. Add a rerun path for `probe_inconclusive` (transient infra) distinct
    from the review path for `replay_blocked`.
 4. Schema consumers: `Finding.kind` gained two values;

@@ -219,7 +219,7 @@ describe("genuinely removed control", () => {
     const traces = [
       trace("withhold", "baseline", { clicks: 1, passed: true }),
       // Driver finished its path (no error stop) but the independent
-      // final state still fails: removal established, not a path miss.
+      // final state still fails: observed outcome failure, not a path miss.
       trace("withhold", "candidate", { clicks: 2, passed: false, stoppedReason: "script_done" }),
     ];
     const r = diffContract(contract, traces);

@@ -209,7 +209,7 @@ export type Severity = "high" | "medium" | "low";
 
 /** Provenance for success-rate findings: what established the verdict.
  *  `outcome` means the driver finished and the independent oracle still
- *  failed (removal established). `replay-path` means the reference path
+ *  failed (observed outcome failure, not proof of removal). `replay-path` means the reference path
  *  could not be replayed, so a rename and a removal are indistinguishable.
  *  `infrastructure` means the probe errored without an independent final
  *  state, so the outcome is unknown. Optional for backcompat: readers that

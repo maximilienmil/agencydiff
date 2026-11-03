@@ -79,9 +79,9 @@ function initialMode(): Mode {
     const saved = localStorage.getItem("agencydiff.theme");
     if (saved === "light" || saved === "dark" || saved === "system") return saved;
   } catch {
-    /* storage blocked: follow the system */
+    /* storage blocked: use the default */
   }
-  return "system";
+  return "dark";
 }
 
 function resolved(mode: Mode): "light" | "dark" {

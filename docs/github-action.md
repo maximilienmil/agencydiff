@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: maximilienmil/agencydiff@v1
+      - uses: maximilienmil/agencydiff@main
         with:
           baseline-url: https://shop.example.com/
           candidate-url: https://preview-${{ github.event.number }}.example.com/
@@ -50,7 +50,7 @@ fails the check when any contract fails.
 | `comment` | The findings summary (same text as the PR comment). |
 
 ```yaml
-- uses: maximilienmil/agencydiff@v1
+- uses: maximilienmil/agencydiff@main
   id: ad
   with:
     baseline-url: https://shop.example.com/
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: maximilienmil/agencydiff@v1
+      - uses: maximilienmil/agencydiff@main
         with:
           baseline-url: https://shop.example.com/
           # vercel-action outputs the preview URL once the deploy is ready
@@ -105,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: maximilienmil/agencydiff@v1
+      - uses: maximilienmil/agencydiff@main
         with:
           baseline-url: https://shop-example.netlify.app/
           candidate-url: https://deploy-preview-${{ github.event.number }}--shop-example.netlify.app/

@@ -117,4 +117,15 @@ individually. No causal or general-population claims: this is one 8-case pilot.
 
 ## Amendments
 
-(none yet)
+- A1 (before any review/score trial; evidence traces already frozen): error-trace
+  classification. Five candidate traces end `stoppedReason: error` with
+  `reference tag not found: <tag>` — the scripted path's control is gone, which
+  is the seeded signal itself, not an infrastructure flake. These traces stay in
+  both methods' denominators. Only non-deterministic/infrastructure errors
+  (browser crash, timeout, other error strings) exclude an intent from both
+  denominators.
+- A2 (same time): the reviewer bundle text now includes one stopped/error line
+  per intent per variant, so the reviewer sees script completion state
+  (truncated path vs satisfied) exactly as the comparator's success grading
+  does. No trace was regenerated; rendering is a deterministic transform of
+  frozen traces.

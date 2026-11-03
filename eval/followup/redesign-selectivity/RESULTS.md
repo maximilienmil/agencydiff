@@ -12,9 +12,10 @@ rediscovery: `rediscover.ts`; merge: `merge.py`. Machine-readable:
 misses — but the columns stay visibly separate, which is the point. Every
 innocent redesign passes the gate silently (9/9 TRUE-PASS); every harmful
 change fails it (9/9 TRUE-BLOCK), including all three harmful-default cases
-where the old reference path still replays cleanly. The gate never conflates
-"the tour broke" with "the promise broke": path-replay outcome, semantic
-outcome, and gate verdict are reported in separate columns below.
+where the old reference path still replays cleanly. This matrix does not establish that the gate can distinguish an innocent
+broken path from a harmed choice: none of its innocent variants breaks the
+reference tags. Path-replay outcome, semantic outcome, and gate verdict are
+reported in separate columns below.
 
 Denominators: 18 cases (6 classes × 3 families) + 3 baseline-vs-baseline
 controls + 1 excluded-family smoke case (screen_time, not in the matrix).
@@ -72,14 +73,14 @@ findings — false-alarm floor 0/3 for this deterministic pipeline.
 
 ## The dissociation the question asked for
 
-All three DEFAULT cases keep the old coordinate path green (path PASS,
+All three DEFAULT cases keep the old tag-resolved path green (path PASS,
 oracle 1.0 on reference probes) while flipping the promise for new users.
 The gate still fails each via `default_flip` (high, high, medium) — i.e. it
 does NOT need a broken path to catch a harmed choice, and the report keeps
 both facts visible instead of blending them. Conversely, the three REMOVE
 cases break the path with no alternative: the gate's `goal_unreachable`
-finding is confirmed by agent rediscovery (0/2, INFEASIBLE-CONFIRMED),
-not merely assumed from the missing tag.
+finding is confirmed by fixture source inspection together with failed agent rediscovery (0/2).
+Two failed agent attempts alone do not prove a goal is unreachable.
 
 ## Costs
 
@@ -106,6 +107,15 @@ Coordinator overhead out of scope. Cap never binding; no work deferred.
 
 ## Limitations and non-findings
 
+- The scripted driver resolves stable tags on the current screen and clicks
+  their current coordinates. RELOC cases keep these tags and screen hierarchy.
+  They test tag-preserving reorders, not robustness to renamed locators or
+  cross-screen redesigns. No innocent reference-path failure is represented,
+  so the headline cannot answer the hardest selectivity question.
+- The first SUB-EXTRA rediscovery traces were overwritten by a retry. Its
+  original raw evidence is unavailable; the combined 1/4 description relies
+  partly on the experiment log. The independent new-path fixture result is
+  distinct from an autonomous rediscovery success estimate.
 - Small purposive matrix: 9 innocent / 9 harmful is a separation demo, not a
   false-alarm or miss rate. The 0/9 and 9/9 must not be quoted as rates.
 - IMPROVE variants produced no "easier" findings — improvements that only

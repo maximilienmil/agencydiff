@@ -13,7 +13,7 @@ Two renders ship: `media/agencydiff-demo.mp4` (voiced) and
 
 ## 0:00–0:15 — Cold open (≤15 s)
 
-> An app asks for your location. Before the update, declining took one action. After it, seven. Same request, same checked final state. AgencyDiff records what changed.
+> An app asks for your location. Before the update, declining took one step. After it, seven steps. Same request, same checked final state. AgencyDiff records what changed.
 
 On screen: “An app asks for your location.” cuts to actual location-decline Traces, with
 one-action and seven-action counters and a path wireframe.

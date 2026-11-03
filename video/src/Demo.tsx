@@ -379,8 +379,8 @@ function ColdOpen({ data, footage, vo }: { data: VideoData; footage: Footage; vo
       <div style={{ width: interpolate(f, [0, 50], [0, 1100], clamp), height: 8, background: T.blue, marginTop: 30 }} />
     </AbsoluteFill> : <>
       <div style={{ position: "absolute", left: 110, top: 180, width: 860 }}>
-        <Words text="After one update, saying no takes seven." at={66} stagger={3} style={{ fontFamily: T.display, fontSize: 96, lineHeight: 1, letterSpacing: "-0.06em" }} />
-        <In at={104}><div style={{ fontFamily: T.mono, fontSize: 110, marginTop: 60 }}>{v(data.declineBaseline)} <span style={{ color: T.blue }}>→</span> {v(data.declineCandidate)}</div><div style={{ fontSize: 32, color: T.ink2 }}>actions to decline location</div></In>
+        <Words text="After one update, saying no takes seven steps." at={66} stagger={3} style={{ fontFamily: T.display, fontSize: 96, lineHeight: 1, letterSpacing: "-0.06em" }} />
+        <In at={104}><div style={{ fontFamily: T.mono, fontSize: 110, marginTop: 60 }}>{v(data.declineBaseline)} <span style={{ color: T.blue }}>→</span> {v(data.declineCandidate)}</div><div style={{ fontSize: 32, color: T.ink2 }}>steps to decline location</div></In>
         <In at={360}><div style={{ borderLeft: `5px solid ${T.badInk}`, paddingLeft: 24, marginTop: 50, fontSize: 34 }}>{v(data.withholdFinding)}</div></In>
       </div>
       <div style={{ position: "absolute", right: 100, top: 44, display: "flex", gap: 48 }}>

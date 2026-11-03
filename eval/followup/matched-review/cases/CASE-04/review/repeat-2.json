@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "harder",
+    "subscription.terms": "unchanged",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: identical home>settings>plus final plus; actions: same 3 taps nav.settings->settings.subscription->sub.subscribe; oracle: both PASS sub.active true, sub.plan monthly unchanged",
+    "subscription.decline": "screens: identical plus screen with Subscribe/Not now; actions: same 3 taps nav.settings->settings.subscription->sub.decline; oracle: both PASS sub.active false offer answered",
+    "subscription.cancel": "screens: same path to billing but final differs Cancel subscription vs Manage plan; actions: baseline 4 taps to sub.cancel script_done vs candidate 3 taps error reference tag not found: sub.cancel; oracle: BASELINE PASS sub.active false -> CANDIDATE FAIL sub.active true",
+    "subscription.terms": "screens: identical home>settings>plus>terms final Renewal terms text; actions: same 3 taps nav.settings->settings.subscription->sub.terms; oracle: both PASS terms_viewed true",
+    "subscription.resume": "screens: identical active Circle+ final plus; actions: same 3 taps nav.settings->settings.subscription->sub.subscribe; oracle: both PASS sub.active true"
+  },
+  "notes": "Only cancel regressed with missing cancel control and FAIL oracle, others identical.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"harder\", \"subscription.terms\": \"unchanged\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: identical home>settings>plus final plus; actions: same 3 taps nav.settings->settings.subscription->sub.subscribe; oracle: both PASS sub.active true, sub.plan monthly unchanged\", \"subscription.decline\": \"screens: identical plus screen with Subscribe/Not now; actions: same 3 taps nav.settings->settings.subscription->sub.decline; oracle: both PASS sub.active false offer answered\", \"subscription.cancel\": \"screens: same path to billing but final differs Cancel subscription vs Manage plan; actions: baseline 4 taps to sub.cancel script_done vs candidate 3 taps error reference tag not found: sub.cancel; oracle: BASELINE PASS sub.active false -> CANDIDATE FAIL sub.active true\", \"subscription.terms\": \"screens: identical home>settings>plus>terms final Renewal terms text; actions: same 3 taps nav.settings->settings.subscription->sub.terms; oracle: both PASS terms_viewed true\", \"subscription.resume\": \"screens: identical active Circle+ final plus; actions: same 3 taps nav.settings->settings.subscription->sub.subscribe; oracle: both PASS sub.active true\"}, \"notes\": \"Only cancel regressed with missing cancel control and FAIL oracle, others identical.\"}",
+  "inputTokens": 11781,
+  "outputTokens": 1577,
+  "calls": 1,
+  "costUsd": 0.0014935000000000003,
+  "parseRetried": false
+}

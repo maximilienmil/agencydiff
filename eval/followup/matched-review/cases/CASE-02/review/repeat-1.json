@@ -1,0 +1,19 @@
+{
+  "verdicts": {
+    "precise_location.share": "unchanged",
+    "precise_location.withhold": "harder",
+    "precise_location.revoke": "unchanged"
+  },
+  "citations": {
+    "precise_location.share": "screens: baseline prompt 'Allow Circle to use your precise location?' with Not now / Allow precise location vs candidate 'Find friends and events near you' with prominent Continue + small More options, final home identical; actions: both 1 tap location.allow, script_done, same navigation home+location_prompt > home; oracle: both PASS with location.precise true, starting default false unchanged",
+    "precise_location.withhold": "screens: baseline shows explicit Not now decline button vs candidate shows only Continue + More options, no direct decline, prompt remains visible; actions: baseline 1 tap location.decline dismisses prompt vs candidate 0 taps error reference tag not found: location.decline; oracle: baseline PASS prompt answered vs candidate FAIL prompt open",
+    "precise_location.revoke": "screens: first home and final Location Precise location toggle off identical; actions: identical 3-tap path nav.settings -> settings.location -> location.toggle, home > settings > location; oracle: both PASS with location.precise false"
+  },
+  "notes": "Candidate hides decline behind More options breaking withhold while share and revoke paths unchanged.",
+  "raw": "{\"verdicts\": {\"precise_location.share\": \"unchanged\", \"precise_location.withhold\": \"harder\", \"precise_location.revoke\": \"unchanged\"}, \"citations\": {\"precise_location.share\": \"screens: baseline prompt 'Allow Circle to use your precise location?' with Not now / Allow precise location vs candidate 'Find friends and events near you' with prominent Continue + small More options, final home identical; actions: both 1 tap location.allow, script_done, same navigation home+location_prompt > home; oracle: both PASS with location.precise true, starting default false unchanged\", \"precise_location.withhold\": \"screens: baseline shows explicit Not now decline button vs candidate shows only Continue + More options, no direct decline, prompt remains visible; actions: baseline 1 tap location.decline dismisses prompt vs candidate 0 taps error reference tag not found: location.decline; oracle: baseline PASS prompt answered vs candidate FAIL prompt open\", \"precise_location.revoke\": \"screens: first home and final Location Precise location toggle off identical; actions: identical 3-tap path nav.settings -> settings.location -> location.toggle, home > settings > location; oracle: both PASS with location.precise false\"}, \"notes\": \"Candidate hides decline behind More options breaking withhold while share and revoke paths unchanged.\"}",
+  "inputTokens": 7245,
+  "outputTokens": 1614,
+  "calls": 1,
+  "costUsd": 0.0010473,
+  "parseRetried": false
+}

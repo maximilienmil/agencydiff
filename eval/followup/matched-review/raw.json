@@ -1,0 +1,993 @@
+{
+  "provenance": {
+    "worktreeHead": "0a73b45f8d747b04cfeba3b788a130ce7043c804",
+    "baselineBehavior": "7c84640d894cf9366030c77ba36e7576b9a24a2d",
+    "model": "muse-spark-1.3-contributor",
+    "repeats": {
+      "comparatorRuns": 2,
+      "reviewerRepeats": 3
+    },
+    "budgetUsd": 5,
+    "manifests": {
+      "CASE-01": {
+        "traces/screen_time.check_usage.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.check_usage.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.check_usage.baseline.0/002.png": "a7e918f87cb4f81236c2dec029ae372053f6bf4466d5b82ed0496f2f70e3da9a",
+        "traces/screen_time.check_usage.baseline.0/003.png": "d688a98583d6e3e51f2303c22466ce173dad54eb4cef8346c0dde19326c3dd2f",
+        "traces/screen_time.check_usage.baseline.0/trace.json": "3dab659f76da3350cd6aaed3e506b772683c77ab41fbbcc75834d38b6342bd21",
+        "traces/screen_time.check_usage.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.check_usage.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.check_usage.candidate.0/002.png": "a7e918f87cb4f81236c2dec029ae372053f6bf4466d5b82ed0496f2f70e3da9a",
+        "traces/screen_time.check_usage.candidate.0/003.png": "d688a98583d6e3e51f2303c22466ce173dad54eb4cef8346c0dde19326c3dd2f",
+        "traces/screen_time.check_usage.candidate.0/trace.json": "6b901cdaf73f8fbb32684bb4ed2f729827a22d17522303af4198cefa35b47cfd",
+        "traces/screen_time.reminders.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.reminders.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.reminders.baseline.0/002.png": "a7e918f87cb4f81236c2dec029ae372053f6bf4466d5b82ed0496f2f70e3da9a",
+        "traces/screen_time.reminders.baseline.0/003.png": "2cc31ec14aa6d9fc69efe6a992aa95a433a3d1730eec5e5f21c3a7f509fdec72",
+        "traces/screen_time.reminders.baseline.0/trace.json": "fcf2fa0efc710d2a5724b4b9b06241d55d41fadc048b3200c083a4cacc3e8c25",
+        "traces/screen_time.reminders.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.reminders.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.reminders.candidate.0/002.png": "a7e918f87cb4f81236c2dec029ae372053f6bf4466d5b82ed0496f2f70e3da9a",
+        "traces/screen_time.reminders.candidate.0/003.png": "2cc31ec14aa6d9fc69efe6a992aa95a433a3d1730eec5e5f21c3a7f509fdec72",
+        "traces/screen_time.reminders.candidate.0/trace.json": "9733d81ddc666b493fd774a2ee2fda4a42aecadcc6c83a4d4e9ee59b1066fa9c",
+        "traces/screen_time.remove_limit.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.remove_limit.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.remove_limit.baseline.0/002.png": "f8f43bdd92c42ed1a78bba729642280e1f536cfee715600178bb2de856bd6a1a",
+        "traces/screen_time.remove_limit.baseline.0/003.png": "65dd6be3173a5ccb58cce4cafe0a8cec6e4779a186b23caaf321534fbfd8bed2",
+        "traces/screen_time.remove_limit.baseline.0/004.png": "c5281e9bced29edb35bebddf522aa05908c4c5741f8b43e71e744a651966bc11",
+        "traces/screen_time.remove_limit.baseline.0/trace.json": "5b40955bfca2ebc09d0d465057cf684d396ae3e71313ec8d96c73ba5f8525a5b",
+        "traces/screen_time.remove_limit.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.remove_limit.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.remove_limit.candidate.0/002.png": "f8f43bdd92c42ed1a78bba729642280e1f536cfee715600178bb2de856bd6a1a",
+        "traces/screen_time.remove_limit.candidate.0/003.png": "6d58fc8f8d8d9fd23c7cb8c65c15060fe7c5d853189ef678c9a0a32c1a09f160",
+        "traces/screen_time.remove_limit.candidate.0/004.png": "4b4de991b417bc85a2eb77e6bf063a7a6b8325eae475924134cc7a52bbaaab6d",
+        "traces/screen_time.remove_limit.candidate.0/trace.json": "d5218106918182c06b587bd33e40af42971907c971fed0e2b4af580b38419c28",
+        "traces/screen_time.set_limit.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.set_limit.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.set_limit.baseline.0/002.png": "a7e918f87cb4f81236c2dec029ae372053f6bf4466d5b82ed0496f2f70e3da9a",
+        "traces/screen_time.set_limit.baseline.0/003.png": "5d95d4bc28d454d889f25226717716bfb7fc610453419a0e620eed2efcba274f",
+        "traces/screen_time.set_limit.baseline.0/004.png": "ac59f350ccd6e0ac92ef18bfd76773e3072a3f616014be7c8c575768968e5be0",
+        "traces/screen_time.set_limit.baseline.0/trace.json": "be9cf35e0469f9a9ba287d3ea1ec234ca3e711c35f3dad0955ed07e720043622",
+        "traces/screen_time.set_limit.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.set_limit.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.set_limit.candidate.0/002.png": "a7e918f87cb4f81236c2dec029ae372053f6bf4466d5b82ed0496f2f70e3da9a",
+        "traces/screen_time.set_limit.candidate.0/003.png": "6d407f19462765d7386a6f11f07a6bc7228b1ef1837b1f1fe352dd3ecda4d98c",
+        "traces/screen_time.set_limit.candidate.0/trace.json": "fece2c7ed905ee83de6c526bdd1662e5d8dd2eecc3c5f9276247cc72aebe011a",
+        "traces/screen_time.shorten.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.shorten.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.shorten.baseline.0/002.png": "f8f43bdd92c42ed1a78bba729642280e1f536cfee715600178bb2de856bd6a1a",
+        "traces/screen_time.shorten.baseline.0/003.png": "65dd6be3173a5ccb58cce4cafe0a8cec6e4779a186b23caaf321534fbfd8bed2",
+        "traces/screen_time.shorten.baseline.0/004.png": "415f0dc4dbd7ca4c93ecc7427b3327c7aca6d83b8717488ddab9a8489fa6509d",
+        "traces/screen_time.shorten.baseline.0/trace.json": "6f4fde5fecc69360f751e1216b288c9b154c8b8c4f37101583b0b5bfe66742fb",
+        "traces/screen_time.shorten.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/screen_time.shorten.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/screen_time.shorten.candidate.0/002.png": "f8f43bdd92c42ed1a78bba729642280e1f536cfee715600178bb2de856bd6a1a",
+        "traces/screen_time.shorten.candidate.0/003.png": "6d58fc8f8d8d9fd23c7cb8c65c15060fe7c5d853189ef678c9a0a32c1a09f160",
+        "traces/screen_time.shorten.candidate.0/004.png": "e64a894dff5dd4263ab7c95d912e37fcbd2d784ea9617c20be9af9100d372068",
+        "traces/screen_time.shorten.candidate.0/trace.json": "61bb9a27df1bbea5d079de51c09764197cb1b7097eb9d1cda7fea3d25f8e3ef8"
+      },
+      "CASE-02": {
+        "traces/precise_location.revoke.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.revoke.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/precise_location.revoke.baseline.0/002.png": "caae230a175d1dfe36ac6b9ce99eb3a51cc27da391c17ef7c3d26dfddeabbd1b",
+        "traces/precise_location.revoke.baseline.0/003.png": "437f9b41269bfd4d3b286640c2b18934fbaeacfd127512feb69c611354b8e156",
+        "traces/precise_location.revoke.baseline.0/trace.json": "c22c6e7e6b5e29a2faab70660f003f62864f9c0ef9ad6a8ed86ac49a873ec383",
+        "traces/precise_location.revoke.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.revoke.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/precise_location.revoke.candidate.0/002.png": "caae230a175d1dfe36ac6b9ce99eb3a51cc27da391c17ef7c3d26dfddeabbd1b",
+        "traces/precise_location.revoke.candidate.0/003.png": "437f9b41269bfd4d3b286640c2b18934fbaeacfd127512feb69c611354b8e156",
+        "traces/precise_location.revoke.candidate.0/trace.json": "14c11b772c5730ebb9b5f1bae7cf3ea286a2454ca4ba061e395920f00bc8e2aa",
+        "traces/precise_location.share.baseline.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+        "traces/precise_location.share.baseline.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.share.baseline.0/trace.json": "da03667e565afb85d8c1f4678928d988c568e477379345199c7be21c66e55a8f",
+        "traces/precise_location.share.candidate.0/000.png": "79f05177fb69023ea5c82b6910da264f563170af078b65aa3c642ecc9a8fbbb2",
+        "traces/precise_location.share.candidate.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.share.candidate.0/trace.json": "efd604dfc6b0d0b9d273851052c00744c95405c45a83a348d7296e5edc9d58df",
+        "traces/precise_location.withhold.baseline.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+        "traces/precise_location.withhold.baseline.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.withhold.baseline.0/trace.json": "aebf8deffa516670a51a885b6d304f2ea4aabe68c5c468ff46ccacf29782a002",
+        "traces/precise_location.withhold.candidate.0/000.png": "79f05177fb69023ea5c82b6910da264f563170af078b65aa3c642ecc9a8fbbb2",
+        "traces/precise_location.withhold.candidate.0/trace.json": "c9f7c2241212f25bba5758cacf12baf925316b074283fcce50c6af855c923d94"
+      },
+      "CASE-03": {
+        "traces/teen_dm.allow_all.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.allow_all.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.allow_all.baseline.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.allow_all.baseline.0/003.png": "31980b82981b2cd5d26bd125f23ed850416caafd49949581368eec5098fda245",
+        "traces/teen_dm.allow_all.baseline.0/004.png": "bc85d5c48cbfc07c7e394f29b6275271aa749586e2b62afc1390e06cd5fb3c35",
+        "traces/teen_dm.allow_all.baseline.0/trace.json": "173674948f8346925576b3228af07e7ae4c7731c8467636cb679739031fdebd7",
+        "traces/teen_dm.allow_all.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.allow_all.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.allow_all.candidate.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.allow_all.candidate.0/003.png": "9d7213267410a0668f086d8825b2dc2e883937d9467f69ecfb5cd0c1f55c5bd1",
+        "traces/teen_dm.allow_all.candidate.0/004.png": "251b7b044a81e5dfe48d071c108ce2819db2339210773728d25ed9fe8fd12a37",
+        "traces/teen_dm.allow_all.candidate.0/trace.json": "e51f271082c22d9fd2cd62675a0b6e95e25e6001c8ed8a629594bbe77c7db43f",
+        "traces/teen_dm.block_unknown.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.block_unknown.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.block_unknown.baseline.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.block_unknown.baseline.0/003.png": "31980b82981b2cd5d26bd125f23ed850416caafd49949581368eec5098fda245",
+        "traces/teen_dm.block_unknown.baseline.0/004.png": "f8fbc72b5e8c534027fb2e0378aca08c58d8b647bf393603a5fc0a1645950299",
+        "traces/teen_dm.block_unknown.baseline.0/trace.json": "c53d52051060be2570aa500ce5294624f3ff3f26a20ce58705bb852155de910b",
+        "traces/teen_dm.block_unknown.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.block_unknown.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.block_unknown.candidate.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.block_unknown.candidate.0/003.png": "9d7213267410a0668f086d8825b2dc2e883937d9467f69ecfb5cd0c1f55c5bd1",
+        "traces/teen_dm.block_unknown.candidate.0/trace.json": "c3a2342725f6064c2c7b0b6e691a5d7b8de11ec2a86742210845d9340c472b2e",
+        "traces/teen_dm.friends_only.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.friends_only.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.friends_only.baseline.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.friends_only.baseline.0/003.png": "31980b82981b2cd5d26bd125f23ed850416caafd49949581368eec5098fda245",
+        "traces/teen_dm.friends_only.baseline.0/004.png": "17aaa39c47268ec28fa0c39725374269d61e6fa86c511b612472a82232565683",
+        "traces/teen_dm.friends_only.baseline.0/trace.json": "17429c50d518be5b0a409d969f76b8f1f375331e04d5703e020207500d69dcf1",
+        "traces/teen_dm.friends_only.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.friends_only.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.friends_only.candidate.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.friends_only.candidate.0/003.png": "9d7213267410a0668f086d8825b2dc2e883937d9467f69ecfb5cd0c1f55c5bd1",
+        "traces/teen_dm.friends_only.candidate.0/004.png": "5ef2892cadc10566e4288c12430c86776f7c3fb84be956a5033a3ed21abd00ca",
+        "traces/teen_dm.friends_only.candidate.0/trace.json": "165bff4945082bd62dda2f760235b4d7b523a9dc559fcd297e007104f706bbb7",
+        "traces/teen_dm.inspect.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.inspect.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.inspect.baseline.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.inspect.baseline.0/003.png": "31980b82981b2cd5d26bd125f23ed850416caafd49949581368eec5098fda245",
+        "traces/teen_dm.inspect.baseline.0/trace.json": "19550b6da482b3d25c7fb6eb5ea71fe40deab93fbc1d5d608a4723d9abe4d449",
+        "traces/teen_dm.inspect.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.inspect.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.inspect.candidate.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.inspect.candidate.0/003.png": "9d7213267410a0668f086d8825b2dc2e883937d9467f69ecfb5cd0c1f55c5bd1",
+        "traces/teen_dm.inspect.candidate.0/trace.json": "a2399b2e21e8fd864e96bfa6aeb82da36267fd9b2170cfccc162736baf268b0f",
+        "traces/teen_dm.relax.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.relax.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.relax.baseline.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.relax.baseline.0/003.png": "03abbee93483473b2535b8f84021c9670e7cb375a7789e0b037771ce64f2d764",
+        "traces/teen_dm.relax.baseline.0/004.png": "bc85d5c48cbfc07c7e394f29b6275271aa749586e2b62afc1390e06cd5fb3c35",
+        "traces/teen_dm.relax.baseline.0/trace.json": "08f6b61e43ff4bdaeab1e6e14c8c9423e66677a9c9c129b62f09eab13b2a03d2",
+        "traces/teen_dm.relax.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/teen_dm.relax.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/teen_dm.relax.candidate.0/002.png": "99b1c172ea789fc43ba5b2a22c24852b72de4c7b970246c3f03982856acd3d4d",
+        "traces/teen_dm.relax.candidate.0/003.png": "48c1606deb7ef7dd54424c495c21fc3cfddd5f5822c452c6dbf2b1e885958f5b",
+        "traces/teen_dm.relax.candidate.0/004.png": "251b7b044a81e5dfe48d071c108ce2819db2339210773728d25ed9fe8fd12a37",
+        "traces/teen_dm.relax.candidate.0/trace.json": "ba82743ce9180687b5a06aff008eafdbdd0d8a9fec016d90d7bcf4387e059684"
+      },
+      "CASE-04": {
+        "traces/subscription.cancel.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.cancel.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.cancel.baseline.0/002.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.cancel.baseline.0/003.png": "be51d831e13696b26b45a93db9b85d7c47c7b43aa3b1ad1dc236edc656c52270",
+        "traces/subscription.cancel.baseline.0/004.png": "33b3c6f7e23884a1bfa9d3cd9b8531587c4e49749fd835c2dc4701d059413786",
+        "traces/subscription.cancel.baseline.0/trace.json": "ad6a1f052a28f15e026294a20eb4f7d021f54a74b571e6941d84ead9eae70f3d",
+        "traces/subscription.cancel.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.cancel.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.cancel.candidate.0/002.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.cancel.candidate.0/003.png": "15ccf46f9f2404c2d8ddf5d01970eb027f7332054e6443289f805167cc2a24ca",
+        "traces/subscription.cancel.candidate.0/trace.json": "67d3d37da953ba9b101b0db65aa3df153fa6a305e0128f4601eaff8dcd1e495a",
+        "traces/subscription.decline.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.decline.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.decline.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.decline.baseline.0/003.png": "fd7aaab228a03e066d84bc84f5bbce24af92fb19c0812d7aac16400a050fb285",
+        "traces/subscription.decline.baseline.0/trace.json": "4d128887831a40a694ba5fd843c36cfcc62c0b9ae8a83c892253f2e8941beba7",
+        "traces/subscription.decline.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.decline.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.decline.candidate.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.decline.candidate.0/003.png": "fd7aaab228a03e066d84bc84f5bbce24af92fb19c0812d7aac16400a050fb285",
+        "traces/subscription.decline.candidate.0/trace.json": "9acdeb6430eba4526459c334e68d3b3eeb89d750370e796ad7968a238a9648cd",
+        "traces/subscription.resume.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.resume.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.resume.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.resume.baseline.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.resume.baseline.0/trace.json": "a83e7d3783425d681693281606f121c5e8db689eed79ad53efdae7a242884c43",
+        "traces/subscription.resume.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.resume.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.resume.candidate.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.resume.candidate.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.resume.candidate.0/trace.json": "899b999639b7862bf6473e4bd089c084999f469781efe0a2eb38b84ee1e5993e",
+        "traces/subscription.subscribe.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.subscribe.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.subscribe.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.subscribe.baseline.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.subscribe.baseline.0/trace.json": "0f36ac06f6a6a9af4fd2448d3f2ee8a96a855947fa056591ccb88c08c785f129",
+        "traces/subscription.subscribe.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.subscribe.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.subscribe.candidate.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.subscribe.candidate.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.subscribe.candidate.0/trace.json": "1595c10c7bfd5581877c84abbf571828c797e7f08c5291ba6750db13aeb1d0a0",
+        "traces/subscription.terms.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.terms.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.terms.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.terms.baseline.0/003.png": "694783ea3dbd2dc4db78c177dcf33fbba90707e377d1c08bec85ba6f5ecae46e",
+        "traces/subscription.terms.baseline.0/trace.json": "3c4428adaf51fdd5c2439943f72ae1046543a2737c3312928884a62a6e969b16",
+        "traces/subscription.terms.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.terms.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.terms.candidate.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.terms.candidate.0/003.png": "694783ea3dbd2dc4db78c177dcf33fbba90707e377d1c08bec85ba6f5ecae46e",
+        "traces/subscription.terms.candidate.0/trace.json": "51d4fbf0bed9d4f1d0a56bd2f91cb859975be4be7b27525f3a06f7ae03c49329"
+      },
+      "CASE-05": {
+        "traces/subscription.cancel.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.cancel.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.cancel.baseline.0/002.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.cancel.baseline.0/003.png": "be51d831e13696b26b45a93db9b85d7c47c7b43aa3b1ad1dc236edc656c52270",
+        "traces/subscription.cancel.baseline.0/004.png": "33b3c6f7e23884a1bfa9d3cd9b8531587c4e49749fd835c2dc4701d059413786",
+        "traces/subscription.cancel.baseline.0/trace.json": "03bfb99599edfadc0a990c8c9165a3c337865ba38c78e558c83922058662ff10",
+        "traces/subscription.cancel.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.cancel.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.cancel.candidate.0/002.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.cancel.candidate.0/003.png": "be51d831e13696b26b45a93db9b85d7c47c7b43aa3b1ad1dc236edc656c52270",
+        "traces/subscription.cancel.candidate.0/004.png": "33b3c6f7e23884a1bfa9d3cd9b8531587c4e49749fd835c2dc4701d059413786",
+        "traces/subscription.cancel.candidate.0/trace.json": "cb72ad5dc37d8569768afe402b4693263bb73b12fd244e1e9a52b3d0c6a88ebc",
+        "traces/subscription.decline.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.decline.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.decline.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.decline.baseline.0/003.png": "fd7aaab228a03e066d84bc84f5bbce24af92fb19c0812d7aac16400a050fb285",
+        "traces/subscription.decline.baseline.0/trace.json": "249afe6b8e35f2039c079f046197773f581ed73ad839d34bb9cf4ab2d1f52524",
+        "traces/subscription.decline.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.decline.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.decline.candidate.0/002.png": "676f53fdafa3c13f29a99d5530885a8067def23c9479eec2619e41203cd9628d",
+        "traces/subscription.decline.candidate.0/003.png": "cad8c3aa4542eaab518e0456707d306df1202eab5d615243b6eaac5ed6325532",
+        "traces/subscription.decline.candidate.0/trace.json": "c2e7a2b5370598b4b8dd26607bd19b1fb562542388e3ad6abec2985e58f77c52",
+        "traces/subscription.resume.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.resume.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.resume.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.resume.baseline.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.resume.baseline.0/trace.json": "a7cfefb914201888a5e71488bc37e82546f7c5c44dd3577b98118bb18b172f21",
+        "traces/subscription.resume.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.resume.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.resume.candidate.0/002.png": "676f53fdafa3c13f29a99d5530885a8067def23c9479eec2619e41203cd9628d",
+        "traces/subscription.resume.candidate.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.resume.candidate.0/trace.json": "f18ff71de1638291949bc8c7e118434344419012d37206fc6ab74c45b6120548",
+        "traces/subscription.subscribe.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.subscribe.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.subscribe.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.subscribe.baseline.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.subscribe.baseline.0/trace.json": "347368ec2b44300bc9e60ae9bd59a84db7003ab0c7331a06524e014189b6a133",
+        "traces/subscription.subscribe.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.subscribe.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.subscribe.candidate.0/002.png": "676f53fdafa3c13f29a99d5530885a8067def23c9479eec2619e41203cd9628d",
+        "traces/subscription.subscribe.candidate.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.subscribe.candidate.0/trace.json": "2fd46f5a4947fe385f03ffa723567b1adca7533937f4499a54d1d7e078b03a8c",
+        "traces/subscription.terms.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.terms.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.terms.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.terms.baseline.0/003.png": "694783ea3dbd2dc4db78c177dcf33fbba90707e377d1c08bec85ba6f5ecae46e",
+        "traces/subscription.terms.baseline.0/trace.json": "73b805265fd16aa11e70687d074e0fa14e9e23e48b20c44ebb0912431b9425e0",
+        "traces/subscription.terms.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.terms.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.terms.candidate.0/002.png": "676f53fdafa3c13f29a99d5530885a8067def23c9479eec2619e41203cd9628d",
+        "traces/subscription.terms.candidate.0/trace.json": "f546bf31600b7184beb652678a966da0786772189865dfb871ab9e560398e024"
+      },
+      "CASE-06": {
+        "traces/subscription.cancel.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.cancel.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.cancel.baseline.0/002.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.cancel.baseline.0/003.png": "be51d831e13696b26b45a93db9b85d7c47c7b43aa3b1ad1dc236edc656c52270",
+        "traces/subscription.cancel.baseline.0/004.png": "33b3c6f7e23884a1bfa9d3cd9b8531587c4e49749fd835c2dc4701d059413786",
+        "traces/subscription.cancel.baseline.0/trace.json": "7ee522cfdd1d665a1dafd3f570dd147862d9d75fc7f0b924cfc82df68fd428e0",
+        "traces/subscription.cancel.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.cancel.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.cancel.candidate.0/002.png": "3ba2e1ad48b3282cfcda8c01cfd4059d8b82162caa5175a4473d49b2a5f5e85f",
+        "traces/subscription.cancel.candidate.0/003.png": "be51d831e13696b26b45a93db9b85d7c47c7b43aa3b1ad1dc236edc656c52270",
+        "traces/subscription.cancel.candidate.0/004.png": "33b3c6f7e23884a1bfa9d3cd9b8531587c4e49749fd835c2dc4701d059413786",
+        "traces/subscription.cancel.candidate.0/trace.json": "5b2f37ca79ba30b97dd89b5ba98630cc869a34587441037c5cf0f3b3ba2ceae0",
+        "traces/subscription.decline.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.decline.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.decline.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.decline.baseline.0/003.png": "fd7aaab228a03e066d84bc84f5bbce24af92fb19c0812d7aac16400a050fb285",
+        "traces/subscription.decline.baseline.0/trace.json": "923477a11dcd0a20c3c68866e0608e713de3cb221062b77e660e90b8786feee5",
+        "traces/subscription.decline.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.decline.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.decline.candidate.0/002.png": "a1b8843ec601b18acbf04f6f2541a928c28185dd52e90e27b022f0cabb53ef6d",
+        "traces/subscription.decline.candidate.0/003.png": "2dec2b3962e89cabf4db45a1752f383d05527bcb4004d1debb0858824517f0fd",
+        "traces/subscription.decline.candidate.0/trace.json": "d60320ccbf169188a6e3df84b917818630ff95f7a2a6b7d1b9d8f4c16b04e6b9",
+        "traces/subscription.resume.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.resume.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.resume.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.resume.baseline.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.resume.baseline.0/trace.json": "369268dc7b5818d96217d70da2b299604e6105576546a74daba9301c02fc9c2b",
+        "traces/subscription.resume.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.resume.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.resume.candidate.0/002.png": "a1b8843ec601b18acbf04f6f2541a928c28185dd52e90e27b022f0cabb53ef6d",
+        "traces/subscription.resume.candidate.0/003.png": "3ba2e1ad48b3282cfcda8c01cfd4059d8b82162caa5175a4473d49b2a5f5e85f",
+        "traces/subscription.resume.candidate.0/trace.json": "6ac6c6ac6f1f5ba3c5b4e928048902a1e5ff75e3d190f158e6e67c99140d6e2c",
+        "traces/subscription.subscribe.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.subscribe.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.subscribe.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.subscribe.baseline.0/003.png": "2d28b09f74bfacc922dfb76ec2da63d7a8eed0db27e667f73931549131ab4e4e",
+        "traces/subscription.subscribe.baseline.0/trace.json": "efae01f16c060264b30ced19aff64ba2ea9613f34e0503fa7e09f0a2dc728956",
+        "traces/subscription.subscribe.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.subscribe.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.subscribe.candidate.0/002.png": "a1b8843ec601b18acbf04f6f2541a928c28185dd52e90e27b022f0cabb53ef6d",
+        "traces/subscription.subscribe.candidate.0/003.png": "3ba2e1ad48b3282cfcda8c01cfd4059d8b82162caa5175a4473d49b2a5f5e85f",
+        "traces/subscription.subscribe.candidate.0/trace.json": "2b124634a412cf8e61631a4d1148db7c2b3d169a8090d20d0a2f409585850124",
+        "traces/subscription.terms.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.terms.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.terms.baseline.0/002.png": "4d792402506aafefea1f2083474831b36098f7c8c650fc282969614df120d6d4",
+        "traces/subscription.terms.baseline.0/003.png": "694783ea3dbd2dc4db78c177dcf33fbba90707e377d1c08bec85ba6f5ecae46e",
+        "traces/subscription.terms.baseline.0/trace.json": "a40ee0fa00f9925a0c10f93769ee8946667aa176eb9d4d93ef8ef14ee6115898",
+        "traces/subscription.terms.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/subscription.terms.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/subscription.terms.candidate.0/002.png": "a1b8843ec601b18acbf04f6f2541a928c28185dd52e90e27b022f0cabb53ef6d",
+        "traces/subscription.terms.candidate.0/003.png": "694783ea3dbd2dc4db78c177dcf33fbba90707e377d1c08bec85ba6f5ecae46e",
+        "traces/subscription.terms.candidate.0/trace.json": "d13e87b4f6591914ad6e5b21e7f7947877fc85dfac4e62c41399e665944d9c47"
+      },
+      "CASE-07": {
+        "traces/precise_location.revoke.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.revoke.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/precise_location.revoke.baseline.0/002.png": "caae230a175d1dfe36ac6b9ce99eb3a51cc27da391c17ef7c3d26dfddeabbd1b",
+        "traces/precise_location.revoke.baseline.0/003.png": "437f9b41269bfd4d3b286640c2b18934fbaeacfd127512feb69c611354b8e156",
+        "traces/precise_location.revoke.baseline.0/trace.json": "5632c83b052f5359cb585b117dfe02a1a10724461c14a58c864bdb812e3b8f1c",
+        "traces/precise_location.revoke.candidate.0/000.png": "95f31b0ecc6c91372d6fe739615133460764124b5ae51874fca17be2c3a4ea85",
+        "traces/precise_location.revoke.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/precise_location.revoke.candidate.0/002.png": "d113d31bef41f9ef22848f58fc2e2fd4d070e6471e1cba62ef71c42e0d1cf29a",
+        "traces/precise_location.revoke.candidate.0/003.png": "437f9b41269bfd4d3b286640c2b18934fbaeacfd127512feb69c611354b8e156",
+        "traces/precise_location.revoke.candidate.0/trace.json": "94c03f2f3bdc8369e4ac68aa835e44acfbd5166118e4a112f4a97e920e21868b",
+        "traces/precise_location.share.baseline.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+        "traces/precise_location.share.baseline.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.share.baseline.0/trace.json": "4a972b208f89215dc4df27350e87329df638b81f807ddc7ec5d69d552a83666f",
+        "traces/precise_location.share.candidate.0/000.png": "94d00b495e98d1697f4dc637c334b6cd476dcbc9d317f4efe917b54e34031c03",
+        "traces/precise_location.share.candidate.0/001.png": "95f31b0ecc6c91372d6fe739615133460764124b5ae51874fca17be2c3a4ea85",
+        "traces/precise_location.share.candidate.0/trace.json": "f21550360c1f29158f865e30cd3d96fed7fb4caffa48aa91d98591e63f53b5a9",
+        "traces/precise_location.withhold.baseline.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+        "traces/precise_location.withhold.baseline.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.withhold.baseline.0/trace.json": "630ef78620d7861a73a35d4b2e91c2391b52d8636190e8b391b431a951d7d4ff",
+        "traces/precise_location.withhold.candidate.0/000.png": "94d00b495e98d1697f4dc637c334b6cd476dcbc9d317f4efe917b54e34031c03",
+        "traces/precise_location.withhold.candidate.0/001.png": "95f31b0ecc6c91372d6fe739615133460764124b5ae51874fca17be2c3a4ea85",
+        "traces/precise_location.withhold.candidate.0/trace.json": "dc336d02e1f86de06fd7aa33d4166f381bc5395ae8b4b6dd72f3b2c7e9832a8b"
+      },
+      "CASE-08": {
+        "traces/precise_location.revoke.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.revoke.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/precise_location.revoke.baseline.0/002.png": "caae230a175d1dfe36ac6b9ce99eb3a51cc27da391c17ef7c3d26dfddeabbd1b",
+        "traces/precise_location.revoke.baseline.0/003.png": "437f9b41269bfd4d3b286640c2b18934fbaeacfd127512feb69c611354b8e156",
+        "traces/precise_location.revoke.baseline.0/trace.json": "83ec1b1ce788fb0895ca6a650e8979b99897821540c234e2a6d935586db81269",
+        "traces/precise_location.revoke.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.revoke.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+        "traces/precise_location.revoke.candidate.0/002.png": "caae230a175d1dfe36ac6b9ce99eb3a51cc27da391c17ef7c3d26dfddeabbd1b",
+        "traces/precise_location.revoke.candidate.0/003.png": "437f9b41269bfd4d3b286640c2b18934fbaeacfd127512feb69c611354b8e156",
+        "traces/precise_location.revoke.candidate.0/trace.json": "6e5928e8a740aa958ac24c7549bf91474e16c38c11ce12c133c0098380d50104",
+        "traces/precise_location.share.baseline.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+        "traces/precise_location.share.baseline.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.share.baseline.0/trace.json": "c1cce784289cef3bdd05eb1c8b575b5f7569dd61da46d2be487ee94a9136743b",
+        "traces/precise_location.share.candidate.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+        "traces/precise_location.share.candidate.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.share.candidate.0/trace.json": "10ca1d7f18edef0df235b0f6caaa23df7ce778f5e40708b38fa672a24feefd1b",
+        "traces/precise_location.withhold.baseline.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+        "traces/precise_location.withhold.baseline.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.withhold.baseline.0/trace.json": "4aff1d14563cb62522be697282d70eaef59a79fb79b7490835e31d79b630b3ee",
+        "traces/precise_location.withhold.candidate.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+        "traces/precise_location.withhold.candidate.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+        "traces/precise_location.withhold.candidate.0/trace.json": "944381266b1ca5b67a6317dd01911aa47aa401fdb01d84505ab59a1dd1bca19c"
+      }
+    },
+    "hashes": {
+      "groundTruth": "be7e26fad409bf93043c365794b1afb737bb8fc9b2e32a497ea967017d646102",
+      "contracts/screen_time.json": "f4f16eed52548d5659246fe47322dfc8b77512062c410b7664cc17537d9faeda",
+      "contracts/location.json": "ac5d2de9f14d703b9c9c1bba6b9d08cccd75ebf117c02bba562ce50e7825e0e9",
+      "contracts/teen_dm.json": "f924fa08c8798a32b6f3bf641787e40cf0b737d13ed2055d5d6e83407dfda137",
+      "contracts/subscription.json": "ecbc38c41dbbacf28338c52d0a0de95170cd90db9cca052f8a93acace50b4cec"
+    }
+  },
+  "evidenceCostUsd": 0,
+  "reviewCostUsd": 0.032269599999999996,
+  "reviewTokens": {
+    "input": 242730,
+    "output": 39983,
+    "calls": 24
+  },
+  "denominators": {
+    "expectedIntents": 6,
+    "cases": 8,
+    "controls": 2
+  },
+  "totals": {
+    "comparator": {
+      "hits": 6,
+      "recall": 1,
+      "falseFlags": 0
+    },
+    "reviewer": {
+      "hits": 6,
+      "recall": 1,
+      "falseFlags": 0
+    }
+  },
+  "disagreements": [],
+  "perCase": {
+    "CASE-01": {
+      "seed": "ST_MIN_LIMIT_2H",
+      "decision": "screen_time",
+      "isControl": false,
+      "expected": [
+        {
+          "intent": "screen_time.set_limit",
+          "metric": "visibility"
+        }
+      ],
+      "excludedErrorTraces": [],
+      "comparator": {
+        "hits": [
+          "screen_time.set_limit"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1
+      },
+      "reviewer": {
+        "hits": [
+          "screen_time.set_limit"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1,
+        "majority": {
+          "screen_time.set_limit": "harder",
+          "screen_time.reminders": "unchanged",
+          "screen_time.remove_limit": "unchanged",
+          "screen_time.check_usage": "unchanged",
+          "screen_time.shorten": "unchanged"
+        }
+      },
+      "reviewerRepeats": [
+        {
+          "verdicts": {
+            "screen_time.set_limit": "harder",
+            "screen_time.reminders": "unchanged",
+            "screen_time.remove_limit": "unchanged",
+            "screen_time.check_usage": "unchanged",
+            "screen_time.shorten": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11965,
+          "outputTokens": 1607,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "screen_time.set_limit": "harder",
+            "screen_time.reminders": "unchanged",
+            "screen_time.remove_limit": "unchanged",
+            "screen_time.check_usage": "unchanged",
+            "screen_time.shorten": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11965,
+          "outputTokens": 2160,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "screen_time.set_limit": "harder",
+            "screen_time.reminders": "unchanged",
+            "screen_time.remove_limit": "unchanged",
+            "screen_time.check_usage": "unchanged",
+            "screen_time.shorten": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11965,
+          "outputTokens": 1566,
+          "parseRetried": false
+        }
+      ]
+    },
+    "CASE-02": {
+      "seed": "LOC_HIDE_DECLINE",
+      "decision": "precise_location",
+      "isControl": false,
+      "expected": [
+        {
+          "intent": "precise_location.withhold",
+          "metric": "action_cost"
+        }
+      ],
+      "excludedErrorTraces": [],
+      "comparator": {
+        "hits": [
+          "precise_location.withhold"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1
+      },
+      "reviewer": {
+        "hits": [
+          "precise_location.withhold"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1,
+        "majority": {
+          "precise_location.withhold": "harder",
+          "precise_location.share": "unchanged",
+          "precise_location.revoke": "unchanged"
+        }
+      },
+      "reviewerRepeats": [
+        {
+          "verdicts": {
+            "precise_location.share": "unchanged",
+            "precise_location.withhold": "harder",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7245,
+          "outputTokens": 2134,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "precise_location.share": "unchanged",
+            "precise_location.withhold": "harder",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7245,
+          "outputTokens": 1614,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "precise_location.share": "unchanged",
+            "precise_location.withhold": "harder",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7245,
+          "outputTokens": 1665,
+          "parseRetried": false
+        }
+      ]
+    },
+    "CASE-03": {
+      "seed": "DM_HIDE_BLOCK",
+      "decision": "teen_dm",
+      "isControl": false,
+      "expected": [
+        {
+          "intent": "teen_dm.block_unknown",
+          "metric": "action_cost"
+        }
+      ],
+      "excludedErrorTraces": [],
+      "comparator": {
+        "hits": [
+          "teen_dm.block_unknown"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1
+      },
+      "reviewer": {
+        "hits": [
+          "teen_dm.block_unknown"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1,
+        "majority": {
+          "teen_dm.block_unknown": "harder",
+          "teen_dm.allow_all": "unchanged",
+          "teen_dm.friends_only": "unchanged",
+          "teen_dm.inspect": "unchanged",
+          "teen_dm.relax": "unchanged"
+        }
+      },
+      "reviewerRepeats": [
+        {
+          "verdicts": {
+            "teen_dm.allow_all": "unchanged",
+            "teen_dm.friends_only": "unchanged",
+            "teen_dm.block_unknown": "harder",
+            "teen_dm.inspect": "unchanged",
+            "teen_dm.relax": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11897,
+          "outputTokens": 1608,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "teen_dm.allow_all": "unchanged",
+            "teen_dm.friends_only": "unchanged",
+            "teen_dm.block_unknown": "harder",
+            "teen_dm.inspect": "unchanged",
+            "teen_dm.relax": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11897,
+          "outputTokens": 1391,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "teen_dm.allow_all": "unchanged",
+            "teen_dm.friends_only": "unchanged",
+            "teen_dm.block_unknown": "harder",
+            "teen_dm.inspect": "unchanged",
+            "teen_dm.relax": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11897,
+          "outputTokens": 1863,
+          "parseRetried": false
+        }
+      ]
+    },
+    "CASE-04": {
+      "seed": "SUB_BURY_CANCEL",
+      "decision": "subscription",
+      "isControl": false,
+      "expected": [
+        {
+          "intent": "subscription.cancel",
+          "metric": "navigation_depth"
+        }
+      ],
+      "excludedErrorTraces": [],
+      "comparator": {
+        "hits": [
+          "subscription.cancel"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1
+      },
+      "reviewer": {
+        "hits": [
+          "subscription.cancel"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1,
+        "majority": {
+          "subscription.cancel": "harder",
+          "subscription.subscribe": "unchanged",
+          "subscription.decline": "unchanged",
+          "subscription.terms": "unchanged",
+          "subscription.resume": "unchanged"
+        }
+      },
+      "reviewerRepeats": [
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "harder",
+            "subscription.terms": "unchanged",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11781,
+          "outputTokens": 1446,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "harder",
+            "subscription.terms": "unchanged",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11781,
+          "outputTokens": 1919,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "harder",
+            "subscription.terms": "unchanged",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11781,
+          "outputTokens": 1577,
+          "parseRetried": false
+        }
+      ]
+    },
+    "CASE-05": {
+      "seed": "SUB_TERMS_AFTER_CHECKOUT",
+      "decision": "subscription",
+      "isControl": false,
+      "expected": [
+        {
+          "intent": "subscription.terms",
+          "metric": "success"
+        }
+      ],
+      "excludedErrorTraces": [],
+      "comparator": {
+        "hits": [
+          "subscription.terms"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1
+      },
+      "reviewer": {
+        "hits": [
+          "subscription.terms"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1,
+        "majority": {
+          "subscription.terms": "harder",
+          "subscription.subscribe": "unchanged",
+          "subscription.decline": "unchanged",
+          "subscription.cancel": "unchanged",
+          "subscription.resume": "unchanged"
+        }
+      },
+      "reviewerRepeats": [
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "unchanged",
+            "subscription.terms": "harder",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11779,
+          "outputTokens": 1937,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "unchanged",
+            "subscription.terms": "harder",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11779,
+          "outputTokens": 2057,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "unchanged",
+            "subscription.terms": "harder",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11779,
+          "outputTokens": 2127,
+          "parseRetried": false
+        }
+      ]
+    },
+    "CASE-06": {
+      "seed": "UI_COPY_TWEAK",
+      "decision": "subscription",
+      "isControl": true,
+      "expected": [],
+      "excludedErrorTraces": [],
+      "comparator": {
+        "hits": [],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": null,
+        "precision": null
+      },
+      "reviewer": {
+        "hits": [],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": null,
+        "precision": null,
+        "majority": {
+          "subscription.subscribe": "unchanged",
+          "subscription.decline": "unchanged",
+          "subscription.cancel": "unchanged",
+          "subscription.terms": "unchanged",
+          "subscription.resume": "unchanged"
+        }
+      },
+      "reviewerRepeats": [
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "unchanged",
+            "subscription.terms": "unchanged",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11777,
+          "outputTokens": 1238,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "unchanged",
+            "subscription.terms": "unchanged",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11777,
+          "outputTokens": 1251,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "subscription.subscribe": "unchanged",
+            "subscription.decline": "unchanged",
+            "subscription.cancel": "unchanged",
+            "subscription.terms": "unchanged",
+            "subscription.resume": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 11777,
+          "outputTokens": 1335,
+          "parseRetried": false
+        }
+      ]
+    },
+    "CASE-07": {
+      "seed": "UI_ACCENT",
+      "decision": "precise_location",
+      "isControl": true,
+      "expected": [],
+      "excludedErrorTraces": [],
+      "comparator": {
+        "hits": [],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": null,
+        "precision": null
+      },
+      "reviewer": {
+        "hits": [],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": null,
+        "precision": null,
+        "majority": {
+          "precise_location.share": "unchanged",
+          "precise_location.withhold": "unchanged",
+          "precise_location.revoke": "unchanged"
+        }
+      },
+      "reviewerRepeats": [
+        {
+          "verdicts": {
+            "precise_location.share": "unchanged",
+            "precise_location.withhold": "unchanged",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7232,
+          "outputTokens": 1019,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "precise_location.share": "unchanged",
+            "precise_location.withhold": "unchanged",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7232,
+          "outputTokens": 1319,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "precise_location.share": "unchanged",
+            "precise_location.withhold": "unchanged",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7232,
+          "outputTokens": 1319,
+          "parseRetried": false
+        }
+      ]
+    },
+    "CASE-08": {
+      "seed": "LOC_DEFAULT_ON",
+      "decision": "precise_location",
+      "isControl": false,
+      "expected": [
+        {
+          "intent": "precise_location.withhold",
+          "metric": "default"
+        }
+      ],
+      "excludedErrorTraces": [],
+      "comparator": {
+        "hits": [
+          "precise_location.withhold"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1
+      },
+      "reviewer": {
+        "hits": [
+          "precise_location.withhold"
+        ],
+        "misses": [],
+        "uncertain": [],
+        "falseFlags": [],
+        "recall": 1,
+        "precision": 1,
+        "majority": {
+          "precise_location.withhold": "harder",
+          "precise_location.share": "easier",
+          "precise_location.revoke": "unchanged"
+        }
+      },
+      "reviewerRepeats": [
+        {
+          "verdicts": {
+            "precise_location.share": "easier",
+            "precise_location.withhold": "harder",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7234,
+          "outputTokens": 1682,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "precise_location.share": "easier",
+            "precise_location.withhold": "harder",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7234,
+          "outputTokens": 2407,
+          "parseRetried": false
+        },
+        {
+          "verdicts": {
+            "precise_location.share": "easier",
+            "precise_location.withhold": "harder",
+            "precise_location.revoke": "unchanged"
+          },
+          "uncertain": [],
+          "inputTokens": 7234,
+          "outputTokens": 1742,
+          "parseRetried": false
+        }
+      ]
+    }
+  }
+}

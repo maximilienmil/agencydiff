@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "teen_dm.allow_all": "unchanged",
+    "teen_dm.friends_only": "unchanged",
+    "teen_dm.block_unknown": "harder",
+    "teen_dm.inspect": "unchanged",
+    "teen_dm.relax": "unchanged"
+  },
+  "citations": {
+    "teen_dm.allow_all": "screens: baseline shows Block unknown people row, candidate shows More options row, Everyone row still present and selected; actions: same 4 taps nav.settings>privacy.messages>dm.allow_all script_done; oracle: both PASS final dm.policy everyone from start friends",
+    "teen_dm.friends_only": "screens: baseline shows Block unknown people row, candidate shows More options row, Friends only row still present and selected; actions: same 4 taps script_done; oracle: both PASS final dm.policy friends from start friends",
+    "teen_dm.block_unknown": "screens: Block unknown people option removed from Messages screen to behind More options; actions: baseline 4 taps script_done vs candidate 3 taps error reference tag not found dm.block_unknown; oracle: baseline PASS dm.policy blocked vs candidate FAIL dm.policy friends",
+    "teen_dm.inspect": "screens: baseline shows 3 options, candidate hides third behind More options but current Friends only selection still visible; actions: same 3 taps script_done; oracle: both PASS dm.inspected true dm.policy friends",
+    "teen_dm.relax": "screens: baseline shows Block unknown row, candidate shows More options row, Everyone row still present and selected; actions: same 4 taps script_done from start blocked; oracle: both PASS final dm.policy everyone"
+  },
+  "notes": "Block unknown moved behind More options, breaking direct block while other options stay top-level.",
+  "raw": "{\"verdicts\": {\"teen_dm.allow_all\": \"unchanged\", \"teen_dm.friends_only\": \"unchanged\", \"teen_dm.block_unknown\": \"harder\", \"teen_dm.inspect\": \"unchanged\", \"teen_dm.relax\": \"unchanged\"}, \"citations\": {\"teen_dm.allow_all\": \"screens: baseline shows Block unknown people row, candidate shows More options row, Everyone row still present and selected; actions: same 4 taps nav.settings>privacy.messages>dm.allow_all script_done; oracle: both PASS final dm.policy everyone from start friends\", \"teen_dm.friends_only\": \"screens: baseline shows Block unknown people row, candidate shows More options row, Friends only row still present and selected; actions: same 4 taps script_done; oracle: both PASS final dm.policy friends from start friends\", \"teen_dm.block_unknown\": \"screens: Block unknown people option removed from Messages screen to behind More options; actions: baseline 4 taps script_done vs candidate 3 taps error reference tag not found dm.block_unknown; oracle: baseline PASS dm.policy blocked vs candidate FAIL dm.policy friends\", \"teen_dm.inspect\": \"screens: baseline shows 3 options, candidate hides third behind More options but current Friends only selection still visible; actions: same 3 taps script_done; oracle: both PASS dm.inspected true dm.policy friends\", \"teen_dm.relax\": \"screens: baseline shows Block unknown row, candidate shows More options row, Everyone row still present and selected; actions: same 4 taps script_done from start blocked; oracle: both PASS final dm.policy everyone\"}, \"notes\": \"Block unknown moved behind More options, breaking direct block while other options stay top-level.\"}",
+  "inputTokens": 11897,
+  "outputTokens": 1391,
+  "calls": 1,
+  "costUsd": 0.0014679,
+  "parseRetried": false
+}

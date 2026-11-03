@@ -1,0 +1,23 @@
+{
+  "traces/precise_location.revoke.baseline.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+  "traces/precise_location.revoke.baseline.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+  "traces/precise_location.revoke.baseline.0/002.png": "caae230a175d1dfe36ac6b9ce99eb3a51cc27da391c17ef7c3d26dfddeabbd1b",
+  "traces/precise_location.revoke.baseline.0/003.png": "437f9b41269bfd4d3b286640c2b18934fbaeacfd127512feb69c611354b8e156",
+  "traces/precise_location.revoke.baseline.0/trace.json": "c22c6e7e6b5e29a2faab70660f003f62864f9c0ef9ad6a8ed86ac49a873ec383",
+  "traces/precise_location.revoke.candidate.0/000.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+  "traces/precise_location.revoke.candidate.0/001.png": "242f158c3ef6998a999fc755dac0c13f4a79f6995945e9d6ebb18aa8bcf52fa4",
+  "traces/precise_location.revoke.candidate.0/002.png": "caae230a175d1dfe36ac6b9ce99eb3a51cc27da391c17ef7c3d26dfddeabbd1b",
+  "traces/precise_location.revoke.candidate.0/003.png": "437f9b41269bfd4d3b286640c2b18934fbaeacfd127512feb69c611354b8e156",
+  "traces/precise_location.revoke.candidate.0/trace.json": "14c11b772c5730ebb9b5f1bae7cf3ea286a2454ca4ba061e395920f00bc8e2aa",
+  "traces/precise_location.share.baseline.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+  "traces/precise_location.share.baseline.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+  "traces/precise_location.share.baseline.0/trace.json": "da03667e565afb85d8c1f4678928d988c568e477379345199c7be21c66e55a8f",
+  "traces/precise_location.share.candidate.0/000.png": "79f05177fb69023ea5c82b6910da264f563170af078b65aa3c642ecc9a8fbbb2",
+  "traces/precise_location.share.candidate.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+  "traces/precise_location.share.candidate.0/trace.json": "efd604dfc6b0d0b9d273851052c00744c95405c45a83a348d7296e5edc9d58df",
+  "traces/precise_location.withhold.baseline.0/000.png": "d6afb9fcba5b429d1eb3c9539b3474c3b9f785d264010bbd36558ebd8c777ab4",
+  "traces/precise_location.withhold.baseline.0/001.png": "a83dfcde1de5c36dea0e843dec6c335b8b5545c1f66bbea8540725959fe9bf94",
+  "traces/precise_location.withhold.baseline.0/trace.json": "aebf8deffa516670a51a885b6d304f2ea4aabe68c5c468ff46ccacf29782a002",
+  "traces/precise_location.withhold.candidate.0/000.png": "79f05177fb69023ea5c82b6910da264f563170af078b65aa3c642ecc9a8fbbb2",
+  "traces/precise_location.withhold.candidate.0/trace.json": "c9f7c2241212f25bba5758cacf12baf925316b074283fcce50c6af855c923d94"
+}

@@ -1,0 +1,24 @@
+{
+  "identical": true,
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "goal_unreachable",
+      "intentId": "block_unknown",
+      "title": "\"I do not want strangers messaging me. Block messages from people I don't know.\" succeeds less often",
+      "baseline": 1,
+      "candidate": 0,
+      "evidence": [
+        {
+          "traceId": "teen_dm.block_unknown.baseline.0"
+        },
+        {
+          "traceId": "teen_dm.block_unknown.candidate.0"
+        }
+      ],
+      "id": "teen_dm/goal_unreachable/block_unknown",
+      "decision": "teen_dm"
+    }
+  ],
+  "hash": "fbcdd47272a39e1de568e833319d18a20929fff8b97a6d68bb3d479b09069b4f"
+}

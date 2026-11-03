@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "unchanged",
+    "subscription.terms": "unchanged",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: same plus screen, only subtitle copy differs; actions: same 3-tap path; oracle: both PASS with sub.active true, sub.plan monthly",
+    "subscription.decline": "screens: same offer screen, only button/link copy Subscribe/Not now vs Get Circle+/Maybe later; actions: same 3-tap path; oracle: both PASS with sub.active false, offer answered",
+    "subscription.cancel": "screens: identical billing screen; actions: same 4-tap path via billing; oracle: both PASS with sub.active false",
+    "subscription.terms": "screens: identical renewal terms text; actions: same 3-tap path to terms; oracle: both PASS with terms_viewed true",
+    "subscription.resume": "screens: same plus active screen, only subtitle copy differs; actions: same 3-tap path; oracle: both PASS with sub.active true, sub.plan monthly"
+  },
+  "notes": "Only marketing copy changed; taps, navigation, defaults and oracles identical.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"unchanged\", \"subscription.terms\": \"unchanged\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: same plus screen, only subtitle copy differs; actions: same 3-tap path; oracle: both PASS with sub.active true, sub.plan monthly\", \"subscription.decline\": \"screens: same offer screen, only button/link copy Subscribe/Not now vs Get Circle+/Maybe later; actions: same 3-tap path; oracle: both PASS with sub.active false, offer answered\", \"subscription.cancel\": \"screens: identical billing screen; actions: same 4-tap path via billing; oracle: both PASS with sub.active false\", \"subscription.terms\": \"screens: identical renewal terms text; actions: same 3-tap path to terms; oracle: both PASS with terms_viewed true\", \"subscription.resume\": \"screens: same plus active screen, only subtitle copy differs; actions: same 3-tap path; oracle: both PASS with sub.active true, sub.plan monthly\"}, \"notes\": \"Only marketing copy changed; taps, navigation, defaults and oracles identical.\"}",
+  "inputTokens": 11777,
+  "outputTokens": 1251,
+  "calls": 1,
+  "costUsd": 0.0014279000000000002,
+  "parseRetried": false
+}

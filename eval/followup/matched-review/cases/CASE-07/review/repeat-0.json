@@ -1,0 +1,19 @@
+{
+  "verdicts": {
+    "precise_location.share": "unchanged",
+    "precise_location.withhold": "unchanged",
+    "precise_location.revoke": "unchanged"
+  },
+  "citations": {
+    "precise_location.share": "screens: identical home+location_prompt > home, only logo/icon tint differs; actions: same 1-tap location.allow; oracle: both PASS with location.precise=true/mode precise, default location.precise=false in both",
+    "precise_location.withhold": "screens: identical home+location_prompt > home, only logo/icon tint differs; actions: same 1-tap location.decline; oracle: both PASS with location.precise=false/mode off, default location.precise=false in both",
+    "precise_location.revoke": "screens: identical home > settings > location toggle off shown; actions: same 3-tap nav.settings->settings.location->location.toggle; oracle: both PASS with location.precise=false/mode off"
+  },
+  "notes": "No navigation, tap-count, default, or oracle change; only cosmetic tint differs.",
+  "raw": "{\"verdicts\": {\"precise_location.share\": \"unchanged\", \"precise_location.withhold\": \"unchanged\", \"precise_location.revoke\": \"unchanged\"}, \"citations\": {\"precise_location.share\": \"screens: identical home+location_prompt > home, only logo/icon tint differs; actions: same 1-tap location.allow; oracle: both PASS with location.precise=true/mode precise, default location.precise=false in both\", \"precise_location.withhold\": \"screens: identical home+location_prompt > home, only logo/icon tint differs; actions: same 1-tap location.decline; oracle: both PASS with location.precise=false/mode off, default location.precise=false in both\", \"precise_location.revoke\": \"screens: identical home > settings > location toggle off shown; actions: same 3-tap nav.settings->settings.location->location.toggle; oracle: both PASS with location.precise=false/mode off\"}, \"notes\": \"No navigation, tap-count, default, or oracle change; only cosmetic tint differs.\"}",
+  "inputTokens": 7232,
+  "outputTokens": 1019,
+  "calls": 1,
+  "costUsd": 0.000927,
+  "parseRetried": false
+}

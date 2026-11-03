@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "unchanged",
+    "subscription.terms": "harder",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: both home>settings>plus final plus identical with Manage subscription + Renewal terms; actions: both 3 taps nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS with sub.active true",
+    "subscription.decline": "screens: same path home>settings>plus final plus but content differs - BASELINE shows Renewal terms row, CANDIDATE replaces it with 'Full terms are shown after checkout.'; actions: both 3 taps nav.settings->settings.subscription->sub.decline script_done; oracle: both PASS with sub.offer answered, sub.active false",
+    "subscription.cancel": "screens: both home>settings>plus>billing final billing identical Cancel subscription; actions: both 4 taps nav.settings->settings.subscription->sub.manage->sub.cancel script_done; oracle: both PASS with sub.active false",
+    "subscription.terms": "screens: BASELINE reaches terms screen with full renewal text vs CANDIDATE stuck at plus with no Renewal terms row, shows 'Full terms are shown after checkout.'; actions: BASELINE 3 taps via sub.terms script_done vs CANDIDATE 2 taps error (reference tag not found: sub.terms); oracle: BASELINE PASS with sub.terms_viewed true vs CANDIDATE FAIL with false",
+    "subscription.resume": "screens: both home>settings>plus final plus identical; actions: both 3 taps nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS with sub.active true"
+  },
+  "notes": "Only pre-purchase renewal-terms access regressed; subscribe/decline/cancel/resume flows identical.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"unchanged\", \"subscription.terms\": \"harder\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: both home>settings>plus final plus identical with Manage subscription + Renewal terms; actions: both 3 taps nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS with sub.active true\", \"subscription.decline\": \"screens: same path home>settings>plus final plus but content differs - BASELINE shows Renewal terms row, CANDIDATE replaces it with 'Full terms are shown after checkout.'; actions: both 3 taps nav.settings->settings.subscription->sub.decline script_done; oracle: both PASS with sub.offer answered, sub.active false\", \"subscription.cancel\": \"screens: both home>settings>plus>billing final billing identical Cancel subscription; actions: both 4 taps nav.settings->settings.subscription->sub.manage->sub.cancel script_done; oracle: both PASS with sub.active false\", \"subscription.terms\": \"screens: BASELINE reaches terms screen with full renewal text vs CANDIDATE stuck at plus with no Renewal terms row, shows 'Full terms are shown after checkout.'; actions: BASELINE 3 taps via sub.terms script_done vs CANDIDATE 2 taps error (reference tag not found: sub.terms); oracle: BASELINE PASS with sub.terms_viewed true vs CANDIDATE FAIL with false\", \"subscription.resume\": \"screens: both home>settings>plus final plus identical; actions: both 3 taps nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS with sub.active true\"}, \"notes\": \"Only pre-purchase renewal-terms access regressed; subscribe/decline/cancel/resume flows identical.\"}",
+  "inputTokens": 11779,
+  "outputTokens": 2127,
+  "calls": 1,
+  "costUsd": 0.0016033000000000002,
+  "parseRetried": false
+}

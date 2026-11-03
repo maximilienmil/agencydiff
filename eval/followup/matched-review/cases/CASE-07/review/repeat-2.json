@@ -1,0 +1,19 @@
+{
+  "verdicts": {
+    "precise_location.share": "unchanged",
+    "precise_location.withhold": "unchanged",
+    "precise_location.revoke": "unchanged"
+  },
+  "citations": {
+    "precise_location.share": "screens: same precise-location prompt and same home final, only logo/pin tint differs; actions: same 1 tap via location.allow, same navigation; oracle: PASS both with identical final location.precise=true and same starting default false",
+    "precise_location.withhold": "screens: same precise-location prompt and same home final, only logo/pin tint differs; actions: same 1 tap via location.decline, same navigation; oracle: PASS both with identical final location.precise=false and same starting default false",
+    "precise_location.revoke": "screens: same home start and same Location toggle-off final; actions: same 3 taps via nav.settings->settings.location->location.toggle; oracle: PASS both with identical final location.precise=false and same starting precise=true"
+  },
+  "notes": "No functional change; taps, screens, oracles and location.precise default identical.",
+  "raw": "{\"verdicts\": {\"precise_location.share\": \"unchanged\", \"precise_location.withhold\": \"unchanged\", \"precise_location.revoke\": \"unchanged\"}, \"citations\": {\"precise_location.share\": \"screens: same precise-location prompt and same home final, only logo/pin tint differs; actions: same 1 tap via location.allow, same navigation; oracle: PASS both with identical final location.precise=true and same starting default false\", \"precise_location.withhold\": \"screens: same precise-location prompt and same home final, only logo/pin tint differs; actions: same 1 tap via location.decline, same navigation; oracle: PASS both with identical final location.precise=false and same starting default false\", \"precise_location.revoke\": \"screens: same home start and same Location toggle-off final; actions: same 3 taps via nav.settings->settings.location->location.toggle; oracle: PASS both with identical final location.precise=false and same starting precise=true\"}, \"notes\": \"No functional change; taps, screens, oracles and location.precise default identical.\"}",
+  "inputTokens": 7232,
+  "outputTokens": 1319,
+  "calls": 1,
+  "costUsd": 0.000987,
+  "parseRetried": false
+}

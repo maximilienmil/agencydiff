@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "unchanged",
+    "subscription.terms": "unchanged",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: same navigation home>settings>plus, only subtitle copy Ad-free with early access vs More of Circle fewer interruptions; actions: identical path 3 taps; oracle: both PASS with sub.active true plan monthly, starting sub.plan monthly both",
+    "subscription.decline": "screens: same plus offer screen, only copy Subscribe->Get Circle+ and Not now->Maybe later plus subtitle change; actions: identical path 3 taps; oracle: both PASS with sub.active false offer answered, starting sub.plan monthly both",
+    "subscription.cancel": "screens: identical Billing with Cancel subscription; actions: identical path 4 taps home>settings>plus>billing; oracle: both PASS with sub.active false, starting sub.plan monthly both",
+    "subscription.terms": "screens: identical Renewal terms text; actions: identical path 3 taps to terms; oracle: both PASS with terms_viewed true, starting sub.plan monthly both",
+    "subscription.resume": "screens: same navigation, only subtitle copy Ad-free vs More of Circle; actions: identical path 3 taps; oracle: both PASS with sub.active true, starting sub.plan monthly both"
+  },
+  "notes": "Only marketing copy changed; taps, navigation, defaults and oracles identical.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"unchanged\", \"subscription.terms\": \"unchanged\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: same navigation home>settings>plus, only subtitle copy Ad-free with early access vs More of Circle fewer interruptions; actions: identical path 3 taps; oracle: both PASS with sub.active true plan monthly, starting sub.plan monthly both\", \"subscription.decline\": \"screens: same plus offer screen, only copy Subscribe->Get Circle+ and Not now->Maybe later plus subtitle change; actions: identical path 3 taps; oracle: both PASS with sub.active false offer answered, starting sub.plan monthly both\", \"subscription.cancel\": \"screens: identical Billing with Cancel subscription; actions: identical path 4 taps home>settings>plus>billing; oracle: both PASS with sub.active false, starting sub.plan monthly both\", \"subscription.terms\": \"screens: identical Renewal terms text; actions: identical path 3 taps to terms; oracle: both PASS with terms_viewed true, starting sub.plan monthly both\", \"subscription.resume\": \"screens: same navigation, only subtitle copy Ad-free vs More of Circle; actions: identical path 3 taps; oracle: both PASS with sub.active true, starting sub.plan monthly both\"}, \"notes\": \"Only marketing copy changed; taps, navigation, defaults and oracles identical.\"}",
+  "inputTokens": 11777,
+  "outputTokens": 1238,
+  "calls": 1,
+  "costUsd": 0.0014253000000000002,
+  "parseRetried": false
+}

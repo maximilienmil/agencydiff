@@ -1,0 +1,36 @@
+{
+  "cases": [
+    "CASE-01",
+    "CASE-02",
+    "CASE-03",
+    "CASE-04",
+    "CASE-05",
+    "CASE-06",
+    "CASE-07",
+    "CASE-08"
+  ],
+  "denominators": {
+    "expectedIntents": 6,
+    "cases": 8,
+    "controls": 2
+  },
+  "totals": {
+    "comparator": {
+      "hits": 6,
+      "recall": 1,
+      "falseFlags": 0
+    },
+    "reviewer": {
+      "hits": 6,
+      "recall": 1,
+      "falseFlags": 0
+    }
+  },
+  "reviewCostUsd": 0.032269599999999996,
+  "reviewTokens": {
+    "input": 242730,
+    "output": 39983,
+    "calls": 24
+  },
+  "disagreements": []
+}

@@ -1,0 +1,6 @@
+# Regenerable matched-review inputs: traces PNGs and the discarded smoke
+# scratch dir stay out of git. trace.json files, manifests, bundles outputs,
+# raw.json, summary.json and RESULTS.md are committed. Regenerate PNGs with:
+# pnpm --filter @agencydiff/runner exec tsx src/matchedReview/run.ts --phase evidence --port 5321
+cases/**/*.png
+smoke/

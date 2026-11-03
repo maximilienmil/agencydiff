@@ -1,0 +1,335 @@
+{
+  "id": "screen_time.remove_limit.baseline.0",
+  "decision": "screen_time",
+  "intentId": "remove_limit",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T02:51:29.601Z",
+  "initial": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": 480,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5321/?variant=baseline&fixture=limit-set",
+      "screen": "home",
+      "tags": [
+        {
+          "tag": "nav.settings",
+          "box": [
+            378,
+            5.5,
+            44,
+            44
+          ],
+          "inViewport": true
+        }
+      ],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 314,
+      "actions": [
+        {
+          "type": "click",
+          "x": 400,
+          "y": 28
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5321/?variant=baseline&fixture=limit-set",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              168,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              224,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              280,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              336,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "001.png"
+      },
+      "note": "nav.settings"
+    },
+    {
+      "index": 1,
+      "tMs": 612,
+      "actions": [
+        {
+          "type": "click",
+          "x": 215,
+          "y": 308
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5321/?variant=baseline&fixture=limit-set",
+        "screen": "screentime",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.reminders",
+            "box": [
+              368,
+              161.765625,
+              44,
+              26
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "screentime.limit",
+            "box": [
+              0,
+              205.546875,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "screentime.usage",
+            "box": [
+              0,
+              261.546875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "002.png"
+      },
+      "note": "settings.screentime"
+    },
+    {
+      "index": 2,
+      "tMs": 886,
+      "actions": [
+        {
+          "type": "click",
+          "x": 215,
+          "y": 234
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5321/?variant=baseline&fixture=limit-set",
+        "screen": "st_limit",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.limit_off",
+            "box": [
+              0,
+              56,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.limit_1h",
+            "box": [
+              0,
+              116.546875,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.limit_2h",
+            "box": [
+              0,
+              177.09375,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.limit_4h",
+            "box": [
+              0,
+              237.640625,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "003.png"
+      },
+      "note": "screentime.limit"
+    },
+    {
+      "index": 3,
+      "tMs": 1162,
+      "actions": [
+        {
+          "type": "click",
+          "x": 215,
+          "y": 86
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5321/?variant=baseline&fixture=limit-set",
+        "screen": "st_limit",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.limit_off",
+            "box": [
+              0,
+              56,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.limit_1h",
+            "box": [
+              0,
+              116.546875,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.limit_2h",
+            "box": [
+              0,
+              177.09375,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "st.limit_4h",
+            "box": [
+              0,
+              237.640625,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "004.png"
+      },
+      "note": "st.limit_off"
+    }
+  ],
+  "final": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done"
+}

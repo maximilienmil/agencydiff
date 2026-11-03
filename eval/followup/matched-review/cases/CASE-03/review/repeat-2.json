@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "teen_dm.allow_all": "unchanged",
+    "teen_dm.friends_only": "unchanged",
+    "teen_dm.block_unknown": "harder",
+    "teen_dm.inspect": "unchanged",
+    "teen_dm.relax": "unchanged"
+  },
+  "citations": {
+    "teen_dm.allow_all": "screens: first identical; final both show Everyone selected, BASELINE lists Block unknown people, CANDIDATE replaces it with More options row; actions: identical 4-tap nav.settings->settings.privacy->privacy.messages->dm.allow_all, script_done both; oracle: PASS both, final dm.policy everyone both, starting default friends both",
+    "teen_dm.friends_only": "screens: first identical; final both show Friends only selected, BASELINE lists Block unknown people, CANDIDATE replaces it with More options row; actions: identical 4-tap path to dm.friends_only, script_done both; oracle: PASS both, final dm.policy friends both",
+    "teen_dm.block_unknown": "screens: BASELINE final shows Block unknown people selected, CANDIDATE final shows only Everyone/Friends only + More options with no Block row; actions: BASELINE 4 taps to dm.block_unknown script_done vs CANDIDATE 3 taps to privacy.messages stopped error reference tag not found dm.block_unknown; oracle: BASELINE PASS final dm.policy blocked vs CANDIDATE FAIL final dm.policy friends unchanged",
+    "teen_dm.inspect": "screens: first identical; final BASELINE lists all 3 policies, CANDIDATE lists Everyone/Friends only + More options, current Friends only visible in both; actions: identical 3-tap nav.settings->settings.privacy->privacy.messages, script_done both; oracle: PASS both, dm.inspected true both",
+    "teen_dm.relax": "screens: first identical; final BASELINE lists all 3 with Everyone selected, CANDIDATE shows Everyone selected + More options instead of Block row; actions: identical 4-tap path from blocked start to dm.allow_all, script_done both; oracle: PASS both, blocked->everyone transition succeeds both"
+  },
+  "notes": "Block-unknown moved behind More options breaking its direct path; allow, friends-only, inspect and relax paths still succeed unchanged.",
+  "raw": "{\"verdicts\": {\"teen_dm.allow_all\": \"unchanged\", \"teen_dm.friends_only\": \"unchanged\", \"teen_dm.block_unknown\": \"harder\", \"teen_dm.inspect\": \"unchanged\", \"teen_dm.relax\": \"unchanged\"}, \"citations\": {\"teen_dm.allow_all\": \"screens: first identical; final both show Everyone selected, BASELINE lists Block unknown people, CANDIDATE replaces it with More options row; actions: identical 4-tap nav.settings->settings.privacy->privacy.messages->dm.allow_all, script_done both; oracle: PASS both, final dm.policy everyone both, starting default friends both\", \"teen_dm.friends_only\": \"screens: first identical; final both show Friends only selected, BASELINE lists Block unknown people, CANDIDATE replaces it with More options row; actions: identical 4-tap path to dm.friends_only, script_done both; oracle: PASS both, final dm.policy friends both\", \"teen_dm.block_unknown\": \"screens: BASELINE final shows Block unknown people selected, CANDIDATE final shows only Everyone/Friends only + More options with no Block row; actions: BASELINE 4 taps to dm.block_unknown script_done vs CANDIDATE 3 taps to privacy.messages stopped error reference tag not found dm.block_unknown; oracle: BASELINE PASS final dm.policy blocked vs CANDIDATE FAIL final dm.policy friends unchanged\", \"teen_dm.inspect\": \"screens: first identical; final BASELINE lists all 3 policies, CANDIDATE lists Everyone/Friends only + More options, current Friends only visible in both; actions: identical 3-tap nav.settings->settings.privacy->privacy.messages, script_done both; oracle: PASS both, dm.inspected true both\", \"teen_dm.relax\": \"screens: first identical; final BASELINE lists all 3 with Everyone selected, CANDIDATE shows Everyone selected + More options instead of Block row; actions: identical 4-tap path from blocked start to dm.allow_all, script_done both; oracle: PASS both, blocked->everyone transition succeeds both\"}, \"notes\": \"Block-unknown moved behind More options breaking its direct path; allow, friends-only, inspect and relax paths still succeed unchanged.\"}",
+  "inputTokens": 11897,
+  "outputTokens": 1863,
+  "calls": 1,
+  "costUsd": 0.0015623000000000002,
+  "parseRetried": false
+}

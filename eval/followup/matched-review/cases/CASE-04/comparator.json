@@ -1,0 +1,24 @@
+{
+  "identical": true,
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "goal_unreachable",
+      "intentId": "cancel",
+      "title": "\"I subscribed to Circle+ and changed my mind. Cancel it.\" succeeds less often",
+      "baseline": 1,
+      "candidate": 0,
+      "evidence": [
+        {
+          "traceId": "subscription.cancel.baseline.0"
+        },
+        {
+          "traceId": "subscription.cancel.candidate.0"
+        }
+      ],
+      "id": "subscription/goal_unreachable/cancel",
+      "decision": "subscription"
+    }
+  ],
+  "hash": "3255836e5f653f986fb79c62f18ab79cab0a456b17e8632cc13e5f0a8d5faa79"
+}

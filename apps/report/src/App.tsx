@@ -155,7 +155,7 @@ export function App() {
           }
           endContent={
             <div className="nav-end">
-              <SegmentedControl label="Colour theme" size="sm" value={resolved(mode)} onChange={(v) => setMode(v as Mode)}>
+              <SegmentedControl label="Colour theme" size="md" value={resolved(mode)} onChange={(v) => setMode(v as Mode)}>
                 <SegmentedControlItem value="light" label="Light" />
                 <SegmentedControlItem value="dark" label="Dark" />
               </SegmentedControl>

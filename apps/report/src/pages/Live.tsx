@@ -147,22 +147,22 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
       </div>
       {!isLive && (
         <div className="picker">
-          <Selector label="Intent" isLabelHidden value={activeIntent ?? ""} options={intents.map((i) => ({ value: i.id, label: i.goal }))} onChange={(value) => { window.location.hash = `#/live?run=${runId}&intent=${value}`; setStep(0); }} />
+          <Selector size="lg" label="Intent" isLabelHidden value={activeIntent ?? ""} options={intents.map((i) => ({ value: i.id, label: i.goal }))} onChange={(value) => { window.location.hash = `#/live?run=${runId}&intent=${value}`; setStep(0); }} />
         </div>
       )}
       <div className="controls" role="group" aria-label="Playback">
         {!isLive && <>
           <span className="step-note">Step {step} of {maxStep}</span>
-          <Button label="Start" variant="ghost" icon={<SkipBack size={16} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep(0); }} />
-          <Button label="Back" icon={<ChevronLeft size={16} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} />
-          <Button label={playing ? "Pause" : step >= maxStep ? "Replay" : "Play"} variant="primary" icon={playing ? <Pause size={16} /> : <Play size={16} />} onClick={() => { if (step >= maxStep) setStep(0); setPlaying((p) => !p); }} />
-          <Button label="Next" icon={<ChevronRight size={16} />} isDisabled={step >= maxStep} onClick={() => { setPlaying(false); setStep((s) => Math.min(s + 1, maxStep)); }} />
+          <Button size="lg" label="Start" variant="ghost" icon={<SkipBack size={20} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep(0); }} />
+          <Button size="lg" label="Back" icon={<ChevronLeft size={20} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} />
+          <Button size="lg" label={playing ? "Pause" : step >= maxStep ? "Replay" : "Play"} variant="primary" icon={playing ? <Pause size={16} /> : <Play size={16} />} onClick={() => { if (step >= maxStep) setStep(0); setPlaying((p) => !p); }} />
+          <Button size="lg" label="Next" icon={<ChevronRight size={20} />} isDisabled={step >= maxStep} onClick={() => { setPlaying(false); setStep((s) => Math.min(s + 1, maxStep)); }} />
           <div className="grow"><Slider label="Playback step" isLabelHidden min={0} max={Math.max(maxStep, 1)} value={step} valueDisplay="none" onChange={(v: number) => { setPlaying(false); setStep(Number(v)); }} /></div>
         </>}
-        <SegmentedControl label="Playback speed" size="sm" value={String(speed)} onChange={(v) => setSpeed(Number(v))}>
+        <SegmentedControl label="Playback speed" size="lg" value={String(speed)} onChange={(v) => setSpeed(Number(v))}>
           {SPEEDS.map((x) => <SegmentedControlItem key={x} value={String(x)} label={`${x}×`} />)}
         </SegmentedControl>
-        <Switch label="SAM overlay" size="sm" value={showOverlay} onChange={(on) => setShowOverlay(on)} />
+        <Switch label="SAM overlay" value={showOverlay} onChange={(on) => setShowOverlay(on)} />
         <a className="text-link" href={isLive ? `#/live?run=${runId}&intent=${activeIntent ?? ""}` : `#/live?run=${runId}&intent=${activeIntent ?? ""}&source=live&live=${encodeURIComponent(liveBase)}`}>{isLive ? "Replay mode" : "Live mode"}</a>
       </div>
       <p className="keys"><span><Kbd keys="space" /> play</span><span><Kbd keys="left" /> <Kbd keys="right" /> step</span><span><Kbd keys="s" /> speed</span><span><Kbd keys="o" /> overlay</span><span><Kbd keys="t" /> theme</span></p>

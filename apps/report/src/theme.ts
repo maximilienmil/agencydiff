@@ -19,5 +19,11 @@ export const agencyTheme = defineTheme({
     "--color-background-body": ["#FFFFFF", "#0B0F14"],
     "--color-background-surface": ["#FFFFFF", "#111820"],
     "--color-background-card": ["#FFFFFF", "#111820"],
+    // Apple HIG: 44pt controls by default, 28pt minimum; ~17pt reading text.
+    "--size-element-sm": "36px",
+    "--size-element-md": "44px",
+    "--size-element-lg": "48px",
+    "--font-size-sm": "0.875rem",
+    "--font-size-base": "1rem",
   },
 });

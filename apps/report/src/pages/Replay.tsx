@@ -176,8 +176,8 @@ export function ReplayPage({
             <span className="step-note">
               Step {step} of {maxStep}
             </span>
-            <Button label="Start" variant="ghost" icon={<SkipBack size={16} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep(0); }} />
-            <Button label="Back" variant="secondary" icon={<ChevronLeft size={16} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} />
+            <Button size="lg" label="Start" variant="ghost" icon={<SkipBack size={20} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep(0); }} />
+            <Button size="lg" label="Back" variant="secondary" icon={<ChevronLeft size={20} />} isDisabled={step === 0} onClick={() => { setPlaying(false); setStep((s) => Math.max(0, s - 1)); }} />
             <Button
               label={playing ? "Pause" : step >= maxStep ? "Replay" : "Play"}
               variant="primary"
@@ -187,11 +187,11 @@ export function ReplayPage({
                 setPlaying((p) => !p);
               }}
             />
-            <Button label="Next" variant="secondary" icon={<ChevronRight size={16} />} isDisabled={step >= maxStep} onClick={() => { setPlaying(false); setStep((s) => Math.min(s + 1, maxStep)); }} />
+            <Button size="lg" label="Next" variant="secondary" icon={<ChevronRight size={20} />} isDisabled={step >= maxStep} onClick={() => { setPlaying(false); setStep((s) => Math.min(s + 1, maxStep)); }} />
             <div className="grow">
               <Slider label="Playback step" isLabelHidden min={0} max={Math.max(maxStep, 1)} value={step} valueDisplay="none" onChange={(v: number) => { setPlaying(false); setStep(Number(v)); }} />
             </div>
-            <Switch label="Segment overlays" value={showOverlay} onChange={(on) => setShowOverlay(on)} size="sm" />
+            <Switch label="Segment overlays" value={showOverlay} onChange={(on) => setShowOverlay(on)} />
           </div>
 
           <div className="stage replay-stage">

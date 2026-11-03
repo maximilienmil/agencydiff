@@ -20,8 +20,8 @@ function fixtureBundle(): CaseBundle {
           finalScreen: "subscription",
           oraclePassed: true,
           finalState: { "sub.active": false },
-          initialShot: "a/000.png",
-          finalShot: "a/003.png",
+          initialShot: "traces/a/000.png",
+          finalShot: "traces/a/003.png",
         },
         candidate: {
           actions: ["nav.settings", "settings.subscription", "sub.manage", "sub.cancel", "sub.confirm_cancel"],
@@ -30,8 +30,8 @@ function fixtureBundle(): CaseBundle {
           finalScreen: "subscription",
           oraclePassed: true,
           finalState: { "sub.active": false },
-          initialShot: "b/000.png",
-          finalShot: "b/005.png",
+          initialShot: "traces/b/000.png",
+          finalShot: "traces/b/005.png",
         },
       },
     ],
@@ -45,6 +45,15 @@ describe("renderBundleText", () => {
     expect(text).toContain("BASELINE: nav.settings -> settings.subscription -> sub.cancel");
     expect(text).toContain("CANDIDATE taps: 5");
     expect(text).toContain("final-state oracle: PASS");
+    expect(text).toContain("starting state:");
+  });
+});
+
+describe("defaultKey rendering", () => {
+  it("names the default key and its meaning when present", () => {
+    const b = { ...fixtureBundle(), defaultKey: "location.precise" };
+    expect(renderBundleText(b)).toContain('Default key for this decision: "location.precise"');
+    expect(renderBundleText(fixtureBundle())).not.toContain("Default key");
   });
 });
 
@@ -58,6 +67,7 @@ describe("bundleImageOrder", () => {
       "CANDIDATE final screen",
     ]);
     expect(order[0].file).toContain("CASE-99");
+    expect(order[0].file).toContain("traces");
   });
 });
 

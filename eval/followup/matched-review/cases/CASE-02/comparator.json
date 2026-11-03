@@ -1,0 +1,42 @@
+{
+  "identical": true,
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "goal_unreachable",
+      "intentId": "withhold",
+      "title": "\"I do not want to share my precise location with this app.\" succeeds less often",
+      "baseline": 1,
+      "candidate": 0,
+      "evidence": [
+        {
+          "traceId": "precise_location.withhold.baseline.0"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.0"
+        }
+      ],
+      "id": "precise_location/goal_unreachable/withhold",
+      "decision": "precise_location"
+    },
+    {
+      "severity": "high",
+      "kind": "visibility",
+      "intentId": "withhold",
+      "title": "Option for \"I do not want to share my precise location with this app.\" no longer on first screen",
+      "baseline": "visible",
+      "candidate": "hidden",
+      "evidence": [
+        {
+          "traceId": "precise_location.withhold.baseline.0"
+        },
+        {
+          "traceId": "precise_location.withhold.candidate.0"
+        }
+      ],
+      "id": "precise_location/visibility/withhold",
+      "decision": "precise_location"
+    }
+  ],
+  "hash": "dc51f0aef472c30e7b5781d5f02416d1edaeaaad0d11553741b3efe19ff85cab"
+}

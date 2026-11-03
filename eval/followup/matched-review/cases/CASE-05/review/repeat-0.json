@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "unchanged",
+    "subscription.terms": "harder",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: same home>settings>plus final plus showing active + Renewal terms in both; actions: identical 3 taps nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS with sub.active true",
+    "subscription.decline": "screens: same home>settings>plus final plus in both, Not now still present; footer changes from Renewal terms row to 'Full terms are shown after checkout' but navigation same; actions: identical 3 taps nav.settings->settings.subscription->sub.decline script_done; oracle: both PASS with sub.active false sub.offer answered",
+    "subscription.cancel": "screens: same home>settings>plus>billing final billing with Cancel subscription in both; actions: identical 4 taps nav.settings->settings.subscription->sub.manage->sub.cancel script_done; oracle: both PASS with sub.active false",
+    "subscription.terms": "screens: BASELINE reaches terms screen with full renewal text vs CANDIDATE stuck on plus with no Renewal terms row, only 'Full terms are shown after checkout'; actions: BASELINE 3 taps to sub.terms script_done vs CANDIDATE 2 taps error reference tag not found: sub.terms; oracle: BASELINE PASS terms_viewed true vs CANDIDATE FAIL terms_viewed false",
+    "subscription.resume": "screens: same home>settings>plus final plus showing active + Renewal terms in both; actions: identical 3 taps nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS with sub.active true"
+  },
+  "notes": "Only renewal-terms access regressed; subscribe/decline/cancel/resume paths and oracles identical.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"unchanged\", \"subscription.terms\": \"harder\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: same home>settings>plus final plus showing active + Renewal terms in both; actions: identical 3 taps nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS with sub.active true\", \"subscription.decline\": \"screens: same home>settings>plus final plus in both, Not now still present; footer changes from Renewal terms row to 'Full terms are shown after checkout' but navigation same; actions: identical 3 taps nav.settings->settings.subscription->sub.decline script_done; oracle: both PASS with sub.active false sub.offer answered\", \"subscription.cancel\": \"screens: same home>settings>plus>billing final billing with Cancel subscription in both; actions: identical 4 taps nav.settings->settings.subscription->sub.manage->sub.cancel script_done; oracle: both PASS with sub.active false\", \"subscription.terms\": \"screens: BASELINE reaches terms screen with full renewal text vs CANDIDATE stuck on plus with no Renewal terms row, only 'Full terms are shown after checkout'; actions: BASELINE 3 taps to sub.terms script_done vs CANDIDATE 2 taps error reference tag not found: sub.terms; oracle: BASELINE PASS terms_viewed true vs CANDIDATE FAIL terms_viewed false\", \"subscription.resume\": \"screens: same home>settings>plus final plus showing active + Renewal terms in both; actions: identical 3 taps nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS with sub.active true\"}, \"notes\": \"Only renewal-terms access regressed; subscribe/decline/cancel/resume paths and oracles identical.\"}",
+  "inputTokens": 11779,
+  "outputTokens": 1937,
+  "calls": 1,
+  "costUsd": 0.0015653000000000002,
+  "parseRetried": false
+}

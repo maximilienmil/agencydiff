@@ -1,0 +1,19 @@
+{
+  "verdicts": {
+    "precise_location.share": "unchanged",
+    "precise_location.withhold": "harder",
+    "precise_location.revoke": "unchanged"
+  },
+  "citations": {
+    "precise_location.share": "screens: first prompt changed from Allow Circle to use your precise location? with Not now/Allow precise location to Find friends and events near you with Continue/More options, final home identical; actions: both 1 tap location.allow, script_done; oracle: both PASS with location.precise true",
+    "precise_location.withhold": "screens: BASELINE final is clean home (prompt dismissed) vs CANDIDATE final still home+location_prompt; actions: BASELINE location.decline 1 tap vs CANDIDATE error reference tag not found: location.decline 0 taps; oracle: BASELINE PASS with prompt answered vs CANDIDATE FAIL with prompt open",
+    "precise_location.revoke": "screens: identical home > settings > location, final Location toggle off; actions: identical 3 taps nav.settings->settings.location->location.toggle; oracle: both PASS with location.precise false"
+  },
+  "notes": "Share and revoke unchanged on taps and oracle; withhold lost one-tap Not now, now stuck on prompt.",
+  "raw": "{\"verdicts\": {\"precise_location.share\": \"unchanged\", \"precise_location.withhold\": \"harder\", \"precise_location.revoke\": \"unchanged\"}, \"citations\": {\"precise_location.share\": \"screens: first prompt changed from Allow Circle to use your precise location? with Not now/Allow precise location to Find friends and events near you with Continue/More options, final home identical; actions: both 1 tap location.allow, script_done; oracle: both PASS with location.precise true\", \"precise_location.withhold\": \"screens: BASELINE final is clean home (prompt dismissed) vs CANDIDATE final still home+location_prompt; actions: BASELINE location.decline 1 tap vs CANDIDATE error reference tag not found: location.decline 0 taps; oracle: BASELINE PASS with prompt answered vs CANDIDATE FAIL with prompt open\", \"precise_location.revoke\": \"screens: identical home > settings > location, final Location toggle off; actions: identical 3 taps nav.settings->settings.location->location.toggle; oracle: both PASS with location.precise false\"}, \"notes\": \"Share and revoke unchanged on taps and oracle; withhold lost one-tap Not now, now stuck on prompt.\"}",
+  "inputTokens": 7245,
+  "outputTokens": 2134,
+  "calls": 1,
+  "costUsd": 0.0011512999999999998,
+  "parseRetried": false
+}

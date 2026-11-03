@@ -124,6 +124,17 @@ individually. No causal or general-population claims: this is one 8-case pilot.
   both methods' denominators. Only non-deterministic/infrastructure errors
   (browser crash, timeout, other error strings) exclude an intent from both
   denominators.
+- A4 (same; second review pass discarded unscored): the bundle now also names the
+  contract's default key and its meaning. The comparator reads defaults via
+  `contract.defaultKey`, which the second bundle version still withheld — the
+  reviewer saw the flipped starting value but had no mapping to the decision
+  default. Re-running the full review set on the corrected bundles.
+- A3 (before any scored review trial; first review pass discarded unscored):
+  the reviewer bundle now also includes the starting app state per intent per
+  variant. The comparator's default_flip reads initial-state defaults, which the
+  first bundle version withheld from the reviewer (final state only) — an
+  unintended evidence asymmetry. The first 24-call review pass is discarded and
+  the full set is re-run on the corrected bundles. Spent budget stays under cap.
 - A2 (same time): the reviewer bundle text now includes one stopped/error line
   per intent per variant, so the reviewer sees script completion state
   (truncated path vs satisfied) exactly as the comparator's success grading

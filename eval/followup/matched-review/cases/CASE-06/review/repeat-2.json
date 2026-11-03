@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "unchanged",
+    "subscription.terms": "unchanged",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: final tagline Ad-free with early access vs More of Circle, fewer interruptions, same Manage/Renewal rows; actions: identical 3 taps home>settings>plus; oracle: both PASS with sub.active true, starting sub.plan monthly both",
+    "subscription.decline": "screens: same layout, CTA Subscribe vs Get Circle+, decline link Not now vs Maybe later, both present; actions: identical 3 taps home>settings>plus; oracle: both PASS with sub.offer answered and sub.active false",
+    "subscription.cancel": "screens: identical Billing screen with Cancel subscription; actions: identical 4 taps home>settings>plus>billing; oracle: both PASS with sub.active false",
+    "subscription.terms": "screens: identical Renewal terms text about auto-renew and cancel in Settings Billing; actions: identical 3 taps home>settings>plus>terms; oracle: both PASS with sub.terms_viewed true",
+    "subscription.resume": "screens: final tagline Ad-free with early access vs More of Circle, fewer interruptions, same active plan rows; actions: identical 3 taps home>settings>plus; oracle: both PASS with sub.active true"
+  },
+  "notes": "Only marketing copy differs; paths taps oracles and default sub.plan monthly identical.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"unchanged\", \"subscription.terms\": \"unchanged\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: final tagline Ad-free with early access vs More of Circle, fewer interruptions, same Manage/Renewal rows; actions: identical 3 taps home>settings>plus; oracle: both PASS with sub.active true, starting sub.plan monthly both\", \"subscription.decline\": \"screens: same layout, CTA Subscribe vs Get Circle+, decline link Not now vs Maybe later, both present; actions: identical 3 taps home>settings>plus; oracle: both PASS with sub.offer answered and sub.active false\", \"subscription.cancel\": \"screens: identical Billing screen with Cancel subscription; actions: identical 4 taps home>settings>plus>billing; oracle: both PASS with sub.active false\", \"subscription.terms\": \"screens: identical Renewal terms text about auto-renew and cancel in Settings Billing; actions: identical 3 taps home>settings>plus>terms; oracle: both PASS with sub.terms_viewed true\", \"subscription.resume\": \"screens: final tagline Ad-free with early access vs More of Circle, fewer interruptions, same active plan rows; actions: identical 3 taps home>settings>plus; oracle: both PASS with sub.active true\"}, \"notes\": \"Only marketing copy differs; paths taps oracles and default sub.plan monthly identical.\"}",
+  "inputTokens": 11777,
+  "outputTokens": 1335,
+  "calls": 1,
+  "costUsd": 0.0014447000000000002,
+  "parseRetried": false
+}

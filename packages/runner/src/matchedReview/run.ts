@@ -232,7 +232,7 @@ const phase = values.phase as string;
 const port = values.port as string;
 const base = (values.base as string | undefined)?.replace(/\/$/, "") ?? `http://127.0.0.1:${port}`;
 
-if (!["evidence", "review", "score", "all", "smoke"].includes(phase)) throw new Error(`--phase expects evidence|review|score|all|smoke, got ${phase}`);
+if (!["evidence", "comparator", "review", "score", "all", "smoke"].includes(phase)) throw new Error(`--phase expects evidence|comparator|review|score|all|smoke, got ${phase}`);
 
 let server: ChildProcess | null = null;
 try {
@@ -242,6 +242,8 @@ try {
   } else if (phase === "evidence") {
     server = await ensureServer(base, port);
     await phaseEvidence(base);
+  } else if (phase === "comparator") {
+    await phaseComparator();
   } else if (phase === "review") {
     await phaseReview();
   } else if (phase === "score") {

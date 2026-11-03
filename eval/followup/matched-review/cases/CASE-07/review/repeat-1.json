@@ -1,0 +1,19 @@
+{
+  "verdicts": {
+    "precise_location.share": "unchanged",
+    "precise_location.withhold": "unchanged",
+    "precise_location.revoke": "unchanged"
+  },
+  "citations": {
+    "precise_location.share": "screens: both home+location_prompt > home with same prompt text/buttons and same home final, only logo/icon tint differs; actions: both 1 tap location.allow; oracle: both PASS with location.precise true/mode precise, starting default false in both",
+    "precise_location.withhold": "screens: both home+location_prompt > home with same prompt and same home final, only logo/icon tint differs; actions: both 1 tap location.decline; oracle: both PASS with location.precise false/mode off, starting default false in both",
+    "precise_location.revoke": "screens: both home > settings > location to identical Location toggle-off screen, only home logo tint differs; actions: both 3 taps nav.settings->settings.location->location.toggle; oracle: both PASS with location.precise false/mode off from starting true"
+  },
+  "notes": "Identical taps, navigation, oracle and defaults; only cosmetic logo/pin tint changed.",
+  "raw": "{\"verdicts\": {\"precise_location.share\": \"unchanged\", \"precise_location.withhold\": \"unchanged\", \"precise_location.revoke\": \"unchanged\"}, \"citations\": {\"precise_location.share\": \"screens: both home+location_prompt > home with same prompt text/buttons and same home final, only logo/icon tint differs; actions: both 1 tap location.allow; oracle: both PASS with location.precise true/mode precise, starting default false in both\", \"precise_location.withhold\": \"screens: both home+location_prompt > home with same prompt and same home final, only logo/icon tint differs; actions: both 1 tap location.decline; oracle: both PASS with location.precise false/mode off, starting default false in both\", \"precise_location.revoke\": \"screens: both home > settings > location to identical Location toggle-off screen, only home logo tint differs; actions: both 3 taps nav.settings->settings.location->location.toggle; oracle: both PASS with location.precise false/mode off from starting true\"}, \"notes\": \"Identical taps, navigation, oracle and defaults; only cosmetic logo/pin tint changed.\"}",
+  "inputTokens": 7232,
+  "outputTokens": 1319,
+  "calls": 1,
+  "costUsd": 0.000987,
+  "parseRetried": false
+}

@@ -1,0 +1,23 @@
+{
+  "identical": true,
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "default_flip",
+      "title": "Default for precise_location changed",
+      "baseline": false,
+      "candidate": true,
+      "evidence": [
+        {
+          "traceId": "precise_location.share.baseline.0"
+        },
+        {
+          "traceId": "precise_location.share.candidate.0"
+        }
+      ],
+      "id": "precise_location/default_flip/pair",
+      "decision": "precise_location"
+    }
+  ],
+  "hash": "07afe57042065d8b28b11769da79de0b0370c7a8eca15d896837e7c2658c95b9"
+}

@@ -1,0 +1,24 @@
+{
+  "identical": true,
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "goal_unreachable",
+      "intentId": "terms",
+      "title": "\"I want to see the renewal terms for Circle+ before deciding.\" succeeds less often",
+      "baseline": 1,
+      "candidate": 0,
+      "evidence": [
+        {
+          "traceId": "subscription.terms.baseline.0"
+        },
+        {
+          "traceId": "subscription.terms.candidate.0"
+        }
+      ],
+      "id": "subscription/goal_unreachable/terms",
+      "decision": "subscription"
+    }
+  ],
+  "hash": "c21c1e39ce8d565cfb94db11c1425bbba22bd066126a575138aba66879efb266"
+}

@@ -4,35 +4,31 @@ import path from "node:path";
 import { countActions, type AgencyContract, type Trace } from "@agencydiff/core";
 import { FORBIDDEN_BUNDLE_TOKENS, type MatchedCase } from "./cases.js";
 
+export interface IntentSideEvidence {
+  actions: string[];
+  actionCount: number;
+  screens: string[];
+  finalScreen?: string;
+  oraclePassed?: boolean;
+  initialState?: Record<string, unknown>;
+  finalState?: Record<string, unknown>;
+  initialShot: string;
+  finalShot: string;
+}
+
 export interface IntentEvidence {
   intent: string;
   goal: string;
-  baseline: {
-    actions: string[];
-    actionCount: number;
-    screens: string[];
-    finalScreen?: string;
-    oraclePassed?: boolean;
-    finalState?: Record<string, unknown>;
-    initialShot: string;
-    finalShot: string;
-  };
-  candidate: {
-    actions: string[];
-    actionCount: number;
-    screens: string[];
-    finalScreen?: string;
-    oraclePassed?: boolean;
-    finalState?: Record<string, unknown>;
-    initialShot: string;
-    finalShot: string;
-  };
+  baseline: IntentSideEvidence;
+  candidate: IntentSideEvidence;
 }
 
 export interface CaseBundle {
   caseId: string;
   decision: string;
   promise: string;
+  /** State key holding this decision's default for a new user, if the contract names one. */
+  defaultKey?: string;
   intents: IntentEvidence[];
 }
 
@@ -46,7 +42,7 @@ function screenOf(t: Trace, index: number): string | undefined {
   return t.steps[index]?.after.screen;
 }
 
-function sideEvidence(t: Trace, traceDir: string): IntentEvidence["baseline"] {
+function sideEvidence(t: Trace, traceDir: string): IntentSideEvidence {
   const actions = t.steps.map((s) => s.note ?? `step-${s.index}`);
   const screens: string[] = [];
   const seen = new Set<string>();
@@ -61,13 +57,14 @@ function sideEvidence(t: Trace, traceDir: string): IntentEvidence["baseline"] {
   const shots = [
     t.initial.observation.screenshot,
     t.steps.length ? t.steps[t.steps.length - 1].after.screenshot : t.initial.observation.screenshot,
-  ].map((f) => path.join(traceDir, f));
+  ].map((f) => path.join("traces", traceDir, f));
   return {
     actions,
     actionCount: countActions(t),
     screens,
     finalScreen: t.steps.length ? t.steps[t.steps.length - 1].after.screen : t.initial.observation.screen,
     oraclePassed: t.oracle.passed,
+    initialState: t.initial.state,
     finalState: t.final.state,
     initialShot: shots[0],
     finalShot: shots[1],
@@ -92,7 +89,7 @@ export async function buildCaseBundle(opts: {
       candidate: sideEvidence(c, traceDirName(c)),
     });
   }
-  return { caseId: path.basename(opts.caseDir), decision: opts.contract.decision, promise: opts.contract.promise, intents };
+  return { caseId: path.basename(opts.caseDir), decision: opts.contract.decision, promise: opts.contract.promise, defaultKey: opts.contract.defaultKey, intents };
 }
 
 /** Render the text half of the reviewer prompt. Images are attached separately. */
@@ -103,11 +100,16 @@ export function renderBundleText(bundle: CaseBundle): string {
     `Two variants of the same app were probed with an identical scripted path per intention.`,
     ``,
   ];
+  if (bundle.defaultKey) {
+    lines.push(`Default key for this decision: "${bundle.defaultKey}" — its starting-state value is the default a new user gets. A flip there counts as making the related intentions harder or easier.`);
+    lines.push(``);
+  }
   for (const e of bundle.intents) {
     const fmt = (s: IntentEvidence["baseline"], label: string) => [
       `${label}: ${s.actions.length ? s.actions.join(" -> ") : "(no actions; intent already satisfied)"}`,
       `${label} taps: ${s.actionCount}; screens visited: ${s.screens.join(" > ") || "?"}; final screen: ${s.finalScreen ?? "?"}`,
       `${label} final-state oracle: ${s.oraclePassed === undefined ? "not checked" : s.oraclePassed ? "PASS" : "FAIL"}; final state: ${JSON.stringify(s.finalState ?? null)}`,
+      `${label} starting state: ${JSON.stringify(s.initialState ?? null)}`,
     ];
     lines.push(`Intention ${e.intent}: ${e.goal}`);
     lines.push(...fmt(e.baseline, "BASELINE"));

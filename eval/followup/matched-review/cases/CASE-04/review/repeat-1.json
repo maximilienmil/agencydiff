@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "harder",
+    "subscription.terms": "unchanged",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: identical home first and plus active final; actions: identical 3 taps nav.settings->settings.subscription->sub.subscribe script_done, starting sub.plan monthly both; oracle: both PASS sub.active true",
+    "subscription.decline": "screens: identical home first and plus offer final with Not now; actions: identical 3 taps nav.settings->settings.subscription->sub.decline script_done, starting sub.plan monthly both; oracle: both PASS sub.active false offer answered",
+    "subscription.cancel": "screens: BASELINE Billing shows Cancel subscription vs CANDIDATE Billing shows Manage plan; actions: BASELINE 4 taps via sub.manage->sub.cancel script_done vs CANDIDATE 3 taps error reference tag not found sub.cancel; oracle: BASELINE PASS sub.active false vs CANDIDATE FAIL sub.active true",
+    "subscription.terms": "screens: identical home first and Renewal terms final text; actions: identical 3 taps nav.settings->settings.subscription->sub.terms script_done, starting sub.plan monthly both; oracle: both PASS terms_viewed true",
+    "subscription.resume": "screens: identical home first and plus active final; actions: identical 3 taps nav.settings->settings.subscription->sub.subscribe script_done, starting sub.plan monthly both; oracle: both PASS sub.active true"
+  },
+  "notes": "Only cancel regressed with option removed; all others identical.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"harder\", \"subscription.terms\": \"unchanged\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: identical home first and plus active final; actions: identical 3 taps nav.settings->settings.subscription->sub.subscribe script_done, starting sub.plan monthly both; oracle: both PASS sub.active true\", \"subscription.decline\": \"screens: identical home first and plus offer final with Not now; actions: identical 3 taps nav.settings->settings.subscription->sub.decline script_done, starting sub.plan monthly both; oracle: both PASS sub.active false offer answered\", \"subscription.cancel\": \"screens: BASELINE Billing shows Cancel subscription vs CANDIDATE Billing shows Manage plan; actions: BASELINE 4 taps via sub.manage->sub.cancel script_done vs CANDIDATE 3 taps error reference tag not found sub.cancel; oracle: BASELINE PASS sub.active false vs CANDIDATE FAIL sub.active true\", \"subscription.terms\": \"screens: identical home first and Renewal terms final text; actions: identical 3 taps nav.settings->settings.subscription->sub.terms script_done, starting sub.plan monthly both; oracle: both PASS terms_viewed true\", \"subscription.resume\": \"screens: identical home first and plus active final; actions: identical 3 taps nav.settings->settings.subscription->sub.subscribe script_done, starting sub.plan monthly both; oracle: both PASS sub.active true\"}, \"notes\": \"Only cancel regressed with option removed; all others identical.\"}",
+  "inputTokens": 11781,
+  "outputTokens": 1919,
+  "calls": 1,
+  "costUsd": 0.0015619000000000002,
+  "parseRetried": false
+}

@@ -1,0 +1,19 @@
+{
+  "verdicts": {
+    "precise_location.share": "easier",
+    "precise_location.withhold": "harder",
+    "precise_location.revoke": "unchanged"
+  },
+  "citations": {
+    "precise_location.share": "screens: first prompt and final home identical; actions: identical 1 tap location.allow, same navigation; oracle: both PASS to precise true, but starting default location.precise false->true",
+    "precise_location.withhold": "screens: first prompt and final home identical; actions: identical 1 tap location.decline, same navigation; oracle: both PASS to precise false, but starting default location.precise false->true is worse default",
+    "precise_location.revoke": "screens: first home and final Location toggle-off identical; actions: identical 3 taps same path; oracle: both PASS to precise false with same starting precise true"
+  },
+  "notes": "Default flipped to precise true, helping share but hurting withhold, revoke unchanged.",
+  "raw": "{\"verdicts\": {\"precise_location.share\": \"easier\", \"precise_location.withhold\": \"harder\", \"precise_location.revoke\": \"unchanged\"}, \"citations\": {\"precise_location.share\": \"screens: first prompt and final home identical; actions: identical 1 tap location.allow, same navigation; oracle: both PASS to precise true, but starting default location.precise false->true\", \"precise_location.withhold\": \"screens: first prompt and final home identical; actions: identical 1 tap location.decline, same navigation; oracle: both PASS to precise false, but starting default location.precise false->true is worse default\", \"precise_location.revoke\": \"screens: first home and final Location toggle-off identical; actions: identical 3 taps same path; oracle: both PASS to precise false with same starting precise true\"}, \"notes\": \"Default flipped to precise true, helping share but hurting withhold, revoke unchanged.\"}",
+  "inputTokens": 7234,
+  "outputTokens": 1682,
+  "calls": 1,
+  "costUsd": 0.0010598000000000003,
+  "parseRetried": false
+}

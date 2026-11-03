@@ -1,0 +1,24 @@
+{
+  "identical": true,
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "goal_unreachable",
+      "intentId": "set_limit",
+      "title": "\"I want to set a daily time limit of 1 hour on Circle.\" succeeds less often",
+      "baseline": 1,
+      "candidate": 0,
+      "evidence": [
+        {
+          "traceId": "screen_time.set_limit.baseline.0"
+        },
+        {
+          "traceId": "screen_time.set_limit.candidate.0"
+        }
+      ],
+      "id": "screen_time/goal_unreachable/set_limit",
+      "decision": "screen_time"
+    }
+  ],
+  "hash": "8c0fc9559e073b2094ba438fed8ced4dddb83b517755a42dee6648a4c9d5611e"
+}

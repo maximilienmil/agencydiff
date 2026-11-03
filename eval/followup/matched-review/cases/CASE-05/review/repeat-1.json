@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "unchanged",
+    "subscription.terms": "harder",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: same plus active final screen; actions: same 3-tap path nav.settings->settings.subscription->sub.subscribe; oracle: both PASS sub.active true",
+    "subscription.decline": "screens: offer screen retains Not now in both, renewal terms row replaced by Full terms are shown after checkout text but decline control present; actions: same 3-tap path to sub.decline; oracle: both PASS sub.offer answered sub.active false",
+    "subscription.cancel": "screens: same Billing final with Cancel subscription; actions: same 4-tap path via sub.manage->sub.cancel; oracle: both PASS sub.active false",
+    "subscription.terms": "screens: BASELINE Renewal terms detail vs CANDIDATE plus subscribe page stating Full terms are shown after checkout with no terms link; actions: BASELINE 3 taps to sub.terms vs CANDIDATE 2 taps error reference tag not found: sub.terms; oracle: PASS with terms_viewed true vs FAIL with terms_viewed false",
+    "subscription.resume": "screens: same plus active final screen; actions: same 3-tap path nav.settings->settings.subscription->sub.subscribe; oracle: both PASS sub.active true"
+  },
+  "notes": "Only renewal terms access regressed; subscribe/decline/cancel/resume paths and oracles unchanged with sub.plan monthly default intact.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"unchanged\", \"subscription.terms\": \"harder\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: same plus active final screen; actions: same 3-tap path nav.settings->settings.subscription->sub.subscribe; oracle: both PASS sub.active true\", \"subscription.decline\": \"screens: offer screen retains Not now in both, renewal terms row replaced by Full terms are shown after checkout text but decline control present; actions: same 3-tap path to sub.decline; oracle: both PASS sub.offer answered sub.active false\", \"subscription.cancel\": \"screens: same Billing final with Cancel subscription; actions: same 4-tap path via sub.manage->sub.cancel; oracle: both PASS sub.active false\", \"subscription.terms\": \"screens: BASELINE Renewal terms detail vs CANDIDATE plus subscribe page stating Full terms are shown after checkout with no terms link; actions: BASELINE 3 taps to sub.terms vs CANDIDATE 2 taps error reference tag not found: sub.terms; oracle: PASS with terms_viewed true vs FAIL with terms_viewed false\", \"subscription.resume\": \"screens: same plus active final screen; actions: same 3-tap path nav.settings->settings.subscription->sub.subscribe; oracle: both PASS sub.active true\"}, \"notes\": \"Only renewal terms access regressed; subscribe/decline/cancel/resume paths and oracles unchanged with sub.plan monthly default intact.\"}",
+  "inputTokens": 11779,
+  "outputTokens": 2057,
+  "calls": 1,
+  "costUsd": 0.0015893,
+  "parseRetried": false
+}

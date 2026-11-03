@@ -1,0 +1,26 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..4dd7ab5 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -969,7 +969,7 @@ function Feed({ posts }: { posts: typeof POSTS }) {
+             <span className="who-text">
+               <strong>{p.who}</strong>
+               <small>
+-                {p.place} · {p.when}
++                {p.place} · <time className="when">{p.when}</time>
+               </small>
+             </span>
+             <span className="more" aria-hidden>
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index 3de98d5..e644a97 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -90,6 +90,8 @@ button.icon:active { background: var(--ds-surface-3); }
+ .who-text { display: flex; flex-direction: column; line-height: 1.25; flex: 1; }
+ .who-text strong { font-weight: 650; }
+ .who-text small { color: var(--muted); font-size: 12.5px; }
++.who-text small .when { color: var(--ds-ink-2); font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; font-size: 11.5px; white-space: nowrap; }
++.post + .post { border-top: 1px solid var(--line); }
+ .post .more { color: var(--muted); }
+ .post .photo { aspect-ratio: 1 / 1; position: relative; overflow: hidden; }
+ .photo .sun { position: absolute; width: 34%; aspect-ratio: 1; border-radius: 50%; left: 58%; top: 16%; }

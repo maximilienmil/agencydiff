@@ -1,0 +1,31 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..da3b96b 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -849,18 +849,21 @@ export function App() {
+ 
+ function LocationOptions({ current, onSave }: { current: Mode; onSave: (m: Mode) => void }) {
+   const [mode, setMode] = useState<Mode>(current === "off" ? "precise" : current);
+-  const opt = (m: Mode, label: string, tag: string) => (
++  const opt = (m: Mode, label: string, sub: string, tag: string) => (
+     <label className="row radio-row">
+       <input type="radio" name="loc" data-agency={tag} checked={mode === m} onChange={() => setMode(m)} />
+-      <span>{label}</span>
++      <span>
++        {label}
++        <small>{sub}</small>
++      </span>
+     </label>
+   );
+   return (
+     <>
+       <List>
+-        {opt("precise", "Precise location (recommended)", "location.opt_precise")}
+-        {opt("approximate", "Approximate location", "location.opt_approximate")}
+-        {opt("off", "Don't use my location", "location.decline")}
++        {opt("precise", "Precise location (recommended)", "Friends see you at your exact spot nearby.", "location.opt_precise")}
++        {opt("approximate", "Approximate location", "Friends see your general area, not your exact spot.", "location.opt_approximate")}
++        {opt("off", "Don't use my location", "Friends won't see you nearby.", "location.decline")}
+       </List>
+       <div className="footer">
+         <button className="primary" data-agency="location.save" onClick={() => onSave(mode)}>

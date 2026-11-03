@@ -1,0 +1,39 @@
+{
+  "decision": "precise_location",
+  "promise": "Users can choose whether Circle gets their precise location, and change their mind later.",
+  "aggregates": [
+    {
+      "intentId": "withhold",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 1,
+      "navigationDepth": 1,
+      "initiallyVisible": true,
+      "defaultValue": false,
+      "traceIds": [
+        "precise_location.withhold.baseline.0",
+        "precise_location.withhold.baseline.1",
+        "precise_location.withhold.baseline.2"
+      ]
+    },
+    {
+      "intentId": "withhold",
+      "variant": "candidate",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 1,
+      "navigationDepth": 1,
+      "initiallyVisible": true,
+      "defaultValue": false,
+      "traceIds": [
+        "precise_location.withhold.candidate.0",
+        "precise_location.withhold.candidate.1",
+        "precise_location.withhold.candidate.2"
+      ]
+    }
+  ],
+  "asymmetry": [],
+  "findings": [],
+  "passed": true
+}

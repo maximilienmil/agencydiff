@@ -1,0 +1,305 @@
+{
+  "id": "teen_dm.relax.baseline.0",
+  "decision": "teen_dm",
+  "intentId": "relax",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T02:58:53.572Z",
+  "initial": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "blocked",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5260/?fixture=dm-restricted",
+      "screen": "home",
+      "tags": [
+        {
+          "tag": "nav.settings",
+          "box": [
+            378,
+            5.5,
+            44,
+            44
+          ],
+          "inViewport": true
+        }
+      ],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 302,
+      "actions": [
+        {
+          "type": "click",
+          "x": 400,
+          "y": 28
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5260/?fixture=dm-restricted",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              0,
+              168,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              0,
+              224,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              0,
+              280,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              0,
+              336,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "001.png"
+      },
+      "note": "nav.settings"
+    },
+    {
+      "index": 1,
+      "tMs": 566,
+      "actions": [
+        {
+          "type": "click",
+          "x": 215,
+          "y": 196
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5260/?fixture=dm-restricted",
+        "screen": "privacy",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "privacy.messages",
+            "box": [
+              0,
+              112,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "privacy.advanced",
+            "box": [
+              0,
+              168,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "002.png"
+      },
+      "note": "settings.privacy"
+    },
+    {
+      "index": 2,
+      "tMs": 834,
+      "actions": [
+        {
+          "type": "click",
+          "x": 215,
+          "y": 140
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5260/?fixture=dm-restricted",
+        "screen": "messages",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.allow_all",
+            "box": [
+              0,
+              105.296875,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.friends_only",
+            "box": [
+              0,
+              165.84375,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.block_unknown",
+            "box": [
+              0,
+              226.390625,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "003.png"
+      },
+      "note": "privacy.messages"
+    },
+    {
+      "index": 3,
+      "tMs": 1100,
+      "actions": [
+        {
+          "type": "click",
+          "x": 215,
+          "y": 136
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5260/?fixture=dm-restricted",
+        "screen": "messages",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              8,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.allow_all",
+            "box": [
+              0,
+              105.296875,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.friends_only",
+            "box": [
+              0,
+              165.84375,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "dm.block_unknown",
+            "box": [
+              0,
+              226.390625,
+              430,
+              60.546875
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "004.png"
+      },
+      "note": "dm.allow_all"
+    }
+  ],
+  "final": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "everyone",
+      "dm.inspected": true,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done"
+}

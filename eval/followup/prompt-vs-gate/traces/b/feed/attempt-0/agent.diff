@@ -1,0 +1,45 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..4d8df71 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -969,7 +969,7 @@ function Feed({ posts }: { posts: typeof POSTS }) {
+             <span className="who-text">
+               <strong>{p.who}</strong>
+               <small>
+-                {p.place} · {p.when}
++                {p.place} · <time>{p.when}</time>
+               </small>
+             </span>
+             <span className="more" aria-hidden>
+diff --git a/apps/circle/src/styles.css b/apps/circle/src/styles.css
+index 3de98d5..0028c3d 100644
+--- a/apps/circle/src/styles.css
++++ b/apps/circle/src/styles.css
+@@ -85,19 +85,21 @@ button.icon:active { background: var(--ds-surface-3); }
+   display: grid; place-items: center; border-radius: 50%; color: #fff; font-weight: 700; flex: none;
+   letter-spacing: 0;
+ }
+-.post { padding: 8px 0 16px; }
+-.post .who { display: flex; align-items: center; gap: 10px; padding: 0 14px 10px; font-size: 14px; }
+-.who-text { display: flex; flex-direction: column; line-height: 1.25; flex: 1; }
++.post { padding: 12px 0 20px; border-bottom: 1px solid var(--line); }
++.post:last-child { border-bottom: 0; }
++.post .who { display: flex; align-items: center; gap: 10px; padding: 0 16px 12px; font-size: 14px; }
++.who-text { display: flex; flex-direction: column; line-height: 1.35; gap: 2px; flex: 1; }
+ .who-text strong { font-weight: 650; }
+-.who-text small { color: var(--muted); font-size: 12.5px; }
++.who-text small { color: var(--muted); font-size: 13px; }
++.who-text time { color: var(--ds-ink-2); font-weight: 600; white-space: nowrap; }
+ .post .more { color: var(--muted); }
+ .post .photo { aspect-ratio: 1 / 1; position: relative; overflow: hidden; }
+ .photo .sun { position: absolute; width: 34%; aspect-ratio: 1; border-radius: 50%; left: 58%; top: 16%; }
+ .photo .hill { position: absolute; width: 140%; aspect-ratio: 1; border-radius: 50%; left: -20%; top: 62%; }
+ .photo .hill.back { left: 30%; top: 54%; width: 120%; }
+-.post-actions { display: flex; align-items: center; gap: 16px; padding: 12px 14px 0; color: var(--ink); }
++.post-actions { display: flex; align-items: center; gap: 16px; padding: 12px 16px 0; color: var(--ink); }
+ .post-actions .spacer { flex: 1; }
+-.post p { margin: 8px 14px 0; font-size: 14px; line-height: 1.4; }
++.post p { margin: 8px 16px 0; font-size: 14px; line-height: 1.45; }
+ .post p.likes { font-weight: 650; margin-top: 10px; font-variant-numeric: tabular-nums; }
+ .post p strong { font-weight: 650; }
+ 

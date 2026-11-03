@@ -184,7 +184,7 @@ model-judged needs paid calls in Audit mode.
 
 Tap parity (adapter fidelity gate): baseline replays measure 6/6/6/4 taps
 with all oracles passing, exactly the frozen instrument, and
-`coreActions == taps` on all 48 held-out runs. D1 traces carry the
+`coreActions == taps` on all 48 integration runs. D1 traces carry the
 documented `{firstSatisfiedStep: 0, actionsToSatisfy: 0}` artifact: the
 unsubscribe oracle holds vacuously on a fresh profile, so round-trip cost
 lives in `actionCount`, as in the frozen rule.
@@ -209,7 +209,7 @@ cross-phase disagreement evidence.
 Cross-phase disagreement retained (the one that matters): A-menu-1 D2
 measured `equal` in the original phase but `goal_unreachable` in all five
 integration observations (run 1, run 2, 3 exploratory reps to /tmp). No
-smoothing applied — the held-out cell stands as `goal_unreachable` per
+smoothing applied — the integration cell stands as `goal_unreachable` per
 the frozen rule. Mechanism, evidenced live on the same build: the
 A-menu-1 overlay has already relabeled the menu at the first post-open
 read ("🔇 Mute notifications" at t+0 ms through t+1000 ms, order

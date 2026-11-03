@@ -22,6 +22,14 @@ Known limits recorded before trials: Clear is device-level only
 (server cache retains messages; DELETE unavailable by default, HTTP
 404); mute sets `mutedUntil=1` (flag, not timestamp).
 
+## Integration scope
+
+This pilot uses custom Playwright probes and a standalone scorer in src/score.ts.
+It does not yet exercise the existing AgencyDiff runner or core diffContract.
+It demonstrates the measurement approach and its exact-label brittleness on an
+external app; it is not end-to-end validation of the shipped CLI or Action on
+ntfy. Core integration remains required before making that stronger claim.
+
 ## Method (frozen in PROTOCOL.md; 4 dated amendments, all retained)
 
 Variant mechanism: reverse-proxy overlay — each candidate pipes all
@@ -37,7 +45,7 @@ tasks x 2 reps, model muse-spark-1.3-contributor low effort, workspaces
 decontaminated (no contracts/oracles/ground truth; grep-verified 0
 hits; all 4 stayed in-scope with zero apparatus contact).
 
-## Researcher-seeded results (primary: trial5, raw/trial5/, 28 runs)
+## Researcher-seeded results (primary: trial5, raw/runs/ and raw/summary-trial5.json, 28 runs)
 
 | Variant | D1 | D2 | D3 | D4 |
 |---|---|---|---|---|
@@ -49,7 +57,7 @@ hits; all 4 stayed in-scope with zero apparatus contact).
 | O3 (clear type-to-confirm) | equal | equal | **action_cost 6->8** | equal |
 | O4 (3-hour option removed) | equal | equal | equal | **goal_unreachable** |
 
-Every frozen expectation met exactly: 3/4 obstructions caught as
+Every frozen expectation met exactly: 4/4 obstructions caught as
 specified (O2 +1 tap, O3 +2 taps, O1/O4 unreachable), no findings on
 non-targeted decisions, zero false alarms on benign, zero exclusions
 in the final set. V-improve's quick button verified live (renders; one
@@ -62,7 +70,9 @@ amendments).
 
 ## Blind-attempt results (raw/blind/, 16 runs + load checks)
 
-Task-done (syntax + headless load with zero page errors): 4/4 valid.
+Patch validity (syntax + headless load with zero page errors): 4/4 valid.
+This is a loadability check, not an independent judgment that each copy/design
+task was fully accomplished. Functional choice preservation was checked separately.
 Frozen-path verdicts vs baseline:
 
 | Attempt | Task | D1 | D2 | D3 | D4 |
@@ -147,6 +157,6 @@ Then in `eval/followup/external-app`: `pnpm install`,
 `pnpm exec vitest run` (20 tests), `pnpm exec tsc -p .`,
 `EXTAPP_RUN_LABEL=<label> pnpm exec tsx src/run.ts` (researcher set),
 `pnpm exec tsx src/blind.ts` (blind set; attempts/ already contains
-the 4 committed patches). Raw data: `raw/trial5/` (primary),
+the 4 committed patches). Raw data: `raw/runs/` + `raw/summary-trial5.json` (primary),
 `raw/blind/`, `raw/trial1-4/` (superseded). Stop servers when done;
 port range 5280-5299, all 127.0.0.1.

@@ -1,3 +1,4 @@
+import { summarizeIntentEvidence } from "./evidence.js";
 import { aggregate, countActions, traceMetrics } from "./metrics.js";
 import type {
   AgencyContract,
@@ -76,20 +77,74 @@ export function diffContract(contract: AgencyContract, traces: Trace[]): AgencyR
       return Math.min(...cv) > Math.max(...bv) && cMed - bMed >= 1;
     };
 
+    // Success-rate verdicts distinguish what the evidence establishes.
+    // A reference-path failure (renamed control) and an infrastructure
+    // error look like a lower success rate, but neither establishes
+    // removal. Only completed runs whose independent oracle still failed
+    // count as outcome regressions; the rest stay review-required and
+    // still block the gate, under a different kind.
     if (
       intent.mustSucceed &&
       c.successRate < b.successRate &&
       (!noisy || b.successRate - c.successRate >= 2 / 3 - 1e-9)
     ) {
-      push({
-        severity: c.successRate === 0 ? "high" : "medium",
-        kind: "goal_unreachable",
-        intentId: intent.id,
-        title: `"${intent.goal}" succeeds less often`,
-        baseline: b.successRate,
-        candidate: c.successRate,
-        evidence: evidence(b, c),
-      });
+      const bEv = summarizeIntentEvidence(bTs);
+      const cEv = summarizeIntentEvidence(cTs);
+      const provenance = {
+        baselineSuccesses: bEv.successes,
+        candidateSuccesses: cEv.successes,
+        candidateOutcomeFailures: cEv.outcomeFailures,
+        candidateReplayBlocked: cEv.replayBlocked,
+        candidateInconclusive: cEv.inconclusive,
+      } as const;
+      if (cEv.outcomeFailures > 0) {
+        push({
+          severity: c.successRate === 0 ? "high" : "medium",
+          kind: "goal_unreachable",
+          intentId: intent.id,
+          title: `"${intent.goal}" succeeds less often`,
+          baseline: b.successRate,
+          candidate: c.successRate,
+          evidence: evidence(b, c),
+          provenance: { basis: "outcome", ...provenance },
+        });
+      } else if (cEv.replayBlocked > 0) {
+        push({
+          severity: "medium",
+          kind: "replay_blocked",
+          intentId: intent.id,
+          title: `"${intent.goal}" needs review: reference path blocked, removal not established`,
+          baseline: b.successRate,
+          candidate: c.successRate,
+          evidence: evidence(b, c),
+          provenance: { basis: "replay-path", ...provenance },
+        });
+      } else if (cEv.inconclusive > 0) {
+        push({
+          severity: "medium",
+          kind: "probe_inconclusive",
+          intentId: intent.id,
+          title: `"${intent.goal}" needs review: probe error, outcome unknown`,
+          baseline: b.successRate,
+          candidate: c.successRate,
+          evidence: evidence(b, c),
+          provenance: { basis: "infrastructure", ...provenance },
+        });
+      } else {
+        // Success-rate drop with no failing candidate trace classified
+        // (e.g. mixed drivers where the failing side left no trace):
+        // keep the old verdict rather than silently passing.
+        push({
+          severity: c.successRate === 0 ? "high" : "medium",
+          kind: "goal_unreachable",
+          intentId: intent.id,
+          title: `"${intent.goal}" succeeds less often`,
+          baseline: b.successRate,
+          candidate: c.successRate,
+          evidence: evidence(b, c),
+          provenance: { basis: "outcome", ...provenance },
+        });
+      }
     }
     if (
       b.actionCount !== undefined &&

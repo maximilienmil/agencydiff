@@ -37,6 +37,17 @@ The reliable gate replays a known path and checks the resulting app state. Compu
 
 The evaluation compares specific configurations: scripted replay, free-roaming Muse Probes, a reviewer shown start screens, and a reviewer shown a full walkthrough. It does not establish superiority over every prompt, skill or existing test suite.
 
+## Follow-up evidence
+
+Four small follow-ups test the architecture's limits:
+
+- **Strong instructions versus a gate:** 36 neutral-task attempts produced no confirmed regressions in any arm (ordinary, protective instructions, instructions + gate). This floor effect leaves the gate's added value over strong instructions unresolved. [Protocol and results](eval/followup/prompt-vs-gate/RESULTS.md).
+- **External app:** a target-specific ntfy adapter recorded real traces through the unmodified core. All four researcher obstructions produced the expected findings; the +1-tap finding was low severity and did not fail the gate. Renamed working controls also produced false unreachable findings, including a timing-sensitive disagreement across phases. This validates core integration, not the shipped CLI/Action. [Results and setup cost](eval/followup/external-app/RESULTS.md).
+- **Redesign selectivity:** nine harmless Circle variants passed and nine harmful variants were flagged. Harmless variants preserved reference tags and screen hierarchy; this does not establish tolerance of renamed controls or arbitrary redesigns. [Results](eval/followup/redesign-selectivity/RESULTS.md).
+- **Matched evidence:** a model reviewer and deterministic comparator both detected all six regressions with no flags on two controls. Evidence bundles were amended after reviewer misses, making this an exploratory pilot rather than a held-out test. The comparator often collapsed mechanisms into unreachable paths. [Results](eval/followup/matched-review/RESULTS.md).
+
+These results support an evidence pipeline: explore with agents, verify outcomes independently, and compare recorded behavior repeatably. They do not establish superior detection over an equally informed model reviewer or strong protective instructions. A broken replay path requires investigation before it can be called a removed choice.
+
 ## The PR check
 
 The gate comments on the PR and fails the check on regressions. Rendered from a real run's `comment.md` (scripted driver, seeded `SUB_HIDE_DECLINE` candidate):

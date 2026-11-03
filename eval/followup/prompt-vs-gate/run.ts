@@ -102,7 +102,7 @@ export interface PvgResults {
 }
 
 export const PVG_DEVIATIONS = [
-  `No main branch exists in this repo; baseline is the submitted commit ${PVG_BASE_REF} (all agent worktrees created at that SHA; the checkout may sit ahead by README-only commits).`,
+  `Baseline is pinned to the submitted commit ${PVG_BASE_REF} (all agent worktrees created at that SHA; the checkout may sit ahead by README-only commits).`,
   "Every new experimental model call (coding, task-done judge, muse confirm) uses muse-spark-1.3-contributor at reasoning effort low; T18b used muse-spark-1.3 for judge/confirm, which this authorization forbids.",
   "2 attempts per task per arm (36 attempts total), predeclared before trials to hold the USD5 experimental cap; no adaptive top-ups.",
   "Scripted driver at repeats=1 (deterministic). Muse confirm is focused per flagged intent at k=3 with the T18b separated-ranges rule, capped separately.",
@@ -514,7 +514,7 @@ export async function writeReportPvg(outRoot: string): Promise<string> {
   lines.push(`- Muse k=3 confirmations: ${mc.filter((m) => m.confirmed.length > 0).length}/${mc.length} runs confirmed at least one scripted finding; noise check ${noiseRuns.filter((m) => !m.passed).length}/${noiseRuns.length} failed on scripted-clean attempts (sample seed ${results.sampleSeed}).`);
   lines.push(`- Decontamination grep: ${results.attempts.filter((a) => (a.decontam?.grepHits ?? []).length > 0).length} attempts with hits.`);
   const gateC = all.c;
-  lines.push(`- Arm C gate: invocations/retries per attempt [${gateC.map((a) => a.gateRuns).join(", ")}]; claims PASS ${gateC.filter((a) => a.gateClaim === "PASS").length}/${gateC.length}, FAIL ${gateC.filter((a) => a.gateClaim === "FAIL").length}/${gateC.length}, other ${gateC.filter((a) => a.gateClaim !== "PASS" && a.gateClaim !== "FAIL").length}/${gateC.length}.`);
+  lines.push(`- Arm C gate: wrapper mentions in logs per attempt (not execution counts) [${gateC.map((a) => a.gateRuns).join(", ")}]; claims PASS ${gateC.filter((a) => a.gateClaim === "PASS").length}/${gateC.length}, FAIL ${gateC.filter((a) => a.gateClaim === "FAIL").length}/${gateC.length}, other ${gateC.filter((a) => a.gateClaim !== "PASS" && a.gateClaim !== "FAIL").length}/${gateC.length}.`);
   const groups = new Map<string, string[]>();
   for (const a of results.attempts.filter((x) => !x.invalidReason)) {
     const diff = await readFile(a.diffPath, "utf8").catch(() => "");

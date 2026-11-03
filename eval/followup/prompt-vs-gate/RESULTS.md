@@ -24,7 +24,7 @@ Decontamination identical to T18b (seeds stripped, contracts/eval/packages remov
 - Task-done rate: A 12/12, B 12/12, C 11/12.
 - Muse k=3 confirmations: 0/12 runs confirmed at least one scripted finding; noise check 0/12 failed on scripted-clean attempts (sample seed 7).
 - Decontamination grep: 0 attempts with hits.
-- Arm C gate: invocations/retries per attempt [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]; claims PASS 12/12, FAIL 0/12, other 0/12.
+- Arm C gate: wrapper mentions in logs per attempt (not execution counts) [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]; claims PASS 12/12, FAIL 0/12, other 0/12.
 - Identical patches: 33 distinct diffs over 36 valid attempts; byte-identical groups: a/privacy/0+c/privacy/1; a/billing/0+b/billing/0+b/billing/1.
 - Cost: judge $0.01 + muse confirm $1.00 + agent coding runs $1.34 (total $2.36 of $5 cap; agent coding spend summed from muse exec run.usage events).
 
@@ -42,7 +42,7 @@ Scripted-only flags that muse k=3 did not confirm are reported as unconfirmed, n
 
 ## Method deviations from the protocol (all recorded, none hidden)
 
-- No main branch exists in this repo; baseline is the submitted commit 7c84640d894cf9366030c72ba36e7576b9a24a2d (all agent worktrees created at that SHA; the checkout may sit ahead by README-only commits).
+- Baseline is pinned to the submitted commit 7c84640d894cf9366030c72ba36e7576b9a24a2d (all agent worktrees created at that SHA; the checkout may sit ahead by README-only commits).
 - Every new experimental model call (coding, task-done judge, muse confirm) uses muse-spark-1.3-contributor at reasoning effort low; T18b used muse-spark-1.3 for judge/confirm, which this authorization forbids.
 - 2 attempts per task per arm (36 attempts total), predeclared before trials to hold the USD5 experimental cap; no adaptive top-ups.
 - Scripted driver at repeats=1 (deterministic). Muse confirm is focused per flagged intent at k=3 with the T18b separated-ranges rule, capped separately.
@@ -51,3 +51,7 @@ Scripted-only flags that muse k=3 did not confirm are reported as unconfirmed, n
 - Agents are forbidden from reading contracts/, eval/, packages/; compliance checked via git status plus exec-log scan.
 - Local servers bind 127.0.0.1 only, inside ports 5260-5279.
 - Jobs ran arm-major (all 12 A, then 12 B, then 12 C) rather than the protocol-stated round-robin interleave; all arms ran on the same checkout, baseline, and harness within one continuous run, so no outcome-dependent ordering was possible.
+
+## Audit corrections
+
+The original `results.json` is retained unchanged. Its “No main branch” statement is incorrect; the experiment used the pinned submitted SHA, independently of branch names. Its `gateRuns` field counts wrapper-string occurrences minus a prompt echo, so it does not establish invocation or retry counts. PASS counts above are extracted agent claims, not independently counted gate executions.

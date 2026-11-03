@@ -1,19 +1,20 @@
 # AgencyDiff demo video
 
-A 3:00, 1920x1080, 30fps film with burned-in captions. Flat and
-typographic: white, near-black, Meta blue #0866FF, navy and pale blue,
-with red and green on code changes and measured deltas, one idea per frame with calm crossfades, and a
-static monochrome film grain at 4.5% opacity over everything. Colours and
-type come from `design/tokens.css`, the same file the report site and Circle
-use. Recorded Trace screenshots play back step by step in hairline frames,
-with a tap ripple where the Probe tapped and step counters ticking.
+A 3:00, 1920x1080, 30fps film with burned-in captions. The visual reference is
+[the owner-provided Watch Dogs film](https://www.youtube.com/watch?v=scyA9cnbja4):
+black space, sharp sans-serif type, data fragments, thin wireframe connections
+and quick graphic cuts. All visuals are original or recorded AgencyDiff evidence;
+no game assets or audio are included. An original procedural electronic score
+(`scripts/soundtrack.ts`) adds a low pulse, quiet data ticks and section accents.
+It contains no samples or speech. Inter headlines, Martian Mono data and
+Atkinson body text share the existing licensed font files. Blue tracks the active
+path; red and green describe measured deltas. Film grain stays subtle and static.
 
 ## Structure (all timings in `src/Demo.tsx`)
 
-0:00–0:15 cold open: two Probes on "I do not want strangers messaging me",
-replayed with a cursor that glides to each recorded tap (the baseline blocks
-strangers, the candidate run never reaches the option); the Finding slides
-in. 0:15–0:31 the problem in plain words. 0:31–1:23 the experiment: the
+0:00–0:15 cold open: “YOU SAID NO.” cuts to the recorded location-decline
+Probes: one action before the update, seven after. A wireframe built from the
+candidate's actual screen sequence moves behind the evidence. 0:15–0:31 the problem in plain words. 0:31–1:23 the experiment: the
 verbatim "Simplify onboarding" prompt from `eval/agent-prs/tasks.json`
 (typed at 35 characters per second in Atkinson, then held), the regressing agent diff and the failed check, the
 seeded decline Traces (1 step against the candidate's hunt for the toggle),
@@ -44,8 +45,8 @@ file. `src/footage.ts` does the same for stills and voiceover.
 The opening code-activity animation uses the real text-line totals from design
 merge `9abc947`: 6,522 additions and 6,070 deletions (`git show --numstat`).
 These describe this repository update, not an evaluation result. Its segmented
-bar represents the same proportions. The task terminal is explicitly labeled
-as a recreation; the task itself remains verbatim. The Contract → Probes →
+bar represents the same proportions. The task is presented as the actual tasks.json artifact, with its recorded
+diff layered behind it. It does not imitate Muse Code’s interface. The Contract → Probes →
 Oracle → Diff diagram highlights each stage in sequence.
 
 ## Footage
@@ -86,6 +87,6 @@ pnpm --filter video render
 The render writes `media/agencydiff-demo.mp4` and
 `media/agencydiff-demo-captions.mp4` (same video, no audio track), asserts
 both are within (0, 180.0] seconds, and fails otherwise. It needs `ffmpeg`
-and `ffprobe` on PATH (or `FFMPEG` / `FFPROBE`). Without `public/vo` the
-film is captions-only. Large mp4s, staged footage and generated voiceover
+and `ffprobe` on PATH (or `FFMPEG` / `FFPROBE`). Without `public/vo` the film has captions and the procedural score, without
+spoken narration. The `-captions.mp4` export is silent. Large mp4s, staged footage and generated voiceover
 stay out of git (see the repo `.gitignore`).

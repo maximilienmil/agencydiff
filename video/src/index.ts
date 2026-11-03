@@ -7,6 +7,8 @@ import { Root } from "./Root.js";
 if (typeof document !== "undefined") {
   const handle = delayRender("Loading Inter");
   Promise.all([
+    document.fonts.load('400 20px "Inter"'),
+    document.fonts.load('700 20px "Inter"'),
     document.fonts.load('400 20px "Redaction"'),
     document.fonts.load('italic 400 20px "Redaction"'),
     document.fonts.load('400 20px "Redaction 35"'),

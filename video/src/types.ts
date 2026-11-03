@@ -71,6 +71,7 @@ export interface Clips {
 }
 
 export interface Footage {
+  soundtrack: string | null;
   clips: Clips;
   samOverlay: string | null;
   samTeen: string | null;
@@ -118,6 +119,7 @@ export const FALLBACK_DATA: VideoData = {
 export const EMPTY_CLIPS: Clips = { coldBaseline: null, coldCandidate: null, withBaseline: null, withCandidate: null };
 
 export const EMPTY_FOOTAGE: Footage = {
+  soundtrack: null,
   clips: EMPTY_CLIPS,
   samOverlay: null,
   samTeen: null,

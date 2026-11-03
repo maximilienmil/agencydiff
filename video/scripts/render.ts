@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition } from "@remotion/renderer";
+import { writeSoundtrack } from "./soundtrack.js";
 import { loadVideoData } from "../src/data.js";
 import { loadFootage } from "../src/footage.js";
 
@@ -19,6 +20,7 @@ mkdirSync(join(repoRoot, "media"), { recursive: true });
 const voiced = join(repoRoot, "media/agencydiff-demo.mp4");
 const captionsOnly = join(repoRoot, "media/agencydiff-demo-captions.mp4");
 
+writeSoundtrack(join(videoDir, "public"));
 const inputProps = {
   data: loadVideoData(repoRoot),
   footage: loadFootage(join(videoDir, "public")),

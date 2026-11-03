@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { bundle } from "@remotion/bundler";
 import { renderStill, selectComposition } from "@remotion/renderer";
+import { writeSoundtrack } from "./soundtrack.js";
 import { loadVideoData } from "../src/data.js";
 import { loadFootage } from "../src/footage.js";
 
@@ -16,6 +17,7 @@ mkdirSync(outDir, { recursive: true });
 const want = process.argv.slice(2).map(Number);
 const seconds = want.length ? want : [8, 20, 50, 65, 80, 95, 125, 175];
 
+writeSoundtrack(join(videoDir, "public"));
 const inputProps = {
   data: loadVideoData(repoRoot),
   footage: loadFootage(join(videoDir, "public")),

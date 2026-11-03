@@ -13,11 +13,10 @@ Two renders ship: `media/agencydiff-demo.mp4` (voiced) and
 
 ## 0:00–0:15 — Cold open (≤15 s)
 
-> Two probes try one intent — I do not want strangers messaging me — on two builds. The left probe reaches the choice. The right one gets lost, and the Agency Diff records a finding.
+> You said no. The update moved the choice. Before, declining location took one action. After, it took seven. Same request, same checked final state. AgencyDiff records what changed.
 
-On screen: two phone-column Trace screenshots side by side (baseline reaches
-the Messages decision, candidate ends on the wrong screen); the Finding card
-animates in. No report-viewer chrome: its footer carries driver debug text.
+On screen: “YOU SAID NO.” cuts to actual location-decline Traces, with
+one-action and seven-action counters and a path wireframe.
 
 ## 0:15–0:31 — Problem (≤16 s)
 

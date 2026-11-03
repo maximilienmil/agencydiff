@@ -285,7 +285,7 @@ function TracePhone({
   const { i, t } = frameAt(n, f, start, end);
   const held = i === n && (f >= end || n === 0);
   const frame = clip.frames[i];
-  const showTap = frame.tap && (!held || n === 0 || last !== undefined);
+  const showTap = frame.tap && !held;
   const tapP = showTap ? interpolate(t, [0.44, 0.98], [0, 1], clamp) : 0;
   const scale = width / 430;
   const winH = clip.window * scale;
@@ -296,11 +296,11 @@ function TracePhone({
   const rest = { x: 0.5, y: 0.9 };
   const prevTap = i > 0 ? clip.frames[i - 1].tap ?? rest : rest;
   const target = frame.tap ?? prevTap;
-  const glide = frame.tap && (!held || n === 0 || last !== undefined) ? interpolate(t, [0, 0.42], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) }) : 1;
-  const from = held && (n === 0 || last !== undefined) ? target : prevTap;
+  const glide = frame.tap && !held ? interpolate(t, [0, 0.42], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) }) : 1;
+  const from = held ? target : prevTap;
   const cx = (from.x + (target.x - from.x) * glide) * width;
   const cy = (from.y + (target.y - from.y) * glide) * winH;
-  const press = interpolate(t, [0.4, 0.46, 0.56], [1, 0.82, 1], clamp);
+  const press = held ? 1 : interpolate(t, [0.4, 0.46, 0.56], [1, 0.82, 1], clamp);
   const cursorOn = f >= start - 6;
   return (
     <div style={{ display: "flex", flexDirection: "column", opacity: enter, transform: `translateY(${(1 - enter) * 40}px)` }}>
@@ -464,7 +464,7 @@ function Stamp({ ok, text, at }: { ok: boolean; text: string; at: number }) {
 function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; vo: string | null }) {
   const { withBaseline: b, withCandidate: c } = footage.clips;
   const f = useCurrentFrame();
-  const toggle = c ? Math.min(6, c.frames.length - 1) : 0;
+  const toggle = c ? Math.min(c.steps, c.frames.length - 1) : 0;
   const declineC = Number(data.declineCandidate);
   const noGate = frac(data.agentNoGate);
   const gated = frac(data.agentGated);
@@ -476,8 +476,8 @@ function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; 
       <Beat from={0} to={330}>
         <Frame>
           <Label>The task given to a coding agent</Label>
-          <div style={{ fontFamily: T.display, fontStyle: "italic", fontSize: 76, lineHeight: 1.18, marginTop: 30, maxWidth: 1600 }}>
-            <Typewriter text={`“${v(data.onboardPrompt)}”`} at={8} cps={56} />
+          <div style={{ fontFamily: T.font, fontSize: 68, lineHeight: 1.18, marginTop: 30, maxWidth: 1600 }}>
+            <Typewriter text={`“${v(data.onboardPrompt)}”`} at={8} cps={35} />
           </div>
           <Caption at={30}>The prompt, verbatim, from eval/agent-prs/tasks.json.</Caption>
         </Frame>
@@ -503,14 +503,14 @@ function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; 
                 <span style={{ color: T.ink3 }}>{v(data.declineBaseline)}</span>
                 <span style={{ fontFamily: T.font, fontWeight: 300, fontSize: 110, color: T.ink3 }}> → </span>
                 {Number.isFinite(declineC) ? (
-                  <Degrade at={370}>{f - 560 < 370 ? Math.max(1, Math.min(declineC, candStep + 1)) : declineC}</Degrade>
+                  <Degrade at={370}>{f - 560 < 370 ? Math.max(1, Math.min(declineC, candStep)) : declineC}</Degrade>
                 ) : (
                   PENDING
                 )}
               </div>
               <div style={{ fontSize: 32, color: T.ink2, marginTop: 10 }}>baseline → candidate, median of 3 Muse Probes</div>
             </div>
-            <TracePhone clip={b} start={20} end={21} last={0} width={360} label="Baseline" />
+            <TracePhone clip={b} start={20} end={50} last={1} width={360} label="Baseline" />
             <TracePhone clip={c} start={20} end={360} last={toggle} width={360} label="Candidate" />
           </div>
           <Caption at={30}>Baseline: Not now on the prompt. Candidate: Settings, then Location, to reach the toggle.</Caption>
@@ -528,26 +528,23 @@ function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; 
       <Beat from={1200} to={1560} last>
         <Frame>
           <Label>Pull requests that broke saying no</Label>
-          <div style={{ display: "flex", gap: 180, marginTop: 34 }}>
-            <div>
-              <div style={{ fontFamily: T.degraded, fontSize: 250, lineHeight: 1, color: T.badInk, fontVariantNumeric: "tabular-nums lining-nums" }}>
-                {noGate ? <><CountUp to={noGate[0]} at={10} dur={34} />/{noGate[1]}</> : PENDING}
+          <div style={{ display: "flex", gap: 100, marginTop: 34 }}>
+            {[{ value: noGate, label: "Agent alone", at: 10 }, { value: gated, label: "With AgencyDiff", at: 120 }].map(({ value, label, at }) => (
+              <div key={label} style={{ width: 740 }}>
+                <div style={{ fontSize: 36, marginBottom: 20 }}>{label}</div>
+                {value ? <>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)", gap: 10 }}>
+                    {Array.from({ length: value[1] }, (_, i) => {
+                      const revealed = f - 1200 >= at + i * 3;
+                      const bad = i < value[0];
+                      return <div key={i} style={{ height: 76, border: `1px solid ${T.line}`, background: revealed ? (bad ? T.badInk : T.goodInk) : "#fff", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: T.mono, fontSize: 28 }}>{revealed ? (bad ? "×" : "✓") : ""}</div>;
+                    })}
+                  </div>
+                  <In at={at + value[1] * 3}><div style={{ fontFamily: T.display, fontSize: 100, marginTop: 22, color: value[0] ? T.badInk : T.goodInk }}>{value[0]}/{value[1]}</div></In>
+                </> : PENDING}
               </div>
-              <div style={{ fontSize: 36, color: T.ink2, margin: "18px 0 22px" }}>Agent alone</div>
-              {noGate && <TallyDraw n={noGate[0]} at={10} per={4} height={70} color={RED} />}
-            </div>
-            <In at={60}>
-              <div style={{ fontFamily: T.display, fontSize: 250, lineHeight: 1, color: T.goodInk, fontVariantNumeric: "tabular-nums lining-nums" }}>
-                {gated ? `${gated[0]}/${gated[1]}` : PENDING}
-              </div>
-              <div style={{ fontSize: 36, color: T.ink2, marginTop: 18 }}>With AgencyDiff in the loop</div>
-            </In>
+            ))}
           </div>
-          <In at={150}>
-            <div style={{ fontSize: 40, color: T.ink2, marginTop: 70, maxWidth: 1500, lineHeight: 1.35 }}>
-              Same tasks and the same agents. The only difference: the agent could run AgencyDiff before opening the pull request.
-            </div>
-          </In>
           <Caption at={40}>Muse-confirmed regressions over {noGate?.[1] ?? PENDING} pull requests per side, from eval/agent-prs/results.json.</Caption>
         </Frame>
       </Beat>

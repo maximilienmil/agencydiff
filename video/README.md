@@ -15,9 +15,9 @@ replayed with a cursor that glides to each recorded tap (the baseline blocks
 strangers, the candidate run never reaches the option); the Finding slides
 in. 0:15–0:31 the problem in plain words. 0:31–1:23 the experiment: the
 verbatim "Simplify onboarding" prompt from `eval/agent-prs/tasks.json`
-(typed, then held), the regressing agent diff and the failed check, the
+(typed at 35 characters per second in Atkinson, then held), the regressing agent diff and the failed check, the
 seeded decline Traces (1 step against the candidate's hunt for the toggle),
-the gated agent's diff and the passed check, then 8/30 against 0/30 from
+the gated agent's diff and the passed check, then two animated 30-tile grids showing 8/30 against 0/30 from
 `eval/agent-prs/results.json`. 1:23–1:57 how it works (Contract, Probes,
 Oracle, Diff; 19/20 against 1/20; SAM overlay; propose-fix). 1:57–2:30 it
 generalizes (init on ntfy, SusBench 7/10, native Android, the

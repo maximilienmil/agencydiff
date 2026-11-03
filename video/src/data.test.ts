@@ -15,7 +15,7 @@ test("headlines come from the eval evidence files", () => {
   assert.equal(d.gateCost, "$0");
   assert.equal(d.screensCaught, "1/20");
   assert.equal(d.susDetected, "7/10");
-  assert.ok(d.auditRealId?.includes("0/3 → 3/3"));
+  assert.equal(d.auditRealId, "REAL ID documents: 3/5 → 5/5 · 21 → 1 actions to fact");
 });
 
 test("the experiment beat uses the real prompt, diffs and findings", () => {

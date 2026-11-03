@@ -11,7 +11,9 @@ state, never by the agent's claim.
 Requires Node 22+. The scripted driver needs Playwright browsers once:
 
 ```bash
-npm install -g agencydiff
+git clone https://github.com/maximilienmil/agencydiff && cd agencydiff
+pnpm install && pnpm --filter agencydiff build
+alias agencydiff="node $PWD/packages/cli/dist/cli.js"   # not on the npm registry yet
 npx playwright install chromium
 ```
 

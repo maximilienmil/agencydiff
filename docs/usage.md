@@ -7,7 +7,9 @@ open a PR.
 ## CLI
 
 ```bash
-npm install -g agencydiff
+git clone https://github.com/maximilienmil/agencydiff && cd agencydiff
+pnpm install && pnpm --filter agencydiff build
+alias agencydiff="node $PWD/packages/cli/dist/cli.js"   # not on the npm registry yet
 npx playwright install chromium
 
 agencydiff init --url https://shop.example.com/settings
@@ -27,7 +29,7 @@ see `packages/cli/README.md` for the `npm pack` verification.
 ## GitHub Action
 
 ```yaml
-- uses: maximilienmil/agencydiff@v1
+- uses: maximilienmil/agencydiff@main
   with:
     baseline-url: https://shop.example.com/
     candidate-url: https://preview-${{ github.event.number }}.example.com/
@@ -41,7 +43,7 @@ inputs, Vercel/Netlify examples, and the relation to
 ## MCP server
 
 ```json
-{ "mcpServers": { "agencydiff": { "command": "agencydiff", "args": ["mcp"] } } }
+{ "mcpServers": { "agencydiff": { "command": "node", "args": ["/path/to/agencydiff/packages/cli/dist/cli.js", "mcp"] } } }
 ```
 
 Tools: `agencydiff_check` (URLs + contract → findings + report path),

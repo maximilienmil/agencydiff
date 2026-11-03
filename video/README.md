@@ -1,19 +1,20 @@
 # AgencyDiff demo video
 
-A 3:00, 1920x1080, 30fps film with burned-in captions. Flat and
-typographic: white or near-black, one accent (blue #0866FF), red and green
-only on measured deltas, one idea per frame with calm crossfades, and a
-static monochrome film grain at 4.5% opacity over everything. Colours and
-type come from `design/tokens.css`, the same file the report site and Circle
-use. Recorded Trace screenshots play back step by step in hairline frames,
-with a tap ripple where the Probe tapped and step counters ticking.
+A 3:00, 1920x1080, 30fps film with burned-in captions. The visual reference is
+[the owner-provided Watch Dogs film](https://www.youtube.com/watch?v=scyA9cnbja4):
+black space, sharp sans-serif type, data fragments, thin wireframe connections
+and quick graphic cuts. All visuals are original or recorded AgencyDiff evidence;
+no game assets or audio are included. An original procedural electronic score
+(`scripts/soundtrack.ts`) adds a low pulse, quiet data ticks and section accents.
+It contains no samples or speech. Inter headlines, Martian Mono data and
+Atkinson body text share the existing licensed font files. Blue tracks the active
+path; red and green describe measured deltas. Film grain stays subtle and static.
 
 ## Structure (all timings in `src/Demo.tsx`)
 
-0:00–0:15 cold open: two Probes on "I do not want strangers messaging me",
-replayed with a cursor that glides to each recorded tap (the baseline blocks
-strangers, the candidate run never reaches the option); the Finding slides
-in. 0:15–0:31 the problem in plain words. 0:31–1:23 the experiment: the
+0:00–0:15 cold open: “An app asks for your location.” cuts to the recorded location-decline
+Probes: one action before the update, seven after. A wireframe built from the
+candidate's actual screen sequence moves behind the evidence. 0:15–0:31 the problem in plain words. 0:31–1:23 the experiment: the
 verbatim "Simplify onboarding" prompt from `eval/agent-prs/tasks.json`
 (typed at 35 characters per second in Atkinson, then held), the regressing agent diff and the failed check, the
 seeded decline Traces (1 step against the candidate's hunt for the toggle),
@@ -26,7 +27,7 @@ Meta's models. 2:52–3:00 close, ending on black at exactly 3:00.
 
 ## Data rule
 
-No number is hard-coded. `src/data.ts` reads, at render time:
+Evaluation numbers are never hard-coded. `src/data.ts` reads, at render time:
 
 - `eval/agent-prs/results.json` + `tasks.json` + `demo/` (8/30 vs 0/30, the
   prompt, both diff excerpts, GATE claim)
@@ -35,11 +36,18 @@ No number is hard-coded. `src/data.ts` reads, at render time:
 - `eval/susbench/results.json` (7/10, 1/3 controls)
 - `apps/report/public/data/<decision>/report.json` (Finding titles, 1 → 7
   actions, hidden on first screen)
-- `docs/audit.md` (REAL ID row, 0/3 → 3/3 · 4 actions to fact)
+- `docs/audit.md` (REAL ID row, 3/5 → 5/5 · 21 → 1 actions to fact)
 
 Anything missing renders as `[PENDING]`. Preview defaults are all
 `[PENDING]` on purpose: the film can only show a number that came from a
 file. `src/footage.ts` does the same for stills and voiceover.
+
+The opening code-activity animation uses the real text-line totals from design
+merge `9abc947`: 6,522 additions and 6,070 deletions (`git show --numstat`).
+These describe this repository update, not an evaluation result. Its segmented
+bar represents the same proportions. The task is presented as the actual tasks.json artifact, with its recorded
+diff layered behind it. It does not imitate Muse Code’s interface. The Contract → Probes →
+Oracle → Diff diagram highlights each stage in sequence.
 
 ## Footage
 
@@ -79,6 +87,6 @@ pnpm --filter video render
 The render writes `media/agencydiff-demo.mp4` and
 `media/agencydiff-demo-captions.mp4` (same video, no audio track), asserts
 both are within (0, 180.0] seconds, and fails otherwise. It needs `ffmpeg`
-and `ffprobe` on PATH (or `FFMPEG` / `FFPROBE`). Without `public/vo` the
-film is captions-only. Large mp4s, staged footage and generated voiceover
+and `ffprobe` on PATH (or `FFMPEG` / `FFPROBE`). Without `public/vo` the film has captions and the procedural score, without
+spoken narration. The `-captions.mp4` export is silent. Large mp4s, staged footage and generated voiceover
 stay out of git (see the repo `.gitignore`).

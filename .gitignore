@@ -18,3 +18,5 @@ apps/report/public/data/benchmark/
 apps/report/tests/overview-*.png
 video/public/vo/
 media/frames-draft/
+
+video/public/soundtrack.wav

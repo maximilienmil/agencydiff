@@ -3,7 +3,7 @@ import type { AgencyReport, Trace } from "@agencydiff/core";
 import { loadReport, loadShowcase, loadTrace, shotUrl, type RunIndex, type ShowcaseEntry } from "../data";
 import { link } from "../App";
 import { BenchmarkSection, useBenchmark } from "./Benchmark";
-import { Phone, Readout, RouteMap, Tally, blob, REPO_URL } from "../components";
+import { Constellation, Phone, Readout, RouteMap, Tally, blob, REPO_URL } from "../components";
 import { shotList } from "../format";
 
 interface CardData {
@@ -174,6 +174,7 @@ export function OverviewPage({ index }: { index: RunIndex }) {
   return (
     <>
       <section className="hero">
+        <Constellation />
         <div className="hero-grid">
           <div>
             <h1>

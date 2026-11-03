@@ -34,6 +34,7 @@ interface SummaryJson {
 
 interface SusJson {
   summary?: { injectedPairs?: number; detectedPairs?: number; controlPairs?: number; falseAlarms?: number };
+  pairs?: Array<{ pattern: string; control?: boolean; detected?: boolean }>;
 }
 
 interface ReportJson {
@@ -146,6 +147,7 @@ export function loadVideoData(repoRoot: string): VideoData {
       sus?.summary && sus.summary.detectedPairs !== undefined && sus.summary.injectedPairs !== undefined
         ? `${sus.summary.detectedPairs}/${sus.summary.injectedPairs}`
         : null,
+    susPairs: (sus?.pairs ?? []).filter((p) => !p.control).map((p) => ({ pattern: p.pattern, detected: !!p.detected })),
     susFalseAlarms:
       sus?.summary?.falseAlarms !== undefined && sus?.summary?.controlPairs !== undefined
         ? `${sus.summary.falseAlarms}/${sus.summary.controlPairs}`

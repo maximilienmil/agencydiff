@@ -74,18 +74,23 @@ Limits:
 One engine, three entry points. Details in [docs/usage.md](docs/usage.md).
 
 ```bash
-npx agencydiff diff --baseline <url> --candidate <url> --contract ./contracts/settings.json
-npx agencydiff audit --url <url> --contract ./contracts/settings.json --driver muse
-npx agencydiff init --url <url> --out contracts/<name>.json
+git clone https://github.com/maximilienmil/agencydiff && cd agencydiff
+pnpm install && pnpm --filter agencydiff build
+alias agencydiff="node $PWD/packages/cli/dist/cli.js"   # not on the npm registry yet
+npx playwright install chromium
+
+agencydiff init --url <url>
+agencydiff diff --baseline <url> --candidate <url> --contract ./contracts/settings.json
+agencydiff audit --url <url> --contract ./contracts/settings.json --driver muse
 ```
 
 ```yaml
-- uses: maximilienmil/agencydiff@v1
+- uses: maximilienmil/agencydiff@main
   with: { baseline-url: ${{ prod }}, candidate-url: ${{ preview }}, contracts: contracts/settings.json }
 ```
 
 ```json
-{ "mcpServers": { "agencydiff": { "command": "agencydiff", "args": ["mcp"] } } }
+{ "mcpServers": { "agencydiff": { "command": "node", "args": ["/path/to/agencydiff/packages/cli/dist/cli.js", "mcp"] } } }
 ```
 
 The [GitHub Action](docs/github-action.md) diffs production against the preview deploy on every PR. The [MCP server](docs/mcp.md) lets coding agents check themselves before opening a PR. Authenticated flows and production-safe monitoring: [docs/auth-and-prod.md](docs/auth-and-prod.md).

@@ -33,6 +33,7 @@ export function loadFootage(publicDir: string): Footage {
     }
   }
   return {
+    soundtrack: existsSync(join(publicDir, "soundtrack.wav")) ? "soundtrack.wav" : null,
     clips,
     samOverlay: one("sam-overlay.png"),
     samTeen: one("sam-teen.png"),

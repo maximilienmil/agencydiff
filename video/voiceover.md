@@ -13,15 +13,14 @@ Two renders ship: `media/agencydiff-demo.mp4` (voiced) and
 
 ## 0:00–0:15 — Cold open (≤15 s)
 
-> Two probes try one intent — I do not want strangers messaging me — on two builds. The left probe reaches the choice. The right one gets lost, and the Agency Diff records a finding.
+> An app asks for your location. Before the update, declining took one action. After it, seven. Same request, same checked final state. AgencyDiff records what changed.
 
-On screen: two phone-column Trace screenshots side by side (baseline reaches
-the Messages decision, candidate ends on the wrong screen); the Finding card
-animates in. No report-viewer chrome: its footer carries driver debug text.
+On screen: “An app asks for your location.” cuts to actual location-decline Traces, with
+one-action and seven-action counters and a path wireframe.
 
 ## 0:15–0:31 — Problem (≤16 s)
 
-> Coding agents ship interface changes every day. Nobody re-checks whether people can still do what they came to do — decline, restrict, cancel, delete. AgencyDiff turns those choices into executable tests.
+> Coding agents ship new interfaces every day. Nobody re-checks whether people can still do what they came to do — decline, restrict, cancel, delete. AgencyDiff turns those choices into executable tests.
 
 On screen: plain-words statement card.
 

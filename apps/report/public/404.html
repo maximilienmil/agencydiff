@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><title>AgencyDiff</title>
+<script>
+  // GitHub Pages serves this for unknown paths. The report routes by hash, so
+  // send /agencydiff/replay?run=x to /agencydiff/#/replay?run=x.
+  var p = location.pathname.replace(/^\/agencydiff\/?/i, "").replace(/\/$/, "");
+  location.replace("/agencydiff/" + (p ? "#/" + p + location.search : "") + location.hash);
+</script>

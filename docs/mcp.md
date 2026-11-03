@@ -22,8 +22,8 @@ contract JSON. `driver` is `scripted` (offline reference-path replay) or
 {
   "mcpServers": {
     "agencydiff": {
-      "command": "agencydiff",
-      "args": ["mcp"],
+      "command": "node",
+      "args": ["/path/to/agencydiff/packages/cli/dist/cli.js", "mcp"],
       "env": { "MODEL_API_KEY": "${MODEL_API_KEY}" }
     }
   }
@@ -55,8 +55,8 @@ or in `.mcp.json`:
 {
   "mcpServers": {
     "agencydiff": {
-      "command": "agencydiff",
-      "args": ["mcp"],
+      "command": "node",
+      "args": ["/path/to/agencydiff/packages/cli/dist/cli.js", "mcp"],
       "env": { "MODEL_API_KEY": "${MODEL_API_KEY}" }
     }
   }

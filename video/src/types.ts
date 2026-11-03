@@ -22,6 +22,8 @@ export interface VideoData {
   /** SusBench-derived patterns. */
   susDetected: string | null;
   susFalseAlarms: string | null;
+  /** Per-pattern SusBench outcomes, injected pairs only. */
+  susPairs: { pattern: string; detected: boolean }[];
   /** Public-site audit headline row, e.g. "0/3 → 3/3 · 4 actions to fact". */
   auditRealId: string | null;
   /** The exact "Simplify onboarding" prompt the coding agent received. */
@@ -71,6 +73,7 @@ export interface Clips {
 }
 
 export interface Footage {
+  soundtrack: string | null;
   clips: Clips;
   samOverlay: string | null;
   samTeen: string | null;
@@ -101,6 +104,7 @@ export const FALLBACK_DATA: VideoData = {
   walkthroughCaught: null,
   susDetected: null,
   susFalseAlarms: null,
+  susPairs: [],
   auditRealId: null,
   onboardPrompt: null,
   onboardTitle: null,
@@ -118,6 +122,7 @@ export const FALLBACK_DATA: VideoData = {
 export const EMPTY_CLIPS: Clips = { coldBaseline: null, coldCandidate: null, withBaseline: null, withCandidate: null };
 
 export const EMPTY_FOOTAGE: Footage = {
+  soundtrack: null,
   clips: EMPTY_CLIPS,
   samOverlay: null,
   samTeen: null,

@@ -258,3 +258,25 @@ export function Mark({ size = 26 }: { size?: number }) {
     </svg>
   );
 }
+
+/** Meta-style depth for the hero: a constellation of thin lines and glowing
+ *  nodes over a faint blue/teal haze. Fixed seed, decorative only. */
+export function Constellation() {
+  let x = 7;
+  const rnd = () => (x = (x * 16807) % 2147483647) / 2147483647;
+  const w = 1600, h = 760;
+  const pts = Array.from({ length: 30 }, () => ({ x: rnd() * w, y: rnd() * h, r: 1.2 + rnd() * 2.2 }));
+  const lines: [number, number][] = [];
+  pts.forEach((a, i) => pts.forEach((b, j) => { if (j > i && Math.hypot(a.x - b.x, a.y - b.y) < 330) lines.push([i, j]); }));
+  return (
+    <div className="constellation" aria-hidden="true">
+      <i className="haze a" />
+      <i className="haze b" />
+      <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="xMidYMid slice">
+        <defs><filter id="cglow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="5" /></filter></defs>
+        <g className="edges">{lines.map(([i, j]) => <line key={`${i}-${j}`} x1={pts[i].x} y1={pts[i].y} x2={pts[j].x} y2={pts[j].y} />)}</g>
+        {pts.map((p, i) => <g key={i}><circle cx={p.x} cy={p.y} r={p.r * 3} className="glow" filter="url(#cglow)" /><circle cx={p.x} cy={p.y} r={p.r * 0.7} className="core" /></g>)}
+      </svg>
+    </div>
+  );
+}

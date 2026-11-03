@@ -1,0 +1,9 @@
+{
+  "variant": "baseline",
+  "decision": "D2",
+  "rep": 0,
+  "taps": 6,
+  "oraclePass": true,
+  "durationMs": 3826,
+  "detail": "mutedUntil=1 badge=4"
+}

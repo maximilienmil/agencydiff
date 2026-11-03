@@ -1,0 +1,55 @@
+# ntfy web UI snapshot (for blind interface tasks)
+
+Recorded from the isolated local instance (ntfy 2.36.0, fresh profile,
+one subscribed topic `example-topic`). Text and structure only; no
+implementation internals.
+
+## Top navigation (left sidebar)
+
+- Button: All notifications
+- Section: Subscribed topics
+  - Button: `<topic name>` (selects the topic; each topic row also has a
+    small nested menu button that opens the topic menu)
+- Button: Settings
+- Button: Documentation
+- Button: Publish notification (opens a publish dialog)
+- Button: Subscribe to topic (opens the subscribe dialog below)
+
+First-run note: on a brand-new profile a dismissible banner asks for
+browser notification permission ("Notifications are disabled / GRANT NOW"
++ Close). The "Subscribe to topic" nav button appears after the banner
+is dismissed.
+
+## Subscribe-to-topic dialog
+
+- Heading: "Subscribe to topic"
+- Paragraph: "Topics may not be password-protected, so choose a name
+  that's not easy to guess. Once subscribed, you can PUT/POST
+  notifications."
+- Text field labeled "Topic name, e.g. phil_alerts"
+- Button: GENERATE NAME (fills in a random name)
+- Switch: "Use another server"
+- Footer buttons: CANCEL, SUBSCRIBE
+
+## Topic menu (per subscribed topic, via the row's menu button)
+
+- Change display name
+- Send test notification
+- Clear all notifications
+- Mute notifications (flips to "Unmute notifications" while muted; a
+  muted-indicator icon appears beside the topic row)
+- Unsubscribe (removes the subscription immediately)
+
+## Settings page, Notifications section (rows; each row is label +
+// description + a value control)
+
+- "Notification sound" — "Notifications play the Ding sound when they
+  arrive" — value control (current: Ding)
+- "Minimum priority" — "Showing all notifications, regardless of
+  priority" — value control (current: Any priority)
+- "Delete notifications" — "Notifications are auto-deleted after one
+  week" — value control (current: After one week; offers Never, After
+  three hours, After one day, After one week, After one month)
+
+(Further Settings sections exist below: appearance, date/time format,
+language, user management. They are out of scope for these tasks.)

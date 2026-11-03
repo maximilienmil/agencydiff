@@ -2,14 +2,6 @@ name: AgencyDiff
 
 on:
   pull_request:
-    paths:
-      - "apps/circle/**"
-      - "contracts/**"
-      - "eval/**"
-      - "packages/**"
-      - "targets/**"
-      - "scripts/ci-agencydiff.sh"
-      - ".github/workflows/agencydiff.yml"
 
 permissions:
   contents: read

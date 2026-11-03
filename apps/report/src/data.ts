@@ -30,10 +30,23 @@ export interface BenchMethod {
 /** Shape of eval/results/summary.json, copied to data/benchmark/ at build time. */
 export interface BenchSummary {
   generatedAt: string;
-  agencydiff: { scripted: BenchMethod; muse: BenchMethod | null };
-  judge: BenchMethod & {
-    consistencyK3?: { agreement: number; pairs: number; seeds: string[] };
+  agencydiff: {
+    scripted: BenchMethod;
+    muse: (BenchMethod & { coverage?: string; coverageNote?: string }) | null;
+    hybrid?: BenchMethod | null;
   };
+  judge: {
+    walkthrough?: (BenchMethod & { consistencyK3?: { agreement: number; pairs: number; seeds: string[] } }) | null;
+    firstScreens?: BenchMethod | null;
+  };
+}
+
+/** Derived at build time from eval/agent-prs/results.json. */
+export interface AgentPrs {
+  source: string;
+  tasks: number;
+  noGate: { broke: number; attempts: number };
+  gated: { broke: number; attempts: number };
 }
 
 export interface SusPair {
@@ -56,6 +69,7 @@ export interface SusBench {
 export interface Benchmark {
   summary: BenchSummary | null;
   susbench: SusBench | null;
+  agentPrs: AgentPrs | null;
 }
 
 export interface ShowcaseEntry {
@@ -95,11 +109,12 @@ export async function loadBenchmark(): Promise<Benchmark> {
       return null;
     }
   };
-  const [summary, susbench] = await Promise.all([
+  const [summary, susbench, agentPrs] = await Promise.all([
     tryGet<BenchSummary>("benchmark/summary.json"),
     tryGet<SusBench>("benchmark/susbench.json"),
+    tryGet<AgentPrs>("benchmark/agent-prs.json"),
   ]);
-  return { summary, susbench };
+  return { summary, susbench, agentPrs };
 }
 
 export const shotUrl = (runId: string, traceId: string, shot: string) =>

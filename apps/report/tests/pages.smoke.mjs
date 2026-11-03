@@ -62,11 +62,15 @@ try {
   await page.goto(`${ORIGIN}${BASE}/`, { waitUntil: "networkidle" });
   check(await page.locator("h1").innerText().then((t) => t.includes("Regression tests")), "overview headline at 1440px");
   check((await page.locator(".showcase-card").count()) === 4, "4 showcase cards");
-  check(await page.locator(".hero-replay a").isVisible(), "Replay hero link visible");
-  check((await page.locator("table").first().innerText()).includes("20/20"), "benchmark table shows real seeded results");
+  check(await page.locator(".hero-replay a.primary").isVisible(), "Replay hero link visible");
+  const summary = JSON.parse(await readFile(path.join(root, "../../eval/results/summary.json"), "utf8"));
+  check(
+    (await page.locator("table").first().innerText()).includes(summary.agencydiff.scripted.caught),
+    `benchmark table shows real seeded results (${summary.agencydiff.scripted.caught})`,
+  );
   check((await page.locator('a[href="circle/"]').count()) >= 1, "Circle link present");
 
-  await page.locator(".hero-replay a").click();
+  await page.locator(".hero-replay a.primary").click();
   await page.waitForSelector(".replay-stage .pane");
   await page.waitForFunction(() => {
     const img = document.querySelector(".replay-stage .pane img");
@@ -91,7 +95,12 @@ try {
     check(shown, `route ${route} shows ${needle}`);
   }
 
+  // People see the fictional-app banner; automated browsers (this one) skip it
+  // unless ?banner=1, so Trace screenshots show only the app.
   await page.goto(`${ORIGIN}${BASE}/circle/?variant=baseline`, { waitUntil: "networkidle" });
+  check(!(await page.locator(".fiction-banner").isVisible()), "Circle banner hidden from automated browsers");
+  await page.goto(`${ORIGIN}${BASE}/circle/?variant=baseline&banner=1`, { waitUntil: "networkidle" });
+  check(await page.locator(".fiction-banner").isVisible(), "Circle banner visible with ?banner=1");
   check((await page.locator(".fiction-banner").innerText()).includes("This is a fictional test app"), "Circle fictional banner");
   check((await page.locator('.fiction-banner a[href="?variant=candidate"]').count()) === 1, "Circle candidate link");
   check((await page.locator('.fiction-banner a[href^="?seeds="]').count()) === 4, "Circle headline seed links");

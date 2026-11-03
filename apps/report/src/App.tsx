@@ -7,6 +7,11 @@ import { DiffPage } from "./pages/Diff";
 import { ReplayPage } from "./pages/Replay";
 import { ContractPage } from "./pages/Contract";
 import { LivePage } from "./pages/Live";
+import { Mark, REPO_URL } from "./components";
+import { Theme } from "@astryxdesign/core/theme";
+import { TopNav } from "@astryxdesign/core/TopNav";
+import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
+import { agencyTheme } from "./theme";
 
 export type Page = "overview" | "runs" | "diff" | "replay" | "contract" | "live";
 
@@ -67,14 +72,60 @@ const TABS: { id: Page; label: string }[] = [
   { id: "live", label: "Live" },
 ];
 
+type Mode = "light" | "dark" | "system";
+
+function initialMode(): Mode {
+  try {
+    const saved = localStorage.getItem("agencydiff.theme");
+    if (saved === "light" || saved === "dark" || saved === "system") return saved;
+  } catch {
+    /* storage blocked: follow the system */
+  }
+  return "system";
+}
+
+function resolved(mode: Mode): "light" | "dark" {
+  if (mode !== "system") return mode;
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+/** Light, dark or system. Shared with pages through a window event so the
+ *  Live view's T shortcut and the nav control stay in step. */
+export function useTheme(): [Mode, (m?: Mode) => void] {
+  const [mode, setMode] = useState<Mode>(initialMode);
+  useEffect(() => {
+    document.documentElement.dataset.theme = resolved(mode);
+  }, [mode]);
+  useEffect(() => {
+    const onSet = (e: Event) => setMode((e as CustomEvent<Mode>).detail);
+    window.addEventListener("agencydiff-theme", onSet);
+    return () => window.removeEventListener("agencydiff-theme", onSet);
+  }, []);
+  const set = (m?: Mode) => {
+    const next: Mode = m ?? (resolved(mode) === "dark" ? "light" : "dark");
+    try {
+      localStorage.setItem("agencydiff.theme", next);
+    } catch {
+      /* ignore */
+    }
+    window.dispatchEvent(new CustomEvent("agencydiff-theme", { detail: next }));
+  };
+  return [mode, set];
+}
+
 export function App() {
   const route = useRoute();
   const [index, setIndex] = useState<RunIndex | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [mode, setMode] = useTheme();
 
   useEffect(() => {
     loadIndex().then(setIndex, (e) => setError(String(e)));
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [route.page]);
 
   const runId = route.run ?? index?.runs[0]?.id;
   const goDefault = useCallback(
@@ -83,32 +134,44 @@ export function App() {
   );
 
   return (
-    <>
-      <div className="topbar">
-        <div className="topbar-inner">
-          <div className="brand">
-            AgencyDiff<small>intent regression report</small>
-          </div>
-          <nav className="tabs" aria-label="Report sections">
-            {TABS.map((t) => (
-              <a
-                key={t.id}
-                href={goDefault(t.id)}
-                aria-current={route.page === t.id ? "page" : undefined}
-              >
-                {t.label}
+    <Theme theme={agencyTheme} mode={resolved(mode)}>
+      <div className="shell-nav">
+        <TopNav
+          label="Report sections"
+          heading={
+            <a className="brand" href="#/overview" aria-label="AgencyDiff home">
+              <Mark />
+              <b>AgencyDiff</b>
+            </a>
+          }
+          startContent={
+            <nav className="navlinks">
+              {TABS.map((t) => (
+                <a key={t.id} href={goDefault(t.id)} aria-current={route.page === t.id ? "page" : undefined}>
+                  {t.label}
+                </a>
+              ))}
+            </nav>
+          }
+          endContent={
+            <div className="nav-end">
+              <SegmentedControl label="Colour theme" size="md" value={resolved(mode)} onChange={(v) => setMode(v as Mode)}>
+                <SegmentedControlItem value="light" label="Light" />
+                <SegmentedControlItem value="dark" label="Dark" />
+              </SegmentedControl>
+              <a className="gh" href={REPO_URL}>
+                Source
               </a>
-            ))}
-          </nav>
-        </div>
+            </div>
+          }
+        />
       </div>
       <main>
         {error && <div className="error">Could not load report data: {error}</div>}
         {!error && !index && <p className="muted">Loading report data…</p>}
         {index && index.runs.length === 0 && (
           <div className="notice">
-            No runs exported yet. Serve Circle on :5173 and run{" "}
-            <code>pnpm diff --driver scripted</code> to produce one.
+            No runs exported yet. Serve Circle on :5173 and run <code>pnpm diff --driver scripted</code> to produce one.
           </div>
         )}
         {index && route.page === "overview" && <OverviewPage index={index} />}
@@ -123,12 +186,18 @@ export function App() {
             {route.page === "live" && <LivePage runId={runId} intent={route.intent} liveUrl={route.live} source={route.source} />}
           </>
         )}
-        <footer>
-          AgencyDiff measures the interface, not the person. Probes are standardized
-          instruments; success is decided by the Oracle on final app state
-          {index?.runs[0] ? ` · latest run ${fmtDate(index.runs[0].date)}` : ""}.
-        </footer>
       </main>
-    </>
+      <footer className="site">
+        <div className="inner">
+          <span>
+            AgencyDiff measures the interface, not the person. Probes are standardized instruments; success is decided
+            by the Oracle on final app state{index?.runs[0] ? `. Latest run ${fmtDate(index.runs[0].date)}` : ""}.
+          </span>
+          <span>
+            <a href={REPO_URL}>Source</a> · MIT · Built with Astryx
+          </span>
+        </div>
+      </footer>
+    </Theme>
   );
 }

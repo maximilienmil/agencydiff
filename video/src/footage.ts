@@ -1,32 +1,39 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { Footage } from "./types.js";
+import type { Clips, Footage } from "./types.js";
+import { EMPTY_CLIPS } from "./types.js";
 
-// Resolves which footage files actually exist under video/public/footage.
-// Staged stills only: full-phone Trace screenshots (already the phone
-// column, shown large, never letterboxed) and the SAM 3.1 overlay fixture.
-// Missing clips stay null and the composition renders a [PENDING] card.
-// The report viewer's live/replay clip is deliberately not used: its footer
-// carries driver debug text ("safety checks acknowledged…") and its phones
-// are tiny inside a wide panel.
+// Resolves which staged footage exists under video/public/footage (written by
+// scripts/capture.ts): whole recorded Traces for playback, plus the SAM 3.1
+// overlay fixture. Missing clips stay null and render as a [PENDING] card.
+// The report viewer is deliberately not screen-recorded: the film plays the
+// recorded Trace screenshots directly, full phone-column, with the taps the
+// Probe made drawn over them.
 
 export function loadFootage(publicDir: string): Footage {
   const dir = join(publicDir, "footage");
   const one = (name: string) => (existsSync(join(dir, name)) ? `footage/${name}` : null);
-  const trace = (decision: string, trace: string, shot: string) =>
-    existsSync(join(dir, `${decision}-${trace}-${shot}.png`))
-      ? `footage/${decision}-${trace}-${shot}.png`
-      : null;
   const vo = (name: string) =>
     existsSync(join(publicDir, "vo", `${name}.wav`)) ? `vo/${name}.wav` : null;
+  let clips: Clips = EMPTY_CLIPS;
+  const manifest = join(dir, "clips.json");
+  if (existsSync(manifest)) {
+    try {
+      const raw = JSON.parse(readFileSync(manifest, "utf8")) as Clips;
+      const ok = (c: Clips[keyof Clips]) =>
+        c && c.frames.every((f) => existsSync(join(publicDir, f.file))) ? c : null;
+      clips = {
+        coldBaseline: ok(raw.coldBaseline),
+        coldCandidate: ok(raw.coldCandidate),
+        withBaseline: ok(raw.withBaseline),
+        withCandidate: ok(raw.withCandidate),
+      };
+    } catch {
+      clips = EMPTY_CLIPS;
+    }
+  }
   return {
-    coldBaselineStart: trace("teen_dm", "block_unknown-baseline-0", "000"),
-    coldBaselineDecided: trace("teen_dm", "block_unknown-baseline-0", "017"),
-    coldCandidateStart: trace("teen_dm", "block_unknown-candidate-0", "000"),
-    coldCandidateLost: trace("teen_dm", "block_unknown-candidate-0", "020"),
-    withBaseline: trace("precise_location", "withhold-baseline-0", "000"),
-    withCandidate: trace("precise_location", "withhold-candidate-0", "000"),
-    withCandidateDeep: trace("precise_location", "withhold-candidate-0", "007"),
+    clips,
     samOverlay: one("sam-overlay.png"),
     samTeen: one("sam-teen.png"),
     samSheet: one("sam-sheet.png"),

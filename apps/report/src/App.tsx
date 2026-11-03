@@ -63,13 +63,13 @@ function useRoute(): Route {
   return route;
 }
 
-const TABS: { id: Page; label: string }[] = [
+const TABS: { id: Page; label: string; title?: string }[] = [
   { id: "overview", label: "Overview" },
   { id: "runs", label: "Runs" },
   { id: "diff", label: "Diff" },
-  { id: "replay", label: "Replay" },
+  { id: "replay", label: "Replay", title: "Plays back recorded runs, step by step." },
   { id: "contract", label: "Contract" },
-  { id: "live", label: "Live" },
+  { id: "live", label: "Live", title: "Streams a run as it happens. Needs a local runner." },
 ];
 
 type Mode = "light" | "dark" | "system";
@@ -147,7 +147,7 @@ export function App() {
           startContent={
             <nav className="navlinks">
               {TABS.map((t) => (
-                <a key={t.id} href={goDefault(t.id)} aria-current={route.page === t.id ? "page" : undefined}>
+                <a key={t.id} href={goDefault(t.id)} aria-current={route.page === t.id ? "page" : undefined} title={t.title}>
                   {t.label}
                 </a>
               ))}
@@ -190,8 +190,8 @@ export function App() {
       <footer className="site">
         <div className="inner">
           <span>
-            AgencyDiff measures the interface, not the person. Probes are standardized instruments; success is decided
-            by the Oracle on final app state{index?.runs[0] ? `. Latest run ${fmtDate(index.runs[0].date)}` : ""}.
+            AgencyDiff measures the interface, not the person. Each test run follows the same steps. Success is decided
+            by the last screen shown{index?.runs[0] ? `. Latest run ${fmtDate(index.runs[0].date)}` : ""}.
           </span>
           <span>
             <a href={REPO_URL}>Source</a> · MIT · Built with Astryx

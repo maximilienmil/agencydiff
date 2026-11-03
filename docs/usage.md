@@ -1,7 +1,7 @@
 # Use it
 
 Three entry points, one engine: the CLI ships the product, the GitHub Action
-runs it in CI, and the MCP server lets coding agents self-check before they
+runs it on every pull request, and the MCP server lets coding agents self-check before they
 open a PR.
 
 ## CLI
@@ -22,7 +22,7 @@ agencydiff mcp
 `--contract` takes a file, a bundled Circle decision (`precise_location`,
 `teen_dm`, `screen_time`, `subscription`), or inline JSON. `agencydiff.config.json`
 holds the same defaults (`targets`, `contracts`, `driver`, `repeats`).
-`diff` exits non-zero when a contract fails, so it doubles as a CI gate.
+`diff` exits non-zero when a contract fails, so it doubles as a gate. It fails the check when a choice gets harder.
 `MODEL_API_KEY` is required for `--driver muse`. Not published to npm yet —
 see `packages/cli/README.md` for the `npm pack` verification.
 

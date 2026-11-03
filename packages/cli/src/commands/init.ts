@@ -1,6 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { parseArgs } from "node:util";
+import { crawlExploration, validateContracts } from "@agencydiff/runner/src/init.js";
+import { applyValidation, draftContracts, renderInitReview } from "@agencydiff/runner/src/initLib.js";
 
 export async function initCommand(argv: string[]): Promise<void> {
   const { values } = parseArgs({
@@ -11,45 +13,47 @@ export async function initCommand(argv: string[]): Promise<void> {
     args: argv,
   });
   if (!values.url) throw new Error("agencydiff init needs --url <page-to-probe>");
+  const entryUrl = values.url;
   const dir = path.resolve(values.dir);
   const host = (() => {
     try {
-      return new URL(values.url).hostname.replace(/^www\./, "").replace(/[^a-z0-9]+/gi, "-");
+      return new URL(entryUrl).hostname.replace(/^www\./, "").replace(/[^a-z0-9]+/gi, "-");
     } catch {
       return "site";
     }
   })();
 
+  // Real pipeline, same as the checkout runner: read-only crawl with the
+  // audit guard on, heuristic draft, offline static validation (k=1).
+  console.log(`init: exploring ${entryUrl} (census, audit guard on)`);
+  const exploration = await crawlExploration(entryUrl);
+  console.log(
+    `init: ${exploration.screens.length} screen(s), ${exploration.screens.reduce((n, s) => n + s.controls.length, 0)} control(s)`,
+  );
+  const contracts = draftContracts(exploration);
+  if (contracts.length === 0) throw new Error("init: no decisions found; the app exposed no draftable controls");
+  const runDir = path.join(dir, "contracts", `.init-runs-${Date.now()}`);
+  const outcomes = await validateContracts(contracts, exploration, entryUrl, {
+    outDir: runDir,
+    driver: "scripted",
+  });
+  const counts = applyValidation(contracts, outcomes);
+  console.log(`init: validation (k=1, static): ${counts.kept} kept, ${counts.flagged} flagged`);
+
   await mkdir(path.join(dir, "contracts"), { recursive: true });
+  const contract = contracts.length === 1 ? contracts[0] : contracts;
   const contractPath = path.join(dir, "contracts", `${host}.json`);
-  const contract = {
-    decision: host,
-    promise: `TODO: state the promise in plain language (e.g. users can leave without calling support).`,
-    intents: [
-      {
-        id: "accept",
-        goal: "TODO: the thing a person came to do.",
-        polarity: "accept",
-        domOracle: [{ kind: "visible", selector: "[data-agency=accept]" }],
-        target: "accept",
-        mustSucceed: true,
-      },
-      {
-        id: "decline",
-        goal: "TODO: the protective opposite (decline, restrict, cancel, delete).",
-        polarity: "reject",
-        domOracle: [{ kind: "visible", selector: "[data-agency=decline]" }],
-        target: "decline",
-        mustSucceed: true,
-      },
-    ],
-    pairs: [{ accept: "accept", reject: "decline" }],
-  };
   await writeFile(contractPath, JSON.stringify(contract, null, 2) + "\n");
+  await writeFile(
+    path.join(dir, "contracts", `${host}.exploration.json`),
+    JSON.stringify(exploration, null, 2) + "\n",
+  );
+  const review = renderInitReview({ url: entryUrl, exploration, contracts, counts });
+  await writeFile(path.join(dir, "contracts", `${host}.review.md`), review);
 
   const configPath = path.join(dir, "agencydiff.config.json");
   const config = {
-    targets: { baseline: values.url },
+    targets: { baseline: entryUrl },
     contracts: [`./contracts/${host}.json`],
     driver: "scripted",
     repeats: 1,
@@ -62,8 +66,6 @@ export async function initCommand(argv: string[]): Promise<void> {
   };
   console.log(`wrote ${show(configPath)}`);
   console.log(`wrote ${show(contractPath)}`);
-  console.log("\nNext:");
-  console.log(`  1. Edit the contract: goals, domOracle selectors, target data-agency tags.`);
-  console.log(`  2. Run: agencydiff audit --url ${values.url} --contract ./contracts/${host}.json --driver muse`);
-  console.log(`     (MODEL_API_KEY must be set; scripted needs recorded reference paths.)`);
+  console.log("");
+  console.log(review);
 }

@@ -269,12 +269,12 @@ export function OverviewPage({ index }: { index: RunIndex }) {
         <div>
           <span className="n">02</span>
           <h3>Probes</h3>
-          <p>The same Intent is attempted on the baseline and the candidate; every action is recorded as a Trace.</p>
+          <p>The same choice is tried on the old build and the new build; every tap is recorded, so you can replay it.</p>
         </div>
         <div>
           <span className="n">03</span>
           <h3>Oracle</h3>
-          <p>The app's final state decides success. The agent's own claim never counts.</p>
+          <p>The last screen in the app decides success. The agent's own claim never counts.</p>
         </div>
         <div>
           <span className="n">04</span>

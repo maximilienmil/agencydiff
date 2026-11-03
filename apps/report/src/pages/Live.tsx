@@ -144,6 +144,11 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
     <div className="live-page">
       <div className="page-head compact live-head">
         <h1>{goal}</h1>
+        <p className="lede">
+          {isLive
+            ? "Streaming a run as it happens."
+            : "Streams a run as it happens. Needs a local runner — nothing is connected right now."}
+        </p>
       </div>
       {!isLive && (
         <div className="picker">
@@ -181,7 +186,7 @@ export function LivePage({ runId, intent, liveUrl, source }: { runId: string; in
               <dl>{shownLines.slice(0, 3).map((l) => <div key={l.label}><dt>{l.label}</dt><dd className="tnum" style={{ fontWeight: 750 }}>{l.text}</dd></div>)}</dl>
             </section>
           )}
-          {!showFinding && <p className="muted" style={{ fontSize: 13, margin: 0 }}>{isLive ? "Success is decided by the Oracle on final state, never the agent's claim." : "Press Play. The Finding slides in when both Traces finish."}</p>}
+          {!showFinding && <p className="muted" style={{ fontSize: 13, margin: 0 }}>{isLive ? "Success is decided by the last screen, never by what the agent claims." : "Press Play. The Finding slides in when both Traces finish."}</p>}
         </div>
         {renderPane("candidate")}
       </div>

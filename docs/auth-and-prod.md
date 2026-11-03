@@ -69,7 +69,7 @@ For real production with a dedicated synthetic test account:
 
 ```bash
 pnpm diff --target targets/circle-auth.json --prod-safe [...]
-pnpm audit --target targets/circle-auth.json --prod-safe --driver muse
+pnpm run audit --target targets/circle-auth.json --prod-safe --driver muse
 ```
 
 Each contract carries the allow-list of instrumented controls a probe may

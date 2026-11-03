@@ -367,7 +367,7 @@ function TracePhone({
 // ---------------------------------------------------------------------------
 // Scenes
 
-/** The opening follows the actual one-action / seven-action location Traces. */
+/** The opening leads with the 8/30 → 0/30 agent-PR result, then follows the actual one-step / seven-step location recordings. */
 function ColdOpen({ data, footage, vo }: { data: VideoData; footage: Footage; vo: string | null }) {
   const f = useCurrentFrame();
   const { withBaseline: b, withCandidate: c } = footage.clips;
@@ -375,12 +375,13 @@ function ColdOpen({ data, footage, vo }: { data: VideoData; footage: Footage; vo
     <Voice file={vo} />
     <TraceMesh clip={c} />
     {f < 66 ? <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", background: "transparent" }}>
-      <Words text="An app asks for your location." at={0} stagger={4} style={{ fontFamily: T.display, fontSize: 130, letterSpacing: "-0.05em", textAlign: "center", maxWidth: 1500 }} />
+      <Words text="Eight of thirty AI-written changes broke saying no." at={0} stagger={3} style={{ fontFamily: T.display, fontSize: 88, letterSpacing: "-0.05em", textAlign: "center", maxWidth: 1500 }} />
       <div style={{ width: interpolate(f, [0, 50], [0, 1100], clamp), height: 8, background: T.blue, marginTop: 30 }} />
+      <div style={{ fontFamily: T.mono, fontSize: 54, marginTop: 28, color: T.ink2 }}>With the check in the loop: {v(data.agentGated)}</div>
     </AbsoluteFill> : <>
       <div style={{ position: "absolute", left: 110, top: 180, width: 860 }}>
-        <Words text="After one update, saying no takes seven." at={66} stagger={3} style={{ fontFamily: T.display, fontSize: 96, lineHeight: 1, letterSpacing: "-0.06em" }} />
-        <In at={104}><div style={{ fontFamily: T.mono, fontSize: 110, marginTop: 60 }}>{v(data.declineBaseline)} <span style={{ color: T.blue }}>→</span> {v(data.declineCandidate)}</div><div style={{ fontSize: 32, color: T.ink2 }}>actions to decline location</div></In>
+        <Words text="After one update, saying no takes seven steps." at={66} stagger={3} style={{ fontFamily: T.display, fontSize: 96, lineHeight: 1, letterSpacing: "-0.06em" }} />
+        <In at={104}><div style={{ fontFamily: T.mono, fontSize: 110, marginTop: 60 }}>{v(data.declineBaseline)} <span style={{ color: T.blue }}>→</span> {v(data.declineCandidate)}</div><div style={{ fontSize: 32, color: T.ink2 }}>steps to decline location</div></In>
         <In at={360}><div style={{ borderLeft: `5px solid ${T.badInk}`, paddingLeft: 24, marginTop: 50, fontSize: 34 }}>{v(data.withholdFinding)}</div></In>
       </div>
       <div style={{ position: "absolute", right: 100, top: 44, display: "flex", gap: 48 }}>
@@ -656,7 +657,7 @@ function Steps({ footage, steps }: { footage: Footage; steps: [string, string][]
                 <div style={{ fontFamily: T.mono, fontSize: 200, lineHeight: 1 }}>
                   <span style={{ color: T.ink3 }}>1</span> <span style={{ color: T.blue }}>→</span>{" "}
                   <Degrade at={24}>7</Degrade>
-                  <div style={{ fontFamily: T.font, fontSize: 40, color: T.ink2, marginTop: 24 }}>actions to decline, same Intent, same Oracle</div>
+                  <div style={{ fontFamily: T.font, fontSize: 40, color: T.ink2, marginTop: 24 }}>steps to decline, same choice, same last-screen check</div>
                 </div>
               )}
             </div>

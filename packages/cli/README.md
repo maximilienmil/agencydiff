@@ -55,6 +55,12 @@ works as a CI gate. `MODEL_API_KEY` must be set for `--driver muse`.
 Explicit flags override the config. `--contract` also accepts a bundled Circle
 decision name (`precise_location`, `teen_dm`, `screen_time`, `subscription`).
 
+Runner-only flags live in the checkout runner (`packages/runner/src/cli.ts`,
+e.g. `pnpm diff --target … --prod-safe`, `--platform android`,
+`--storage-state`, `--no-export`, `--report-url`, `--variants`) and are not
+forwarded by the shipped `agencydiff diff`. Use the checkout runner for
+target files, production-safe mode, and mobile.
+
 ## MCP tools
 
 When served over stdio (`agencydiff mcp`):

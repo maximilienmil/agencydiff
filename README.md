@@ -2,10 +2,12 @@
 
 Automated tests check the code still works. AgencyDiff checks the user can still say no.
 
+AgencyDiff uses computer-use agents to explore changed interfaces, then turns verified behavior into repeatable checks that protect users’ choices.
+
 ![Baseline and candidate builds of the same app side by side: on the candidate, declining location moved behind More options, and the Finding reads 1 → 7 steps, visible → hidden](docs/img/hero.png)
 
 - Coding agents given ordinary product tasks broke users' ability to say no in 8 of 30 PRs (Muse-confirmed). With AgencyDiff in the loop: 0 of 30. ([eval/agent-prs/RESULTS.md](eval/agent-prs/RESULTS.md))
-- A model reviewing PR screenshots caught 1 of 20 seeded agency regressions. AgencyDiff's replay gate caught 19 of 20, with 0 false alarms, for $0. ([eval/RESULTS.md](eval/RESULTS.md))
+- On the seeded Circle benchmark, the scripted replay gate caught 19 of 20 regressions with no false alarms on six unchanged controls and no model calls. A screenshot reviewer caught 1 of 20 from start screens and 17 of 20 when given a walkthrough. ([eval/RESULTS.md](eval/RESULTS.md))
 
 An update can quietly make it harder to cancel, turn off location, or block strangers, usually by accident. AgencyDiff checks every change before it ships: can people still say no as easily as before?
 
@@ -31,13 +33,9 @@ A product promise is written once as an [Agency Contract](contracts/subscription
 | SAM 3.1 | Control overlays on replay screenshots |
 | Muse Code | Built AgencyDiff, and is the coding agent AgencyDiff guards |
 
-| A prompt or skill | AgencyDiff |
-| --- | --- |
-| Gives an opinion about the UI | Reports verified final state |
-| Caught 1 of 20 regressions from screenshots | Replay gate caught 19 of 20 |
-| Answers differently each run | Deterministic gate with an exit code |
-| No receipts | Every Finding links to replayable Traces |
-| The agent grades its own work | A separate instrument measures; the Oracle decides |
+The reliable gate replays a known path and checks the resulting app state. Computer-use Probes can search for a changed path and measure its cost, but those runs are noisy. Determinism applies to the replay gate and comparison of fixed recordings, not to fresh model exploration. Contracts, success checks and reference paths require setup; the current results are controlled demonstrations, not estimates of performance across arbitrary apps.
+
+The evaluation compares specific configurations: scripted replay, free-roaming Muse Probes, a reviewer shown start screens, and a reviewer shown a full walkthrough. It does not establish superiority over every prompt, skill or existing test suite.
 
 ## The PR check
 

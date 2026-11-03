@@ -1,8 +1,8 @@
 # AgencyDiff demo video
 
 A 3:00, 1920x1080, 30fps film with burned-in captions. Flat and
-typographic: white or near-black, one accent (blue #0866FF), red and green
-only on measured deltas, one idea per frame with calm crossfades, and a
+typographic: white, near-black, Meta blue #0866FF, navy and pale blue,
+with red and green on code changes and measured deltas, one idea per frame with calm crossfades, and a
 static monochrome film grain at 4.5% opacity over everything. Colours and
 type come from `design/tokens.css`, the same file the report site and Circle
 use. Recorded Trace screenshots play back step by step in hairline frames,
@@ -26,7 +26,7 @@ Meta's models. 2:52–3:00 close, ending on black at exactly 3:00.
 
 ## Data rule
 
-No number is hard-coded. `src/data.ts` reads, at render time:
+Evaluation numbers are never hard-coded. `src/data.ts` reads, at render time:
 
 - `eval/agent-prs/results.json` + `tasks.json` + `demo/` (8/30 vs 0/30, the
   prompt, both diff excerpts, GATE claim)
@@ -35,11 +35,18 @@ No number is hard-coded. `src/data.ts` reads, at render time:
 - `eval/susbench/results.json` (7/10, 1/3 controls)
 - `apps/report/public/data/<decision>/report.json` (Finding titles, 1 → 7
   actions, hidden on first screen)
-- `docs/audit.md` (REAL ID row, 0/3 → 3/3 · 4 actions to fact)
+- `docs/audit.md` (REAL ID row, 3/5 → 5/5 · 21 → 1 actions to fact)
 
 Anything missing renders as `[PENDING]`. Preview defaults are all
 `[PENDING]` on purpose: the film can only show a number that came from a
 file. `src/footage.ts` does the same for stills and voiceover.
+
+The opening code-activity animation uses the real text-line totals from design
+merge `9abc947`: 6,522 additions and 6,070 deletions (`git show --numstat`).
+These describe this repository update, not an evaluation result. Its segmented
+bar represents the same proportions. The task terminal is explicitly labeled
+as a recreation; the task itself remains verbatim. The Contract → Probes →
+Oracle → Diff diagram highlights each stage in sequence.
 
 ## Footage
 

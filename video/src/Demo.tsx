@@ -15,8 +15,8 @@ import { PENDING } from "./types.js";
 export const FPS = 30;
 export const DURATION = 180 * FPS;
 
-// Flat and typographic: white or near-black, one accent (blue), red and
-// green only on measured deltas. Type and colour are the shared tokens in
+// Flat and typographic: blue, navy and pale blue alongside white and near-black.
+// Red and green describe code changes and measured deltas. Type and colour are the shared tokens in
 // design/tokens.css (imported in index.ts): Redaction for display, its
 // degraded cut for regressed values, Atkinson Hyperlegible Next for text,
 // Martian Mono for code. Motion carries the story: words rise in, numbers
@@ -394,6 +394,47 @@ function ColdOpen({ data, footage, vo }: { data: VideoData; footage: Footage; vo
   );
 }
 
+/** Schematic of the measurement pipeline, with the current stage illuminated. */
+function Pipeline({ active }: { active: number }) {
+  const f = useCurrentFrame();
+  const names = ["Contract", "Probes", "Oracle", "Diff"];
+  const detail = ["Intent + expected state", "Baseline / candidate", "Check final app state", "Compare recorded effort"];
+  return <svg width="1640" height="390" viewBox="0 0 1640 390" style={{ marginTop: 55, overflow: "visible" }}>
+    {names.map((name, i) => {
+      const x = i * 420;
+      const on = i <= active;
+      const draw = interpolate(f, [6, 48], [0, 1], clamp);
+      return <g key={name} transform={`translate(${x},0)`}>
+        {i < 3 && <path d="M340 150h80m-16-12 16 12-16 12" fill="none" stroke={i < active ? "#0866ff" : "#c9d2da"} strokeWidth="5" strokeDasharray="120" strokeDashoffset={i === active ? 120 * (1 - draw) : 0} />}
+        <rect width="340" height="290" rx="20" fill={i === active ? "#0866ff" : on ? "#e7f0ff" : "#f1f4f7"} />
+        <g stroke={i === active ? "#fff" : "#0866ff"} strokeWidth="5" fill="none" strokeLinejoin="round">
+          {i === 0 && <><path d="M120 40h75l30 30v120H120zM195 40v35h30" /><path d="M140 100h65m-65 28h65m-65 28h40" /></>}
+          {i === 1 && <><rect x="78" y="40" width="76" height="150" rx="12" /><rect x="186" y="40" width="76" height="150" rx="12" /><path d="m97 118 16 16 25-40m66-12h40m-40 35h40m-40 35h25" /></>}
+          {i === 2 && <><rect x="100" y="45" width="140" height="140" rx="16" /><path d="m127 112 30 30 55-65" /></>}
+          {i === 3 && <><path d="M105 78h130M170 42v72m-65 46h130" /><path d="M100 195h140" strokeDasharray="12 10" /></>}
+        </g>
+        <text x="170" y="246" textAnchor="middle" fill={i === active ? "#fff" : "#1c2b33"} style={{ fontFamily: T.font, fontSize: 40 }}>{name}</text>
+        <text x="170" y="340" textAnchor="middle" fill="#465a66" style={{ fontFamily: T.font, fontSize: 27 }}>{detail[i]}</text>
+      </g>;
+    })}
+  </svg>;
+}
+
+// Text-line totals from `git show --numstat 9abc947` (the design merge).
+function CodeActivity() {
+  const f = useCurrentFrame();
+  return <div style={{ marginTop: 44, background: NIGHT, padding: "30px 40px", borderRadius: 20, fontFamily: T.mono }}>
+    <div style={{ display: "flex", justifyContent: "space-between", color: NIGHT_INK2, fontSize: 24 }}><span>agencydiff / interface update</span><span>9abc947</span></div>
+    <div style={{ display: "flex", gap: 70, marginTop: 22, fontSize: 106, lineHeight: 1.2 }}>
+      <span style={{ color: "#ff9aad" }}>−<CountUp to={6070} at={10} dur={68} /></span>
+      <span style={{ color: "#91e5b1" }}>+<CountUp to={6522} at={10} dur={68} /></span>
+    </div>
+    <div style={{ display: "flex", gap: 6, marginTop: 20 }}>
+      {Array.from({ length: 48 }, (_, i) => <div key={i} style={{ height: 18, flex: 1, background: i < 23 ? "#e41e3f" : "#31a24c", opacity: f >= 12 + i ? 1 : 0.12 }} />)}
+    </div>
+  </div>;
+}
+
 function Problem({ vo }: { vo: string | null }) {
   const verbs = ["Decline.", "Restrict.", "Cancel.", "Delete."];
   return (
@@ -401,7 +442,8 @@ function Problem({ vo }: { vo: string | null }) {
       <Voice file={vo} />
       <Beat from={0} to={120}>
         <Frame>
-          <Words text="Coding agents ship interface changes every day." at={4} stagger={3} style={{ fontFamily: T.display, fontSize: 132, lineHeight: 1.02, letterSpacing: "-0.025em", maxWidth: 1600 }} />
+          <Words text="Coding agents ship new interfaces every day." at={4} stagger={3} style={{ fontFamily: T.display, fontSize: 112, lineHeight: 1.02, letterSpacing: "-0.025em", maxWidth: 1600 }} />
+          <CodeActivity />
         </Frame>
       </Beat>
       <Beat from={120} to={250}>
@@ -411,11 +453,9 @@ function Problem({ vo }: { vo: string | null }) {
       </Beat>
       {verbs.map((w, i) => (
         <Beat key={w} from={250 + i * 40} to={250 + (i + 1) * 40}>
-          <Frame>
-            <div style={{ fontFamily: T.display, fontSize: 300, letterSpacing: "-0.03em", lineHeight: 1 }}>
-              <Degrade at={20}>{w}</Degrade>
-            </div>
-          </Frame>
+          <AbsoluteFill style={{ background: i % 2 === 0 ? "#0866ff" : "#e7f0ff", color: i % 2 === 0 ? "#fff" : "#0064e0", alignItems: "center", justifyContent: "center" }}>
+            <Words text={w} at={2} style={{ fontFamily: T.display, fontSize: 300, letterSpacing: "-0.03em", lineHeight: 1, textAlign: "center" }} />
+          </AbsoluteFill>
         </Beat>
       ))}
       <Beat from={410} to={480} last>
@@ -475,11 +515,16 @@ function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; 
       <Voice file={vo} />
       <Beat from={0} to={330}>
         <Frame>
-          <Label>The task given to a coding agent</Label>
-          <div style={{ fontFamily: T.font, fontSize: 68, lineHeight: 1.18, marginTop: 30, maxWidth: 1600 }}>
-            <Typewriter text={`“${v(data.onboardPrompt)}”`} at={8} cps={35} />
+          <div style={{ background: NIGHT, borderRadius: 24, border: "2px solid #0866ff", overflow: "hidden" }}>
+            <div style={{ padding: "24px 36px", background: "#163a63", display: "flex", justifyContent: "space-between", fontFamily: T.mono, fontSize: 28, color: "#e4e6eb" }}>
+              <span>Muse Code</span><span>~/agencydiff</span>
+            </div>
+            <div style={{ padding: "36px 44px 48px", color: NIGHT_INK }}>
+              <div style={{ color: "#75b6ff", fontFamily: T.mono, fontSize: 27, marginBottom: 26 }}>❯ Task</div>
+              <div style={{ fontFamily: T.font, fontSize: 62, lineHeight: 1.22 }}><Typewriter text={v(data.onboardPrompt)} at={8} cps={35} /></div>
+            </div>
           </div>
-          <Caption at={30}>The prompt, verbatim, from eval/agent-prs/tasks.json.</Caption>
+          <Caption at={30}>Recreated terminal · verbatim task from eval/agent-prs/tasks.json.</Caption>
         </Frame>
       </Beat>
       <Beat from={330} to={560}>
@@ -569,13 +614,9 @@ function HowItWorks({ data, footage, vo }: { data: VideoData; footage: Footage; 
       {steps.map(([k, s], i) => (
         <Beat key={k} from={i * 75} to={(i + 1) * 75}>
           <Frame>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 40 }}>
-              <span style={{ fontFamily: T.mono, fontSize: 40, color: T.blue }}>0{i + 1}</span>
-              <Words text={k} at={2} style={{ fontFamily: T.display, fontSize: 240, letterSpacing: "-0.03em", lineHeight: 1 }} />
-            </div>
-            <In at={14}>
-              <div style={{ fontSize: 48, color: T.ink2, marginTop: 30, marginLeft: 98 }}>{s}</div>
-            </In>
+            <Words text={k} at={2} style={{ fontFamily: T.display, fontSize: 140, color: T.blue, letterSpacing: "-0.03em", lineHeight: 1 }} />
+            <In at={10}><div style={{ fontSize: 42, color: T.ink2, marginTop: 20 }}>{s}</div></In>
+            <Pipeline active={i} />
           </Frame>
         </Beat>
       ))}

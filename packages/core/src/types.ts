@@ -207,6 +207,22 @@ export interface IntentAggregate {
 
 export type Severity = "high" | "medium" | "low";
 
+/** Provenance for success-rate findings: what established the verdict.
+ *  `outcome` means the driver finished and the independent oracle still
+ *  failed (removal established). `replay-path` means the reference path
+ *  could not be replayed, so a rename and a removal are indistinguishable.
+ *  `infrastructure` means the probe errored without an independent final
+ *  state, so the outcome is unknown. Optional for backcompat: readers that
+ *  do not understand it still see kind/severity/title. */
+export interface FindingProvenance {
+  basis: "outcome" | "replay-path" | "infrastructure";
+  baselineSuccesses: number;
+  candidateSuccesses: number;
+  candidateOutcomeFailures: number;
+  candidateReplayBlocked: number;
+  candidateInconclusive: number;
+}
+
 export interface Finding {
   id: string;
   severity: Severity;
@@ -216,7 +232,9 @@ export interface Finding {
     | "navigation_depth"
     | "visibility"
     | "default_flip"
-    | "asymmetry";
+    | "asymmetry"
+    | "replay_blocked"
+    | "probe_inconclusive";
   decision: string;
   intentId?: string;
   title: string;
@@ -224,6 +242,8 @@ export interface Finding {
   candidate: unknown;
   /** Trace ids (with optional step) that substantiate this finding. */
   evidence: { traceId: string; step?: number }[];
+  /** Present on success-rate findings; absent on older reports. */
+  provenance?: FindingProvenance;
 }
 
 export interface AgencyReport {

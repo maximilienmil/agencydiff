@@ -2,6 +2,8 @@
 
 Automated tests check the code still works. AgencyDiff checks the user can still say no.
 
+[Watch the 3-minute demo video](https://youtu.be/-lXQ1Bf2w6g)
+
 AgencyDiff uses computer-use agents to explore changed interfaces, then turns verified behavior into repeatable checks that protect users’ choices.
 
 ![Baseline and candidate builds of the same app side by side: on the candidate, declining location moved behind More options, and the Finding reads 1 → 7 steps, visible → hidden](docs/img/hero.png)

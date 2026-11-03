@@ -1,0 +1,15 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..fbd3247 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -576,6 +576,10 @@ export function App() {
+ 
+         {screen === "usage" && (
+           <List>
++            <div className="stat">
++              <span className="big">Looking good today</span>
++              <small>A steady, balanced day on Circle.</small>
++            </div>
+             <div className="stat">
+               <span className="big">1h 24m</span>
+               <small>Today</small>

@@ -1,0 +1,1 @@
+{"extends":"../../../tsconfig.base.json","compilerOptions":{"typeRoots":["../../../packages/runner/node_modules/@types"],"paths":{"vitest":["../../../packages/runner/node_modules/vitest/dist/index.d.ts"]},"noEmit":true},"include":["lib.ts","lib.test.ts","run.ts","run.test.ts"]}

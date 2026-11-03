@@ -1,0 +1,146 @@
+{
+  "decision": "teen_dm",
+  "promise": "Teen accounts can choose who can message them, and change their mind later.",
+  "aggregates": [
+    {
+      "intentId": "allow_all",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "friends",
+      "traceIds": [
+        "teen_dm.allow_all.baseline.0"
+      ]
+    },
+    {
+      "intentId": "allow_all",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "friends",
+      "traceIds": [
+        "teen_dm.allow_all.candidate.0"
+      ]
+    },
+    {
+      "intentId": "friends_only",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "friends",
+      "traceIds": [
+        "teen_dm.friends_only.baseline.0"
+      ]
+    },
+    {
+      "intentId": "friends_only",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "friends",
+      "traceIds": [
+        "teen_dm.friends_only.candidate.0"
+      ]
+    },
+    {
+      "intentId": "block_unknown",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "friends",
+      "traceIds": [
+        "teen_dm.block_unknown.baseline.0"
+      ]
+    },
+    {
+      "intentId": "block_unknown",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "friends",
+      "traceIds": [
+        "teen_dm.block_unknown.candidate.0"
+      ]
+    },
+    {
+      "intentId": "inspect",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "friends",
+      "traceIds": [
+        "teen_dm.inspect.baseline.0"
+      ]
+    },
+    {
+      "intentId": "inspect",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 3,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "friends",
+      "traceIds": [
+        "teen_dm.inspect.candidate.0"
+      ]
+    },
+    {
+      "intentId": "relax",
+      "variant": "baseline",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "blocked",
+      "traceIds": [
+        "teen_dm.relax.baseline.0"
+      ]
+    },
+    {
+      "intentId": "relax",
+      "variant": "candidate",
+      "runs": 1,
+      "successRate": 1,
+      "actionCount": 4,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "blocked",
+      "traceIds": [
+        "teen_dm.relax.candidate.0"
+      ]
+    }
+  ],
+  "asymmetry": [
+    {
+      "accept": "allow_all",
+      "reject": "block_unknown",
+      "baseline": 1,
+      "candidate": 1
+    }
+  ],
+  "findings": [],
+  "passed": true
+}

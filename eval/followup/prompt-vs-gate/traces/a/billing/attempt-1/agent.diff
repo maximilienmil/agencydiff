@@ -1,0 +1,14 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..aa37041 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -694,6 +694,9 @@ export function App() {
+             ) : (
+               <Row label="Cancel subscription" tag="sub.cancel" onClick={requestCancel} />
+             )}
++            <div className="note">
++              Cancelling stops renewal. You keep Circle+ until the end of the paid period.
++            </div>
+           </List>
+         )}
+ 

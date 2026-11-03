@@ -1,0 +1,12 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..80c103a 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -370,6 +370,7 @@ export function App() {
+ 
+         {screen === "privacy" && (
+           <List>
++            <div className="note">These settings control who can contact and find you on Circle.</div>
+             <Row label={false ? "Account visibility" : "Account privacy"} />
+             {!false && (
+               <Row

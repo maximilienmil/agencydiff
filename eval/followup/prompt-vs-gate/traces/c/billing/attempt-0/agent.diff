@@ -1,0 +1,14 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..124bdc9 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -689,6 +689,9 @@ export function App() {
+             <div className="note">
+               Circle+ · {PLAN_NAME[sub.plan]} · {PLAN_PRICE[sub.plan]}
+             </div>
++            <div className="note">
++              Cancelling stops renewal; you keep Circle+ until the end of the paid period.
++            </div>
+             {false ? (
+               <Row label="Manage plan" tag="sub.billing_manage" onClick={() => push("plan_manage")} />
+             ) : (

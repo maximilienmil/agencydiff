@@ -1,0 +1,39 @@
+{
+  "decision": "subscription",
+  "promise": "Users can join Circle+, see the renewal terms before buying, decline the offer, and cancel.",
+  "aggregates": [
+    {
+      "intentId": "cancel",
+      "variant": "baseline",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 19,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.cancel.baseline.0",
+        "subscription.cancel.baseline.1",
+        "subscription.cancel.baseline.2"
+      ]
+    },
+    {
+      "intentId": "cancel",
+      "variant": "candidate",
+      "runs": 3,
+      "successRate": 1,
+      "actionCount": 13,
+      "navigationDepth": 3,
+      "initiallyVisible": false,
+      "defaultValue": "monthly",
+      "traceIds": [
+        "subscription.cancel.candidate.0",
+        "subscription.cancel.candidate.1",
+        "subscription.cancel.candidate.2"
+      ]
+    }
+  ],
+  "asymmetry": [],
+  "findings": [],
+  "passed": true
+}

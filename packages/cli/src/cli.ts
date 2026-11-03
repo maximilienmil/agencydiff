@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { initCommand } from "./commands/init.js";
 import { diffCommand } from "./commands/diff.js";
+import { diffTracesCommand } from "./commands/diffTraces.js";
 import { auditCommand } from "./commands/audit.js";
 import { benchCommand } from "./commands/bench.js";
 import { mcpCommand } from "./commands/mcp.js";
@@ -10,6 +11,7 @@ const HELP = `agencydiff — intent regression testing for UX
 Usage:
   agencydiff init --url <page> [--dir .]
   agencydiff diff --baseline <url> --candidate <url> --contract <file|decision> [--driver scripted|muse] [--repeats N] [--out dir]
+  agencydiff diff-traces --contract <file|decision> --traces <dir> [--intents A,B] [--out dir]
   agencydiff audit --url <url> --contract <file|decision> [--driver scripted|muse] [--repeats N] [--out dir]
   agencydiff bench --base <circle-url> [--driver scripted|muse] [--seeds A,B] [--repeats N] [--out dir]
   agencydiff mcp
@@ -26,6 +28,9 @@ try {
       break;
     case "diff":
       await diffCommand(rest);
+      break;
+    case "diff-traces":
+      await diffTracesCommand(rest);
       break;
     case "audit":
       await auditCommand(rest);

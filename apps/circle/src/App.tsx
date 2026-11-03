@@ -636,15 +636,9 @@ export function App() {
                   <button className="primary" data-agency="sub.subscribe" onClick={subscribe}>
                     {copyTweak ? "Get Circle+" : "Subscribe"}
                   </button>
-                  {!has("SUB_HIDE_DECLINE") ? (
-                    <button className="link" data-agency="sub.decline" onClick={declineOffer}>
-                      {copyTweak ? "Maybe later" : "Not now"}
-                    </button>
-                  ) : (
-                    <button className="link" data-agency="sub.more" onClick={() => push("decline_options")}>
-                      More options
-                    </button>
-                  )}
+                  <button className="link" data-agency="sub.decline" onClick={declineOffer}>
+                    {copyTweak ? "Maybe later" : "Not now"}
+                  </button>
                 </div>
                 <List>
                   {!has("SUB_TERMS_AFTER_CHECKOUT") ? (

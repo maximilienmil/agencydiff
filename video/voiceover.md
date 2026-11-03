@@ -21,7 +21,7 @@ animates in. No report-viewer chrome: its footer carries driver debug text.
 
 ## 0:15–0:31 — Problem (≤16 s)
 
-> Coding agents ship interface changes every day. Nobody re-checks whether people can still do what they came to do — decline, restrict, cancel, delete. AgencyDiff turns those choices into executable tests.
+> Coding agents ship new interfaces every day. Nobody re-checks whether people can still do what they came to do — decline, restrict, cancel, delete. AgencyDiff turns those choices into executable tests.
 
 On screen: plain-words statement card.
 

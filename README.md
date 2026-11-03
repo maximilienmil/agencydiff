@@ -42,11 +42,24 @@ The evaluation compares specific configurations: scripted replay, free-roaming M
 Four small follow-ups test the architecture's limits:
 
 - **Strong instructions versus a gate:** 36 neutral-task attempts produced no confirmed regressions in any arm (ordinary, protective instructions, instructions + gate). This floor effect leaves the gate's added value over strong instructions unresolved. [Protocol and results](eval/followup/prompt-vs-gate/RESULTS.md).
-- **External app:** a target-specific ntfy adapter recorded real traces through the unmodified core. All four researcher obstructions produced the expected findings; the +1-tap finding was low severity and did not fail the gate. Renamed working controls also produced false unreachable findings, including a timing-sensitive disagreement across phases. This validates core integration, not the shipped CLI/Action. [Results and setup cost](eval/followup/external-app/RESULTS.md).
+- **External app:** a target-specific ntfy adapter recorded real traces through the unmodified core. All four researcher obstructions produced the expected findings; the +1-tap finding was low severity and did not fail the gate. Renamed working controls also produced false unreachable findings, including a timing-sensitive disagreement across phases. This original pilot validated core integration; the subsequent recorded-trace CLI route is described below. Live external-app probing through the CLI and GitHub Action remains unvalidated. [Results and setup cost](eval/followup/external-app/RESULTS.md).
 - **Redesign selectivity:** nine harmless Circle variants passed and nine harmful variants were flagged. Harmless variants preserved reference tags and screen hierarchy; this does not establish tolerance of renamed controls or arbitrary redesigns. [Results](eval/followup/redesign-selectivity/RESULTS.md).
 - **Matched evidence:** a model reviewer and deterministic comparator both detected all six regressions with no flags on two controls. Evidence bundles were amended after reviewer misses, making this an exploratory pilot rather than a held-out test. The comparator often collapsed mechanisms into unreachable paths. [Results](eval/followup/matched-review/RESULTS.md).
 
 These results support an evidence pipeline: explore with agents, verify outcomes independently, and compare recorded behavior repeatably. They do not establish superior detection over an equally informed model reviewer or strong protective instructions. A broken replay path requires investigation before it can be called a removed choice.
+
+## From the experiments to the tool
+
+Two improvements address weaknesses exposed by the follow-ups:
+
+- **Review-required findings:** when a success-rate drop triggers a finding, recognized reference-path errors now report `replay_blocked`, while other probe errors report `probe_inconclusive`. Both still block the gate and request review. A failed recorded attempt is distinguished from a broken reference path; neither proves that every alternative path is unavailable. This improves classification, without automatically rediscovering renamed controls or eliminating false blocks. [Evidence semantics](docs/evidence-semantics.md).
+- **External recordings through the shipped CLI:** `diff-traces` validates and scores baseline/candidate Trace bundles through the same core comparison. The six ntfy researcher comparison sets were exercised through the bundled CLI. Missing screenshot evidence, unchecked outcomes and unknown action types are rejected. Target-specific recording and independent Oracles still require authoring; this is recorded-trace scoring, not live external-app discovery or GitHub Action validation. [Setup and validation](docs/external-target.md).
+
+```sh
+agencydiff diff-traces --contract contract.json --traces ./traces --out ./report
+```
+
+The original experiment outputs remain unchanged. These are subsequent engineering improvements, not revised benchmark scores.
 
 ## The PR check
 

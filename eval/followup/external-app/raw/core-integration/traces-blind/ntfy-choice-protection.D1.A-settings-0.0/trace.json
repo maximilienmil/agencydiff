@@ -1,0 +1,158 @@
+{
+  "id": "ntfy-choice-protection.D1.A-settings-0.0",
+  "decision": "ntfy-choice-protection",
+  "intentId": "D1",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T04:53:57.198Z",
+  "initial": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": false
+      },
+      "subscriptions": [],
+      "notifications": []
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5289/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 1783,
+      "actions": [
+        {
+          "type": "click",
+          "x": 256,
+          "y": 99
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "dismiss first-run banner"
+    },
+    {
+      "index": 1,
+      "tMs": 1870,
+      "actions": [
+        {
+          "type": "click",
+          "x": 140,
+          "y": 280
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "open subscribe dialog"
+    },
+    {
+      "index": 2,
+      "tMs": 1920,
+      "actions": [
+        {
+          "type": "type",
+          "text": "coreblind-a-settings-0-d1-0-637198"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "fill topic name"
+    },
+    {
+      "index": 3,
+      "tMs": 2420,
+      "actions": [
+        {
+          "type": "click",
+          "x": 877,
+          "y": 507
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/coreblind-a-settings-0-d1-0-637198",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "confirm subscribe"
+    },
+    {
+      "index": 4,
+      "tMs": 2536,
+      "actions": [
+        {
+          "type": "click",
+          "x": 248,
+          "y": 196
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/coreblind-a-settings-0-d1-0-637198",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "open topic menu"
+    },
+    {
+      "index": 5,
+      "tMs": 2639,
+      "actions": [
+        {
+          "type": "click",
+          "x": 345,
+          "y": 393
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "unsubscribe from topic"
+    }
+  ],
+  "final": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [],
+      "notifications": []
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done",
+  "firstSatisfiedStep": 0,
+  "actionsToSatisfy": 0
+}

@@ -1,0 +1,125 @@
+{
+  "id": "ntfy-choice-protection.D4.O2.0",
+  "decision": "ntfy-choice-protection",
+  "intentId": "D4",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T04:44:43.226Z",
+  "initial": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": false
+      },
+      "subscriptions": [],
+      "notifications": []
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5284/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 1749,
+      "actions": [
+        {
+          "type": "click",
+          "x": 256,
+          "y": 99
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5284/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "dismiss first-run banner"
+    },
+    {
+      "index": 1,
+      "tMs": 1837,
+      "actions": [
+        {
+          "type": "click",
+          "x": 140,
+          "y": 136
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5284/settings",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "open settings"
+    },
+    {
+      "index": 2,
+      "tMs": 1923,
+      "actions": [
+        {
+          "type": "click",
+          "x": 961,
+          "y": 368
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5284/settings",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "open delete-after options"
+    },
+    {
+      "index": 3,
+      "tMs": 2236,
+      "actions": [
+        {
+          "type": "click",
+          "x": 962,
+          "y": 419
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5284/settings",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "pick after three hours"
+    }
+  ],
+  "final": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 10800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [],
+      "notifications": []
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done",
+  "firstSatisfiedStep": 4,
+  "actionsToSatisfy": 4
+}

@@ -695,7 +695,20 @@ async function readPromise(raw: string | undefined): Promise<string | undefined>
   return raw;
 }
 
-export const isInitMain = process.argv[1] === new URL(import.meta.url).pathname;
+/**
+ * True only when this module file itself was invoked directly
+ * (`tsx src/init.ts ...`). The filename check matters: tsup bundles this
+ * module into the CLI's dist/cli.js, where argv[1] trivially equals the
+ * bundle path for every subcommand and the old argv-only comparison fired
+ * on all of them (every dist invocation died with `--url is required`).
+ */
+export function isInitEntry(argv1: string | undefined, selfPathname: string): boolean {
+  if (!argv1) return false;
+  if (path.resolve(argv1) !== selfPathname) return false;
+  return /(^|[/\\])init\.(ts|js)$/.test(selfPathname);
+}
+
+export const isInitMain = isInitEntry(process.argv[1], new URL(import.meta.url).pathname);
 
 const { values } = parseArgs({
   // Non-strict: importing this module under vitest must not choke on the

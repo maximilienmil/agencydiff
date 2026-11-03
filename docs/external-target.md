@@ -168,3 +168,5 @@ started, and the GitHub Action path remains unvalidated for this target.
   `diffContract` unchanged (`packages/core` has zero diff in this route).
 - The Action, MCP `agencydiff_check`, and live `diff`/`audit` do not accept
   recorded traces; extending them is out of scope.
+
+Recorded scoring requires every trace to have an independently checked oracle; unchecked agent claims and model-judged outcomes are rejected. Shape and file checks cannot authenticate how an adapter collected its evidence.

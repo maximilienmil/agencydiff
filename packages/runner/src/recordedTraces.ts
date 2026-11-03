@@ -67,6 +67,9 @@ function checkShape(t: unknown, file: string): asserts t is Trace {
   if (t.oracle.checked && typeof t.oracle.passed !== "boolean") {
     throw new Error(`Invalid trace ${file}: checked oracle needs a boolean "passed"`);
   }
+  if (!t.oracle.checked || t.modelJudged === true) {
+    throw new Error(`Invalid trace ${file}: recorded scoring requires an independently checked oracle`);
+  }
   if (!Array.isArray(t.steps)) throw new Error(`Invalid trace ${file}: "steps" must be an array`);
   if (!(STOPPED as readonly string[]).includes(t.stoppedReason as string)) {
     throw new Error(`Invalid trace ${file}: bad "stoppedReason"`);
@@ -80,6 +83,9 @@ function checkShape(t: unknown, file: string): asserts t is Trace {
     }
     for (const a of (s as { actions: unknown[] }).actions) {
       if (!isRecord(a) || typeof a.type !== "string") throw new Error(`Invalid trace ${file}: step ${i} has a malformed action`);
+      if (!["click", "double_click", "drag", "keypress", "move", "scroll", "type", "screenshot", "wait"].includes(a.type)) {
+        throw new Error(`Invalid trace ${file}: step ${i} has an unknown action type`);
+      }
       if ((a.type === "click" || a.type === "double_click") && (typeof a.x !== "number" || typeof a.y !== "number" || !Number.isFinite(a.x) || !Number.isFinite(a.y))) {
         throw new Error(`Invalid trace ${file}: step ${i} click needs finite x/y coordinates`);
       }

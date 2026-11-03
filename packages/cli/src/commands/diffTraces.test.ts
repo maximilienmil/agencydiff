@@ -69,6 +69,18 @@ async function setup(contract: typeof CONTRACT = CONTRACT) {
 }
 
 describe("diff-traces (recorded-trace scoring through the shipped CLI)", () => {
+  it.each(["unchecked", "unknown-action"])("rejects %s evidence", async (fault) => {
+    const { contractFile, tracesDir, outDir } = await setup();
+    await writeTrace(tracesDir, "baseline", "baseline", { passed: true, clicks: 2 });
+    const dir = await writeTrace(tracesDir, "candidate", "candidate", { passed: true, clicks: 2 });
+    const file = path.join(dir, "trace.json");
+    const trace = JSON.parse(await readFile(file, "utf8"));
+    if (fault === "unchecked") trace.oracle = { checked: false };
+    else trace.steps[0].actions[0].type = "unknown";
+    await writeFile(file, JSON.stringify(trace));
+    await expect(diffTracesCommand(["--contract", contractFile, "--traces", tracesDir, "--out", outDir])).rejects.toThrow(/checked oracle|unknown action/);
+  });
+
   it("passes on equal recorded runs and writes report + comment", async () => {
     const { contractFile, tracesDir, outDir } = await setup();
     await writeTrace(tracesDir, "ext-demo.D1.baseline.0", "baseline", { passed: true, clicks: 2 });

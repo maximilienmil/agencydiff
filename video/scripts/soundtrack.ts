@@ -36,16 +36,16 @@ export function writeSoundtrack(publicDir: string): void {
     const cur = voice(chords[idx % 4]);
     const prev = voice(chords[(idx + 3) % 4]);
     const swell = 0.75 + 0.25 * Math.sin(tau * t / 16);
-    let pad = 0.11 * swell * (cur * xf + prev * (1 - xf));
+    let pad = 0.55 * swell * (cur * xf + prev * (1 - xf));
     lp += 0.08 * (pad - lp); // gentle low-pass for warmth
     pad = lp;
     let bell = 0;
     bells.forEach((b, k) => {
       const d = t - b;
-      if (d >= 0 && d < 5) bell += 0.05 * Math.exp(-d * 1.4) * (Math.sin(tau * bellNote[k] * d) + 0.3 * Math.sin(tau * bellNote[k] * 2.01 * d));
+      if (d >= 0 && d < 5) bell += 0.2 * Math.exp(-d * 1.4) * (Math.sin(tau * bellNote[k] * d) + 0.3 * Math.sin(tau * bellNote[k] * 2.01 * d));
     });
     const fade = Math.min(1, t / 3, Math.max(0, (180 - t) / 3));
-    const value = Math.tanh((pad + bell) * fade * 1.6) * 0.5;
+    const value = Math.tanh((pad + bell) * fade * 1.4) * 0.7;
     pcm.writeInt16LE(Math.round(value * 32767), 44 + i * 2);
   }
   mkdirSync(publicDir, { recursive: true });

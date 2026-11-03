@@ -1,0 +1,49 @@
+{
+  "id": "DM-EXTRA",
+  "family": "teen_dm",
+  "class": "extra-steps",
+  "expect": "scripted path ends with confirm dialog open, oracle unsatisfied; rediscovery via dm.confirm_block (+1 tap); gate should FAIL",
+  "focal": "block_unknown",
+  "repeats": 2,
+  "path": {
+    "outcome": "UNSATISFIED",
+    "detail": "0/2 oracle-pass",
+    "oracleRate": 0,
+    "medianActions": 4
+  },
+  "determinism": "identical",
+  "defaultKey": "dm.policy",
+  "defaultBaseline": "friends",
+  "defaultCandidate": "friends",
+  "oracleRates": {
+    "allow_all": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "friends_only": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "block_unknown": {
+      "baseline": 1,
+      "candidate": 0
+    },
+    "inspect": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "relax": {
+      "baseline": 1,
+      "candidate": 1
+    }
+  },
+  "gatePassed": false,
+  "findings": [
+    {
+      "kind": "goal_unreachable",
+      "severity": "high",
+      "intentId": "block_unknown",
+      "title": "\"I do not want strangers messaging me. Block messages from people I don't know.\" succeeds less often"
+    }
+  ]
+}

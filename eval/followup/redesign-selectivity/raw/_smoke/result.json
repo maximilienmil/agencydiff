@@ -1,0 +1,42 @@
+{
+  "id": "_smoke",
+  "family": "screen_time",
+  "class": "styling-only",
+  "expect": "pass",
+  "focal": "remove_limit",
+  "repeats": 2,
+  "path": {
+    "outcome": "PASS",
+    "detail": "2/2 oracle-pass",
+    "oracleRate": 1,
+    "medianActions": 4
+  },
+  "determinism": "identical",
+  "defaultKey": "st.limit",
+  "defaultBaseline": null,
+  "defaultCandidate": null,
+  "oracleRates": {
+    "set_limit": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "reminders": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "remove_limit": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "check_usage": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "shorten": {
+      "baseline": 1,
+      "candidate": 1
+    }
+  },
+  "gatePassed": true,
+  "findings": []
+}

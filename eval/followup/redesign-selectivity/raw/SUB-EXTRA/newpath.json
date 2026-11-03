@@ -1,0 +1,14 @@
+{
+  "path": [
+    "nav.settings",
+    "settings.subscription",
+    "sub.decline",
+    "sub.confirm_cancel"
+  ],
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "steps": 4,
+  "stoppedReason": "script_done"
+}

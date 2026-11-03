@@ -10,17 +10,19 @@ with a tap ripple where the Probe tapped and step counters ticking.
 
 ## Structure (all timings in `src/Demo.tsx`)
 
-0:00–0:12 cold open: two probes on "I do not want strangers messaging me"
-(baseline reaches the Messages decision, candidate ends lost), Finding
-animates in. 0:12–0:30 the problem in plain words. 0:30–1:10 the experiment:
-the verbatim "Simplify onboarding" prompt from `eval/agent-prs/tasks.json`,
-the regressing agent diff, the red check card with the measured visibility
-Finding, the gated agent's diff, the green gate card, then 8/30 vs 0/30 —
-both computed at render time from `eval/agent-prs/results.json`
-(muse-confirmed regressions per arm). 1:10–1:45 how it works (1/20 vs 19/20,
-SAM overlay, propose-fix). 1:45–2:20 generalization (init on ntfy, SusBench
-7/10, native Android, the `docs/audit.md` REAL ID row, CLI / Action / MCP).
-2:20–2:50 built with Meta's stack. 2:50–3:00 close.
+0:00–0:15 cold open: two Probes on "I do not want strangers messaging me",
+replayed with a cursor that glides to each recorded tap (the baseline blocks
+strangers, the candidate run never reaches the option); the Finding slides
+in. 0:15–0:31 the problem in plain words. 0:31–1:23 the experiment: the
+verbatim "Simplify onboarding" prompt from `eval/agent-prs/tasks.json`
+(typed, then held), the regressing agent diff and the failed check, the
+seeded decline Traces (1 step against the candidate's hunt for the toggle),
+the gated agent's diff and the passed check, then 8/30 against 0/30 from
+`eval/agent-prs/results.json`. 1:23–1:57 how it works (Contract, Probes,
+Oracle, Diff; 19/20 against 1/20; SAM overlay; propose-fix). 1:57–2:30 it
+generalizes (init on ntfy, SusBench 7/10, native Android, the
+`docs/audit.md` REAL ID row, CLI / Action / MCP). 2:30–2:52 built with
+Meta's models. 2:52–3:00 close, ending on black at exactly 3:00.
 
 ## Data rule
 

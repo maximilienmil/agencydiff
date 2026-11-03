@@ -1,0 +1,12 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..7dfa901 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -584,6 +584,7 @@ export function App() {
+               <span className="big">11h 47m</span>
+               <small>This week</small>
+             </div>
++            <div className="note">Updated daily</div>
+             <div className="note">Most time in Feed · evenings after 8pm</div>
+           </List>
+         )}

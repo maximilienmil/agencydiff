@@ -1,7 +1,33 @@
-import { mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@agencydiff/runner/src/init.js", () => ({
+  crawlExploration: async (url: string) => ({
+    url,
+    startedAt: new Date(0).toISOString(),
+    steps: 2,
+    screens: [
+      {
+        key: "billing",
+        url,
+        title: "Billing",
+        text: "Subscribe to Circle+ or cancel your subscription",
+        controls: [
+          { selector: "#subscribe", kind: "button", text: "Subscribe to Circle+" },
+          { selector: "#cancel", kind: "button", text: "Cancel subscription" },
+        ],
+      },
+    ],
+  }),
+  validateContracts: async (contracts: { decision: string; intents: { id: string }[] }[]) =>
+    new Map(
+      contracts.flatMap((c) =>
+        c.intents.map((i) => [`${c.decision}.${i.id}`, { agentSucceeded: true, oraclePassed: true }]),
+      ),
+    ),
+}));
 import { findConfigFile, loadConfig } from "./config.js";
 import { bundledContractFile, findDataDir, loadContract, loadRefs } from "./engine.js";
 
@@ -63,13 +89,20 @@ describe("contracts", () => {
 });
 
 describe("init", () => {
-  it("scaffolds config + starter contract", async () => {
+  it("writes the runner pipeline output, not a TODO template", async () => {
     const { initCommand } = await import("./commands/init.js");
     const root = await mkdtemp(path.join(tmpdir(), "ad-init-"));
     await initCommand(["--url", "https://example.com/settings", "--dir", root]);
     const config = JSON.parse(await readFile(path.join(root, "agencydiff.config.json"), "utf8"));
     expect(config.targets.baseline).toBe("https://example.com/settings");
-    const contract = JSON.parse(await readFile(path.join(root, config.contracts[0]), "utf8"));
-    expect(contract.pairs).toEqual([{ accept: "accept", reject: "decline" }]);
+    const raw = await readFile(path.join(root, config.contracts[0]), "utf8");
+    expect(raw).not.toContain("TODO");
+    const contract = JSON.parse(raw);
+    expect(contract.decision).toBe("subscription");
+    expect(contract.pairs).toHaveLength(1);
+    expect(contract.pairs[0].accept).not.toBe(contract.pairs[0].reject);
+    const files = await readdir(path.join(root, "contracts"));
+    expect(files.some((f) => f.endsWith(".exploration.json"))).toBe(true);
+    expect(files.some((f) => f.endsWith(".review.md"))).toBe(true);
   });
 });

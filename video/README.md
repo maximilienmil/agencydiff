@@ -12,8 +12,9 @@ path; red and green describe measured deltas. Film grain stays subtle and static
 
 ## Structure (all timings in `src/Demo.tsx`)
 
-0:00–0:15 cold open: “An app asks for your location.” cuts to the recorded location-decline
-Probes: one action before the update, seven after. A wireframe built from the
+0:00–0:15 cold open: “Eight of thirty AI-written changes broke saying no.”
+with the 0/30 loop result, then the recorded location-decline
+Probes: one step before the update, seven after. A wireframe built from the
 candidate's actual screen sequence moves behind the evidence. 0:15–0:31 the problem in plain words. 0:31–1:23 the experiment: the
 verbatim "Simplify onboarding" prompt from `eval/agent-prs/tasks.json`
 (typed at 35 characters per second in Atkinson, then held), the regressing agent diff and the failed check, the

@@ -13,10 +13,10 @@ Two renders ship: `media/agencydiff-demo.mp4` (voiced) and
 
 ## 0:00–0:15 — Cold open (≤15 s)
 
-> An app asks for your location. Before the update, declining took one step. After it, seven steps. Same request, same checked final state. AgencyDiff records what changed.
+> Eight of thirty AI-written changes broke saying no. With the check in the loop: zero. For example: an app asks for your location. Before the update, declining took one step. After it, seven steps. Same request, same checked final state.
 
-On screen: “An app asks for your location.” cuts to actual location-decline Traces, with
-one-action and seven-action counters and a path wireframe.
+On screen: “Eight of thirty AI-written changes broke saying no.” with the 0/30 loop result, then cuts to actual location-decline Traces, with
+one-step and seven-step counters and a path wireframe.
 
 ## 0:15–0:31 — Problem (≤16 s)
 
@@ -26,7 +26,7 @@ On screen: plain-words statement card.
 
 ## 0:31–1:23 — The experiment (≤52 s)
 
-> We gave a coding agent one ordinary task: simplify onboarding, fewer screens before the feed. Its diff never opens the first-run prompt, so decline leaves the first screen. The AgencyDiff check fails: decline takes seven actions instead of one, and is no longer visible. The same task goes back with the check in the loop. The gated agent keeps the prompt and the decline control. Gate pass, zero findings. Across thirty ordinary pull requests per side: without the check, eight broke saying no. With it, zero.
+> We gave a coding agent one ordinary task: simplify onboarding, fewer screens before the feed. Its diff never opens the first-run prompt, so decline leaves the first screen. The AgencyDiff check fails: decline takes seven steps instead of one, and is no longer visible. The same task goes back with the check in the loop. The gated agent keeps the prompt and the decline control. Gate pass, zero findings. Across thirty ordinary pull requests per side: without the check, eight broke saying no. With it, zero.
 
 On screen: the verbatim prompt; the regressing diff; the red check card with
 the measured visibility Finding; the side-by-side decision screens (one
@@ -36,14 +36,14 @@ from `eval/agent-prs/results.json` (muse-confirmed regressions per arm).
 
 ## 1:23–1:57 — How it works (≤34 s)
 
-> A contract names the decisions, the intents, and the oracles. Probes run each intent on both builds. The oracle checks the final app state — the agent's own claim never counts. The diff is deterministic: same traces, same findings. Screenshot review catches one in twenty. The replay gate catches nineteen, with zero false alarms, for zero dollars. SAM grounds every control for the evidence overlay, and propose fix turns a failing report into a verified patch.
+> A contract names the decisions, the choices, and the checks. Test runs try each choice on both builds. The last screen decides — the agent's own claim never counts. The diff is deterministic: same recordings, same findings. Screenshot review catches one in twenty from start screens; even with a full walkthrough tour it catches seventeen and still cannot count effort. The replay gate catches nineteen, with zero false alarms, for zero dollars. SAM grounds every control for the evidence overlay, and propose fix turns a failing report into a verified patch.
 
 On screen: contract → probes → oracle → diff; 1/20 vs 19/20 cards ($0);
 SAM 3.1 overlay; the `propose-fix` flow turning green.
 
 ## 1:57–2:30 — It generalizes (≤33 s)
 
-> One init command maps an app it has never seen — an unseen notification server yielded thirty-six controls from a twenty-two step crawl. SusBench-derived patterns: seven of ten. Native Android probes on a real emulator. A public-site audit: the REAL ID document list went from zero of three to three of three, four actions to fact. And the same engine ships as a CLI, a GitHub Action, and an MCP server inside the agent that writes the code.
+> One init command maps an app it has never seen — an unseen notification server yielded thirty-six controls from a twenty-two step crawl. SusBench-derived patterns: seven of ten. Native Android probes on a real emulator. A public-site audit: the REAL ID document list went from three of five to five of five, twenty-one actions to fact to one. And the same engine ships as a CLI, a GitHub Action, and an MCP server inside the agent that writes the code.
 
 On screen: `agencydiff init` (ntfy), SusBench 7/10, native Android, the audit
 row from `docs/audit.md`, CLI / Action / MCP cards.

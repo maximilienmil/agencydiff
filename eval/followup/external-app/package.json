@@ -7,7 +7,9 @@
     "test": "vitest run",
     "typecheck": "tsc -p .",
     "smoke": "tsx src/smoke.ts",
-    "trial": "tsx src/run.ts"
+    "trial": "tsx src/run.ts",
+    "core-trial": "tsx src/coreRun.ts",
+    "core-blind": "tsx src/coreBlind.ts"
   },
   "dependencies": {
     "playwright": "1.63.0"

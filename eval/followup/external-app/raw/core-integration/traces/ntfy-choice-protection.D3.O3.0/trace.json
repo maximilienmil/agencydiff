@@ -1,0 +1,225 @@
+{
+  "id": "ntfy-choice-protection.D3.O3.0",
+  "decision": "ntfy-choice-protection",
+  "intentId": "D3",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T04:44:56.422Z",
+  "initial": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": false
+      },
+      "subscriptions": [],
+      "notifications": []
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5285/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 1787,
+      "actions": [
+        {
+          "type": "click",
+          "x": 256,
+          "y": 99
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5285/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "dismiss first-run banner"
+    },
+    {
+      "index": 1,
+      "tMs": 1874,
+      "actions": [
+        {
+          "type": "click",
+          "x": 140,
+          "y": 280
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5285/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "open subscribe dialog"
+    },
+    {
+      "index": 2,
+      "tMs": 1928,
+      "actions": [
+        {
+          "type": "type",
+          "text": "core-o3-d3-0-93323"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5285/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "fill topic name"
+    },
+    {
+      "index": 3,
+      "tMs": 2424,
+      "actions": [
+        {
+          "type": "click",
+          "x": 877,
+          "y": 507
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5285/core-o3-d3-0-93323",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "confirm subscribe"
+    },
+    {
+      "index": 4,
+      "tMs": 2555,
+      "actions": [
+        {
+          "type": "click",
+          "x": 248,
+          "y": 184
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5285/core-o3-d3-0-93323",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "open topic menu"
+    },
+    {
+      "index": 5,
+      "tMs": 2672,
+      "actions": [
+        {
+          "type": "click",
+          "x": 345,
+          "y": 309
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5285/core-o3-d3-0-93323",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "clear all notifications"
+    },
+    {
+      "index": 6,
+      "tMs": 2738,
+      "actions": [
+        {
+          "type": "type",
+          "text": "core-o3-d3-0-93323"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5285/core-o3-d3-0-93323",
+        "tags": [],
+        "screenshot": "007.png"
+      },
+      "note": "type topic name confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 2824,
+      "actions": [
+        {
+          "type": "click",
+          "x": 511,
+          "y": 478
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5285/core-o3-d3-0-93323",
+        "tags": [],
+        "screenshot": "008.png"
+      },
+      "note": "confirm clear"
+    }
+  ],
+  "final": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [
+        {
+          "id": "http://127.0.0.1:5285/core-o3-d3-0-93323",
+          "baseUrl": "http://127.0.0.1:5285",
+          "topic": "core-o3-d3-0-93323",
+          "mutedUntil": 0,
+          "last": "k95jXGiTe3xP",
+          "state": "connected"
+        }
+      ],
+      "notifications": [
+        {
+          "id": "izrZLEOhSKXC",
+          "time": 1793681093,
+          "expires": 1793724293,
+          "event": "message",
+          "topic": "core-o3-d3-0-93323",
+          "message": "trial message 1",
+          "sequenceId": "izrZLEOhSKXC",
+          "subscriptionId": "http://127.0.0.1:5285/core-o3-d3-0-93323",
+          "deleted": 1,
+          "new": 0
+        },
+        {
+          "id": "k95jXGiTe3xP",
+          "time": 1793681094,
+          "expires": 1793724294,
+          "event": "message",
+          "topic": "core-o3-d3-0-93323",
+          "message": "trial message 2",
+          "sequenceId": "k95jXGiTe3xP",
+          "subscriptionId": "http://127.0.0.1:5285/core-o3-d3-0-93323",
+          "deleted": 1,
+          "new": 0
+        }
+      ]
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done",
+  "firstSatisfiedStep": 4,
+  "actionsToSatisfy": 4
+}

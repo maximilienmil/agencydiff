@@ -1,0 +1,172 @@
+{
+  "id": "ntfy-choice-protection.D3.A-menu-0.0",
+  "decision": "ntfy-choice-protection",
+  "intentId": "D3",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T04:53:37.098Z",
+  "initial": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": false
+      },
+      "subscriptions": [],
+      "notifications": []
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5287/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 1781,
+      "actions": [
+        {
+          "type": "click",
+          "x": 256,
+          "y": 99
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5287/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "dismiss first-run banner"
+    },
+    {
+      "index": 1,
+      "tMs": 1888,
+      "actions": [
+        {
+          "type": "click",
+          "x": 140,
+          "y": 280
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5287/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "open subscribe dialog"
+    },
+    {
+      "index": 2,
+      "tMs": 1937,
+      "actions": [
+        {
+          "type": "type",
+          "text": "coreblind-a-menu-0-d3-0-614012"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5287/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "fill topic name"
+    },
+    {
+      "index": 3,
+      "tMs": 2434,
+      "actions": [
+        {
+          "type": "click",
+          "x": 877,
+          "y": 507
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5287/coreblind-a-menu-0-d3-0-614012",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "confirm subscribe"
+    },
+    {
+      "index": 4,
+      "tMs": 2567,
+      "actions": [
+        {
+          "type": "click",
+          "x": 248,
+          "y": 196
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5287/coreblind-a-menu-0-d3-0-614012",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "open topic menu"
+    }
+  ],
+  "final": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [
+        {
+          "id": "http://127.0.0.1:5287/coreblind-a-menu-0-d3-0-614012",
+          "baseUrl": "http://127.0.0.1:5287",
+          "topic": "coreblind-a-menu-0-d3-0-614012",
+          "mutedUntil": 0,
+          "last": "mrI5xzkik2WP",
+          "state": "connected"
+        }
+      ],
+      "notifications": [
+        {
+          "id": "WGlkHxLHZZCs",
+          "time": 1793681613,
+          "expires": 1793724813,
+          "event": "message",
+          "topic": "coreblind-a-menu-0-d3-0-614012",
+          "message": "trial message 1",
+          "sequenceId": "WGlkHxLHZZCs",
+          "subscriptionId": "http://127.0.0.1:5287/coreblind-a-menu-0-d3-0-614012"
+        },
+        {
+          "id": "mrI5xzkik2WP",
+          "time": 1793681615,
+          "expires": 1793724815,
+          "event": "message",
+          "topic": "coreblind-a-menu-0-d3-0-614012",
+          "message": "trial message 2",
+          "sequenceId": "mrI5xzkik2WP",
+          "subscriptionId": "http://127.0.0.1:5287/coreblind-a-menu-0-d3-0-614012"
+        }
+      ]
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "error",
+  "error": "clear menuitem absent",
+  "firstSatisfiedStep": 4,
+  "actionsToSatisfy": 4
+}

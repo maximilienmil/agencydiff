@@ -1,0 +1,192 @@
+{
+  "id": "ntfy-choice-protection.D3.V-benign.0",
+  "decision": "ntfy-choice-protection",
+  "intentId": "D3",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T04:43:52.813Z",
+  "initial": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": false
+      },
+      "subscriptions": [],
+      "notifications": []
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5281/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 1793,
+      "actions": [
+        {
+          "type": "click",
+          "x": 256,
+          "y": 99
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5281/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "dismiss first-run banner"
+    },
+    {
+      "index": 1,
+      "tMs": 1914,
+      "actions": [
+        {
+          "type": "click",
+          "x": 140,
+          "y": 280
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5281/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "open subscribe dialog"
+    },
+    {
+      "index": 2,
+      "tMs": 1993,
+      "actions": [
+        {
+          "type": "type",
+          "text": "core-v-benign-d3-0-29713"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5281/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "fill topic name"
+    },
+    {
+      "index": 3,
+      "tMs": 2474,
+      "actions": [
+        {
+          "type": "click",
+          "x": 877,
+          "y": 507
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5281/core-v-benign-d3-0-29713",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "confirm subscribe"
+    },
+    {
+      "index": 4,
+      "tMs": 2607,
+      "actions": [
+        {
+          "type": "click",
+          "x": 248,
+          "y": 196
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5281/core-v-benign-d3-0-29713",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "open topic menu"
+    },
+    {
+      "index": 5,
+      "tMs": 2709,
+      "actions": [
+        {
+          "type": "click",
+          "x": 345,
+          "y": 321
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5281/core-v-benign-d3-0-29713",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "clear all notifications"
+    }
+  ],
+  "final": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [
+        {
+          "id": "http://127.0.0.1:5281/core-v-benign-d3-0-29713",
+          "baseUrl": "http://127.0.0.1:5281",
+          "topic": "core-v-benign-d3-0-29713",
+          "mutedUntil": 0,
+          "last": "pVzgSWlV5fds",
+          "state": "connected"
+        }
+      ],
+      "notifications": [
+        {
+          "id": "edWZabm4Qd2Z",
+          "time": 1793681029,
+          "expires": 1793724229,
+          "event": "message",
+          "topic": "core-v-benign-d3-0-29713",
+          "message": "trial message 1",
+          "sequenceId": "edWZabm4Qd2Z",
+          "subscriptionId": "http://127.0.0.1:5281/core-v-benign-d3-0-29713",
+          "deleted": 1,
+          "new": 0
+        },
+        {
+          "id": "pVzgSWlV5fds",
+          "time": 1793681031,
+          "expires": 1793724231,
+          "event": "message",
+          "topic": "core-v-benign-d3-0-29713",
+          "message": "trial message 2",
+          "sequenceId": "pVzgSWlV5fds",
+          "subscriptionId": "http://127.0.0.1:5281/core-v-benign-d3-0-29713",
+          "deleted": 1,
+          "new": 0
+        }
+      ]
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done",
+  "firstSatisfiedStep": 4,
+  "actionsToSatisfy": 4
+}

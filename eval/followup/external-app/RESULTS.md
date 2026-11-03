@@ -25,10 +25,10 @@ Known limits recorded before trials: Clear is device-level only
 ## Integration scope
 
 This pilot uses custom Playwright probes and a standalone scorer in src/score.ts.
-It does not yet exercise the existing AgencyDiff runner or core diffContract.
-It demonstrates the measurement approach and its exact-label brittleness on an
-external app; it is not end-to-end validation of the shipped CLI or Action on
-ntfy. Core integration remains required before making that stronger claim.
+Core-library integration is recorded in the Core-integration phase section
+below (real core Traces through the unmodified `diffContract`); the shipped
+CLI and Action remain unexercised, so this is still not end-to-end validation
+of CLI/Action portability to ntfy. That stronger claim stays open.
 
 ## Method (frozen in PROTOCOL.md; 4 dated amendments, all retained)
 
@@ -147,6 +147,104 @@ documented per variant). Clear is device-level; DELETE 404 noted.
 Image-pull cost unmeasured (pre-present). Muse-probe arm not run:
 scripted oracles are direct state reads; per repo limits, model probes
 add judgment noise — reserved for follow-ups.
+
+## Core-integration phase (new; original data above untouched)
+
+The gap disclosed in Integration scope is now closed at the core-library
+level: the frozen variant matrix was replayed through a target-specific
+adapter that records real core Traces, scored by the UNMODIFIED
+`packages/core` `diffContract` (plus `metrics`/`firstSatisfaction`, also
+unmodified). `packages/core` has zero diff in this branch; no labels,
+thresholds, variants, or detection logic were changed to improve scores.
+The shipped CLI and Action were NOT exercised: this is core integration,
+not CLI integration, and the CLI/Action portability claim stays open.
+
+Adapter (`src/coreProbe.ts`, `contracts/ntfy-choice-protection.json`,
+runners `src/coreRun.ts` / `src/coreBlind.ts`, comparison
+`src/coreCompare.ts`; authoring cost disclosed in ONBOARDING.md):
+interaction logic mirrors `src/probe.ts` step for step (same selectors,
+waits, settles, frozen oracle predicates), but every tap becomes one real
+core Action at measured viewport coordinates (click = box center, fill =
+one type action), every step carries a real 1280x800 screenshot, and each
+run persists a spec-compliant core Trace in runner layout
+(`raw/core-integration/traces/<id>/trace.json` + `000.png...`, screenshots
+as bare filenames exactly like the runner). Driver is honestly
+`scripted`; oracles are the same independent IndexedDB/localStorage/DOM
+reads, evaluated live per step and finally. Contract: one decision with
+the four protective intents (all `mustSucceed`, polarity `reject`),
+`pairs: []` (frozen paths measure only protective sides, so asymmetry is
+out of scope), no `target`/`defaultKey` (external target exposes no
+data-agency tags or state-hook defaults, so core `visibility`,
+`navigation_depth` (URL-only, always 0), and `default_flip` cannot fire
+here — recorded as inapplicable, not as passing evidence). The full
+runner (`runProbe`/`BrowserEnv`/`ScriptedDriver`) was not reusable: the
+scripted driver requires data-agency tags, the state-hook oracle requires
+a target state server, DOM assertions cannot express IndexedDB reads, and
+model-judged needs paid calls in Audit mode.
+
+Tap parity (adapter fidelity gate): baseline replays measure 6/6/6/4 taps
+with all oracles passing, exactly the frozen instrument, and
+`coreActions == taps` on all 48 held-out runs. D1 traces carry the
+documented `{firstSatisfiedStep: 0, actionsToSatisfy: 0}` artifact: the
+unsubscribe oracle holds vacuously on a fresh profile, so round-trip cost
+lives in `actionCount`, as in the frozen rule.
+
+Researcher set (`raw/core-integration/summary.json`, 28 runs, 110 s, 0
+exclusions, every run first-attempt): core reproduces every frozen
+expectation with the same kinds as the standalone scorer — O1/D1 and
+O4/D4 `goal_unreachable` (high), O2/D2 `action_cost` 6->7 (low), O3/D3
+`action_cost` 6->8 (medium), silence elsewhere. Standalone-vs-core
+agreement: 24/24 cells. Severity nuance retained, not smoothed: core rates
+O2's +1 tap `low`, so that candidate's report `passed` stays true while
+the pilot rule still counts it a finding; both verdicts are in the cell.
+
+Blind set (`raw/core-integration/blind-summary.json`, canonical run 2, 20
+runs, 173 s; load re-check 4/4 valid, $0): standalone-vs-core agreement
+16/16. Run 1 (retained as `blind-summary-run1.json`, 16/16 agree) is
+superseded only for flake-screenshot provenance (retries overwrote shot
+files before the per-attempt-dir fix); its verdicts are identical to run
+2 on all 16 cells, and its A-menu-1 D2 trace dir is retained as
+cross-phase disagreement evidence.
+
+Cross-phase disagreement retained (the one that matters): A-menu-1 D2
+measured `equal` in the original phase but `goal_unreachable` in all five
+integration observations (run 1, run 2, 3 exploratory reps to /tmp). No
+smoothing applied — the held-out cell stands as `goal_unreachable` per
+the frozen rule. Mechanism, evidenced live on the same build: the
+A-menu-1 overlay has already relabeled the menu at the first post-open
+read ("🔇 Mute notifications" at t+0 ms through t+1000 ms, order
+reshuffled); the D2 anchored matcher (`/^(mute|unmute) notifications$/i`)
+counts 0 against the relabeled items, while the D1 substring matcher and
+the D3 unanchored regex keep matching their relabeled labels (both pass);
+clicking the relabeled "🔇 Mute notifications" sets `mutedUntil=1`, so the
+protective choice works. Inference (not observed): the overlay's rewrite
+lands between the original replay's earlier read and this adapter's
+later read (one screenshot + one state read later), so the two phases
+straddle the relabel. Classification: the same rename-vs-removal
+blindness as A-menu-0, in a timing-sensitive facet — exact-match replay
+cannot tell a relabel from a removal, and here even the verdict flips
+with read timing. The frozen repeats=1 determinism claim is therefore
+qualified for overlaid variants: verdicts were stable 16/16 across the
+two integration blind runs, but not 17/17 across phases.
+
+Attempts/flakes (symmetric frozen rule, now with per-attempt dirs so flake
+shots survive): researcher 28/28 accepted first attempt; blind run 2 has
+one recovered sync flake (A-settings-0 D3 attempt 0: topic-row render
+missed its 30 s wait, attempt 1 clean pass, dir retained) and one
+0-accepted cell (A-settings-0 D4: all 3 attempts timed out waiting for the
+reworded settings text; all three `.attemptN` dirs retained, scored from
+the final trace object). A-settings-0 D4 agrees with the original phase
+on kind (`goal_unreachable`; rename false-flag, choice verified working
+in the original phase).
+
+Machine-readable outputs: `raw/core-integration/summary.json`,
+`raw/core-integration/blind-summary.json` (+ `blind-summary-run1.json`,
+`loadcheck-blind.json`), per-trace `trace.json` + PNGs (~24 MB). No new
+model calls in this phase ($0; spend total unchanged, still under the $5
+cap). Reproduce: start the pinned container as above (any
+`--name`, same digest + flags, 127.0.0.1:5280), then in
+`eval/followup/external-app`: `pnpm install`, `pnpm exec tsc -p .`,
+`pnpm exec vitest run` (31 tests), `pnpm core-trial`, `pnpm core-blind`.
 
 ## Reproduce
 

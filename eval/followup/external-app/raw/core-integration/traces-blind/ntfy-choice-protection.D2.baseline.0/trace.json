@@ -1,0 +1,167 @@
+{
+  "id": "ntfy-choice-protection.D2.baseline.0",
+  "decision": "ntfy-choice-protection",
+  "intentId": "D2",
+  "variant": "baseline",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T04:53:15.535Z",
+  "initial": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": false
+      },
+      "subscriptions": [],
+      "notifications": []
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5280/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 1784,
+      "actions": [
+        {
+          "type": "click",
+          "x": 256,
+          "y": 99
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5280/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "dismiss first-run banner"
+    },
+    {
+      "index": 1,
+      "tMs": 1894,
+      "actions": [
+        {
+          "type": "click",
+          "x": 140,
+          "y": 280
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5280/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "open subscribe dialog"
+    },
+    {
+      "index": 2,
+      "tMs": 1959,
+      "actions": [
+        {
+          "type": "type",
+          "text": "coreblind-baseline-d2-0-595535"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5280/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "fill topic name"
+    },
+    {
+      "index": 3,
+      "tMs": 2459,
+      "actions": [
+        {
+          "type": "click",
+          "x": 877,
+          "y": 507
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5280/coreblind-baseline-d2-0-595535",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "confirm subscribe"
+    },
+    {
+      "index": 4,
+      "tMs": 2574,
+      "actions": [
+        {
+          "type": "click",
+          "x": 248,
+          "y": 196
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5280/coreblind-baseline-d2-0-595535",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "open topic menu"
+    },
+    {
+      "index": 5,
+      "tMs": 2675,
+      "actions": [
+        {
+          "type": "click",
+          "x": 345,
+          "y": 357
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5280/coreblind-baseline-d2-0-595535",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "mute notifications"
+    }
+  ],
+  "final": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [
+        {
+          "id": "http://127.0.0.1:5280/coreblind-baseline-d2-0-595535",
+          "baseUrl": "http://127.0.0.1:5280",
+          "topic": "coreblind-baseline-d2-0-595535",
+          "mutedUntil": 1,
+          "last": null,
+          "state": "connected"
+        }
+      ],
+      "notifications": []
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done",
+  "firstSatisfiedStep": 6,
+  "actionsToSatisfy": 6
+}

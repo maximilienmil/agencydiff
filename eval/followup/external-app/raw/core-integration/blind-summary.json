@@ -1,0 +1,549 @@
+{
+  "runLabel": "core-integration-blind",
+  "trialHead": "f321563048dfd951d41d3a006b9837f6d5a7a90c",
+  "mode": "deterministic",
+  "repeats": 1,
+  "elapsedMs": 172741,
+  "loadResults": {
+    "A-menu-0": {
+      "ok": true,
+      "errors": []
+    },
+    "A-menu-1": {
+      "ok": true,
+      "errors": []
+    },
+    "A-settings-0": {
+      "ok": true,
+      "errors": []
+    },
+    "A-settings-1": {
+      "ok": true,
+      "errors": []
+    }
+  },
+  "cells": [
+    {
+      "variant": "A-menu-0",
+      "decision": "D1",
+      "taps": {
+        "baseline": 6,
+        "candidate": 5
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": false
+      },
+      "standalone": {
+        "decision": "D1",
+        "kind": "goal_unreachable",
+        "baseline": "pass",
+        "candidate": "fail"
+      },
+      "coreFindings": [
+        {
+          "severity": "high",
+          "kind": "goal_unreachable",
+          "intentId": "D1",
+          "title": "\"Unsubscribe from a topic\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D1.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D1.A-menu-0.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/goal_unreachable/D1",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report goal_unreachable",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-menu-0",
+      "decision": "D2",
+      "taps": {
+        "baseline": 6,
+        "candidate": 5
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": false
+      },
+      "standalone": {
+        "decision": "D2",
+        "kind": "goal_unreachable",
+        "baseline": "pass",
+        "candidate": "fail"
+      },
+      "coreFindings": [
+        {
+          "severity": "high",
+          "kind": "goal_unreachable",
+          "intentId": "D2",
+          "title": "\"Mute a topic's notifications\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D2.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D2.A-menu-0.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/goal_unreachable/D2",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report goal_unreachable",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-menu-0",
+      "decision": "D3",
+      "taps": {
+        "baseline": 6,
+        "candidate": 5
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": false
+      },
+      "standalone": {
+        "decision": "D3",
+        "kind": "goal_unreachable",
+        "baseline": "pass",
+        "candidate": "fail"
+      },
+      "coreFindings": [
+        {
+          "severity": "high",
+          "kind": "goal_unreachable",
+          "intentId": "D3",
+          "title": "\"Clear all notifications for a topic\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D3.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D3.A-menu-0.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/goal_unreachable/D3",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report goal_unreachable",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-menu-0",
+      "decision": "D4",
+      "taps": {
+        "baseline": 4,
+        "candidate": 4
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 4 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 4 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-menu-1",
+      "decision": "D1",
+      "taps": {
+        "baseline": 6,
+        "candidate": 6
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-menu-1",
+      "decision": "D2",
+      "taps": {
+        "baseline": 6,
+        "candidate": 5
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": false
+      },
+      "standalone": {
+        "decision": "D2",
+        "kind": "goal_unreachable",
+        "baseline": "pass",
+        "candidate": "fail"
+      },
+      "coreFindings": [
+        {
+          "severity": "high",
+          "kind": "goal_unreachable",
+          "intentId": "D2",
+          "title": "\"Mute a topic's notifications\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D2.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D2.A-menu-1.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/goal_unreachable/D2",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report goal_unreachable",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-menu-1",
+      "decision": "D3",
+      "taps": {
+        "baseline": 6,
+        "candidate": 6
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-menu-1",
+      "decision": "D4",
+      "taps": {
+        "baseline": 4,
+        "candidate": 4
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 4 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 4 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-settings-0",
+      "decision": "D1",
+      "taps": {
+        "baseline": 6,
+        "candidate": 6
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-settings-0",
+      "decision": "D2",
+      "taps": {
+        "baseline": 6,
+        "candidate": 6
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-settings-0",
+      "decision": "D3",
+      "taps": {
+        "baseline": 6,
+        "candidate": 6
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 2
+      },
+      "flakes": [
+        {
+          "attempt": 0,
+          "taps": 4,
+          "detail": "error: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'coreblind-a-settings-0-d3-0-643932' }).first() to be visible\n"
+        }
+      ]
+    },
+    {
+      "variant": "A-settings-0",
+      "decision": "D4",
+      "taps": {
+        "baseline": 4,
+        "candidate": 2
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": false
+      },
+      "standalone": {
+        "decision": "D4",
+        "kind": "goal_unreachable",
+        "baseline": "pass",
+        "candidate": "fail"
+      },
+      "coreFindings": [
+        {
+          "severity": "high",
+          "kind": "goal_unreachable",
+          "intentId": "D4",
+          "title": "\"Auto-delete notifications after three hours\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D4.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D4.A-settings-0.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/goal_unreachable/D4",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report goal_unreachable",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 3
+      },
+      "flakes": [
+        {
+          "attempt": 0,
+          "taps": 2,
+          "detail": "error: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByText('Delete notifications').first() to be visible\n"
+        },
+        {
+          "attempt": 1,
+          "taps": 2,
+          "detail": "error: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByText('Delete notifications').first() to be visible\n"
+        },
+        {
+          "attempt": 2,
+          "taps": 2,
+          "detail": "error: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByText('Delete notifications').first() to be visible\n"
+        }
+      ]
+    },
+    {
+      "variant": "A-settings-1",
+      "decision": "D1",
+      "taps": {
+        "baseline": 6,
+        "candidate": 6
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-settings-1",
+      "decision": "D2",
+      "taps": {
+        "baseline": 6,
+        "candidate": 6
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-settings-1",
+      "decision": "D3",
+      "taps": {
+        "baseline": 6,
+        "candidate": 6
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    },
+    {
+      "variant": "A-settings-1",
+      "decision": "D4",
+      "taps": {
+        "baseline": 4,
+        "candidate": 4
+      },
+      "oracle": {
+        "baseline": true,
+        "candidate": true
+      },
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 4 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 4 both sides)",
+      "attempts": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "flakes": []
+    }
+  ]
+}

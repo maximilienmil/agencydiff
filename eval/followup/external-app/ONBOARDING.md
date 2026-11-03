@@ -96,3 +96,42 @@ flagged as such.
   devDeps tsx 4.19.2, typescript 5.9.3, vitest 3.2.4,
   @types/node 22.10.5 (all same pins as `packages/runner`).
 - No weight downloads, no browser downloads, no external services.
+
+## Core-integration phase (adaptation ledger, 2026-11-02 ~23:30–24:00 EST)
+
+Target-specific adapter authoring cost (the "what does onboarding cost"
+question extends to core integration, not just probing):
+
+- New files, all under `eval/followup/external-app/`: `src/coreProbe.ts`
+  (~600 lines: instrumented mirror of `src/probe.ts` — same selectors,
+  waits, settles, oracle predicates — plus real-coordinate actions, real
+  screenshots, live per-step oracle reads, core Trace assembly),
+  `src/coreRun.ts` / `src/coreBlind.ts` (frozen proxy/port/retry/topology
+  reused from `src/run.ts` / `src/blind.ts`), `src/coreCompare.ts`
+  (pure standalone-vs-core agreement classifier), `tests/coreTrace.test.ts`
+  (11 tests), `contracts/ntfy-choice-protection.json`.
+  `packages/core`: zero lines changed (verified by clean `git status`).
+  Two bug fixes during the phase, both retained in code: per-attempt trace
+  dirs so retried attempts no longer overwrite flake screenshots, and flake
+  + attempts accounting in the blind summary.
+- `package.json`: +2 scripts (`core-trial`, `core-blind`) only. No new
+  dependencies, no version changes.
+- Environment (own isolated instance, nothing shared touched): `docker run`
+  of the pinned digest on 127.0.0.1:5280 with the frozen exempt-hosts flag
+  as container `ntfy-coreint-5280`, healthy <10 s (image pre-present, no
+  pull); `pnpm install` ~2 s warm; Playwright browsers reused from cache
+  (zero downloads); ports 5281–5290 for overlay proxies, same mapping.
+- Verification: `pnpm exec tsc -p .` clean; `pnpm exec vitest run` 31/31
+  (20 pre-existing + 11 new); tap-parity gate passed (baseline 6/6/6/4
+  reproduced exactly before scoring anything); two screenshots
+  eyes-checked as real ntfy UI (menu-open mute state; topic-row state).
+- Runs: researcher 28 traces / 110 s; blind run 1, 20 traces (superseded
+  for flake-shot provenance, verdicts retained); blind run 2, 20 traces /
+  173 s (canonical); 3 exploratory A-menu-1 D2 reps + 1 time-series +
+  1 functional click-check to /tmp (diagnostics only, never committed).
+- Model/API spend for the phase: $0 (scripted only; no participant,
+  probe, judge, or coordinator experimental calls). No credentials used.
+- Frictions: one import-depth fix (`../../../../packages/core`); tsx CJS
+  handling for /tmp scratch (moved diagnostics in-package, deleted after);
+  one misread of attempts accounting from grep-filtered multiline output,
+  resolved by full logging in run 2 (no code defect).

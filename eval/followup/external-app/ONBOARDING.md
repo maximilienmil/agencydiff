@@ -67,13 +67,28 @@ flagged as such.
   D4 = 4 taps ×3, all oracles pass → trials use repeats=1, deterministic
   scoring rule.
 
-## Trial runs (instrumented; filled in as they run)
+## Trial runs (instrumented ledger)
 
-- Researcher-seeded variants (scripted, $0 model cost): see `raw/`.
-- Blind coding attempts (metered `muse exec`, low effort): see `raw/`.
-- Per-probe `durationMs` and run `elapsedMs` recorded in raw JSON.
-- Cumulative experimental model spend tracked before each new model call
-  (cap $5.00, stop launching at $4.00 running total).
+- trial1 (raw/trial1/, 28 runs, ~3 min): exposed 3 overlay bugs (O1
+  React-reconciliation crash on mute; O2/O3 re-entrancy; O3 topic
+  source). Superseded, retained.
+- trial2 (raw/trial2/): with suppression-flag + hide-don't-remove
+  fixes; O3 D3 still failed (topic-source bug). Superseded, retained.
+- trial3 (raw/trial3/, salvaged offline): run.ts hung at shutdown on
+  open ws pipes AFTER all probes completed; scored with src/salvage.ts
+  (same frozen rule). Superseded, retained.
+- trial4 (raw/trial4/): clean shutdown; V-improve button absent
+  (row-detection regex miss). Superseded, retained.
+- trial5 (raw/trial5/, primary): all frozen expectations met; 0
+  exclusions; 4 transient flakes recovered via retry rule.
+- blind (raw/blind/, 16 runs): 4/4 valid; A-menu-0 D1-D3 + A-settings-0
+  D4 frozen-path breaks, functionally characterized as renames.
+- Per-probe `durationMs` and run `elapsedMs` in raw JSON.
+- Model spend (metered per attempt, cap $5.00, upper bound $2.40):
+  A-menu-0 174,236/2,576; A-menu-1 139,448/3,098; A-settings-0
+  212,871/3,583; A-settings-1 208,491/3,465 (in/out tokens, 19 calls
+  total). Running total checked before each launch; never near cap.
+  Scripted probes/review/oracles: $0. No credentials used or missing.
 
 ## Dependencies added for the pilot
 

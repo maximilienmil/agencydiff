@@ -1,0 +1,9 @@
+{
+  "variant": "baseline",
+  "decision": "D4",
+  "rep": 0,
+  "taps": 4,
+  "oraclePass": true,
+  "durationMs": 2901,
+  "detail": "deleteAfter=10800"
+}

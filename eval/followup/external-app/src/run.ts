@@ -38,18 +38,24 @@ function trialHead(): string {
 
 /** Run one probe with the frozen retry rule: taps==0 means the run never
  *  got going (infra). Retry 3x; if baseline works but the variant never
- *  starts, the variant broke the app (goal_unreachable), not infra. */
+ *  starts, the variant broke the app (goal_unreachable), not infra.
+ *  Transient instrument errors (detail starts with "error:") get up to 2
+ *  extra attempts; the first errors are retained as infra-flake records. */
 async function runWithRetry(
   browser: import("playwright").Browser,
   o: ProbeOpts,
   baselineTaps: number | null,
-): Promise<{ result: ProbeResult; attempts: number; excluded: string | null }> {
+): Promise<{ result: ProbeResult; attempts: number; excluded: string | null; flakes: ProbeResult[] }> {
   let attempts = 0;
   let last: ProbeResult | null = null;
+  const flakes: ProbeResult[] = [];
   for (let a = 0; a < 3; a++) {
     attempts = a + 1;
     last = await runProbe(browser, o);
-    if (last.taps > 0) return { result: last, attempts, excluded: null };
+    if (last.taps > 0 && !(last.detail ?? "").startsWith("error:")) {
+      return { result: last, attempts, excluded: null, flakes };
+    }
+    if ((last.detail ?? "").startsWith("error:")) flakes.push(last);
     await new Promise((r) => setTimeout(r, 2000));
   }
   if (baselineTaps !== null && baselineTaps > 0) {
@@ -57,9 +63,10 @@ async function runWithRetry(
       result: { ...last!, taps: 0, oraclePass: false, detail: "app unusable under variant (no taps on 3 attempts)" },
       attempts,
       excluded: null,
+      flakes,
     };
   }
-  return { result: last!, attempts, excluded: "infra: taps==0 on 3 attempts" };
+  return { result: last!, attempts, excluded: "infra: taps==0 on 3 attempts", flakes };
 }
 
 const started = Date.now();
@@ -77,7 +84,7 @@ for (const v of VARIANTS) {
 
 const browser = await chromium.launch();
 const results: ProbeResult[] = [];
-const attemptLog: Record<string, { attempts: number; excluded: string | null }> = {};
+const attemptLog: Record<string, { attempts: number; excluded: string | null; flakes: number }> = {};
 const baselineTaps: Record<string, number> = {};
 try {
   for (const v of VARIANTS) {
@@ -92,15 +99,18 @@ try {
           topic: `trial-${v.name.toLowerCase()}-${d.toLowerCase()}-${rep}-${Date.now() % 1000000}`,
         };
         const isBaseline = v.name === "baseline";
-        const { result, attempts, excluded } = await runWithRetry(
+        const { result, attempts, excluded, flakes } = await runWithRetry(
           browser,
           o,
           isBaseline ? null : (baselineTaps[d] ?? null),
         );
         if (isBaseline) baselineTaps[d] = Math.max(baselineTaps[d] ?? 0, result.taps);
         results.push(result);
-        attemptLog[`${v.name}/${d}/${rep}`] = { attempts, excluded };
+        attemptLog[`${v.name}/${d}/${rep}`] = { attempts, excluded, flakes: flakes.length };
         await writeFile(path.join(RAW, `${v.name}-${d}-${rep}.json`), JSON.stringify(result, null, 2));
+        for (const [i, f] of flakes.entries()) {
+          await writeFile(path.join(RAW, `${v.name}-${d}-${rep}.flake${i}.json`), JSON.stringify(f, null, 2));
+        }
         console.log(`${v.name} ${d} rep${rep}: taps=${result.taps} oracle=${result.oraclePass} :: ${result.detail} [attempts=${attempts}${excluded ? ` EXCLUDED:${excluded}` : ""}]`);
       }
     }
@@ -111,7 +121,9 @@ try {
 }
 
 // Score per variant x decision against baseline (deterministic mode).
+const runLabel = process.env.EXTAPP_RUN_LABEL ?? "trial";
 const summary: Record<string, unknown> = {
+  runLabel,
   trialHead: trialHead(),
   mode: "deterministic",
   repeats: 1,
@@ -137,4 +149,5 @@ for (const v of VARIANTS) {
   }
 }
 await writeFile(path.join(ROOT, "raw", "summary.json"), JSON.stringify(summary, null, 2));
+await writeFile(path.join(ROOT, "raw", `summary-${runLabel}.json`), JSON.stringify(summary, null, 2));
 console.log(JSON.stringify(summary.findings, null, 1));

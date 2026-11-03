@@ -1,44 +1,54 @@
-/* V-improve (researcher-seeded): surfaces "Unsubscribe" as a visible button
- * next to each subscribed topic row. One user tap performs the same
- * underlying unsubscribe the menu item performs. Menu itself is untouched,
- * so frozen baseline paths still replay. Labeled improvement. */
+/* V-improve (researcher-seeded improvement): a small floating
+ * "Unsubscribe (quick)" button, attached at document.body level (never
+ * inside React-managed subtrees: inserting nodes under React corrupts
+ * reconciliation -- observed crash with row injection). One user tap
+ * performs the same underlying unsubscribe the menu item performs. The
+ * menu itself is untouched, so frozen baseline paths still replay. */
 (function () {
-  function ensureButtons() {
+  function currentTopic() {
+    // Subscribed topic rows are div[role=button] with an aria-label of the
+    // pure topic name, each containing the nested (real <button>) menu
+    // trigger. Structural, not name-based: works for any topic string.
+    const nav = document.querySelector("nav");
+    if (!nav) return "";
+    const row = [...nav.querySelectorAll('[role="button"][aria-label]')].find((b) =>
+      b.querySelector("button"),
+    );
+    return row ? (row.getAttribute("aria-label") || "").trim() : "";
+  }
+  function ensureButton() {
     try {
-      const nav = document.querySelector("nav");
-      if (!nav) return;
-      const topicBtns = [...nav.querySelectorAll("button")].filter(
-        (b) => /extapp-|discover-|smoke-|pilot-|trial-/.test(b.textContent || "") && b.textContent.length < 60,
-      );
-      for (const tb of topicBtns) {
-        if (tb.parentElement && tb.parentElement.querySelector("[data-extapp-unsub]")) continue;
-        const btn = document.createElement("button");
-        btn.setAttribute("data-extapp-unsub", "1");
-        btn.setAttribute("aria-label", "Unsubscribe (quick)");
-        btn.textContent = "Unsubscribe";
-        btn.style.cssText = "margin-left:8px;text-decoration:underline;cursor:pointer;";
-        btn.addEventListener("click", (ev) => {
-          ev.preventDefault();
-          ev.stopPropagation();
-          // Same underlying action: open this row's menu, click Unsubscribe.
-          const row = tb.closest("li, div") || tb.parentElement;
-          const menuBtn = row ? row.querySelector("button:not([data-extapp-unsub])") : null;
+      let btn = document.getElementById("extapp-quick-unsub");
+      const topic = currentTopic();
+      if (!topic) {
+        if (btn) btn.style.display = "none";
+        return;
+      }
+      if (!btn) {
+        btn = document.createElement("button");
+        btn.id = "extapp-quick-unsub";
+        btn.textContent = "Unsubscribe (quick)";
+        btn.style.cssText = "position:fixed;right:16px;bottom:16px;z-index:99998;padding:8px 12px;cursor:pointer;";
+        btn.addEventListener("click", () => {
+          const tb = [...document.querySelectorAll("nav [role='button'][aria-label]")].find(
+            (b) => (b.getAttribute("aria-label") || "") === topic,
+          );
+          if (!tb) return;
+          const menuBtn = tb.querySelector("button");
           const fire = (el) => el && el.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
-          if (menuBtn && menuBtn !== tb) {
-            fire(menuBtn);
-          } else {
-            fire(tb.querySelector("button"));
-          }
+          fire(menuBtn && menuBtn !== tb ? menuBtn : tb.querySelector("button"));
           setTimeout(() => {
-            const items = [...document.querySelectorAll("[role='menuitem'], li[role]")];
+            const items = [...document.querySelectorAll("[role='menuitem'], li")];
             const unsub = items.find((i) => /^\s*unsubscribe\s*$/i.test(i.textContent || ""));
             if (unsub) fire(unsub);
           }, 400);
         });
-        tb.after(btn);
+        document.body.appendChild(btn);
       }
+      btn.style.display = "";
+      btn.setAttribute("data-topic", topic);
     } catch (e) { /* never break the app */ }
   }
-  new MutationObserver(ensureButtons).observe(document.documentElement, { childList: true, subtree: true });
-  ensureButtons();
+  new MutationObserver(ensureButton).observe(document.documentElement, { childList: true, subtree: true });
+  ensureButton();
 })();

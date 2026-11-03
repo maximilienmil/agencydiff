@@ -1,0 +1,9 @@
+{
+  "variant": "A-menu-0",
+  "decision": "D4",
+  "rep": 0,
+  "taps": 4,
+  "oraclePass": true,
+  "durationMs": 2862,
+  "detail": "deleteAfter=10800"
+}

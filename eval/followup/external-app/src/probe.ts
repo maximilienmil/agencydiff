@@ -276,9 +276,14 @@ export async function probeD4(browser: Browser, o: ProbeOpts): Promise<ProbeResu
     const opt = page.getByRole("option", { name: /after three hours/i });
     const optCount = await opt.count().catch(() => 0);
     if (optCount === 0) {
-      // Fallback: raw option elements (observer-stripped lists read zero too).
+      // Fallback: raw option elements, ignoring hidden ones (an overlay
+      // that hides an option removes it from the a11y tree but not the DOM).
       const raw = await page.evaluate(() =>
         [...document.querySelectorAll("[role='option'], option, li[data-value]")]
+          .filter((e) => {
+            const h = e as HTMLElement;
+            return h.style.display !== "none" && h.offsetParent !== null;
+          })
           .map((e) => e.textContent?.trim() ?? "")
           .filter(Boolean),
       );

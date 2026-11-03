@@ -1,4 +1,5 @@
 import http from "node:http";
+import net from "node:net";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { injectPatch, startOverlayProxy, stopServer } from "../src/proxy.js";
 
@@ -89,5 +90,47 @@ describe("overlay proxy against stub backend", () => {
   it("passes through upstream error statuses", async () => {
     const res = await fetch(`http://127.0.0.1:${proxyPort}/missing`);
     expect(res.status).toBe(404);
+  });
+
+  it("pipes websocket upgrades to upstream", async () => {
+    const upgradeBackend = http.createServer();
+    await new Promise<void>((resolve) => upgradeBackend.listen(0, "127.0.0.1", resolve));
+    const upstreamPort = (upgradeBackend.address() as { port: number }).port;
+    const backendSockets = new Set<import("node:net").Socket>();
+    upgradeBackend.on("connection", (s) => {
+      backendSockets.add(s);
+      s.on("close", () => backendSockets.delete(s));
+    });
+    upgradeBackend.on("upgrade", (req, sock) => {
+      sock.end("HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n\r\nUPSTREAM-HELLO");
+    });
+    const wsProxy = await startOverlayProxy(
+      { upstreamHost: "127.0.0.1", upstreamPort, patchJs: "" },
+      0,
+    );
+    const wsPort = (wsProxy.address() as { port: number }).port;
+    try {
+      const raw = await new Promise<string>((resolve, reject) => {
+        const s = net.connect(wsPort, "127.0.0.1", () => {
+          s.write(
+            "GET /topic/ws HTTP/1.1\r\nHost: x\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\nSec-WebSocket-Version: 13\r\n\r\n",
+          );
+        });
+        let buf = "";
+        s.on("data", (c) => {
+          buf += c.toString();
+          if (buf.includes("UPSTREAM-HELLO")) resolve(buf);
+        });
+        s.on("error", reject);
+      });
+      expect(raw).toContain("101 Switching Protocols");
+      expect(raw).toContain("UPSTREAM-HELLO");
+    } finally {
+      await stopServer(wsProxy);
+      for (const s of backendSockets) s.destroy();
+      await new Promise<void>((resolve, reject) =>
+        upgradeBackend.close((e) => (e ? reject(e) : resolve())),
+      );
+    }
   });
 });

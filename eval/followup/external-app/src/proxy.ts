@@ -1,4 +1,5 @@
 import http from "node:http";
+import net from "node:net";
 
 /**
  * Overlay proxy for the external-app pilot. Forwards every request to the
@@ -80,6 +81,37 @@ export function startOverlayProxy(config: ProxyConfig, port: number): Promise<ht
     });
     clientReq.pipe(proxyReq);
   });
+  // WebSocket upgrades (ntfy live sync) are piped raw TCP to upstream so
+  // variant pages behave like baseline instead of falling back to polling.
+  server.on("upgrade", (clientReq, clientSocket, head) => {
+    const sock = net.connect(config.upstreamPort, config.upstreamHost, () => {
+      const lines = [`${clientReq.method} ${clientReq.url} HTTP/${clientReq.httpVersion}`];
+      for (const [k, v] of Object.entries(clientReq.headers)) {
+        if (k.toLowerCase() === "host") {
+          lines.push(`host: ${config.upstreamHost}:${config.upstreamPort}`);
+        } else {
+          lines.push(`${k}: ${Array.isArray(v) ? v.join(", ") : v}`);
+        }
+      }
+      sock.write(lines.join("\r\n") + "\r\n\r\n");
+      if (head && head.length) sock.write(head);
+      clientSocket.pipe(sock).pipe(clientSocket);
+    });
+    // Abrupt disconnects ('close' without 'end') do not propagate through
+    // pipe() alone: destroy the peer so no half-open socket pins the server.
+    sock.on("error", () => clientSocket.destroy());
+    clientSocket.on("error", () => sock.destroy());
+    sock.on("close", () => clientSocket.destroy());
+    clientSocket.on("close", () => sock.destroy());
+  });
+  // Track every socket so stopServer can always drain, even with
+  // long-lived streams or upgrade pipes still attached.
+  const openSockets = new Set<import("node:net").Socket>();
+  (server as unknown as { __extappSockets?: Set<import("node:net").Socket> }).__extappSockets = openSockets;
+  server.on("connection", (s) => {
+    openSockets.add(s);
+    s.on("close", () => openSockets.delete(s));
+  });
   return new Promise((resolve, reject) => {
     server.on("error", reject);
     server.listen(port, "127.0.0.1", () => resolve(server));
@@ -87,6 +119,10 @@ export function startOverlayProxy(config: ProxyConfig, port: number): Promise<ht
 }
 
 export async function stopServer(server: http.Server): Promise<void> {
+  // Destroy tracked sockets first: server.close() waits for idle
+  // connections, and proxied SSE/upgrade streams never go idle alone.
+  const tracked = (server as unknown as { __extappSockets?: Set<import("node:net").Socket> }).__extappSockets;
+  if (tracked) for (const s of tracked) s.destroy();
   await new Promise<void>((resolve, reject) => {
     server.close((err) => (err ? reject(err) : resolve()));
   });

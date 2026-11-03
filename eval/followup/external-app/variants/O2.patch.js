@@ -17,14 +17,22 @@
     ov.querySelector("[data-x='no']").addEventListener("click", () => ov.remove());
     document.body.appendChild(ov);
   }
+  // Suppression flag: the re-fired click must not re-trigger this listener.
+  let refiring = false;
   document.addEventListener("click", (ev) => {
+    if (refiring) return;
     const t = ev.target.closest ? ev.target.closest("[role='menuitem'], li") : null;
     if (!t || !/^\s*mute notifications\s*$/i.test(t.textContent || "")) return;
     ev.preventDefault();
     ev.stopPropagation();
     modal(() => {
       // Re-fire on the real item after the user confirms.
-      t.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+      refiring = true;
+      try {
+        t.click();
+      } finally {
+        setTimeout(() => { refiring = false; }, 0);
+      }
     });
   }, true);
 })();

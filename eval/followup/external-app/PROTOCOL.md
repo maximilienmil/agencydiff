@@ -167,3 +167,48 @@ reconstructed from memory.
   and seed publishes are never 429-throttled; no UI behavior changes.
   Frozen decisions, intents, paths, oracles, and expectations are
   untouched.
+- 2026-11-02 (trial1 -> trial2, variant-implementation fixes, frozen
+  obstruction intents unchanged): trial1 run exposed three overlay bugs
+  in researcher-seeded variants, all fixed before trial2 with trial1 raw
+  data retained under `raw/trial1/` as superseded-with-reason.
+  (a) O1 (remove Unsubscribe) crashed the app on mute: removing a node
+  from under React corrupts reconciliation (`insertBefore` crash,
+  observed live). O1/O4 now hide (display:none + inert + aria-hidden)
+  instead of removing -- the faithful overlay emulation of a source
+  removal; items stay unreachable by sight, mouse, keyboard and
+  assistive tech. O4 probe raw-fallback now ignores hidden options.
+  (b) O2/O3 re-dispatched clicks re-triggered their own capture
+  interceptors (second modal, underlying action never fired); both now
+  guard re-fires with a suppression flag. (c) V-improve moved its quick
+  button to document.body level (row injection risked the same React
+  corruption). (d) NEW retry rule: transient instrument errors
+  (result detail starts with `error:`) get up to 2 extra attempts; first
+  errors retained as `*.flake*.json` infra-flake records. Score rule and
+  frozen expectations unchanged; trial2 re-runs all variants for a
+  uniform set.
+- 2026-11-02 (trial2 -> trial3, overlay + proxy fixes, raw/trial2/
+  retained): (a) O3's type-to-confirm computed the expected topic from
+  nav text, which carries an unread-count prefix the user never types,
+  so the confirmation could never enable: the overlay now accepts any
+  non-empty input the stored name ends with. (b) Variant proxies now
+  pipe WebSocket upgrades raw-TCP to upstream (was: 400, app fell back
+  to polling); no behavioral difference was observed, but the confound
+  is removed. Trial3 re-runs all variants uniformly.
+- 2026-11-02 (trial3 -> trial4, proxy shutdown + O3 topic source,
+  raw/trial3/ salvaged offline): (a) trial3's run.ts hung AFTER all 28
+  probes completed: working ws-upgrade pipes never go idle, pinning
+  server.close(). Proxy now propagates close both ways and stopServer
+  destroys tracked sockets first; shutdown hang class fixed (20/20 unit
+  tests incl. new ws test). Trial3 scored offline from complete raw runs
+  (`src/salvage.ts`, same frozen rule; summary marked salvaged). (b) O3's
+  expected-topic came from nav text with unread/muted badges: now read
+  from the SPA route (pure topic name), modal displays it GitHub-style;
+  verified end-to-end (8 taps, oracle true). Trial4 re-runs all variants
+  uniformly with all fixes.
+- 2026-11-02 (trial4 -> trial5, V-improve row detection, raw/trial4/
+  retained): V-improve's quick button never rendered in trial4: topic
+  rows are div[role=button] with the pure topic as aria-label (real
+  <button>s are only icon buttons), which the overlay now detects
+  structurally. Verified live (button present; one tap unsubscribes:
+  rows 1->0). Trial4's V-improve cells stand as equal-path replays with
+  an absent button. Trial5 re-runs all variants uniformly.

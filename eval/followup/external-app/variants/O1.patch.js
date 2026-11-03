@@ -1,14 +1,22 @@
-/* O1 (researcher-seeded obstruction, targets D1): removes the
- * "Unsubscribe" item from the topic menu whenever it appears. */
+/* O1 (researcher-seeded obstruction, targets D1): hides the
+ * "Unsubscribe" item from the topic menu. Hidden (display:none + inert),
+ * NOT removed: removing nodes from under React corrupts its child list
+ * and crashes the app (observed), while a source-level removal would
+ * re-render cleanly. Hiding keeps the item unreachable by sight, mouse,
+ * keyboard and assistive tech -- the faithful overlay emulation. */
 (function () {
-  function strip() {
+  function hide() {
     try {
       const items = document.querySelectorAll("[role='menuitem'], [role='menu'] li, ul[role] li");
       for (const i of items) {
-        if (/^\s*unsubscribe\s*$/i.test(i.textContent || "")) i.remove();
+        if (/^\s*unsubscribe\s*$/i.test(i.textContent || "")) {
+          i.style.display = "none";
+          i.setAttribute("aria-hidden", "true");
+          i.setAttribute("inert", "");
+        }
       }
     } catch (e) {}
   }
-  new MutationObserver(strip).observe(document.documentElement, { childList: true, subtree: true });
-  strip();
+  new MutationObserver(hide).observe(document.documentElement, { childList: true, subtree: true });
+  hide();
 })();

@@ -1,7 +1,8 @@
 # Matched review: repeatable metric comparison vs model reviewer (RESULTS)
 
-Pilot, 8 frozen cases. Protocol (frozen before trials, amendments A1–A4
-recorded there): [PROTOCOL.md](./PROTOCOL.md). Machine-readable:
+Exploratory pilot, 8 frozen cases. Evidence bundles were corrected after
+observing reviewer misses on these same cases; the final pass is not held-out.
+Protocol and amendments A1–A4: [PROTOCOL.md](./PROTOCOL.md). Machine-readable:
 [summary.json](./summary.json), [raw.json](./raw.json). Runner:
 `packages/runner/src/matchedReview/run.ts`. Do not confuse with
 `eval/RESULTS.md` or `eval/agent-prs/RESULTS.md` (different experiments).
@@ -38,8 +39,9 @@ determinism: two runs over frozen traces byte-identical on all 8 cases.
   traces 4 of 6 regression hits collapse to `goal_unreachable` because the
   reference control is gone and the replay errors out — the truth metrics
   there were visibility (CASE-01), effort (CASE-03), depth (CASE-04) and
-  success (CASE-05). Only CASE-02 (`visibility`) and CASE-08 (`default_flip`)
-  match the independently expected metric. The reviewer instead returns
+  success (CASE-05). Only CASE-05 (`goal_unreachable` for the expected success drop) and CASE-08
+  (`default_flip`) match the expected mechanism; CASE-02 visibility is an
+  additional signal, not a match to its expected effort metric. The reviewer instead returns
   direction + cited evidence (screens/actions/oracle) without a mechanism
   kind; its citations correctly named truncated paths and flipped defaults.
 - Both directions: on CASE-08 the reviewer rated the accept side
@@ -73,6 +75,11 @@ determinism: two runs over frozen traces byte-identical on all 8 cases.
 
 ## Limitations
 
+- A3/A4 used results on this set to repair evidence equivalence. Reporting the
+  final rerun is useful for debugging the comparison, but an untouched new case
+  set is needed to confirm generalization. No more calls were made in the audit.
+- The saved raw provenance baselineBehavior contains a typographical error; see
+  the protocol audit note for the corrected SHA and source-tree check.
 - n=8 pilot, one app, one reviewer model (`muse-spark-1.3-contributor`),
   unanimous repeats are not a variability estimate. No causal or general
   claims.

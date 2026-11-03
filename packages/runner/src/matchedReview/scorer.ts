@@ -1,5 +1,5 @@
 import { sameIntent } from "../benchScore.js";
-import type { AgencyReport } from "@agencydiff/core";
+import type { AgencyReport, Trace } from "@agencydiff/core";
 import type { MatchedCase } from "./cases.js";
 import type { ReviewResult, ReviewVerdict } from "./reviewer.js";
 import { majorityVerdict } from "./reviewer.js";
@@ -83,4 +83,22 @@ export function scoreReviewer(repeats: ReviewResult[], c: MatchedCase, expected:
     },
     majority,
   };
+}
+
+/** Infrastructure failures are missing evidence for both methods, not misses or false flags. */
+export function scoreMatchedCase(report: AgencyReport, repeats: ReviewResult[], c: MatchedCase, allExpected: ExpectedEntry[], traces: Trace[]) {
+  const excluded = allExpected.filter((e) => traces.some((t) =>
+    sameIntent(t.intentId, t.decision, e.intent) && t.stoppedReason === "error" &&
+    !(t.error ?? "").startsWith("reference tag not found:"),
+  )).map((e) => e.intent);
+  const expected = allExpected.filter((e) => !excluded.includes(e.intent));
+  const filteredReport = { ...report, findings: report.findings.filter((f) =>
+    f.intentId === undefined
+      ? !(f.kind === "default_flip" && allExpected.some((e) => e.metric === "default" && excluded.includes(e.intent)))
+      : !excluded.some((id) => sameIntent(f.intentId!, f.decision, id)),
+  ) };
+  const filteredRepeats = repeats.map((r) => ({ ...r, verdicts: Object.fromEntries(
+    Object.entries(r.verdicts).filter(([id]) => !excluded.includes(id)),
+  ) }));
+  return { expected, excluded, comparator: scoreComparator(filteredReport, c, expected), reviewer: scoreReviewer(filteredRepeats, c, expected) };
 }

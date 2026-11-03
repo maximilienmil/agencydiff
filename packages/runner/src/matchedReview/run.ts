@@ -10,7 +10,7 @@ import { CASES, SMOKE_CONTRACT, SMOKE_SEED, type MatchedCase } from "./cases.js"
 import { assertBundleClean, bundleImageOrder, buildCaseBundle, renderBundleText, renderStoppedLines, sha256File, sha256Hex } from "./bundle.js";
 import { collectCaseEvidence, loadCaseTraces, loadContract, writeCaseManifest, ROOT } from "./evidence.js";
 import { callReviewer, type ReviewResult } from "./reviewer.js";
-import { scoreComparator, scoreReviewer } from "./scorer.js";
+import { scoreMatchedCase } from "./scorer.js";
 
 const { values } = parseArgs({
   options: {
@@ -166,18 +166,17 @@ async function phaseScore(comparator: Record<string, ComparatorRecord>, review: 
     const contract = await loadContract(c.contractFile);
     const traces = await loadCaseTraces(caseDir(c.caseId));
     const report: AgencyReport = { decision: contract.decision, promise: contract.promise, aggregates: [], asymmetry: [], findings: comparator[c.caseId].findings, passed: true };
-    const cs = scoreComparator(report, c, expected);
-    const { score: rs, majority } = scoreReviewer(review[c.caseId] ?? [], c, expected);
-    const excluded = expected.filter((e) => {
-      const ts = traces.filter((x) => `${c.decision}.${x.intentId}` === e.intent);
-      return ts.some((x) => x.stoppedReason === "error" && !(x.error ?? "").startsWith("reference tag not found:"));
-    }).map((e) => e.intent);
-    expTotal += expected.length;
+    const scored = scoreMatchedCase(report, review[c.caseId] ?? [], c, expected, traces);
+    const cs = scored.comparator;
+    const { score: rs, majority } = scored.reviewer;
+    const excluded = scored.excluded;
+    const eligibleExpected = scored.expected;
+    expTotal += eligibleExpected.length;
     compHits += cs.hits.length;
     revHits += rs.hits.length;
     compFalse += cs.falseFlags.length;
     revFalse += rs.falseFlags.length;
-    for (const e of expected) {
+    for (const e of eligibleExpected) {
       const ch = cs.hits.includes(e.intent);
       const rh = rs.hits.includes(e.intent);
       if (ch !== rh) disagreements.push(`${c.caseId} ${e.intent}: comparator=${ch ? "hit" : "miss"}, reviewer-majority=${majority[e.intent] ?? "missing"}`);
@@ -186,7 +185,7 @@ async function phaseScore(comparator: Record<string, ComparatorRecord>, review: 
       seed: c.seed,
       decision: c.decision,
       isControl: c.isControl,
-      expected,
+      expected: eligibleExpected,
       excludedErrorTraces: excluded,
       comparator: cs,
       reviewer: { ...rs, majority },
@@ -197,7 +196,7 @@ async function phaseScore(comparator: Record<string, ComparatorRecord>, review: 
   const raw = {
     provenance: {
       worktreeHead: head,
-      baselineBehavior: "7c84640d894cf9366030c77ba36e7576b9a24a2d",
+      baselineBehavior: "7c84640d894cf9366030c72ba36e7576b9a24a2d",
       model: values.model,
       repeats: { comparatorRuns: 2, reviewerRepeats: reviewRepeats },
       budgetUsd: BUDGET_USD,

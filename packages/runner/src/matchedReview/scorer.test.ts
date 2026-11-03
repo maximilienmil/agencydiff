@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { diffContract, type AgencyContract, type Trace } from "@agencydiff/core";
-import { scoreComparator, scoreReviewer } from "./scorer.js";
+import { scoreComparator, scoreReviewer, scoreMatchedCase } from "./scorer.js";
 import type { ReviewResult } from "./reviewer.js";
 
 function trace(intentId: string, variant: "baseline" | "candidate", taps: number, passed: boolean): Trace {
@@ -94,5 +94,27 @@ describe("scoreReviewer", () => {
     const { score } = scoreReviewer(reps, CASE, EXPECTED);
     expect(score.misses).toEqual(["subscription.cancel"]);
     expect(score.falseFlags).toEqual(["subscription.resume"]);
+  });
+});
+
+describe("matched evidence exclusions", () => {
+  it("removes infrastructure failures from both denominators and false flags", () => {
+    const traces = [trace("cancel", "baseline", 3, true), { ...trace("cancel", "candidate", 0, false), stoppedReason: "error" as const, error: "browser crashed" }];
+    const report = diffContract(contract, traces);
+    const review = { verdicts: { "subscription.cancel": "harder" }, citations: {}, notes: "", raw: "", inputTokens: 0, outputTokens: 0, calls: 1, costUsd: 0, parseRetried: false } as ReviewResult;
+    const s = scoreMatchedCase(report, [review], CASE, EXPECTED, traces);
+    expect(s.expected).toEqual([]);
+    expect(s.excluded).toEqual(["subscription.cancel"]);
+    expect(s.comparator.falseFlags).toEqual([]);
+    expect(s.reviewer.score.falseFlags).toEqual([]);
+    expect(Number.isNaN(s.comparator.recall)).toBe(true);
+    expect(Number.isNaN(s.reviewer.score.recall)).toBe(true);
+  });
+  it("keeps missing reference controls as the declared path-failure signal", () => {
+    const traces = [trace("cancel", "baseline", 3, true), { ...trace("cancel", "candidate", 0, false), stoppedReason: "error" as const, error: "reference tag not found: cancel" }];
+    const s = scoreMatchedCase(diffContract(contract, traces), [], CASE, EXPECTED, traces);
+    expect(s.expected).toEqual(EXPECTED);
+    expect(s.excluded).toEqual([]);
+    expect(s.comparator.hits).toEqual(["subscription.cancel"]);
   });
 });

@@ -3,6 +3,10 @@
 Pilot follow-up for AgencyDiff. Question: given equivalent evidence, how do
 repeatable metric comparison and a model reviewer differ?
 
+Status: frozen case set; exploratory evaluation. A3/A4 were motivated by misses
+observed on this same case set. The final pass is a within-set rerun after
+bundle development, not a held-out or fully preregistered confirmation.
+
 Status: FROZEN. Any change after trials start is recorded under Amendments
 with reason; scored data collected before an amendment stays excluded unless
 the amendment says otherwise.
@@ -101,7 +105,7 @@ individually. No causal or general-population claims: this is one 8-case pilot.
 
 ## Source SHAs (behavior baseline)
 
-- Behavior baseline: `7c84640d894cf9366030c77ba36e7576b9a24a2d` (detection logic
+- Behavior baseline: `7c84640d894cf9366030c72ba36e7576b9a24a2d` (detection logic
   unchanged relative to it; worktree HEAD may carry coordinator setup commits).
 - Recorded at trial time in `raw.json`: worktree HEAD, contract file hashes,
   `eval/ground_truth.json` hash, reference-path file hashes, runner file hash.
@@ -109,10 +113,10 @@ individually. No causal or general-population claims: this is one 8-case pilot.
 ## Reproduction
 
 - Serve: `cd apps/circle && pnpm exec vite --port 5321 --strictPort --host 127.0.0.1`
-- Evidence: `pnpm --filter @agencydiff/runner exec tsx ../../eval/followup/matched-review/run.ts --phase evidence --port 5321`
+- Evidence: `pnpm --filter @agencydiff/runner exec tsx src/matchedReview/run.ts --phase evidence --port 5321`
 - Score: `... --phase all --port 5321` (needs `MODEL_API_KEY`; loads from
   environment or repo `.env`, never printed or committed).
-- Tests: `pnpm --filter @agencydiff/runner exec vitest run eval/followup/matched-review/tests`
+- Tests: `pnpm --filter @agencydiff/runner exec vitest run src/matchedReview`
   (from repo root via workspace path) and `pnpm --filter @agencydiff/runner exec tsc -p .`.
 
 ## Amendments
@@ -140,3 +144,11 @@ individually. No causal or general-population claims: this is one 8-case pilot.
   (truncated path vs satisfied) exactly as the comparator's success grading
   does. No trace was regenerated; rendering is a deterministic transform of
   frozen traces.
+
+- Coordinator audit (after scored trials): corrected the documented baseline SHA
+  typo and reproduction paths. raw.json retains its original misspelled
+  baselineBehavior field as recorded; the actual app, contracts and core source
+  tree was compared with the corrected submitted SHA and has no differences.
+  Fixed the scorer to actually remove declared infrastructure exclusions from
+  both methods' denominators and false flags. No scored case contains such an
+  exclusion; saved trial outcomes are unchanged. Added exclusion regression tests.

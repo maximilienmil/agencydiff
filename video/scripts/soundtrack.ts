@@ -2,7 +2,8 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 /** Original procedural score: a warm, slow pad (D–Bm–G–A, 8 s per chord) with
- * soft bell notes on section cuts. No pulse, no samples or external assets.
+ * soft bell notes on section cuts, and from 0:15 a light 90 BPM groove (soft kick,
+ * shaker, plucked arpeggio). no samples or external assets.
  * Peak limited below -6 dB.
  */
 export function writeSoundtrack(publicDir: string): void {
@@ -23,6 +24,7 @@ export function writeSoundtrack(publicDir: string): void {
   const tau = Math.PI * 2;
   const len = 8;
   let lp = 0;
+  let noise = 1;
   for (let i = 0; i < samples; i++) {
     const t = i / rate;
     const idx = Math.floor(t / len);
@@ -44,8 +46,22 @@ export function writeSoundtrack(publicDir: string): void {
       const d = t - b;
       if (d >= 0 && d < 5) bell += 0.2 * Math.exp(-d * 1.4) * (Math.sin(tau * bellNote[k] * d) + 0.3 * Math.sin(tau * bellNote[k] * 2.01 * d));
     });
+    // Gentle groove from 0:15 on: 90 BPM soft kick, off-beat shaker, plucked arpeggio.
+    const groove = Math.min(1, Math.max(0, (t - 15) / 4)) * Math.min(1, Math.max(0, (172 - t) / 4));
+    const bt = 60 / 90;
+    const inBeat = t % bt;
+    const kick = 0.42 * Math.exp(-inBeat * 9) * Math.sin(tau * (48 * inBeat + 6 * (1 - Math.exp(-inBeat * 30))));
+    const half = (t + bt / 2) % bt;
+    noise = (noise * 1103515245 + 12345) % 2147483648;
+    const shaker = 0.035 * Math.exp(-half * 40) * ((noise / 1073741824) - 1);
+    const eighth = bt / 2;
+    const step = Math.floor(t / eighth);
+    const chord = chords[idx % 4];
+    const note = hz(chord[[2, 3, 4, 5, 4, 3, 2, 4][step % 8]] + 12);
+    const inStep = t - step * eighth;
+    const pluck = 0.09 * Math.exp(-inStep * 7) * (Math.sin(tau * note * inStep) + 0.35 * Math.sin(tau * note * 2 * inStep));
     const fade = Math.min(1, t / 3, Math.max(0, (180 - t) / 3));
-    const value = Math.tanh((pad + bell) * fade * 1.4) * 0.7;
+    const value = Math.tanh((pad + bell + groove * (kick + shaker + pluck)) * fade * 1.4) * 0.7;
     pcm.writeInt16LE(Math.round(value * 32767), 44 + i * 2);
   }
   mkdirSync(publicDir, { recursive: true });

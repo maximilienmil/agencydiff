@@ -678,7 +678,7 @@ function HowItWorks({ data, footage, vo }: { data: VideoData; footage: Footage; 
   const gate = frac(data.gateCaught);
   const screens = frac(data.screensCaught);
   const f = useCurrentFrame();
-  const wipe = interpolate(f, [680, 730], [100, 0], { ...clamp, easing: ease });
+  const wipe = interpolate(f, [646, 690], [100, 0], { ...clamp, easing: ease });
   return (
     <>
       <Voice file={vo} />
@@ -716,9 +716,8 @@ function HowItWorks({ data, footage, vo }: { data: VideoData; footage: Footage; 
         <Frame>
           <div style={{ display: "flex", gap: 100, alignItems: "center" }}>
             {footage.samSheet ? (
-              <div style={{ position: "relative", width: 720, height: 602, borderRadius: 0, overflow: "hidden", border: `1px solid ${T.line}` }}>
-                <Img src={staticFile(footage.samSheet)} style={{ width: 720, height: 602, objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: 0, background: "#fff", clipPath: `inset(0 0 0 ${100 - wipe}%)` }} />
+              <div style={{ position: "relative", width: 720, height: 602, borderRadius: 0, overflow: "hidden", }}>
+                <Img src={staticFile(footage.samSheet)} style={{ width: 720, height: 602, objectFit: "cover", clipPath: `inset(0 ${wipe}% 0 0)` }} />
               </div>
             ) : (
               <PendingNote label="SAM 3.1 overlay" />

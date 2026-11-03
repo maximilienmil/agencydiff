@@ -168,7 +168,7 @@ function Frame({ dark, children, center = true, pad }: { dark?: boolean; childre
   return (
     <AbsoluteFill
       style={{
-        background: NIGHT,
+        background: "transparent",
         isolation: "isolate",
         color: dark ? NIGHT_INK : T.ink,
         fontFamily: T.font,
@@ -205,11 +205,40 @@ function Voice({ file }: { file: string | null }) {
 
 /** Static monochrome film grain over the whole film. It never moves, so it
  *  cannot shimmer on text. */
+/** Meta-style depth behind every scene: a faint blue/teal haze, a slow
+ *  constellation of thin lines with glowing nodes, and a vignette. Fixed seed,
+ *  so every render is identical. */
+const STARS = (() => {
+  let x = 7;
+  const rnd = () => ((x = (x * 16807) % 2147483647) / 2147483647);
+  return Array.from({ length: 34 }, () => ({ x: rnd() * 2100 - 90, y: rnd() * 1260 - 90, r: 1.2 + rnd() * 2.4, p: rnd() * 6.28 }));
+})();
+function Backdrop() {
+  const f = useCurrentFrame();
+  const pts = STARS.map((s) => ({ ...s, x: s.x + Math.sin(f / 240 + s.p) * 22, y: s.y + Math.cos(f / 300 + s.p) * 16 }));
+  const edges: [number, number][] = [];
+  pts.forEach((a, i) => pts.forEach((b, j) => { if (j > i && Math.hypot(a.x - b.x, a.y - b.y) < 420) edges.push([i, j]); }));
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none" }}>
+      <div style={{ position: "absolute", width: 1100, height: 800, left: -260, top: -300, borderRadius: "50%", background: "#0b3a6b", opacity: 0.32, filter: "blur(160px)", transform: `translate(${Math.sin(f / 400) * 60}px, 0)` }} />
+      <div style={{ position: "absolute", width: 900, height: 700, right: -240, bottom: -280, borderRadius: "50%", background: "#0d4a48", opacity: 0.26, filter: "blur(170px)", transform: `translate(0, ${Math.cos(f / 380) * 50}px)` }} />
+      <svg viewBox="0 0 1920 1080" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
+        <defs><filter id="glow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="5" /></filter></defs>
+        <g stroke="#2f6fb3" strokeWidth="0.8" opacity="0.22">
+          {edges.map(([i, j]) => <line key={`${i}-${j}`} x1={pts[i].x} y1={pts[i].y} x2={pts[j].x} y2={pts[j].y} />)}
+        </g>
+        {pts.map((p, i) => <g key={i} opacity={0.35 + 0.25 * Math.sin(f / 45 + p.p)}><circle cx={p.x} cy={p.y} r={p.r * 3} fill="#5aa2ff" filter="url(#glow)" /><circle cx={p.x} cy={p.y} r={p.r * 0.7} fill="#e6f0ff" /></g>)}
+      </svg>
+      <AbsoluteFill style={{ boxShadow: "inset 0 0 260px 60px rgba(0,0,0,0.75)" }} />
+    </AbsoluteFill>
+  );
+}
+
 function Grain() {
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>`;
   return (
     <AbsoluteFill
-      style={{ pointerEvents: "none", opacity: 0.045, backgroundImage: `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`, backgroundSize: "320px 320px" }}
+      style={{ pointerEvents: "none", opacity: 0.06, backgroundImage: `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`, backgroundSize: "320px 320px" }}
     />
   );
 }
@@ -342,10 +371,10 @@ function TracePhone({
 function ColdOpen({ data, footage, vo }: { data: VideoData; footage: Footage; vo: string | null }) {
   const f = useCurrentFrame();
   const { withBaseline: b, withCandidate: c } = footage.clips;
-  return <AbsoluteFill style={{ background: NIGHT, isolation: "isolate", color: "#fff", fontFamily: T.font }}>
+  return <AbsoluteFill style={{ background: "transparent", isolation: "isolate", color: "#fff", fontFamily: T.font }}>
     <Voice file={vo} />
     <TraceMesh clip={c} />
-    {f < 66 ? <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", background: NIGHT }}>
+    {f < 66 ? <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", background: "transparent" }}>
       <Words text="An app asks for your location." at={0} stagger={4} style={{ fontFamily: T.display, fontSize: 130, letterSpacing: "-0.05em", textAlign: "center", maxWidth: 1500 }} />
       <div style={{ width: interpolate(f, [0, 50], [0, 1100], clamp), height: 8, background: T.blue, marginTop: 30 }} />
     </AbsoluteFill> : <>
@@ -837,7 +866,7 @@ function Close({ data, vo }: { data: VideoData; vo: string | null }) {
   const f = useCurrentFrame();
   const out = interpolate(f, [222, 240], [1, 0], clamp);
   return (
-    <AbsoluteFill style={{ background: NIGHT }}>
+    <AbsoluteFill style={{ background: "transparent" }}>
     <Frame dark>
       <Voice file={vo} />
       <Words text="Regression tests for human choice." at={4} stagger={5} accent={["human", "choice"]} style={{ fontFamily: T.display, fontSize: 168, letterSpacing: "-0.03em", lineHeight: 1.0, maxWidth: 1500 }} />
@@ -856,6 +885,7 @@ function Close({ data, vo }: { data: VideoData; vo: string | null }) {
 export function Demo({ data, footage }: DemoProps) {
   return (
     <AbsoluteFill style={{ background: NIGHT, fontFamily: T.font, "--ds-ink": "#f3f5f7", "--ds-ink-2": "#b1bdc6", "--ds-ink-3": "#91a2af", "--ds-line-strong": "#344550", "--ds-bad-ink": "#ff6685", "--ds-good-ink": "#7bddab", "--ds-blue": "#75b6ff" } as React.CSSProperties}>
+      <Backdrop />
       {footage.soundtrack && <Audio src={staticFile(footage.soundtrack)} volume={0.75} />}
       <Sequence from={0} durationInFrames={15 * FPS}><ColdOpen data={data} footage={footage} vo={footage.voCold} /></Sequence>
       <Sequence from={15 * FPS} durationInFrames={16 * FPS}><Problem vo={footage.voProblem} clip={footage.clips.withCandidate} /></Sequence>

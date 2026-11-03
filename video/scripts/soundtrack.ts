@@ -1,8 +1,9 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-/** Original procedural score: low pulse, quiet data ticks, section accents.
- * No samples, game audio, voices or external assets. Peak limited below -6 dB.
+/** Original procedural score: a warm, slow pad (D–Bm–G–A, 8 s per chord) with
+ * soft bell notes on section cuts. No pulse, no samples or external assets.
+ * Peak limited below -6 dB.
  */
 export function writeSoundtrack(publicDir: string): void {
   const rate = 24000;
@@ -14,21 +15,37 @@ export function writeSoundtrack(publicDir: string): void {
   pcm.writeUInt32LE(rate, 24); pcm.writeUInt32LE(rate * 2, 28);
   pcm.writeUInt16LE(2, 32); pcm.writeUInt16LE(16, 34);
   pcm.write("data", 36); pcm.writeUInt32LE(samples * 2, 40);
-  const cuts = [0, 1.4, 15, 19, 23.33, 24.67, 26, 27.33, 31, 42, 49.67, 64.33, 71, 83, 85.5, 88, 90.5, 93, 104.33, 117, 125.27, 133.5, 141.73, 150, 155, 160, 165, 172];
-  let cut = 0;
+  const hz = (m: number) => 440 * Math.pow(2, (m - 69) / 12);
+  // D maj9, B min7, G maj7, A sus — open voicings in MIDI notes.
+  const chords = [[50, 57, 62, 66, 69, 76], [47, 54, 62, 66, 69, 74], [43, 50, 59, 62, 66, 74], [45, 52, 59, 62, 64, 73]];
+  const bells = [0, 15, 31, 83, 117, 150, 172];
+  const bellNote = [hz(81), hz(78), hz(76), hz(81), hz(78), hz(74), hz(74)];
   const tau = Math.PI * 2;
+  const len = 8;
+  let lp = 0;
   for (let i = 0; i < samples; i++) {
     const t = i / rate;
-    while (cut + 1 < cuts.length && t >= cuts[cut + 1]) cut++;
-    const beat = t % 0.625; // 96 BPM; the visual cuts need not quantize to it.
-    const tick = t % 0.3125;
-    const sinceCut = t - cuts[cut];
-    const fade = Math.min(1, t / 1.5, Math.max(0, (180 - t) / 2));
-    const body = 0.035 * Math.sin(tau * 55 * t) + 0.018 * Math.sin(tau * 82.4069 * t);
-    const pulse = 0.13 * Math.exp(-beat * 16) * Math.sin(tau * (55 * beat + 1.6 * (1 - Math.exp(-beat * 25))));
-    const data = 0.018 * Math.exp(-tick * 110) * Math.sin(tau * 1320 * tick);
-    const accent = 0.08 * Math.exp(-sinceCut * 12) * (Math.sin(tau * 110 * sinceCut) + 0.25 * Math.sin(tau * 1760 * sinceCut));
-    const value = Math.tanh((body + pulse + data + accent) * fade);
+    const idx = Math.floor(t / len);
+    const local = t - idx * len;
+    const xf = Math.min(1, local / 2.5); // 2.5 s crossfade into each chord
+    const voice = (c: number[]) =>
+      c.reduce((acc, m, k) => {
+        const f = hz(m);
+        return acc + (Math.sin(tau * f * t) + 0.5 * Math.sin(tau * f * 1.003 * t + k)) / (1 + k * 0.35);
+      }, 0) / c.length;
+    const cur = voice(chords[idx % 4]);
+    const prev = voice(chords[(idx + 3) % 4]);
+    const swell = 0.75 + 0.25 * Math.sin(tau * t / 16);
+    let pad = 0.11 * swell * (cur * xf + prev * (1 - xf));
+    lp += 0.08 * (pad - lp); // gentle low-pass for warmth
+    pad = lp;
+    let bell = 0;
+    bells.forEach((b, k) => {
+      const d = t - b;
+      if (d >= 0 && d < 5) bell += 0.05 * Math.exp(-d * 1.4) * (Math.sin(tau * bellNote[k] * d) + 0.3 * Math.sin(tau * bellNote[k] * 2.01 * d));
+    });
+    const fade = Math.min(1, t / 3, Math.max(0, (180 - t) / 3));
+    const value = Math.tanh((pad + bell) * fade * 1.6) * 0.5;
     pcm.writeInt16LE(Math.round(value * 32767), 44 + i * 2);
   }
   mkdirSync(publicDir, { recursive: true });

@@ -12,7 +12,7 @@ path; red and green describe measured deltas. Film grain stays subtle and static
 
 ## Structure (all timings in `src/Demo.tsx`)
 
-0:00–0:15 cold open: “YOU SAID NO.” cuts to the recorded location-decline
+0:00–0:15 cold open: “Turning it off took one tap.” cuts to the recorded location-decline
 Probes: one action before the update, seven after. A wireframe built from the
 candidate's actual screen sequence moves behind the evidence. 0:15–0:31 the problem in plain words. 0:31–1:23 the experiment: the
 verbatim "Simplify onboarding" prompt from `eval/agent-prs/tasks.json`

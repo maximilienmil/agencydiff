@@ -28,7 +28,7 @@ const T = {
   goodInk: "var(--ds-good-ink)",
   font: "var(--ds-font)",
   display: "Inter",
-  degraded: "Inter",
+  degraded: '"Redaction 35", "Redaction", Georgia, serif',
   mono: "var(--ds-mono)",
 };
 const NIGHT = "#050709";
@@ -345,12 +345,12 @@ function ColdOpen({ data, footage, vo }: { data: VideoData; footage: Footage; vo
   return <AbsoluteFill style={{ background: NIGHT, isolation: "isolate", color: "#fff", fontFamily: T.font }}>
     <Voice file={vo} />
     <TraceMesh clip={c} />
-    {f < 42 ? <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", background: NIGHT }}>
-      <Words text="YOU SAID NO." at={0} stagger={2} style={{ fontFamily: T.display, fontSize: 200, letterSpacing: "-0.07em" }} />
-      <div style={{ width: interpolate(f, [0, 32], [0, 1100], clamp), height: 8, background: T.blue, marginTop: 30 }} />
+    {f < 50 ? <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", background: NIGHT }}>
+      <Words text="Turning it off took one tap." at={0} stagger={3} style={{ fontFamily: T.display, fontSize: 130, letterSpacing: "-0.05em", textAlign: "center", maxWidth: 1500 }} />
+      <div style={{ width: interpolate(f, [0, 38], [0, 1100], clamp), height: 8, background: T.blue, marginTop: 30 }} />
     </AbsoluteFill> : <>
       <div style={{ position: "absolute", left: 110, top: 180, width: 620 }}>
-        <Words text="The update moved the choice." at={42} stagger={3} style={{ fontFamily: T.display, fontSize: 100, lineHeight: 1, letterSpacing: "-0.06em" }} />
+        <Words text="Then an update buried it." at={50} stagger={3} style={{ fontFamily: T.display, fontSize: 100, lineHeight: 1, letterSpacing: "-0.06em" }} />
         <In at={80}><div style={{ fontFamily: T.mono, fontSize: 110, marginTop: 60 }}>{v(data.declineBaseline)} <span style={{ color: T.blue }}>→</span> {v(data.declineCandidate)}</div><div style={{ fontSize: 32, color: T.ink2 }}>actions to decline location</div></In>
         <In at={360}><div style={{ borderLeft: `5px solid ${T.badInk}`, paddingLeft: 24, marginTop: 50, fontSize: 34 }}>{v(data.withholdFinding)}</div></In>
       </div>
@@ -377,11 +377,11 @@ function TraceMesh({ clip }: { clip: Clip | null }) {
 }
 
 /** Schematic of the measurement pipeline, with the current stage illuminated. */
-function Pipeline({ active }: { active: number }) {
+function Pipeline({ active, scale = 1 }: { active: number; scale?: number }) {
   const f = useCurrentFrame();
   const names = ["Contract", "Probes", "Oracle", "Diff"];
   const detail = ["Intent + expected state", "Baseline / candidate", "Check final app state", "Compare recorded effort"];
-  return <svg width="1640" height="390" viewBox="0 0 1640 390" style={{ marginTop: 55, overflow: "visible" }}>
+  return <svg width={1640 * scale} height={390 * scale} viewBox="0 0 1640 390" style={{ overflow: "visible" }}>
     {names.map((name, i) => {
       const x = i * 420;
       const on = i <= active;
@@ -437,7 +437,7 @@ function Problem({ vo, clip }: { vo: string | null; clip: Clip | null }) {
       {verbs.map((w, i) => (
         <Beat key={w} from={250 + i * 40} to={250 + (i + 1) * 40}>
           <AbsoluteFill style={{ background: i % 2 === 0 ? "#fff" : NIGHT, color: i % 2 === 0 ? NIGHT : "#fff", alignItems: "center", justifyContent: "center" }}>
-            <Words text={w} at={2} style={{ fontFamily: T.display, fontSize: 300, letterSpacing: "-0.03em", lineHeight: 1, textAlign: "center" }} />
+            <Degrade at={10} color={i % 2 === 0 ? "#d6173a" : T.badInk} style={{ fontSize: 300, letterSpacing: "-0.03em", lineHeight: 1, textAlign: "center", fontWeight: 400 }}>{w}</Degrade>
           </AbsoluteFill>
         </Beat>
       ))}
@@ -575,6 +575,70 @@ function Experiment({ data, footage, vo }: { data: VideoData; footage: Footage; 
   );
 }
 
+const STAGE = 75;
+
+/** One continuous scene: the pipeline stays put while each stage lights up
+ *  and its own illustration plays under the heading. */
+function Steps({ footage, steps }: { footage: Footage; steps: [string, string][] }) {
+  const f = useCurrentFrame();
+  const { withBaseline: b, withCandidate: c } = footage.clips;
+  const active = Math.min(3, Math.floor(f / STAGE));
+  const fade = (i: number) => {
+    const t = f - i * STAGE;
+    return interpolate(t, [0, 8, STAGE - 8, STAGE], [i === 0 ? 1 : 0, 1, 1, i === 3 ? 1 : 0], clamp);
+  };
+  const out = interpolate(f, [292, 300], [1, 0], clamp);
+  const panel: React.CSSProperties = { position: "absolute", left: 128, right: 128, top: 300, height: 400, display: "flex", alignItems: "center", justifyContent: "center", gap: 70 };
+  const mono: React.CSSProperties = { fontFamily: T.mono, fontSize: 36, lineHeight: 1.7 };
+  return (
+    <AbsoluteFill style={{ opacity: out }}>
+      {steps.map(([k, sentence], i) => (
+        <Sequence key={k} from={i * STAGE} layout="none">
+          <div style={{ opacity: fade(i) }}>
+            <div style={{ position: "absolute", left: 128, top: 80 }}>
+              <Words text={k} at={2} style={{ fontFamily: T.display, fontSize: 130, color: T.blue, letterSpacing: "-0.04em", lineHeight: 1 }} />
+              <In at={8}><div style={{ fontSize: 44, color: T.ink2, marginTop: 18 }}>{sentence}</div></In>
+            </div>
+            <div style={i === 1 ? { ...panel, left: "auto", top: 120, height: 560, justifyContent: "flex-end" } : panel}>
+              {i === 0 && (
+                <div style={{ ...mono, border: `1px solid ${T.line}`, padding: "28px 44px", minWidth: 1100 }}>
+                  <div><span style={{ color: T.ink3 }}>decision </span>Location sharing</div>
+                  <div><span style={{ color: T.ink3 }}>intent&nbsp;&nbsp; </span>Stop sharing my precise location</div>
+                  <div><span style={{ color: T.ink3 }}>oracle&nbsp;&nbsp; </span><span style={{ color: T.blue }}>precise_location = off</span></div>
+                </div>
+              )}
+              {i === 1 && (<>
+                <TracePhone dark clip={b} start={0} end={60} width={250} label="Before" route={false} />
+                <TracePhone dark clip={c} start={0} end={60} width={250} label="After" route={false} />
+              </>)}
+              {i === 2 && (
+                <div style={{ display: "flex", alignItems: "center", gap: 60 }}>
+                  <svg width="200" height="200" viewBox="0 0 200 200" fill="none" stroke={T.blue} strokeWidth="10" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="10" y="10" width="180" height="180" rx="20" />
+                    <path d="m52 104 32 32 66-76" strokeDasharray="200" strokeDashoffset={200 * (1 - interpolate(f - i * STAGE, [10, 34], [0, 1], clamp))} />
+                  </svg>
+                  <div style={mono}>
+                    <div style={{ color: T.ink3, textDecoration: "line-through" }}>agent: “Done.”</div>
+                    <div>app state: <span style={{ color: T.blue }}>precise_location = off</span></div>
+                  </div>
+                </div>
+              )}
+              {i === 3 && (
+                <div style={{ fontFamily: T.mono, fontSize: 200, lineHeight: 1 }}>
+                  <span style={{ color: T.ink3 }}>1</span> <span style={{ color: T.blue }}>→</span>{" "}
+                  <Degrade at={24}>7</Degrade>
+                  <div style={{ fontFamily: T.font, fontSize: 40, color: T.ink2, marginTop: 24 }}>actions to decline, same Intent, same Oracle</div>
+                </div>
+              )}
+            </div>
+          </div>
+        </Sequence>
+      ))}
+      <div style={{ position: "absolute", left: 128, top: 740 }}><Pipeline active={active} scale={0.62} /></div>
+    </AbsoluteFill>
+  );
+}
+
 function HowItWorks({ data, footage, vo }: { data: VideoData; footage: Footage; vo: string | null }) {
   const steps: [string, string][] = [
     ["Contract.", "Decisions, Intents and Oracles, written once."],
@@ -589,15 +653,9 @@ function HowItWorks({ data, footage, vo }: { data: VideoData; footage: Footage; 
   return (
     <>
       <Voice file={vo} />
-      {steps.map(([k, s], i) => (
-        <Beat key={k} from={i * 75} to={(i + 1) * 75}>
-          <Frame>
-            <Words text={k} at={2} style={{ fontFamily: T.display, fontSize: 140, color: T.blue, letterSpacing: "-0.03em", lineHeight: 1 }} />
-            <In at={10}><div style={{ fontSize: 42, color: T.ink2, marginTop: 20 }}>{s}</div></In>
-            <Pipeline active={i} />
-          </Frame>
-        </Beat>
-      ))}
+      <Frame center={false} pad="0">
+        <Steps footage={footage} steps={steps} />
+      </Frame>
       <Beat from={300} to={640}>
         <Frame>
           <Label>Seeded agency regressions caught, of 20</Label>
@@ -666,6 +724,38 @@ function Fact({ big, text, mono, count }: { big: string; text: string; mono?: bo
   );
 }
 
+/** The SusBench-derived patterns as tiles that resolve one by one. */
+function SusBoard({ data }: { data: VideoData }) {
+  const f = useCurrentFrame();
+  const det = frac(data.susDetected);
+  return (
+    <Frame>
+      <Words text="Ten manipulative patterns, one at a time." at={2} stagger={3} style={{ fontFamily: T.display, fontSize: 72, letterSpacing: "-0.03em", lineHeight: 1.05, maxWidth: 1700 }} />
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 20, marginTop: 56 }}>
+        {data.susPairs.map((p, i) => {
+          const shown = interpolate(f, [10 + i * 3, 18 + i * 3], [0, 1], clamp);
+          const resolved = f >= 60 + i * 9;
+          const hit = resolved && p.detected;
+          return (
+            <div key={i} style={{ opacity: shown, height: 150, padding: "20px 24px", border: `2px solid ${hit ? T.blue : T.line}`, background: hit ? "rgba(117,182,255,0.12)" : "transparent", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div style={{ fontSize: 30, fontWeight: 600, lineHeight: 1.15 }}>{p.pattern}</div>
+              <div style={{ fontFamily: T.mono, fontSize: 26, color: !resolved ? T.ink3 : hit ? T.blue : T.badInk }}>
+                {!resolved ? "testing…" : hit ? "caught" : <span style={{ fontFamily: T.degraded, fontSize: 32 }}>missed</span>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 40, marginTop: 56 }}>
+        <span style={{ fontFamily: T.display, fontSize: 150, lineHeight: 1, fontVariantNumeric: "tabular-nums lining-nums" }}>
+          {det ? <>{data.susPairs.filter((p, i) => p.detected && f >= 60 + i * 9).length}/{det[1]}</> : PENDING}
+        </span>
+        <In at={150}><span style={{ fontSize: 40, color: T.ink2 }}>caught · {v(data.susFalseAlarms)} unchanged controls falsely alarmed</span></In>
+      </div>
+    </Frame>
+  );
+}
+
 function Generalize({ data, vo }: { data: VideoData; vo: string | null }) {
   return (
     <>
@@ -675,7 +765,7 @@ function Generalize({ data, vo }: { data: VideoData; vo: string | null }) {
         <Caption at={40}>Contract drafting on an app AgencyDiff had never seen.</Caption>
       </Beat>
       <Beat from={248} to={495}>
-        <Fact big={v(data.susDetected)} count={frac(data.susDetected)} text={`SusBench-derived manipulative patterns detected, with ${v(data.susFalseAlarms)} controls alarmed.`} />
+        <SusBoard data={data} />
         <Caption at={40}>Lab pages built from the SusBench pattern taxonomy, Muse Probes at k=3.</Caption>
       </Beat>
       <Beat from={495} to={742}>
@@ -684,12 +774,18 @@ function Generalize({ data, vo }: { data: VideoData; vo: string | null }) {
       </Beat>
       <Beat from={742} to={990} last>
         <Frame>
-          <Label>Public-site audit</Label>
-          <Words text={v(data.auditRealId)} at={6} stagger={2} style={{ fontFamily: T.display, fontSize: 84, letterSpacing: "-0.015em", marginTop: 20, lineHeight: 1.1 }} />
-          <In at={90}>
-            <div style={{ display: "flex", gap: 20, marginTop: 80 }}>
+          <Words text="We audited the live California DMV site." at={4} stagger={3} style={{ fontFamily: T.display, fontSize: 76, letterSpacing: "-0.03em", lineHeight: 1.08, maxWidth: 1700 }} />
+          <In at={40}>
+            <div style={{ fontSize: 40, color: T.ink2, marginTop: 36 }}>Actions an agent needed to find the REAL ID document list</div>
+            <div style={{ fontFamily: T.mono, fontSize: 170, lineHeight: 1.1, marginTop: 10 }}>
+              {(() => { const m = /(\d+) → (\d+) actions/.exec(data.auditRealId ?? ""); return m ? <><Degrade at={60}>{m[1]}</Degrade> <span style={{ color: T.blue }}>→</span> {m[2]}</> : PENDING; })()}
+            </div>
+            <div style={{ fontSize: 34, color: T.ink3 }}>live site → concept redesign, same Contract</div>
+          </In>
+          <In at={120}>
+            <div style={{ display: "flex", gap: 20, marginTop: 50 }}>
               {["CLI", "GitHub Action", "MCP server"].map((x, i) => (
-                <In key={x} at={90 + i * 10}>
+                <In key={x} at={120 + i * 10}>
                   <span style={{ fontSize: 44, padding: "16px 30px", borderRadius: 14, border: `2px solid ${T.ink}`, fontWeight: 600 }}>{x}</span>
                 </In>
               ))}

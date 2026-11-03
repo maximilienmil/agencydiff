@@ -345,20 +345,20 @@ function ColdOpen({ data, footage, vo }: { data: VideoData; footage: Footage; vo
   return <AbsoluteFill style={{ background: NIGHT, isolation: "isolate", color: "#fff", fontFamily: T.font }}>
     <Voice file={vo} />
     <TraceMesh clip={c} />
-    {f < 50 ? <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", background: NIGHT }}>
-      <Words text="Turning it off took one tap." at={0} stagger={3} style={{ fontFamily: T.display, fontSize: 130, letterSpacing: "-0.05em", textAlign: "center", maxWidth: 1500 }} />
-      <div style={{ width: interpolate(f, [0, 38], [0, 1100], clamp), height: 8, background: T.blue, marginTop: 30 }} />
+    {f < 66 ? <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", background: NIGHT }}>
+      <Words text="An app asks for your location." at={0} stagger={4} style={{ fontFamily: T.display, fontSize: 130, letterSpacing: "-0.05em", textAlign: "center", maxWidth: 1500 }} />
+      <div style={{ width: interpolate(f, [0, 50], [0, 1100], clamp), height: 8, background: T.blue, marginTop: 30 }} />
     </AbsoluteFill> : <>
-      <div style={{ position: "absolute", left: 110, top: 180, width: 620 }}>
-        <Words text="Then an update buried it." at={50} stagger={3} style={{ fontFamily: T.display, fontSize: 100, lineHeight: 1, letterSpacing: "-0.06em" }} />
-        <In at={80}><div style={{ fontFamily: T.mono, fontSize: 110, marginTop: 60 }}>{v(data.declineBaseline)} <span style={{ color: T.blue }}>→</span> {v(data.declineCandidate)}</div><div style={{ fontSize: 32, color: T.ink2 }}>actions to decline location</div></In>
+      <div style={{ position: "absolute", left: 110, top: 180, width: 860 }}>
+        <Words text="After one update, saying no takes seven." at={66} stagger={3} style={{ fontFamily: T.display, fontSize: 96, lineHeight: 1, letterSpacing: "-0.06em" }} />
+        <In at={104}><div style={{ fontFamily: T.mono, fontSize: 110, marginTop: 60 }}>{v(data.declineBaseline)} <span style={{ color: T.blue }}>→</span> {v(data.declineCandidate)}</div><div style={{ fontSize: 32, color: T.ink2 }}>actions to decline location</div></In>
         <In at={360}><div style={{ borderLeft: `5px solid ${T.badInk}`, paddingLeft: 24, marginTop: 50, fontSize: 34 }}>{v(data.withholdFinding)}</div></In>
       </div>
       <div style={{ position: "absolute", right: 100, top: 44, display: "flex", gap: 48 }}>
-        <TracePhone dark clip={b} start={52} end={80} width={360} label="Before" result="Location declined" />
-        <TracePhone dark clip={c} start={52} end={350} width={360} label="After" result="Location declined" />
+        <TracePhone dark clip={b} start={68} end={96} width={360} label="Before" result="Location declined" />
+        <TracePhone dark clip={c} start={68} end={350} width={360} label="After" result="Location declined" />
       </div>
-      <Caption dark at={80}>Same request. Recorded Muse Probes. Final state checked by an Oracle.</Caption>
+      <Caption dark at={104}>Same request. Recorded Muse Probes. Final state checked by an Oracle.</Caption>
     </>}
   </AbsoluteFill>;
 }

@@ -13,9 +13,9 @@ Two renders ship: `media/agencydiff-demo.mp4` (voiced) and
 
 ## 0:00–0:15 — Cold open (≤15 s)
 
-> Turning it off took one tap. Then an update buried it. Before, declining location took one action. After, it took seven. Same request, same checked final state. AgencyDiff records what changed.
+> An app asks for your location. Before the update, declining took one action. After it, seven. Same request, same checked final state. AgencyDiff records what changed.
 
-On screen: “Turning it off took one tap.” cuts to actual location-decline Traces, with
+On screen: “An app asks for your location.” cuts to actual location-decline Traces, with
 one-action and seven-action counters and a path wireframe.
 
 ## 0:15–0:31 — Problem (≤16 s)

@@ -1,0 +1,12 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..c718f97 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -576,6 +576,7 @@ export function App() {
+ 
+         {screen === "usage" && (
+           <List>
++            <div className="note">Nice balance today. You are spending time with intention — keep it up.</div>
+             <div className="stat">
+               <span className="big">1h 24m</span>
+               <small>Today</small>

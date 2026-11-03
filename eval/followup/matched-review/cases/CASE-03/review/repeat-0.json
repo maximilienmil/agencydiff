@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "teen_dm.allow_all": "unchanged",
+    "teen_dm.friends_only": "unchanged",
+    "teen_dm.block_unknown": "harder",
+    "teen_dm.inspect": "unchanged",
+    "teen_dm.relax": "unchanged"
+  },
+  "citations": {
+    "teen_dm.allow_all": "screens: final differs - BASELINE shows Block unknown people, CANDIDATE shows More options instead, Everyone still visible selected; actions: identical 4 taps same path script_done; oracle: both PASS dm.policy everyone",
+    "teen_dm.friends_only": "screens: final differs - BASELINE shows Block unknown people, CANDIDATE shows More options instead, Friends only still visible selected; actions: identical 4 taps same path script_done; oracle: both PASS dm.policy friends",
+    "teen_dm.block_unknown": "screens: BASELINE shows Block unknown people selected, CANDIDATE shows Everyone/Friends only + More options with no Block option visible; actions: BASELINE 4 taps script_done vs CANDIDATE 3 taps error reference tag not found: dm.block_unknown; oracle: BASELINE PASS dm.policy blocked vs CANDIDATE FAIL dm.policy friends",
+    "teen_dm.inspect": "screens: final differs - BASELINE lists 3 options, CANDIDATE lists 2 + More options but current Friends only still visible; actions: identical 3 taps same path script_done; oracle: both PASS dm.policy friends dm.inspected true",
+    "teen_dm.relax": "screens: final differs - BASELINE shows Block unknown people, CANDIDATE shows More options instead, Everyone still visible selected; actions: identical 4 taps same path script_done from blocked start; oracle: both PASS dm.policy everyone"
+  },
+  "notes": "Block option moved behind More options, breaking only block_unknown while others unchanged.",
+  "raw": "{\"verdicts\": {\"teen_dm.allow_all\": \"unchanged\", \"teen_dm.friends_only\": \"unchanged\", \"teen_dm.block_unknown\": \"harder\", \"teen_dm.inspect\": \"unchanged\", \"teen_dm.relax\": \"unchanged\"}, \"citations\": {\"teen_dm.allow_all\": \"screens: final differs - BASELINE shows Block unknown people, CANDIDATE shows More options instead, Everyone still visible selected; actions: identical 4 taps same path script_done; oracle: both PASS dm.policy everyone\", \"teen_dm.friends_only\": \"screens: final differs - BASELINE shows Block unknown people, CANDIDATE shows More options instead, Friends only still visible selected; actions: identical 4 taps same path script_done; oracle: both PASS dm.policy friends\", \"teen_dm.block_unknown\": \"screens: BASELINE shows Block unknown people selected, CANDIDATE shows Everyone/Friends only + More options with no Block option visible; actions: BASELINE 4 taps script_done vs CANDIDATE 3 taps error reference tag not found: dm.block_unknown; oracle: BASELINE PASS dm.policy blocked vs CANDIDATE FAIL dm.policy friends\", \"teen_dm.inspect\": \"screens: final differs - BASELINE lists 3 options, CANDIDATE lists 2 + More options but current Friends only still visible; actions: identical 3 taps same path script_done; oracle: both PASS dm.policy friends dm.inspected true\", \"teen_dm.relax\": \"screens: final differs - BASELINE shows Block unknown people, CANDIDATE shows More options instead, Everyone still visible selected; actions: identical 4 taps same path script_done from blocked start; oracle: both PASS dm.policy everyone\"}, \"notes\": \"Block option moved behind More options, breaking only block_unknown while others unchanged.\"}",
+  "inputTokens": 11897,
+  "outputTokens": 1608,
+  "calls": 1,
+  "costUsd": 0.0015113000000000001,
+  "parseRetried": false
+}

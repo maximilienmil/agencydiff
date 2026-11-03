@@ -1,0 +1,11 @@
+{
+  "decision": "ntfy-choice-protection",
+  "promise": "A person can still unsubscribe from a topic, mute a topic's notifications, clear a topic's notifications, and set auto-delete to three hours in the ntfy web UI, at no more than baseline cost.",
+  "intents": [
+    { "id": "D1", "goal": "Unsubscribe from a topic", "polarity": "reject", "mustSucceed": true },
+    { "id": "D2", "goal": "Mute a topic's notifications", "polarity": "reject", "mustSucceed": true },
+    { "id": "D3", "goal": "Clear all notifications for a topic", "polarity": "reject", "mustSucceed": true },
+    { "id": "D4", "goal": "Auto-delete notifications after three hours", "polarity": "reject", "mustSucceed": true }
+  ],
+  "pairs": []
+}

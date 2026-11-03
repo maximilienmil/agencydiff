@@ -1,0 +1,1010 @@
+{
+  "id": "subscription.decline.candidate.1",
+  "decision": "subscription",
+  "intentId": "decline",
+  "variant": "candidate",
+  "repeat": 1,
+  "driver": {
+    "kind": "muse",
+    "model": "muse-spark-1.3-contributor"
+  },
+  "startedAt": "2026-11-03T03:31:20.899Z",
+  "initial": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "open",
+      "sub.terms_viewed": false
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+      "screen": "home",
+      "tags": [
+        {
+          "tag": "nav.settings",
+          "box": [
+            803,
+            5.5,
+            44,
+            44
+          ],
+          "inViewport": true
+        }
+      ],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 14014,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 824,
+          "y": 28
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              425,
+              168,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              425,
+              224,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              425,
+              280,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              425,
+              336,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "001.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 1,
+      "tMs": 19109,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 637,
+          "y": 392
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              425,
+              168,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              425,
+              224,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              425,
+              280,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              425,
+              336,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "002.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 2,
+      "tMs": 27680,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 641,
+          "y": 390
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_monthly",
+            "box": [
+              425,
+              144,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_annual",
+            "box": [
+              425,
+              202.546875,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.subscribe",
+            "box": [
+              443,
+              350.6875,
+              394,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.decline",
+            "box": [
+              443,
+              398.6875,
+              63.0625,
+              28
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              425,
+              446.6875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "003.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 3,
+      "tMs": 35001,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 469,
+          "y": 414
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "plus+sub_retain",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "sub.plan_monthly",
+            "box": [
+              425,
+              144,
+              430,
+              58.546875
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "sub.plan_annual",
+            "box": [
+              425,
+              202.546875,
+              430,
+              58.546875
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "sub.subscribe",
+            "box": [
+              443,
+              350.6875,
+              394,
+              48
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "sub.decline",
+            "box": [
+              443,
+              398.6875,
+              63.0625,
+              28
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              425,
+              446.6875,
+              430,
+              56
+            ],
+            "inViewport": false
+          },
+          {
+            "tag": "sub.keep",
+            "box": [
+              445,
+              686,
+              390,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.confirm_cancel",
+            "box": [
+              445,
+              744,
+              390,
+              28
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "004.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 4,
+      "tMs": 41346,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 638,
+          "y": 753
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_monthly",
+            "box": [
+              425,
+              144,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_annual",
+            "box": [
+              425,
+              202.546875,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.subscribe",
+            "box": [
+              443,
+              350.6875,
+              394,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.decline",
+            "box": [
+              443,
+              398.6875,
+              63.0625,
+              28
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              425,
+              446.6875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "005.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 5,
+      "tMs": 57702,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 451,
+          "y": 30
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              425,
+              168,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              425,
+              224,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              425,
+              280,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              425,
+              336,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "006.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 6,
+      "tMs": 71008,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 640,
+          "y": 390
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_monthly",
+            "box": [
+              425,
+              144,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_annual",
+            "box": [
+              425,
+              202.546875,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.subscribe",
+            "box": [
+              443,
+              350.6875,
+              394,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.decline",
+            "box": [
+              443,
+              398.6875,
+              63.0625,
+              28
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              425,
+              446.6875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "007.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 7,
+      "tMs": 77782,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 464,
+          "y": 444
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_monthly",
+            "box": [
+              425,
+              144,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_annual",
+            "box": [
+              425,
+              202.546875,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.subscribe",
+            "box": [
+              443,
+              350.6875,
+              394,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.decline",
+            "box": [
+              443,
+              398.6875,
+              63.0625,
+              28
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              425,
+              446.6875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "008.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 8,
+      "tMs": 88354,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 491,
+          "y": 445
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_monthly",
+            "box": [
+              425,
+              144,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_annual",
+            "box": [
+              425,
+              202.546875,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.subscribe",
+            "box": [
+              443,
+              350.6875,
+              394,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.decline",
+            "box": [
+              443,
+              398.6875,
+              63.0625,
+              28
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              425,
+              446.6875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "009.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 9,
+      "tMs": 96704,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 464,
+          "y": 429
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_monthly",
+            "box": [
+              425,
+              144,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_annual",
+            "box": [
+              425,
+              202.546875,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.subscribe",
+            "box": [
+              443,
+              350.6875,
+              394,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.decline",
+            "box": [
+              443,
+              398.6875,
+              63.0625,
+              28
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              425,
+              446.6875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "010.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 10,
+      "tMs": 118029,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 463,
+          "y": 444
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "plus",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_monthly",
+            "box": [
+              425,
+              144,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.plan_annual",
+            "box": [
+              425,
+              202.546875,
+              430,
+              58.546875
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.subscribe",
+            "box": [
+              443,
+              350.6875,
+              394,
+              48
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.decline",
+            "box": [
+              443,
+              398.6875,
+              63.0625,
+              28
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "sub.terms",
+            "box": [
+              425,
+              446.6875,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "011.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    },
+    {
+      "index": 11,
+      "tMs": 134511,
+      "actions": [
+        {
+          "button": "left",
+          "type": "click",
+          "x": 444,
+          "y": 30
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5302/?fixture=prompt-answered",
+        "screen": "settings",
+        "tags": [
+          {
+            "tag": "nav.back",
+            "box": [
+              433,
+              5.5,
+              44,
+              44
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.privacy",
+            "box": [
+              425,
+              168,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.location",
+            "box": [
+              425,
+              224,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.screentime",
+            "box": [
+              425,
+              280,
+              430,
+              56
+            ],
+            "inViewport": true
+          },
+          {
+            "tag": "settings.subscription",
+            "box": [
+              425,
+              336,
+              430,
+              56
+            ],
+            "inViewport": true
+          }
+        ],
+        "screenshot": "012.png"
+      },
+      "note": "safety checks acknowledged: computer_action_requires_confirmation"
+    }
+  ],
+  "final": {
+    "state": {
+      "auth.signedIn": true,
+      "location.precise": false,
+      "location.mode": "off",
+      "location.prompt": "answered",
+      "dm.policy": "friends",
+      "dm.inspected": false,
+      "st.limit": null,
+      "st.reminders": false,
+      "st.viewed": false,
+      "sub.active": false,
+      "sub.plan": "monthly",
+      "sub.offer": "answered",
+      "sub.terms_viewed": false
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "step_budget"
+}

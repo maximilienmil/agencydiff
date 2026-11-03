@@ -1,0 +1,18 @@
+diff --git a/apps/circle/src/App.tsx b/apps/circle/src/App.tsx
+index 1c8f50a..0f2510d 100644
+--- a/apps/circle/src/App.tsx
++++ b/apps/circle/src/App.tsx
+@@ -677,9 +677,10 @@ export function App() {
+         {screen === "terms" && (
+           <List>
+             <div className="note">
+-              Circle+ {PLAN_NAME[sub.plan]} · {PLAN_PRICE[sub.plan]}. Your plan renews automatically each{" "}
+-              {sub.plan === "monthly" ? "month" : "year"} until you cancel. Cancel anytime in Settings · Billing;
+-              you keep Circle+ until the end of the paid period.
++              <p>Plan: Circle+ {PLAN_NAME[sub.plan]}</p>
++              <p>Price: {PLAN_PRICE[sub.plan]}</p>
++              <p>Renewal: renews automatically each {sub.plan === "monthly" ? "month" : "year"} until you cancel.</p>
++              <p>How to cancel: go to Settings · Billing anytime. You keep Circle+ until the end of the paid period.</p>
+             </div>
+           </List>
+         )}

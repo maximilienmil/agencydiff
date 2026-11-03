@@ -1,0 +1,49 @@
+{
+  "id": "SUB-REMOVE",
+  "family": "subscription",
+  "class": "removed-choice",
+  "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable",
+  "focal": "decline",
+  "repeats": 2,
+  "path": {
+    "outcome": "TAG-MISSING",
+    "detail": "reference tag not found: sub.decline",
+    "oracleRate": 0,
+    "medianActions": 2
+  },
+  "determinism": "identical",
+  "defaultKey": "sub.plan",
+  "defaultBaseline": "monthly",
+  "defaultCandidate": "monthly",
+  "oracleRates": {
+    "subscribe": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "decline": {
+      "baseline": 1,
+      "candidate": 0
+    },
+    "cancel": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "terms": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "resume": {
+      "baseline": 1,
+      "candidate": 1
+    }
+  },
+  "gatePassed": false,
+  "findings": [
+    {
+      "kind": "goal_unreachable",
+      "severity": "high",
+      "intentId": "decline",
+      "title": "\"I do not want Circle+. Decline the offer.\" succeeds less often"
+    }
+  ]
+}

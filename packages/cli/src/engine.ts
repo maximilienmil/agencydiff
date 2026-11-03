@@ -11,6 +11,7 @@ import {
 } from "@agencydiff/core";
 import { MuseDriver, ScriptedDriver, type Driver } from "@agencydiff/runner/src/drivers.js";
 import { runProbe } from "@agencydiff/runner/src/probe.js";
+import { assertTraceCoverage, loadRecordedTraces } from "@agencydiff/runner/src/recordedTraces.js";
 
 export type DriverName = "scripted" | "muse";
 
@@ -196,6 +197,34 @@ export async function runDiff(opts: DiffOptions): Promise<{ report: AgencyReport
       }
     }
   }
+  const report = diffContract({ ...opts.contract, intents }, traces);
+  await mkdir(opts.outDir, { recursive: true });
+  await writeFile(path.join(opts.outDir, "report.json"), JSON.stringify(report, null, 2));
+  printReport(report);
+  return { report, outDir: opts.outDir };
+}
+
+export interface DiffRecordedOptions {
+  contract: AgencyContract;
+  contractLabel: string;
+  tracesDir: string;
+  intents?: string[];
+  outDir: string;
+}
+
+/** Deterministic diff over pre-recorded Traces: no browser, no model, no
+ *  state server. The traces carry their own variant labels; the same
+ *  unmodified diffContract scores them. Recorded-trace scoring answers
+ *  "do these two recorded runs differ" — it does not re-probe the app,
+ *  so it is not live probing and not an Action deployment. */
+export async function runDiffRecorded(opts: DiffRecordedOptions): Promise<{ report: AgencyReport; outDir: string }> {
+  const only = opts.intents;
+  const intents = opts.contract.intents.filter((i) => !only || only.includes(i.id));
+  if (intents.length === 0) throw new Error("No intents selected");
+  const traces = (await loadRecordedTraces(opts.tracesDir, opts.contract)).filter(
+    (t) => intents.some((i) => i.id === t.intentId),
+  );
+  assertTraceCoverage(traces, { ...opts.contract, intents });
   const report = diffContract({ ...opts.contract, intents }, traces);
   await mkdir(opts.outDir, { recursive: true });
   await writeFile(path.join(opts.outDir, "report.json"), JSON.stringify(report, null, 2));

@@ -1,0 +1,151 @@
+{
+  "id": "ntfy-choice-protection.D1.O1.0",
+  "decision": "ntfy-choice-protection",
+  "intentId": "D1",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T04:44:14.763Z",
+  "initial": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [],
+      "notifications": []
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5283/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 1781,
+      "actions": [
+        {
+          "type": "click",
+          "x": 256,
+          "y": 99
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5283/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "dismiss first-run banner"
+    },
+    {
+      "index": 1,
+      "tMs": 1884,
+      "actions": [
+        {
+          "type": "click",
+          "x": 140,
+          "y": 280
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5283/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "open subscribe dialog"
+    },
+    {
+      "index": 2,
+      "tMs": 1940,
+      "actions": [
+        {
+          "type": "type",
+          "text": "core-o1-d1-0-54763"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5283/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "fill topic name"
+    },
+    {
+      "index": 3,
+      "tMs": 2437,
+      "actions": [
+        {
+          "type": "click",
+          "x": 877,
+          "y": 507
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5283/core-o1-d1-0-54763",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "confirm subscribe"
+    },
+    {
+      "index": 4,
+      "tMs": 2552,
+      "actions": [
+        {
+          "type": "click",
+          "x": 248,
+          "y": 184
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5283/core-o1-d1-0-54763",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "open topic menu"
+    }
+  ],
+  "final": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [
+        {
+          "id": "http://127.0.0.1:5283/core-o1-d1-0-54763",
+          "baseUrl": "http://127.0.0.1:5283",
+          "topic": "core-o1-d1-0-54763",
+          "mutedUntil": 0,
+          "last": null,
+          "state": "connected"
+        }
+      ],
+      "notifications": []
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": false
+  },
+  "stoppedReason": "error",
+  "error": "Unsubscribe menuitem absent",
+  "firstSatisfiedStep": 0,
+  "actionsToSatisfy": 0
+}

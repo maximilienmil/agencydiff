@@ -1,0 +1,110 @@
+[
+  {
+    "variant": "baseline",
+    "decision": "D1",
+    "rep": 0,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 2339,
+    "detail": "subscriptions for topic: 0"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D1",
+    "rep": 1,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 2355,
+    "detail": "subscriptions for topic: 0"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D1",
+    "rep": 2,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 2338,
+    "detail": "subscriptions for topic: 0"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D2",
+    "rep": 0,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 3870,
+    "detail": "mutedUntil=1 badge=4"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D2",
+    "rep": 1,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 3837,
+    "detail": "mutedUntil=1 badge=4"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D2",
+    "rep": 2,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 3832,
+    "detail": "mutedUntil=1 badge=4"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D3",
+    "rep": 0,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 5458,
+    "detail": "visible notifications for topic: 0"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D3",
+    "rep": 1,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 5421,
+    "detail": "visible notifications for topic: 0"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D3",
+    "rep": 2,
+    "taps": 6,
+    "oraclePass": true,
+    "durationMs": 5393,
+    "detail": "visible notifications for topic: 0"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D4",
+    "rep": 0,
+    "taps": 4,
+    "oraclePass": true,
+    "durationMs": 2906,
+    "detail": "deleteAfter=10800"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D4",
+    "rep": 1,
+    "taps": 4,
+    "oraclePass": true,
+    "durationMs": 2919,
+    "detail": "deleteAfter=10800"
+  },
+  {
+    "variant": "baseline",
+    "decision": "D4",
+    "rep": 2,
+    "taps": 4,
+    "oraclePass": true,
+    "durationMs": 2903,
+    "detail": "deleteAfter=10800"
+  }
+]

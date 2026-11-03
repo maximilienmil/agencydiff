@@ -1,0 +1,216 @@
+{
+  "id": "ntfy-choice-protection.D3.A-settings-0.0",
+  "decision": "ntfy-choice-protection",
+  "intentId": "D3",
+  "variant": "candidate",
+  "repeat": 0,
+  "driver": {
+    "kind": "scripted"
+  },
+  "startedAt": "2026-11-03T04:54:48.588Z",
+  "initial": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": false
+      },
+      "subscriptions": [],
+      "notifications": []
+    },
+    "observation": {
+      "url": "http://127.0.0.1:5289/",
+      "tags": [],
+      "screenshot": "000.png"
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tMs": 1792,
+      "actions": [
+        {
+          "type": "click",
+          "x": 256,
+          "y": 99
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/",
+        "tags": [],
+        "screenshot": "001.png"
+      },
+      "note": "dismiss first-run banner"
+    },
+    {
+      "index": 1,
+      "tMs": 1891,
+      "actions": [
+        {
+          "type": "click",
+          "x": 140,
+          "y": 280
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/",
+        "tags": [],
+        "screenshot": "002.png"
+      },
+      "note": "open subscribe dialog"
+    },
+    {
+      "index": 2,
+      "tMs": 1946,
+      "actions": [
+        {
+          "type": "type",
+          "text": "coreblind-a-settings-0-d3-0-643932"
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/",
+        "tags": [],
+        "screenshot": "003.png"
+      },
+      "note": "fill topic name"
+    },
+    {
+      "index": 3,
+      "tMs": 2443,
+      "actions": [
+        {
+          "type": "click",
+          "x": 877,
+          "y": 507
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/coreblind-a-settings-0-d3-0-643932",
+        "tags": [],
+        "screenshot": "004.png"
+      },
+      "note": "confirm subscribe"
+    },
+    {
+      "index": 4,
+      "tMs": 2591,
+      "actions": [
+        {
+          "type": "click",
+          "x": 248,
+          "y": 196
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/coreblind-a-settings-0-d3-0-643932",
+        "tags": [],
+        "screenshot": "005.png"
+      },
+      "note": "open topic menu"
+    },
+    {
+      "index": 5,
+      "tMs": 2691,
+      "actions": [
+        {
+          "type": "click",
+          "x": 345,
+          "y": 321
+        }
+      ],
+      "after": {
+        "url": "http://127.0.0.1:5289/coreblind-a-settings-0-d3-0-643932",
+        "tags": [],
+        "screenshot": "006.png"
+      },
+      "note": "clear all notifications"
+    }
+  ],
+  "final": {
+    "state": {
+      "prefCache": {
+        "sound": "ding",
+        "minPriority": 1,
+        "deleteAfter": 604800,
+        "theme": "system",
+        "dateFormat": "system",
+        "timeFormat": "system",
+        "webPushEnabled": false,
+        "notificationAlertDismissed": true
+      },
+      "subscriptions": [
+        {
+          "id": "http://127.0.0.1:5289/coreblind-a-settings-0-d3-0-643932",
+          "baseUrl": "http://127.0.0.1:5289",
+          "topic": "coreblind-a-settings-0-d3-0-643932",
+          "mutedUntil": 0,
+          "last": "pEzY4zp3egpu",
+          "state": "connected"
+        }
+      ],
+      "notifications": [
+        {
+          "id": "7tSGeOImINbH",
+          "time": 1793681649,
+          "expires": 1793724849,
+          "event": "message",
+          "topic": "coreblind-a-settings-0-d3-0-643932",
+          "message": "trial message 2",
+          "sequenceId": "7tSGeOImINbH",
+          "subscriptionId": "http://127.0.0.1:5289/coreblind-a-settings-0-d3-0-643932",
+          "deleted": 1,
+          "new": 0
+        },
+        {
+          "id": "UtmIwwcIDzmH",
+          "time": 1793681645,
+          "expires": 1793724845,
+          "event": "message",
+          "topic": "coreblind-a-settings-0-d3-0-643932",
+          "message": "trial message 1",
+          "sequenceId": "UtmIwwcIDzmH",
+          "subscriptionId": "http://127.0.0.1:5289/coreblind-a-settings-0-d3-0-643932",
+          "deleted": 1,
+          "new": 0
+        },
+        {
+          "id": "pEzY4zp3egpu",
+          "time": 1793681686,
+          "expires": 1793724886,
+          "event": "message",
+          "topic": "coreblind-a-settings-0-d3-0-643932",
+          "message": "trial message 2",
+          "sequenceId": "pEzY4zp3egpu",
+          "subscriptionId": "http://127.0.0.1:5289/coreblind-a-settings-0-d3-0-643932",
+          "deleted": 1,
+          "new": 0
+        },
+        {
+          "id": "vqEB6GwfkV1s",
+          "time": 1793681685,
+          "expires": 1793724885,
+          "event": "message",
+          "topic": "coreblind-a-settings-0-d3-0-643932",
+          "message": "trial message 1",
+          "sequenceId": "vqEB6GwfkV1s",
+          "subscriptionId": "http://127.0.0.1:5289/coreblind-a-settings-0-d3-0-643932",
+          "deleted": 1,
+          "new": 0
+        }
+      ]
+    }
+  },
+  "oracle": {
+    "checked": true,
+    "passed": true
+  },
+  "stoppedReason": "script_done",
+  "firstSatisfiedStep": 4,
+  "actionsToSatisfy": 4
+}

@@ -1,0 +1,48 @@
+{
+  "id": "DM-DEFAULT",
+  "family": "teen_dm",
+  "class": "harmful-default",
+  "expect": "fresh load dm.policy=everyone; block path still works under fixture; gate likely PASSES on reference probes (documented predeclared MISS); fresh-load default read shows harm",
+  "focal": "block_unknown",
+  "repeats": 2,
+  "path": {
+    "outcome": "PASS",
+    "detail": "2/2 oracle-pass",
+    "oracleRate": 1,
+    "medianActions": 4
+  },
+  "determinism": "identical",
+  "defaultKey": "dm.policy",
+  "defaultBaseline": "friends",
+  "defaultCandidate": "everyone",
+  "oracleRates": {
+    "allow_all": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "friends_only": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "block_unknown": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "inspect": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "relax": {
+      "baseline": 1,
+      "candidate": 1
+    }
+  },
+  "gatePassed": false,
+  "findings": [
+    {
+      "kind": "default_flip",
+      "severity": "high",
+      "title": "Default for teen_dm changed"
+    }
+  ]
+}

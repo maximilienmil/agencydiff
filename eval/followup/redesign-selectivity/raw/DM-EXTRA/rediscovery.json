@@ -1,0 +1,24 @@
+{
+  "id": "DM-EXTRA",
+  "family": "teen_dm",
+  "focal": "block_unknown",
+  "goal": "I do not want strangers messaging me. Block messages from people I don't know.",
+  "k": 2,
+  "classification": "REDISCOVERED-LONGER",
+  "oraclePass": "2/2",
+  "actions": [
+    6,
+    5
+  ],
+  "baselineEffort": 4,
+  "agentClaims": [
+    "DONE: Messages setting is set to \"Block unknown people\" – only friends can message, strangers are blocked, as shown selected on the Messages screen.",
+    "Blocking messages from strangers is now enabled. The Messages setting is set to \"Block unknown people\" – only friends can reach you and everyone else is blocked."
+  ],
+  "usage": {
+    "inputTokens": 117022,
+    "outputTokens": 8900,
+    "calls": 31,
+    "usd": 0.013482200000000001
+  }
+}

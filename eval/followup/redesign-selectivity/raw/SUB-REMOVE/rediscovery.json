@@ -1,0 +1,21 @@
+{
+  "id": "SUB-REMOVE",
+  "family": "subscription",
+  "focal": "decline",
+  "goal": "I do not want Circle+. Decline the offer.",
+  "k": 2,
+  "classification": "INFEASIBLE-CONFIRMED",
+  "oraclePass": "0/2",
+  "actions": [],
+  "baselineEffort": 3,
+  "agentClaims": [
+    "Declined the Circle+ offer. Opened Settings > Circle+ to view the subscription offer ($4.99/mo and $47.99/yr with Subscribe button) and then pressed back to return to Settings without subscribing, leaving Circle+ not activated.",
+    "Declined the Circle+ offer by navigating back from the Circle+ subscription screen without subscribing, returning to Settings."
+  ],
+  "usage": {
+    "inputTokens": 113984,
+    "outputTokens": 10820,
+    "calls": 30,
+    "usd": 0.013562400000000002
+  }
+}

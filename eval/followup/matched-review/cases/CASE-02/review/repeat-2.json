@@ -1,0 +1,19 @@
+{
+  "verdicts": {
+    "precise_location.share": "unchanged",
+    "precise_location.withhold": "harder",
+    "precise_location.revoke": "unchanged"
+  },
+  "citations": {
+    "precise_location.share": "screens: first prompt differs (BASELINE Not now + Allow precise location vs CANDIDATE Continue + More options) final home same; actions: both location.allow 1 tap; oracle: both PASS with location.precise true",
+    "precise_location.withhold": "screens: BASELINE dismisses prompt to home, CANDIDATE stays on home+location_prompt with only Continue/More options; actions: BASELINE location.decline 1 tap vs CANDIDATE error tag not found 0 taps; oracle: BASELINE PASS answered vs CANDIDATE FAIL open",
+    "precise_location.revoke": "screens: identical home to Location toggle off; actions: identical 3-tap nav.settings->settings.location->toggle; oracle: both PASS with location.precise false"
+  },
+  "notes": "Prompt redesign keeps 1-tap allow but hides decline behind More options.",
+  "raw": "{\"verdicts\": {\"precise_location.share\": \"unchanged\", \"precise_location.withhold\": \"harder\", \"precise_location.revoke\": \"unchanged\"}, \"citations\": {\"precise_location.share\": \"screens: first prompt differs (BASELINE Not now + Allow precise location vs CANDIDATE Continue + More options) final home same; actions: both location.allow 1 tap; oracle: both PASS with location.precise true\", \"precise_location.withhold\": \"screens: BASELINE dismisses prompt to home, CANDIDATE stays on home+location_prompt with only Continue/More options; actions: BASELINE location.decline 1 tap vs CANDIDATE error tag not found 0 taps; oracle: BASELINE PASS answered vs CANDIDATE FAIL open\", \"precise_location.revoke\": \"screens: identical home to Location toggle off; actions: identical 3-tap nav.settings->settings.location->toggle; oracle: both PASS with location.precise false\"}, \"notes\": \"Prompt redesign keeps 1-tap allow but hides decline behind More options.\"}",
+  "inputTokens": 7245,
+  "outputTokens": 1665,
+  "calls": 1,
+  "costUsd": 0.0010575,
+  "parseRetried": false
+}

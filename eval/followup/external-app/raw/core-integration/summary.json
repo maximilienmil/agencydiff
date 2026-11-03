@@ -1,0 +1,743 @@
+{
+  "runLabel": "core-integration",
+  "trialHead": "f321563048dfd951d41d3a006b9837f6d5a7a90c",
+  "mode": "deterministic",
+  "repeats": 1,
+  "image": "binwiederhier/ntfy@sha256:fb48c413eb11d50339962b5d62cddce0f800e7f77c626d638a7c20cb7e9c4465 (ntfy 2.36.0)",
+  "contract": "contracts/ntfy-choice-protection.json",
+  "coreImport": "packages/core diffContract/metrics/firstSatisfaction (unmodified)",
+  "elapsedMs": 110255,
+  "taps": {
+    "baseline": {
+      "D1": [
+        6
+      ],
+      "D2": [
+        6
+      ],
+      "D3": [
+        6
+      ],
+      "D4": [
+        4
+      ]
+    },
+    "V-benign": {
+      "D1": [
+        6
+      ],
+      "D2": [
+        6
+      ],
+      "D3": [
+        6
+      ],
+      "D4": [
+        4
+      ]
+    },
+    "V-improve": {
+      "D1": [
+        6
+      ],
+      "D2": [
+        6
+      ],
+      "D3": [
+        6
+      ],
+      "D4": [
+        4
+      ]
+    },
+    "O1": {
+      "D1": [
+        5
+      ],
+      "D2": [
+        6
+      ],
+      "D3": [
+        6
+      ],
+      "D4": [
+        4
+      ]
+    },
+    "O2": {
+      "D1": [
+        6
+      ],
+      "D2": [
+        7
+      ],
+      "D3": [
+        6
+      ],
+      "D4": [
+        4
+      ]
+    },
+    "O3": {
+      "D1": [
+        6
+      ],
+      "D2": [
+        6
+      ],
+      "D3": [
+        8
+      ],
+      "D4": [
+        4
+      ]
+    },
+    "O4": {
+      "D1": [
+        6
+      ],
+      "D2": [
+        6
+      ],
+      "D3": [
+        6
+      ],
+      "D4": [
+        3
+      ]
+    }
+  },
+  "cells": [
+    {
+      "variant": "V-benign",
+      "decision": "D1",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "V-benign",
+      "decision": "D2",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "V-benign",
+      "decision": "D3",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "V-benign",
+      "decision": "D4",
+      "baselineTaps": 4,
+      "candidateTaps": 4,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 4 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 4 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "V-improve",
+      "decision": "D1",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "V-improve",
+      "decision": "D2",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "V-improve",
+      "decision": "D3",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "V-improve",
+      "decision": "D4",
+      "baselineTaps": 4,
+      "candidateTaps": 4,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 4 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 4 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "O1",
+      "decision": "D1",
+      "baselineTaps": 6,
+      "candidateTaps": 5,
+      "baselineOracle": true,
+      "candidateOracle": false,
+      "standalone": {
+        "decision": "D1",
+        "kind": "goal_unreachable",
+        "baseline": "pass",
+        "candidate": "fail"
+      },
+      "coreFindings": [
+        {
+          "severity": "high",
+          "kind": "goal_unreachable",
+          "intentId": "D1",
+          "title": "\"Unsubscribe from a topic\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D1.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D1.O1.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/goal_unreachable/D1",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report goal_unreachable",
+      "reportPassed": false
+    },
+    {
+      "variant": "O1",
+      "decision": "D2",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O1",
+      "decision": "D3",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O1",
+      "decision": "D4",
+      "baselineTaps": 4,
+      "candidateTaps": 4,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 4 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 4 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O2",
+      "decision": "D1",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "O2",
+      "decision": "D2",
+      "baselineTaps": 6,
+      "candidateTaps": 7,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "decision": "D2",
+        "kind": "action_cost",
+        "baseline": "6",
+        "candidate": "7"
+      },
+      "coreFindings": [
+        {
+          "severity": "low",
+          "kind": "action_cost",
+          "intentId": "D2",
+          "title": "\"Mute a topic's notifications\" takes more actions",
+          "baseline": 6,
+          "candidate": 7,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D2.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D2.O2.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/action_cost/D2",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report action_cost",
+      "reportPassed": true
+    },
+    {
+      "variant": "O2",
+      "decision": "D3",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "O2",
+      "decision": "D4",
+      "baselineTaps": 4,
+      "candidateTaps": 4,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 4 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 4 both sides)",
+      "reportPassed": true
+    },
+    {
+      "variant": "O3",
+      "decision": "D1",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O3",
+      "decision": "D2",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O3",
+      "decision": "D3",
+      "baselineTaps": 6,
+      "candidateTaps": 8,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "decision": "D3",
+        "kind": "action_cost",
+        "baseline": "6",
+        "candidate": "8"
+      },
+      "coreFindings": [
+        {
+          "severity": "medium",
+          "kind": "action_cost",
+          "intentId": "D3",
+          "title": "\"Clear all notifications for a topic\" takes more actions",
+          "baseline": 6,
+          "candidate": 8,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D3.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D3.O3.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/action_cost/D3",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report action_cost",
+      "reportPassed": false
+    },
+    {
+      "variant": "O3",
+      "decision": "D4",
+      "baselineTaps": 4,
+      "candidateTaps": 4,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 4 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 4 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O4",
+      "decision": "D1",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O4",
+      "decision": "D2",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O4",
+      "decision": "D3",
+      "baselineTaps": 6,
+      "candidateTaps": 6,
+      "baselineOracle": true,
+      "candidateOracle": true,
+      "standalone": {
+        "finding": null,
+        "reason": "equal",
+        "detail": "taps 6 both sides"
+      },
+      "coreFindings": [],
+      "agreement": "agree",
+      "agreementReason": "both silent (equal: taps 6 both sides)",
+      "reportPassed": false
+    },
+    {
+      "variant": "O4",
+      "decision": "D4",
+      "baselineTaps": 4,
+      "candidateTaps": 3,
+      "baselineOracle": true,
+      "candidateOracle": false,
+      "standalone": {
+        "decision": "D4",
+        "kind": "goal_unreachable",
+        "baseline": "pass",
+        "candidate": "fail"
+      },
+      "coreFindings": [
+        {
+          "severity": "high",
+          "kind": "goal_unreachable",
+          "intentId": "D4",
+          "title": "\"Auto-delete notifications after three hours\" succeeds less often",
+          "baseline": 1,
+          "candidate": 0,
+          "evidence": [
+            {
+              "traceId": "ntfy-choice-protection.D4.baseline.0"
+            },
+            {
+              "traceId": "ntfy-choice-protection.D4.O4.0"
+            }
+          ],
+          "id": "ntfy-choice-protection/goal_unreachable/D4",
+          "decision": "ntfy-choice-protection"
+        }
+      ],
+      "agreement": "agree",
+      "agreementReason": "both report goal_unreachable",
+      "reportPassed": false
+    }
+  ],
+  "exclusions": [],
+  "attempts": {
+    "baseline/D1/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "baseline/D2/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "baseline/D3/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "baseline/D4/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "V-benign/D1/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "V-benign/D2/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "V-benign/D3/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "V-benign/D4/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "V-improve/D1/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "V-improve/D2/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "V-improve/D3/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "V-improve/D4/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O1/D1/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O1/D2/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O1/D3/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O1/D4/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O2/D1/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O2/D2/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O2/D3/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O2/D4/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O3/D1/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O3/D2/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O3/D3/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O3/D4/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O4/D1/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O4/D2/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O4/D3/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    },
+    "O4/D4/0": {
+      "attempts": 1,
+      "excluded": null,
+      "flakes": 0
+    }
+  }
+}

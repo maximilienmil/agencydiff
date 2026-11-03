@@ -3,6 +3,7 @@ dist/
 runs/
 audits/**/*.png
 eval/agent-prs/traces/**/*.png
+eval/followup/*/traces/**/*.png
 .env
 *.log
 .sam-cache/

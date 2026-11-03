@@ -1,0 +1,41 @@
+{
+  "id": "SUB-EXTRA",
+  "family": "subscription",
+  "focal": "decline",
+  "goal": "I do not want Circle+. Decline the offer.",
+  "k": 2,
+  "classification": "INCONCLUSIVE",
+  "oraclePass": "1/2",
+  "actions": [
+    12
+  ],
+  "baselineEffort": 3,
+  "agentClaims": [
+    null,
+    null
+  ],
+  "usage": {
+    "inputTokens": 55896,
+    "outputTokens": 7443,
+    "calls": 14,
+    "usd": 0.007078200000000001
+  },
+  "priorRun": {
+    "when": "same protocol, k=2",
+    "classification": "INFEASIBLE-CONFIRMED",
+    "oraclePass": "0/2",
+    "note": "agent wandered plus/settings screens, never completed dialog flow; traces overwritten by retry (same outDir) \u2014 disclosed, not hidden"
+  },
+  "combinedAgent": "1/4 oracle-pass across two k=2 runs (agent variance on retention-dialog flow)",
+  "independentNewPath": {
+    "path": [
+      "nav.settings",
+      "settings.subscription",
+      "sub.decline",
+      "sub.confirm_cancel"
+    ],
+    "oracle": "passed",
+    "steps": 4,
+    "evidence": "raw/SUB-EXTRA/newpath.json + traces/SUB-EXTRA-newpath/"
+  }
+}

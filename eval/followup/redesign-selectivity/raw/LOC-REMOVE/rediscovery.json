@@ -1,0 +1,21 @@
+{
+  "id": "LOC-REMOVE",
+  "family": "precise_location",
+  "focal": "revoke",
+  "goal": "I shared my precise location earlier and changed my mind. Turn it off.",
+  "k": 2,
+  "classification": "INFEASIBLE-CONFIRMED",
+  "oraclePass": "0/2",
+  "actions": [],
+  "baselineEffort": 3,
+  "agentClaims": [
+    null,
+    "computer.stop called with answer: INFEASIBLE - The \"Precise location\" setting on the Location screen shows \"Managed by your organization\" and does not open or provide a toggle to turn it off after tapping it, so it cannot be changed by the user."
+  ],
+  "usage": {
+    "inputTokens": 68870,
+    "outputTokens": 5575,
+    "calls": 18,
+    "usd": 0.008002
+  }
+}

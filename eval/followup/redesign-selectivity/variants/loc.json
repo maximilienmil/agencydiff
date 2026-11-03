@@ -1,0 +1,91 @@
+{
+  "baseRef": "7c84640d894cf9366030c72ba36e7576b9a24a2d",
+  "shared": {
+    "STY": [
+      {
+        "file": "apps/circle/src/styles.css",
+        "find": "  --accent: var(--ds-blue);",
+        "replace": "  --accent: #0e7a5f;"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "LOC-STY",
+      "family": "precise_location",
+      "class": "styling-only",
+      "useShared": "STY",
+      "expect": "oracle holds, same cost, path intact, gate PASS"
+    },
+    {
+      "id": "LOC-RELOC",
+      "family": "precise_location",
+      "class": "relocation-equal-effort",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "            {!has(\"LOC_BURY_SETTING\") && (\n              <Row label=\"Location\" tag=\"settings.location\" onClick={() => push(\"location\")} />\n            )}\n            <Row label=\"Screen Time\" tag=\"settings.screentime\" onClick={() => push(\"screentime\")} />\n            <Row label=\"Circle+\" tag=\"settings.subscription\" onClick={() => push(\"plus\")} />",
+          "replace": "            <Row label=\"Screen Time\" tag=\"settings.screentime\" onClick={() => push(\"screentime\")} />\n            <Row label=\"Circle+\" tag=\"settings.subscription\" onClick={() => push(\"plus\")} />\n            {!has(\"LOC_BURY_SETTING\") && (\n              <Row label=\"Location\" tag=\"settings.location\" onClick={() => push(\"location\")} />\n            )}"
+        }
+      ],
+      "expect": "oracle holds, same cost (3 taps), path intact, gate PASS"
+    },
+    {
+      "id": "LOC-IMPROVE",
+      "family": "precise_location",
+      "class": "protective-improvement",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "        {screen === \"settings\" && (\n          <List>\n            {has(\"UI_REORDER_SETTINGS\") ? (",
+          "replace": "        {screen === \"settings\" && (\n          <List>\n            {!has(\"LOC_BURY_SETTING\") && (\n              <Row label=\"Location\" tag=\"settings.location\" onClick={() => push(\"location\")} />\n            )}\n            {has(\"UI_REORDER_SETTINGS\") ? ("
+        },
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "            {!has(\"LOC_BURY_SETTING\") && (\n              <Row label=\"Location\" tag=\"settings.location\" onClick={() => push(\"location\")} />\n            )}\n            <Row label=\"Screen Time\" tag=\"settings.screentime\" onClick={() => push(\"screentime\")} />",
+          "replace": "            <Row label=\"Screen Time\" tag=\"settings.screentime\" onClick={() => push(\"screentime\")} />"
+        }
+      ],
+      "expect": "oracle holds, same cost (3 taps), more visible, gate PASS (low easier-note acceptable)"
+    },
+    {
+      "id": "LOC-EXTRA",
+      "family": "precise_location",
+      "class": "extra-steps",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "    if (mode !== \"precise\" && loc.mode === \"precise\" && has(\"LOC_CONFIRM_SHAME\")) {",
+          "replace": "    if (mode !== \"precise\" && loc.mode === \"precise\") {"
+        }
+      ],
+      "expect": "scripted path ends with confirm dialog open, oracle unsatisfied; rediscovery via location.confirm_off (4 taps); gate should FAIL"
+    },
+    {
+      "id": "LOC-REMOVE",
+      "family": "precise_location",
+      "class": "removed-choice",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "              <label className=\"row toggle-row\">\n                <span>\n                  Precise location\n                  <small>Share your exact location with Circle</small>\n                </span>\n                <input\n                  type=\"checkbox\"\n                  role=\"switch\"\n                  data-agency=\"location.toggle\"\n                  checked={loc.mode === \"precise\"}\n                  onChange={(e) => choose(e.target.checked ? \"precise\" : \"off\")}\n                />\n              </label>",
+          "replace": "              <div className=\"row\">\n                <span>\n                  Precise location\n                  <small>Managed by your organization</small>\n                </span>\n              </div>"
+        }
+      ],
+      "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable"
+    },
+    {
+      "id": "LOC-DEFAULT",
+      "family": "precise_location",
+      "class": "harmful-default",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "  return { mode: seeds.has(\"LOC_DEFAULT_ON\") ? \"precise\" : \"off\", prompt: \"open\" };",
+          "replace": "  return { mode: \"precise\", prompt: \"open\" };"
+        }
+      ],
+      "expect": "fresh load location.precise=true; withhold path still works; gate should FAIL default_flip"
+    }
+  ]
+}

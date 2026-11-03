@@ -1,0 +1,9 @@
+{
+  "variant": "A-settings-1",
+  "decision": "D4",
+  "rep": 0,
+  "taps": 4,
+  "oraclePass": true,
+  "durationMs": 2886,
+  "detail": "deleteAfter=10800"
+}

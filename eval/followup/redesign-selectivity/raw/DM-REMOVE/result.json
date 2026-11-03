@@ -1,0 +1,49 @@
+{
+  "id": "DM-REMOVE",
+  "family": "teen_dm",
+  "class": "removed-choice",
+  "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable",
+  "focal": "block_unknown",
+  "repeats": 2,
+  "path": {
+    "outcome": "TAG-MISSING",
+    "detail": "reference tag not found: dm.block_unknown",
+    "oracleRate": 0,
+    "medianActions": 3
+  },
+  "determinism": "identical",
+  "defaultKey": "dm.policy",
+  "defaultBaseline": "friends",
+  "defaultCandidate": "friends",
+  "oracleRates": {
+    "allow_all": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "friends_only": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "block_unknown": {
+      "baseline": 1,
+      "candidate": 0
+    },
+    "inspect": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "relax": {
+      "baseline": 1,
+      "candidate": 1
+    }
+  },
+  "gatePassed": false,
+  "findings": [
+    {
+      "kind": "goal_unreachable",
+      "severity": "high",
+      "intentId": "block_unknown",
+      "title": "\"I do not want strangers messaging me. Block messages from people I don't know.\" succeeds less often"
+    }
+  ]
+}

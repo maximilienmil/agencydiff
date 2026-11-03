@@ -1,0 +1,91 @@
+{
+  "cases": [
+    {
+      "id": "SUB-STY",
+      "family": "subscription",
+      "class": "styling-only",
+      "useShared": "STY",
+      "expect": "oracle holds, same cost, path intact, gate PASS"
+    },
+    {
+      "id": "SUB-RELOC",
+      "family": "subscription",
+      "class": "relocation-equal-effort",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "                <div className=\"footer\">\n                  <button className=\"primary\" data-agency=\"sub.subscribe\" onClick={subscribe}>\n                    {copyTweak ? \"Get Circle+\" : \"Subscribe\"}\n                  </button>\n                  {!has(\"SUB_HIDE_DECLINE\") ? (",
+          "replace": "                <div className=\"footer\">\n                  {!has(\"SUB_HIDE_DECLINE\") ? ("
+        },
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "                  ) : (\n                    <button className=\"link\" data-agency=\"sub.more\" onClick={() => push(\"decline_options\")}>\n                      More options\n                    </button>\n                  )}\n                </div>",
+          "replace": "                  ) : (\n                    <button className=\"link\" data-agency=\"sub.more\" onClick={() => push(\"decline_options\")}>\n                      More options\n                    </button>\n                  )}\n                  <button className=\"primary\" data-agency=\"sub.subscribe\" onClick={subscribe}>\n                    {copyTweak ? \"Get Circle+\" : \"Subscribe\"}\n                  </button>\n                </div>"
+        }
+      ],
+      "expect": "oracle holds, same cost (3 taps), path intact, gate PASS"
+    },
+    {
+      "id": "SUB-IMPROVE",
+      "family": "subscription",
+      "class": "protective-improvement",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "                <div className=\"footer\">\n                  <button className=\"primary\" data-agency=\"sub.subscribe\" onClick={subscribe}>\n                    {copyTweak ? \"Get Circle+\" : \"Subscribe\"}\n                  </button>\n                  {!has(\"SUB_HIDE_DECLINE\") ? (\n                    <button className=\"link\" data-agency=\"sub.decline\" onClick={declineOffer}>\n                      {copyTweak ? \"Maybe later\" : \"Not now\"}\n                    </button>",
+          "replace": "                <div className=\"footer\">\n                  {!has(\"SUB_HIDE_DECLINE\") ? (\n                    <button className=\"primary\" data-agency=\"sub.decline\" onClick={declineOffer}>\n                      {copyTweak ? \"Maybe later\" : \"Not now\"}\n                    </button>"
+        },
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "                  <button className=\"link\" data-agency=\"sub.more\" onClick={() => push(\"decline_options\")}>\n                      More options\n                    </button>\n                  )}\n                </div>",
+          "replace": "                  <button className=\"link\" data-agency=\"sub.more\" onClick={() => push(\"decline_options\")}>\n                      More options\n                    </button>\n                  )}\n                  <button className=\"secondary\" data-agency=\"sub.subscribe\" onClick={subscribe}>\n                    {copyTweak ? \"Get Circle+\" : \"Subscribe\"}\n                  </button>\n                </div>"
+        }
+      ],
+      "expect": "oracle holds, same cost (3 taps), decline surfaced first; gate PASS (low easier-note acceptable)"
+    },
+    {
+      "id": "SUB-EXTRA",
+      "family": "subscription",
+      "class": "extra-steps",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "  const declineOffer = () => setSub((s) => ({ ...s, offer: \"answered\" }));",
+          "replace": "  const declineOffer = () => {\n    setSubRetain(true);\n  };"
+        },
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "  const confirmCancel = () => {\n    setSub((s) => ({ ...s, active: false }));\n    setSubRetain(false);\n  };",
+          "replace": "  const confirmCancel = () => {\n    setSub((s) => ({ ...s, active: false, offer: \"answered\" }));\n    setSubRetain(false);\n  };"
+        }
+      ],
+      "expect": "scripted path ends with retention dialog open, oracle unsatisfied; rediscovery via sub.confirm_cancel; gate should FAIL (retention-dialog copy is cancel-framed: noted limitation)"
+    },
+    {
+      "id": "SUB-REMOVE",
+      "family": "subscription",
+      "class": "removed-choice",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "                  {!has(\"SUB_HIDE_DECLINE\") ? (\n                    <button className=\"link\" data-agency=\"sub.decline\" onClick={declineOffer}>\n                      {copyTweak ? \"Maybe later\" : \"Not now\"}\n                    </button>\n                  ) : (\n                    <button className=\"link\" data-agency=\"sub.more\" onClick={() => push(\"decline_options\")}>\n                      More options\n                    </button>\n                  )}",
+          "replace": "                  {null}"
+        }
+      ],
+      "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable"
+    },
+    {
+      "id": "SUB-DEFAULT",
+      "family": "subscription",
+      "class": "harmful-default",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "  return { active: false, plan: seeds.has(\"SUB_DEFAULT_ANNUAL\") ? \"annual\" : \"monthly\", offer: \"open\" };",
+          "replace": "  return { active: false, plan: \"annual\", offer: \"open\" };"
+        }
+      ],
+      "expect": "prompt-answered start has sub.plan=annual; decline path still works; gate should FAIL default_flip"
+    }
+  ]
+}

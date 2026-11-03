@@ -1,0 +1,19 @@
+{
+  "verdicts": {
+    "precise_location.share": "easier",
+    "precise_location.withhold": "harder",
+    "precise_location.revoke": "unchanged"
+  },
+  "citations": {
+    "precise_location.share": "screens: identical home+location_prompt > home; actions: identical 1 tap location.allow; oracle: both PASS to precise true, but starting default location.precise false->true",
+    "precise_location.withhold": "screens: identical home+location_prompt > home; actions: identical 1 tap location.decline; oracle: both PASS to precise false, but starting default location.precise false->true is worse default",
+    "precise_location.revoke": "screens: identical home > settings > location to Location toggle off; actions: identical 3 taps nav.settings -> settings.location -> location.toggle; oracle: both PASS to precise false"
+  },
+  "notes": "Default flipped to precise true helping share but hurting withhold; revoke path identical.",
+  "raw": "{\"verdicts\": {\"precise_location.share\": \"easier\", \"precise_location.withhold\": \"harder\", \"precise_location.revoke\": \"unchanged\"}, \"citations\": {\"precise_location.share\": \"screens: identical home+location_prompt > home; actions: identical 1 tap location.allow; oracle: both PASS to precise true, but starting default location.precise false->true\", \"precise_location.withhold\": \"screens: identical home+location_prompt > home; actions: identical 1 tap location.decline; oracle: both PASS to precise false, but starting default location.precise false->true is worse default\", \"precise_location.revoke\": \"screens: identical home > settings > location to Location toggle off; actions: identical 3 taps nav.settings -> settings.location -> location.toggle; oracle: both PASS to precise false\"}, \"notes\": \"Default flipped to precise true helping share but hurting withhold; revoke path identical.\"}",
+  "inputTokens": 7234,
+  "outputTokens": 2407,
+  "calls": 1,
+  "costUsd": 0.0012048000000000002,
+  "parseRetried": false
+}

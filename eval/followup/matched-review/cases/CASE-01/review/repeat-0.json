@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "screen_time.set_limit": "harder",
+    "screen_time.reminders": "unchanged",
+    "screen_time.remove_limit": "unchanged",
+    "screen_time.check_usage": "unchanged",
+    "screen_time.shorten": "unchanged"
+  },
+  "citations": {
+    "screen_time.set_limit": "screens: CANDIDATE Daily limit shows only No limit/2h/4h, missing 1 hour a day option selected in BASELINE; actions: BASELINE 4 taps to st.limit_1h vs CANDIDATE 3 taps error reference tag not found: st.limit_1h; oracle: BASELINE PASS st.limit=60 vs CANDIDATE FAIL st.limit=null",
+    "screen_time.reminders": "screens: identical Screen Time with Break reminders toggle on; actions: identical 3-tap nav.settings->settings.screentime->st.reminders; oracle: both PASS with st.reminders=true",
+    "screen_time.remove_limit": "screens: CANDIDATE Daily limit missing 1h row but No limit present and selected in both; actions: identical 4-tap path to st.limit_off; oracle: both PASS with st.limit=null",
+    "screen_time.check_usage": "screens: identical Your time 1h 24m Today / 11h 47m This week; actions: identical 3-tap path to screentime.usage; oracle: both PASS with st.viewed=true",
+    "screen_time.shorten": "screens: CANDIDATE missing 1h row but 4 hours a day present and selected in both; actions: identical 4-tap path to st.limit_4h; oracle: both PASS with st.limit=240"
+  },
+  "notes": "1-hour option removed so set_limit fails, other intentions use remaining controls identically.",
+  "raw": "{\"verdicts\": {\"screen_time.set_limit\": \"harder\", \"screen_time.reminders\": \"unchanged\", \"screen_time.remove_limit\": \"unchanged\", \"screen_time.check_usage\": \"unchanged\", \"screen_time.shorten\": \"unchanged\"}, \"citations\": {\"screen_time.set_limit\": \"screens: CANDIDATE Daily limit shows only No limit/2h/4h, missing 1 hour a day option selected in BASELINE; actions: BASELINE 4 taps to st.limit_1h vs CANDIDATE 3 taps error reference tag not found: st.limit_1h; oracle: BASELINE PASS st.limit=60 vs CANDIDATE FAIL st.limit=null\", \"screen_time.reminders\": \"screens: identical Screen Time with Break reminders toggle on; actions: identical 3-tap nav.settings->settings.screentime->st.reminders; oracle: both PASS with st.reminders=true\", \"screen_time.remove_limit\": \"screens: CANDIDATE Daily limit missing 1h row but No limit present and selected in both; actions: identical 4-tap path to st.limit_off; oracle: both PASS with st.limit=null\", \"screen_time.check_usage\": \"screens: identical Your time 1h 24m Today / 11h 47m This week; actions: identical 3-tap path to screentime.usage; oracle: both PASS with st.viewed=true\", \"screen_time.shorten\": \"screens: CANDIDATE missing 1h row but 4 hours a day present and selected in both; actions: identical 4-tap path to st.limit_4h; oracle: both PASS with st.limit=240\"}, \"notes\": \"1-hour option removed so set_limit fails, other intentions use remaining controls identically.\"}",
+  "inputTokens": 11965,
+  "outputTokens": 1607,
+  "calls": 1,
+  "costUsd": 0.0015179000000000002,
+  "parseRetried": false
+}

@@ -1,0 +1,9 @@
+{
+  "variant": "A-settings-0",
+  "decision": "D3",
+  "rep": 0,
+  "taps": 6,
+  "oraclePass": true,
+  "durationMs": 5430,
+  "detail": "visible notifications for topic: 0"
+}

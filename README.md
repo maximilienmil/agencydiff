@@ -2,10 +2,12 @@
 
 Automated tests check the code still works. AgencyDiff checks the user can still say no.
 
+AgencyDiff uses computer-use agents to explore changed interfaces, then turns verified behavior into repeatable checks that protect users’ choices.
+
 ![Baseline and candidate builds of the same app side by side: on the candidate, declining location moved behind More options, and the Finding reads 1 → 7 steps, visible → hidden](docs/img/hero.png)
 
 - Coding agents given ordinary product tasks broke users' ability to say no in 8 of 30 PRs (Muse-confirmed). With AgencyDiff in the loop: 0 of 30. ([eval/agent-prs/RESULTS.md](eval/agent-prs/RESULTS.md))
-- A model reviewing PR screenshots caught 1 of 20 seeded agency regressions. AgencyDiff's replay gate caught 19 of 20, with 0 false alarms, for $0. ([eval/RESULTS.md](eval/RESULTS.md))
+- On the seeded Circle benchmark, the scripted replay gate caught 19 of 20 regressions with no false alarms on six unchanged controls and no model calls. A screenshot reviewer caught 1 of 20 from start screens and 17 of 20 when given a walkthrough. ([eval/RESULTS.md](eval/RESULTS.md))
 
 An update can quietly make it harder to cancel, turn off location, or block strangers, usually by accident. AgencyDiff checks every change before it ships: can people still say no as easily as before?
 
@@ -24,6 +26,8 @@ flowchart LR
 
 A product promise is written once as an [Agency Contract](contracts/subscription.json): the choices a screen offers (subscribe vs cancel) and what each choice must do. On every change, a test run tries each choice on the old build and the new build. A fixed check of the last screen decides success. The agent's own claim never counts. Findings are measured deltas: step cost, navigation depth, initial visibility, defaults, and the gap between saying yes and saying no. Each finding links to a recording you can replay in the [report](https://maximilienmil.github.io/agencydiff/).
 
+A failure is labelled by what the evidence supports. If a recorded path no longer works, the finding says the replay was blocked or the probe was inconclusive and asks for review; it does not claim the choice was removed, because a renamed control breaks a recording without taking anything away from the user. Both labels still fail the check. [How findings are classified](docs/evidence-semantics.md).
+
 | Meta model | Job |
 | --- | --- |
 | Muse Spark computer use | Probes that walk the UI from screenshots |
@@ -31,13 +35,20 @@ A product promise is written once as an [Agency Contract](contracts/subscription
 | SAM 3.1 | Control overlays on replay screenshots |
 | Muse Code | Built AgencyDiff, and is the coding agent AgencyDiff guards |
 
-| A prompt or skill | AgencyDiff |
-| --- | --- |
-| Gives an opinion about the UI | Reports verified final state |
-| Caught 1 of 20 regressions from screenshots | Replay gate caught 19 of 20 |
-| Answers differently each run | Deterministic gate with an exit code |
-| No receipts | Every Finding links to replayable Traces |
-| The agent grades its own work | A separate instrument measures; the Oracle decides |
+The reliable gate replays a known path and checks the resulting app state. Computer-use Probes can search for a changed path and measure its cost, but those runs are noisy. Determinism applies to the replay gate and comparison of fixed recordings, not to fresh model exploration. Contracts, success checks and reference paths require setup; the current results are controlled demonstrations, not estimates of performance across arbitrary apps.
+
+The evaluation compares specific configurations: scripted replay, free-roaming Muse Probes, a reviewer shown start screens, and a reviewer shown a full walkthrough. It does not establish superiority over every prompt, skill or existing test suite.
+
+## Follow-up evidence
+
+Four small follow-ups test the architecture's limits:
+
+- **Strong instructions versus a gate:** 36 neutral-task attempts produced no confirmed regressions in any arm (ordinary, protective instructions, instructions + gate). This floor effect leaves the gate's added value over strong instructions unresolved. [Protocol and results](eval/followup/prompt-vs-gate/RESULTS.md).
+- **External app:** a target-specific ntfy adapter recorded real traces through the unmodified core. All four researcher obstructions produced the expected findings; the +1-tap finding was low severity and did not fail the gate. Renamed working controls produced false unreachable findings, including a timing-sensitive disagreement across phases; those now surface as review-required (see above). Recorded traces from such an adapter can be scored with `agencydiff diff-traces` ([setup](docs/external-target.md)). Live probing of external apps through the CLI and GitHub Action is not yet validated. [Results and setup cost](eval/followup/external-app/RESULTS.md).
+- **Redesign selectivity:** nine harmless Circle variants passed and nine harmful variants were flagged. Harmless variants preserved reference tags and screen hierarchy; this does not establish tolerance of renamed controls or arbitrary redesigns. [Results](eval/followup/redesign-selectivity/RESULTS.md).
+- **Matched evidence:** a model reviewer and deterministic comparator both detected all six regressions with no flags on two controls. Evidence bundles were amended after reviewer misses, making this an exploratory pilot rather than a held-out test. The comparator often collapsed mechanisms into unreachable paths. [Results](eval/followup/matched-review/RESULTS.md).
+
+These results support an evidence pipeline: explore with agents, verify outcomes independently, and compare recorded behavior repeatably. They do not establish superior detection over an equally informed model reviewer or strong protective instructions. A broken replay path requires investigation before it can be called a removed choice.
 
 ## The PR check
 
@@ -72,7 +83,7 @@ Limits:
 
 ## Use it
 
-One engine, three entry points. Details in [docs/usage.md](docs/usage.md).
+One engine, three entry points (CLI, GitHub Action, MCP server). Details in [docs/usage.md](docs/usage.md).
 
 ```bash
 git clone https://github.com/maximilienmil/agencydiff && cd agencydiff
@@ -83,6 +94,7 @@ npx playwright install chromium
 agencydiff init --url <url>
 agencydiff diff --baseline <url> --candidate <url> --contract ./contracts/settings.json
 agencydiff audit --url <url> --contract ./contracts/settings.json --driver muse
+agencydiff diff-traces --contract contract.json --traces ./traces --out ./report   # score recordings from any app
 ```
 
 ```yaml
@@ -94,7 +106,7 @@ agencydiff audit --url <url> --contract ./contracts/settings.json --driver muse
 { "mcpServers": { "agencydiff": { "command": "node", "args": ["/path/to/agencydiff/packages/cli/dist/cli.js", "mcp"] } } }
 ```
 
-The [GitHub Action](docs/github-action.md) diffs production against the preview deploy on every PR. The [MCP server](docs/mcp.md) lets coding agents check themselves before opening a PR. Authenticated flows and production-safe monitoring: [docs/auth-and-prod.md](docs/auth-and-prod.md).
+The [GitHub Action](docs/github-action.md) diffs production against the preview deploy on every PR. The [MCP server](docs/mcp.md) lets coding agents check themselves before opening a PR. `diff-traces` scores baseline and candidate Trace bundles recorded by an adapter you write for apps the built-in drivers cannot drive. It rejects bundles with missing screenshots, unchecked outcomes or unknown action types; it needs no browser or model calls ([guide](docs/external-target.md)). Authenticated flows and production-safe monitoring: [docs/auth-and-prod.md](docs/auth-and-prod.md).
 
 ## Quickstart for judges
 

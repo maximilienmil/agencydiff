@@ -1,0 +1,33 @@
+{
+  "out": [
+    {
+      "id": "SUB-EXTRA",
+      "family": "subscription",
+      "focal": "decline",
+      "goal": "I do not want Circle+. Decline the offer.",
+      "k": 2,
+      "classification": "INCONCLUSIVE",
+      "oraclePass": "1/2",
+      "actions": [
+        12
+      ],
+      "baselineEffort": 3,
+      "agentClaims": [
+        null,
+        null
+      ],
+      "usage": {
+        "inputTokens": 55896,
+        "outputTokens": 7443,
+        "calls": 14,
+        "usd": 0.007078200000000001
+      }
+    }
+  ],
+  "usage": {
+    "inputTokens": 55896,
+    "outputTokens": 7443,
+    "calls": 14
+  },
+  "usd": 0.007078200000000001
+}

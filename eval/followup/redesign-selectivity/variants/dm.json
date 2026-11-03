@@ -1,0 +1,81 @@
+{
+  "cases": [
+    {
+      "id": "DM-STY",
+      "family": "teen_dm",
+      "class": "styling-only",
+      "useShared": "STY",
+      "expect": "oracle holds, same cost, path intact, gate PASS"
+    },
+    {
+      "id": "DM-RELOC",
+      "family": "teen_dm",
+      "class": "relocation-equal-effort",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "            <Option\n              title=\"Everyone\"\n              sub=\"Anyone on Circle can message this account\"\n              tag=\"dm.allow_all\"\n              selected={dm.policy === \"everyone\"}\n              onPick={() => chooseDm(\"everyone\")}\n            />\n            <Option\n              title=\"Friends only\"\n              sub=\"Only people you follow back can message you\"\n              tag=\"dm.friends_only\"\n              selected={dm.policy === \"friends\"}\n              onPick={() => chooseDm(\"friends\")}\n            />",
+          "replace": "            <Option\n              title=\"Friends only\"\n              sub=\"Only people you follow back can message you\"\n              tag=\"dm.friends_only\"\n              selected={dm.policy === \"friends\"}\n              onPick={() => chooseDm(\"friends\")}\n            />\n            <Option\n              title=\"Everyone\"\n              sub=\"Anyone on Circle can message this account\"\n              tag=\"dm.allow_all\"\n              selected={dm.policy === \"everyone\"}\n              onPick={() => chooseDm(\"everyone\")}\n            />"
+        }
+      ],
+      "expect": "oracle holds, same cost (4 taps), path intact, gate PASS"
+    },
+    {
+      "id": "DM-IMPROVE",
+      "family": "teen_dm",
+      "class": "protective-improvement",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "            <div className=\"note\">Teen account",
+          "replace": "            {!has(\"DM_HIDE_BLOCK\") ? (\n              <Option\n                title=\"Block unknown people\"\n                sub=\"Only friends can reach you; everyone else is blocked\"\n                tag=\"dm.block_unknown\"\n                selected={dm.policy === \"blocked\"}\n                onPick={() => chooseDm(\"blocked\")}\n              />\n            ) : (\n              <Row label=\"More options\" tag=\"dm.more\" onClick={() => push(\"dm_options\")} />\n            )}\n            <div className=\"note\">Teen account"
+        },
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "            {!has(\"DM_HIDE_BLOCK\") ? (\n              <Option\n                title=\"Block unknown people\"\n                sub=\"Only friends can reach you; everyone else is blocked\"\n                tag=\"dm.block_unknown\"\n                selected={dm.policy === \"blocked\"}\n                onPick={() => chooseDm(\"blocked\")}\n              />\n            ) : (\n              <Row label=\"More options\" tag=\"dm.more\" onClick={() => push(\"dm_options\")} />\n            )}\n          </List>\n        )}\n\n        {screen === \"dm_options\"",
+          "replace": "          </List>\n        )}\n\n        {screen === \"dm_options\""
+        }
+      ],
+      "expect": "oracle holds, same cost (4 taps), block option first, gate PASS (low easier-note acceptable)"
+    },
+    {
+      "id": "DM-EXTRA",
+      "family": "teen_dm",
+      "class": "extra-steps",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "    if (policy === \"blocked\" && dm.policy !== \"blocked\" && has(\"DM_CONFIRM_BLOCK\")) {",
+          "replace": "    if (policy === \"blocked\" && dm.policy !== \"blocked\") {"
+        }
+      ],
+      "expect": "scripted path ends with confirm dialog open, oracle unsatisfied; rediscovery via dm.confirm_block (+1 tap); gate should FAIL"
+    },
+    {
+      "id": "DM-REMOVE",
+      "family": "teen_dm",
+      "class": "removed-choice",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "            {!has(\"DM_HIDE_BLOCK\") ? (\n              <Option\n                title=\"Block unknown people\"\n                sub=\"Only friends can reach you; everyone else is blocked\"\n                tag=\"dm.block_unknown\"\n                selected={dm.policy === \"blocked\"}\n                onPick={() => chooseDm(\"blocked\")}\n              />\n            ) : (\n              <Row label=\"More options\" tag=\"dm.more\" onClick={() => push(\"dm_options\")} />\n            )}",
+          "replace": "            <div className=\"note\">Messaging access is managed by a parent account.</div>"
+        }
+      ],
+      "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable"
+    },
+    {
+      "id": "DM-DEFAULT",
+      "family": "teen_dm",
+      "class": "harmful-default",
+      "edits": [
+        {
+          "file": "apps/circle/src/App.tsx",
+          "find": "  return { policy: seeds.has(\"DM_DEFAULT_EVERYONE\") ? \"everyone\" : \"friends\" };",
+          "replace": "  return { policy: \"everyone\" };"
+        }
+      ],
+      "expect": "fresh load dm.policy=everyone; block path still works under fixture; gate should FAIL default_flip (corrected 2026-11-02: prompt-answered falls through to the default expression, so the flip is visible to reference probes)"
+    }
+  ]
+}

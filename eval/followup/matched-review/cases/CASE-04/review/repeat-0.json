@@ -1,0 +1,23 @@
+{
+  "verdicts": {
+    "subscription.subscribe": "unchanged",
+    "subscription.decline": "unchanged",
+    "subscription.cancel": "harder",
+    "subscription.terms": "unchanged",
+    "subscription.resume": "unchanged"
+  },
+  "citations": {
+    "subscription.subscribe": "screens: both home>settings>plus final plus identical active Monthly; actions: same 3-tap nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS sub.active true sub.plan monthly",
+    "subscription.decline": "screens: both home>settings>plus final plus identical offer with Not now; actions: same 3-tap nav.settings->settings.subscription->sub.decline script_done; oracle: both PASS sub.active false sub.offer answered",
+    "subscription.cancel": "screens: BASELINE Billing shows Cancel subscription vs CANDIDATE Billing shows Manage plan, cancel missing; actions: BASELINE 4 taps sub.manage->sub.cancel script_done vs CANDIDATE 3 taps error reference tag not found: sub.cancel; oracle: BASELINE PASS sub.active false vs CANDIDATE FAIL sub.active true",
+    "subscription.terms": "screens: both home>settings>plus>terms final Renewal terms identical text; actions: same 3-tap nav.settings->settings.subscription->sub.terms script_done; oracle: both PASS sub.terms_viewed true",
+    "subscription.resume": "screens: both home>settings>plus final plus identical active Monthly; actions: same 3-tap nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS sub.active true"
+  },
+  "notes": "Cancel flow lost its cancel control; all other flows identical with no sub.plan default flip.",
+  "raw": "{\"verdicts\": {\"subscription.subscribe\": \"unchanged\", \"subscription.decline\": \"unchanged\", \"subscription.cancel\": \"harder\", \"subscription.terms\": \"unchanged\", \"subscription.resume\": \"unchanged\"}, \"citations\": {\"subscription.subscribe\": \"screens: both home>settings>plus final plus identical active Monthly; actions: same 3-tap nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS sub.active true sub.plan monthly\", \"subscription.decline\": \"screens: both home>settings>plus final plus identical offer with Not now; actions: same 3-tap nav.settings->settings.subscription->sub.decline script_done; oracle: both PASS sub.active false sub.offer answered\", \"subscription.cancel\": \"screens: BASELINE Billing shows Cancel subscription vs CANDIDATE Billing shows Manage plan, cancel missing; actions: BASELINE 4 taps sub.manage->sub.cancel script_done vs CANDIDATE 3 taps error reference tag not found: sub.cancel; oracle: BASELINE PASS sub.active false vs CANDIDATE FAIL sub.active true\", \"subscription.terms\": \"screens: both home>settings>plus>terms final Renewal terms identical text; actions: same 3-tap nav.settings->settings.subscription->sub.terms script_done; oracle: both PASS sub.terms_viewed true\", \"subscription.resume\": \"screens: both home>settings>plus final plus identical active Monthly; actions: same 3-tap nav.settings->settings.subscription->sub.subscribe script_done; oracle: both PASS sub.active true\"}, \"notes\": \"Cancel flow lost its cancel control; all other flows identical with no sub.plan default flip.\"}",
+  "inputTokens": 11781,
+  "outputTokens": 1446,
+  "calls": 1,
+  "costUsd": 0.0014673000000000002,
+  "parseRetried": false
+}

@@ -1,0 +1,41 @@
+{
+  "id": "LOC-REMOVE",
+  "family": "precise_location",
+  "class": "removed-choice",
+  "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable",
+  "focal": "revoke",
+  "repeats": 2,
+  "path": {
+    "outcome": "TAG-MISSING",
+    "detail": "reference tag not found: location.toggle",
+    "oracleRate": 0,
+    "medianActions": 2
+  },
+  "determinism": "identical",
+  "defaultKey": "location.precise",
+  "defaultBaseline": false,
+  "defaultCandidate": false,
+  "oracleRates": {
+    "share": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "withhold": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "revoke": {
+      "baseline": 1,
+      "candidate": 0
+    }
+  },
+  "gatePassed": false,
+  "findings": [
+    {
+      "kind": "goal_unreachable",
+      "severity": "high",
+      "intentId": "revoke",
+      "title": "\"I shared my precise location earlier and changed my mind. Turn it off.\" succeeds less often"
+    }
+  ]
+}

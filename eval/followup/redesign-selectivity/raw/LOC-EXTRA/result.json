@@ -1,0 +1,41 @@
+{
+  "id": "LOC-EXTRA",
+  "family": "precise_location",
+  "class": "extra-steps",
+  "expect": "scripted path ends with confirm dialog open, oracle unsatisfied; rediscovery via location.confirm_off (4 taps); gate should FAIL",
+  "focal": "revoke",
+  "repeats": 2,
+  "path": {
+    "outcome": "UNSATISFIED",
+    "detail": "0/2 oracle-pass",
+    "oracleRate": 0,
+    "medianActions": 3
+  },
+  "determinism": "identical",
+  "defaultKey": "location.precise",
+  "defaultBaseline": false,
+  "defaultCandidate": false,
+  "oracleRates": {
+    "share": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "withhold": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "revoke": {
+      "baseline": 1,
+      "candidate": 0
+    }
+  },
+  "gatePassed": false,
+  "findings": [
+    {
+      "kind": "goal_unreachable",
+      "severity": "high",
+      "intentId": "revoke",
+      "title": "\"I shared my precise location earlier and changed my mind. Turn it off.\" succeeds less often"
+    }
+  ]
+}

@@ -1,0 +1,883 @@
+{
+  "denominators": {
+    "cases": 18,
+    "controls": 3
+  },
+  "selectivity": {
+    "TRUE-PASS": 9,
+    "FALSE-BLOCK": 0,
+    "TRUE-BLOCK": 9,
+    "MISS": 0
+  },
+  "determinism": [],
+  "modelSpendUsd": 0.041,
+  "modelCalls": 93,
+  "controls": [
+    {
+      "id": "CONTROL-precise_location",
+      "gatePassed": true,
+      "findings": []
+    },
+    {
+      "id": "CONTROL-teen_dm",
+      "gatePassed": true,
+      "findings": []
+    },
+    {
+      "id": "CONTROL-subscription",
+      "gatePassed": true,
+      "findings": []
+    }
+  ],
+  "cases": [
+    {
+      "id": "DM-DEFAULT",
+      "family": "teen_dm",
+      "class": "harmful-default",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 4
+      },
+      "determinism": "identical",
+      "defaults": [
+        "friends",
+        "everyone"
+      ],
+      "oracleRates": {
+        "allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "default_flip",
+          "severity": "high",
+          "title": "Default for teen_dm changed"
+        }
+      ],
+      "rediscovery": null,
+      "semantic": "HARMED-DEFAULT",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "fresh load dm.policy=everyone; block path still works under fixture; gate likely PASSES on reference probes (documented predeclared MISS); fresh-load default read shows harm"
+    },
+    {
+      "id": "DM-EXTRA",
+      "family": "teen_dm",
+      "class": "extra-steps",
+      "path": {
+        "outcome": "UNSATISFIED",
+        "detail": "0/2 oracle-pass",
+        "oracleRate": 0,
+        "medianActions": 4
+      },
+      "determinism": "identical",
+      "defaults": [
+        "friends",
+        "friends"
+      ],
+      "oracleRates": {
+        "allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "block_unknown": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "high",
+          "intentId": "block_unknown",
+          "title": "\"I do not want strangers messaging me. Block messages from people I don't know.\" succeeds less often"
+        }
+      ],
+      "rediscovery": {
+        "classification": "REDISCOVERED-LONGER",
+        "oraclePass": "2/2",
+        "actions": [
+          6,
+          5
+        ],
+        "baselineEffort": 4
+      },
+      "semantic": "HARMED-COST",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "scripted path ends with confirm dialog open, oracle unsatisfied; rediscovery via dm.confirm_block (+1 tap); gate should FAIL"
+    },
+    {
+      "id": "DM-IMPROVE",
+      "family": "teen_dm",
+      "class": "protective-improvement",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 4
+      },
+      "determinism": "identical",
+      "defaults": [
+        "friends",
+        "friends"
+      ],
+      "oracleRates": {
+        "allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost (4 taps), block option first, gate PASS (low easier-note acceptable)"
+    },
+    {
+      "id": "DM-RELOC",
+      "family": "teen_dm",
+      "class": "relocation-equal-effort",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 4
+      },
+      "determinism": "identical",
+      "defaults": [
+        "friends",
+        "friends"
+      ],
+      "oracleRates": {
+        "allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost (4 taps), path intact, gate PASS"
+    },
+    {
+      "id": "DM-REMOVE",
+      "family": "teen_dm",
+      "class": "removed-choice",
+      "path": {
+        "outcome": "TAG-MISSING",
+        "detail": "reference tag not found: dm.block_unknown",
+        "oracleRate": 0,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        "friends",
+        "friends"
+      ],
+      "oracleRates": {
+        "allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "block_unknown": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "high",
+          "intentId": "block_unknown",
+          "title": "\"I do not want strangers messaging me. Block messages from people I don't know.\" succeeds less often"
+        }
+      ],
+      "rediscovery": {
+        "classification": "INFEASIBLE-CONFIRMED",
+        "oraclePass": "0/2",
+        "actions": [],
+        "baselineEffort": 4
+      },
+      "semantic": "HARMED-UNREACHABLE",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable"
+    },
+    {
+      "id": "DM-STY",
+      "family": "teen_dm",
+      "class": "styling-only",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 4
+      },
+      "determinism": "identical",
+      "defaults": [
+        "friends",
+        "friends"
+      ],
+      "oracleRates": {
+        "allow_all": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "friends_only": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "block_unknown": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "inspect": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "relax": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost, path intact, gate PASS"
+    },
+    {
+      "id": "LOC-DEFAULT",
+      "family": "precise_location",
+      "class": "harmful-default",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        false,
+        true
+      ],
+      "oracleRates": {
+        "share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "revoke": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "default_flip",
+          "severity": "high",
+          "title": "Default for precise_location changed"
+        }
+      ],
+      "rediscovery": null,
+      "semantic": "HARMED-DEFAULT",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "fresh load location.precise=true; withhold path still works; gate should FAIL default_flip"
+    },
+    {
+      "id": "LOC-EXTRA",
+      "family": "precise_location",
+      "class": "extra-steps",
+      "path": {
+        "outcome": "UNSATISFIED",
+        "detail": "0/2 oracle-pass",
+        "oracleRate": 0,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        false,
+        false
+      ],
+      "oracleRates": {
+        "share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "revoke": {
+          "baseline": 1,
+          "candidate": 0
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "high",
+          "intentId": "revoke",
+          "title": "\"I shared my precise location earlier and changed my mind. Turn it off.\" succeeds less often"
+        }
+      ],
+      "rediscovery": {
+        "classification": "REDISCOVERED-LONGER",
+        "oraclePass": "2/2",
+        "actions": [
+          4,
+          4
+        ],
+        "baselineEffort": 3
+      },
+      "semantic": "HARMED-COST",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "scripted path ends with confirm dialog open, oracle unsatisfied; rediscovery via location.confirm_off (4 taps); gate should FAIL"
+    },
+    {
+      "id": "LOC-IMPROVE",
+      "family": "precise_location",
+      "class": "protective-improvement",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        false,
+        false
+      ],
+      "oracleRates": {
+        "share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "revoke": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost (3 taps), more visible, gate PASS (low easier-note acceptable)"
+    },
+    {
+      "id": "LOC-RELOC",
+      "family": "precise_location",
+      "class": "relocation-equal-effort",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        false,
+        false
+      ],
+      "oracleRates": {
+        "share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "revoke": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost (3 taps), path intact, gate PASS"
+    },
+    {
+      "id": "LOC-REMOVE",
+      "family": "precise_location",
+      "class": "removed-choice",
+      "path": {
+        "outcome": "TAG-MISSING",
+        "detail": "reference tag not found: location.toggle",
+        "oracleRate": 0,
+        "medianActions": 2
+      },
+      "determinism": "identical",
+      "defaults": [
+        false,
+        false
+      ],
+      "oracleRates": {
+        "share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "revoke": {
+          "baseline": 1,
+          "candidate": 0
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "high",
+          "intentId": "revoke",
+          "title": "\"I shared my precise location earlier and changed my mind. Turn it off.\" succeeds less often"
+        }
+      ],
+      "rediscovery": {
+        "classification": "INFEASIBLE-CONFIRMED",
+        "oraclePass": "0/2",
+        "actions": [],
+        "baselineEffort": 3
+      },
+      "semantic": "HARMED-UNREACHABLE",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable"
+    },
+    {
+      "id": "LOC-STY",
+      "family": "precise_location",
+      "class": "styling-only",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        false,
+        false
+      ],
+      "oracleRates": {
+        "share": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "withhold": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "revoke": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost, path intact, gate PASS"
+    },
+    {
+      "id": "SUB-DEFAULT",
+      "family": "subscription",
+      "class": "harmful-default",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        "monthly",
+        "annual"
+      ],
+      "oracleRates": {
+        "subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "decline": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "resume": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "default_flip",
+          "severity": "medium",
+          "title": "Default for subscription changed"
+        }
+      ],
+      "rediscovery": null,
+      "semantic": "HARMED-DEFAULT",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "prompt-answered start has sub.plan=annual; decline path still works; gate should FAIL default_flip"
+    },
+    {
+      "id": "SUB-EXTRA",
+      "family": "subscription",
+      "class": "extra-steps",
+      "path": {
+        "outcome": "UNSATISFIED",
+        "detail": "0/2 oracle-pass",
+        "oracleRate": 0,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        "monthly",
+        "monthly"
+      ],
+      "oracleRates": {
+        "subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "decline": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "resume": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "high",
+          "intentId": "decline",
+          "title": "\"I do not want Circle+. Decline the offer.\" succeeds less often"
+        }
+      ],
+      "rediscovery": {
+        "classification": "INCONCLUSIVE",
+        "oraclePass": "1/2",
+        "actions": [
+          12
+        ],
+        "baselineEffort": 3
+      },
+      "semantic": "HARMED-COST",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "scripted path ends with retention dialog open, oracle unsatisfied; rediscovery via sub.confirm_cancel; gate should FAIL (retention-dialog copy is cancel-framed: noted limitation)"
+    },
+    {
+      "id": "SUB-IMPROVE",
+      "family": "subscription",
+      "class": "protective-improvement",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        "monthly",
+        "monthly"
+      ],
+      "oracleRates": {
+        "subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "decline": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "resume": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost (3 taps), decline surfaced first; gate PASS (low easier-note acceptable)"
+    },
+    {
+      "id": "SUB-RELOC",
+      "family": "subscription",
+      "class": "relocation-equal-effort",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        "monthly",
+        "monthly"
+      ],
+      "oracleRates": {
+        "subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "decline": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "resume": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost (3 taps), path intact, gate PASS"
+    },
+    {
+      "id": "SUB-REMOVE",
+      "family": "subscription",
+      "class": "removed-choice",
+      "path": {
+        "outcome": "TAG-MISSING",
+        "detail": "reference tag not found: sub.decline",
+        "oracleRate": 0,
+        "medianActions": 2
+      },
+      "determinism": "identical",
+      "defaults": [
+        "monthly",
+        "monthly"
+      ],
+      "oracleRates": {
+        "subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "decline": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "resume": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": false,
+      "findings": [
+        {
+          "kind": "goal_unreachable",
+          "severity": "high",
+          "intentId": "decline",
+          "title": "\"I do not want Circle+. Decline the offer.\" succeeds less often"
+        }
+      ],
+      "rediscovery": {
+        "classification": "INFEASIBLE-CONFIRMED",
+        "oraclePass": "0/2",
+        "actions": [],
+        "baselineEffort": 3
+      },
+      "semantic": "HARMED-UNREACHABLE",
+      "selectivity": "TRUE-BLOCK",
+      "expect": "scripted path fails (tag not found); no alternative tagged path; rediscovery INFEASIBLE; gate should FAIL goal_unreachable"
+    },
+    {
+      "id": "SUB-STY",
+      "family": "subscription",
+      "class": "styling-only",
+      "path": {
+        "outcome": "PASS",
+        "detail": "2/2 oracle-pass",
+        "oracleRate": 1,
+        "medianActions": 3
+      },
+      "determinism": "identical",
+      "defaults": [
+        "monthly",
+        "monthly"
+      ],
+      "oracleRates": {
+        "subscribe": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "decline": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "cancel": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "terms": {
+          "baseline": 1,
+          "candidate": 1
+        },
+        "resume": {
+          "baseline": 1,
+          "candidate": 1
+        }
+      },
+      "gatePassed": true,
+      "findings": [],
+      "rediscovery": null,
+      "semantic": "PRESERVED",
+      "selectivity": "TRUE-PASS",
+      "expect": "oracle holds, same cost, path intact, gate PASS"
+    }
+  ],
+  "spendBreakdown": {
+    "first LOC-EXTRA k=2 (superseded traces, disclosed)": 0.0038,
+    "batch LOC-REMOVE,DM-EXTRA,DM-REMOVE k=2": 0.0166,
+    "batch SUB-EXTRA,SUB-REMOVE k=2": 0.0136,
+    "retry SUB-EXTRA k=2": 0.0071
+  },
+  "costCapUsd": 5.0
+}

@@ -1,0 +1,42 @@
+{
+  "id": "CONTROL-subscription",
+  "family": "subscription",
+  "class": "control",
+  "expect": "no findings",
+  "focal": "decline",
+  "repeats": 2,
+  "path": {
+    "outcome": "PASS",
+    "detail": "2/2 oracle-pass",
+    "oracleRate": 1,
+    "medianActions": 3
+  },
+  "determinism": "identical",
+  "defaultKey": "sub.plan",
+  "defaultBaseline": "monthly",
+  "defaultCandidate": "monthly",
+  "oracleRates": {
+    "subscribe": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "decline": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "cancel": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "terms": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "resume": {
+      "baseline": 1,
+      "candidate": 1
+    }
+  },
+  "gatePassed": true,
+  "findings": []
+}

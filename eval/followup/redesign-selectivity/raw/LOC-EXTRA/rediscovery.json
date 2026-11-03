@@ -1,0 +1,24 @@
+{
+  "id": "LOC-EXTRA",
+  "family": "precise_location",
+  "focal": "revoke",
+  "goal": "I shared my precise location earlier and changed my mind. Turn it off.",
+  "k": 2,
+  "classification": "REDISCOVERED-LONGER",
+  "oraclePass": "2/2",
+  "actions": [
+    4,
+    4
+  ],
+  "baselineEffort": 3,
+  "agentClaims": [
+    "Precise location has been turned off. The toggle on the Location screen is now in the off (grey) position after confirming \"Turn off anyway\".",
+    "Precise location has been turned off. The toggle in Location settings is now disabled (grey/off), confirming exact location sharing with Circle is off."
+  ],
+  "usage": {
+    "inputTokens": 34558,
+    "outputTokens": 1673,
+    "calls": 10,
+    "usd": 0.0037904
+  }
+}

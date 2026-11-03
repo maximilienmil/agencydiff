@@ -1,0 +1,21 @@
+{
+  "id": "DM-REMOVE",
+  "family": "teen_dm",
+  "focal": "block_unknown",
+  "goal": "I do not want strangers messaging me. Block messages from people I don't know.",
+  "k": 2,
+  "classification": "INFEASIBLE-CONFIRMED",
+  "oraclePass": "0/2",
+  "actions": [],
+  "baselineEffort": 4,
+  "agentClaims": [
+    "Your messages are already set to friends-only, so strangers are blocked.\nDONE: Messages setting is already set to \"Friends only\" (Only people you follow back can message you), which blocks messages from strangers. No further change needed.",
+    "DONE: Messages are already set to \"Friends only\" (only people you follow back can message you), which blocks messages from strangers. No further change needed."
+  ],
+  "usage": {
+    "inputTokens": 145115,
+    "outputTokens": 10251,
+    "calls": 39,
+    "usd": 0.016561700000000002
+  }
+}

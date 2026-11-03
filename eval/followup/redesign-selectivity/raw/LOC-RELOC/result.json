@@ -1,0 +1,34 @@
+{
+  "id": "LOC-RELOC",
+  "family": "precise_location",
+  "class": "relocation-equal-effort",
+  "expect": "oracle holds, same cost (3 taps), path intact, gate PASS",
+  "focal": "revoke",
+  "repeats": 2,
+  "path": {
+    "outcome": "PASS",
+    "detail": "2/2 oracle-pass",
+    "oracleRate": 1,
+    "medianActions": 3
+  },
+  "determinism": "identical",
+  "defaultKey": "location.precise",
+  "defaultBaseline": false,
+  "defaultCandidate": false,
+  "oracleRates": {
+    "share": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "withhold": {
+      "baseline": 1,
+      "candidate": 1
+    },
+    "revoke": {
+      "baseline": 1,
+      "candidate": 1
+    }
+  },
+  "gatePassed": true,
+  "findings": []
+}
